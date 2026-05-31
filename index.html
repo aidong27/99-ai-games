@@ -5,49 +5,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta
       name="description"
-      content="99 AI Games is a long-term collection of browser games made by Codex or other AI agents."
+      content="99 AI Games is an AI Observatory for browser games made by Codex and other AI agents."
     >
-    <title>99 AI Games</title>
+    <title>99 AI Games | AI Observatory</title>
     <link rel="icon" href="data:,">
     <link rel="stylesheet" href="./styles/main.css">
   </head>
   <body>
-    <main class="shell">
+    <main class="observatory">
+      <header class="site-header" aria-label="Project navigation">
+        <a class="brand" href="./" aria-label="99 AI Games home">
+          <span>99</span>
+          <strong>AI Games</strong>
+        </a>
+        <nav>
+          <a href="#featured">Featured</a>
+          <a href="#games">Games</a>
+          <a href="#protocol">Protocol</a>
+          <a href="./docs/project-plan.md">Plan</a>
+        </nav>
+      </header>
+
       <section class="hero" aria-labelledby="project-title">
-        <p class="eyebrow">Long-term AI game archive</p>
-        <h1 id="project-title">99 AI Games</h1>
-        <p class="lede">
-          A public collection of 99 small browser games made by Codex or other AI agents.
-          The maintainer curates, tests, and documents the work without hand-editing game code.
-        </p>
-        <div class="hero-meta" aria-label="Project facts">
-          <span>99 planned games</span>
-          <span>AI-made code</span>
-          <span>Human code edits: false</span>
+        <div class="hero-copy">
+          <p class="eyebrow">AI Observatory / playable browser archive</p>
+          <h1 id="project-title">99 AI Games</h1>
+          <p class="lede">
+            A long-running collection of 99 small web games made by Codex and other
+            AI agents. The maintainer curates prompts, tests releases, and records
+            provenance while keeping the project honest about what the AI made.
+          </p>
+          <div class="hero-actions">
+            <a id="latest-launch" class="button primary" href="./games/signal-cartographer/">Launch Game 001</a>
+            <a class="button" href="./games/manifest.json">Open manifest</a>
+          </div>
         </div>
+
+        <aside class="scope-panel" aria-label="AI Observatory signal scope">
+          <canvas id="scope-canvas" width="740" height="520" aria-label="Animated signal map"></canvas>
+          <div class="scope-readout">
+            <span>Current transmission</span>
+            <strong id="latest-title">Signal Cartographer</strong>
+            <small id="scope-model">GPT-5.5 xhigh / Codex</small>
+          </div>
+        </aside>
       </section>
 
-      <section class="games-section" aria-labelledby="games-title">
+      <section class="metrics" aria-label="Collection telemetry">
+        <article class="stat-card">
+          <span>Playable entries</span>
+          <strong><b id="completed-count">1</b> / <b id="target-count">99</b></strong>
+        </article>
+        <article class="stat-card">
+          <span>Current model label</span>
+          <strong id="model-label">GPT-5.5 xhigh</strong>
+        </article>
+        <article class="stat-card">
+          <span>Human code edits</span>
+          <strong id="human-edits">false</strong>
+        </article>
+        <article class="stat-card">
+          <span>Archive mode</span>
+          <strong>slow experiment</strong>
+        </article>
+      </section>
+
+      <section id="featured" class="featured-section" aria-labelledby="featured-title">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Collection launcher</p>
-            <h2 id="games-title">Games</h2>
+            <p class="eyebrow">Featured transmission</p>
+            <h2 id="featured-title">Game 001</h2>
           </div>
           <p id="collection-status">Loading collection metadata...</p>
+        </div>
+        <div id="featured-game" aria-live="polite"></div>
+      </section>
+
+      <section id="games" class="games-section" aria-labelledby="games-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Launch deck</p>
+            <h2 id="games-title">Playable catalog</h2>
+          </div>
+          <p>Each card records model, agent, date, status, and source completeness.</p>
         </div>
         <div id="game-list" class="game-grid" aria-live="polite"></div>
       </section>
 
-      <section class="timeline" aria-labelledby="timeline-title">
+      <section id="protocol" class="protocol-section" aria-labelledby="protocol-title">
         <div>
-          <p class="eyebrow">Why this exists</p>
-          <h2 id="timeline-title">A slow record of AI growth</h2>
+          <p class="eyebrow">Experiment protocol</p>
+          <h2 id="protocol-title">Built by agents, maintained with receipts</h2>
         </div>
-        <p>
-          This project is not trying to finish 99 games quickly. Each game is a snapshot of what
-          an AI agent could build at that moment: the idea, the code, the polish, the mistakes,
-          and the model provenance.
-        </p>
+        <ol>
+          <li>Every game lives in its own folder with a local playable build.</li>
+          <li>Every game has metadata for model label, agent, date, and edit policy.</li>
+          <li>The maintainer tests and publishes, but does not hand-write game code.</li>
+          <li>The project grows gradually so each entry can reflect AI progress at that time.</li>
+        </ol>
       </section>
     </main>
 

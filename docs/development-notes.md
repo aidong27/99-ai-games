@@ -2,21 +2,21 @@
 
 ## Local Preview
 
-Use a local static server:
+Use a static server from the repository root:
 
 ```bash
 python3 -m http.server 4173
 ```
 
-Then open:
+Open:
 
 ```text
 http://localhost:4173
 ```
 
-Avoid relying on `file://` for development checks. Browser modules, fetched JSON, assets, and canvas-related tests can behave differently from a normal HTTP preview.
+Avoid relying on `file://` for testing because module loading, fetch calls, and canvas checks can behave differently.
 
-## Game Folder Convention
+## Game Folder Standard
 
 Each game should live in:
 
@@ -24,7 +24,7 @@ Each game should live in:
 games/<slug>/
 ```
 
-Each game directory should contain:
+Minimum structure:
 
 ```text
 index.html
@@ -35,45 +35,44 @@ assets/images/
 assets/audio/
 ```
 
-The root `games/manifest.json` should include the same high-level metadata needed by the launcher.
+## Metadata Standard
 
-## Provenance Rules
+Each game must record:
 
-Every game entry must record:
+- `number`
+- `title`
+- `slug`
+- `status`
+- `createdDate`
+- `modelName`
+- `agentName`
+- `humanCodeEdits`
+- `sourceCompleteness`
+- any notes about uncertainty or maintainer-declared labels
 
-- model name
-- agent or tool name
-- creation date
-- whether human code edits were made
+The root `games/manifest.json` should stay synchronized with each game's `game.json`.
 
-For this project, the intended game-code policy is:
+## Verification Checklist
 
-```json
-{
-  "humanCodeEdits": false
-}
-```
+Before marking a game playable:
 
-If the model or agent is unknown, mark it as pending confirmation instead of guessing.
+- Launcher loads `games/manifest.json`.
+- Launcher card opens the game.
+- Game canvas or primary play surface renders nonblank.
+- Keyboard controls work when documented.
+- Pointer or touch controls work when documented.
+- Browser console has no errors.
+- Desktop layout has no horizontal overflow.
+- 390px mobile layout has no horizontal overflow.
+- Metadata matches the real game and source state.
 
-## Source Import Notes
+## Current Game 001 Notes
 
-If an AI agent produces a single-file `index.html`, import it first without a large rewrite. After the game is confirmed to run locally, split code gradually only through AI-generated changes and record the agent/model used.
+Signal Cartographer is a local self-contained Canvas game with no external assets or runtime dependencies.
 
-## Suggested Verification Checklist
+Known next work:
 
-- Root launcher loads without console errors.
-- `games/manifest.json` loads over HTTP.
-- Game card appears in the launcher.
-- Game entry page opens from the launcher.
-- Game `game.json` loads over HTTP.
-- After real source import, the game starts and controls respond.
-- Layout remains usable on a narrow mobile viewport.
-
-## Documentation Rules
-
-- Do not claim features that are not in the source.
-- Keep screenshots aligned with the actual build.
-- Record asset licenses before accepting new assets.
-- Keep README status current when a game becomes source-complete.
-- Keep provenance honest, especially when model identity is unknown.
+- Capture real screenshots.
+- Tune difficulty after playtesting.
+- Consider reduced-motion handling if the signal effects feel too intense.
+- Add a short postmortem after the first public release.

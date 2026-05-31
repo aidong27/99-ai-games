@@ -29,7 +29,7 @@ What did you expect to happen?
 - Browser:
 - Operating system:
 - Device:
-- Published itch.io build or local repository build:
+- Local repository build, GitHub Pages build, or other deployment:
 
 ## Screenshots or console errors
 

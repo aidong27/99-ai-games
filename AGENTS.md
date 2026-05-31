@@ -33,8 +33,8 @@ If a human-edited exception is ever introduced, it must be documented clearly an
 
 - Do not invent missing source files.
 - Do not invent model provenance.
-- Do not claim a game is complete until its real source, assets, screenshots, and local verification are present.
-- Use `Pending maintainer confirmation` for unknown model, agent, or creation date.
+- Do not claim a game is complete until its source, metadata, and local verification are present.
+- If a model label is maintainer-declared, say so in metadata.
 - Do not exaggerate users, stars, downloads, popularity, or community size.
 
 ## Repository Conventions
@@ -86,17 +86,12 @@ Do not accept spam PRs, unrelated rewrites, or unverified AI code dumps.
 
 ## Current Game 001 Status
 
-Game 001 is Star Survivor PX Neon.
-
-Live page:
-
-https://aidong27.itch.io/star-survivor-px-neon
+Game 001 is **Signal Cartographer**.
 
 Current repository status:
 
-- Published itch.io page exists.
-- Real playable source has not yet been imported.
-- Model and agent provenance still need maintainer confirmation.
-- Current local game page is a transparent placeholder.
-
-Keep this status visible until the source is imported and verified.
+- Local playable source is included.
+- Model label is `GPT-5.5 xhigh`, declared by the maintainer for this entry.
+- Agent/tool is `Codex`.
+- `humanCodeEdits` is `false`.
+- Real screenshots still need to be captured from the local build.

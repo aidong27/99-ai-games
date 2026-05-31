@@ -1,56 +1,45 @@
 # Project Summary
 
-99 AI Games is a long-term public collection of 99 small browser games made by Codex or other AI agents.
+## Name
 
-The maintainer, aidong27, does not hand-edit game code. The maintainer's role is to guide prompts, test builds, publish results, and document what each model/agent produced.
+99 AI Games
 
-## Core Idea
+## Repository
 
-The project is meant to witness AI growth over time. The 99 games should not be rushed or generated all at once. Each game is a snapshot of an AI agent's ability at the time it was made.
+`aidong27/99-ai-games`
 
-Every game should record:
+## Concept
 
-- game number
-- title
-- slug
-- status
-- creation date
-- model name
-- agent or tool name
-- `humanCodeEdits: false`
-- source completeness
-- live play link, if available
+99 AI Games is a long-term collection of 99 small browser games created by Codex or other AI agents. The project is both a playable archive and a public record of AI-assisted game development over time.
 
-## Game 001
+The maintainer does not hand-write game code. The maintainer acts as curator, prompt designer, tester, publisher, and record keeper.
 
-Star Survivor PX Neon is Game 001.
+## Current Game 001
 
-Live page:
+**Signal Cartographer** is Game 001.
 
-https://aidong27.itch.io/star-survivor-px-neon
+It is a self-contained Canvas game where the player pilots a mapping cursor through a hostile signal field, collects fragments, drops stabilizing beacons, and reaches the exit before integrity reaches zero.
 
-Current repository status:
+## Provenance
 
-- Published itch.io page exists.
-- Real playable source is not yet imported into this repository.
-- Exact model and agent provenance still need maintainer confirmation.
-- The current local game entry is a transparent placeholder.
+- Model label: `GPT-5.5 xhigh`
+- Agent/tool: `Codex`
+- Created date: `2026-05-31`
+- Human code edits: `false`
+- Note: the model label is maintainer-declared for this project entry.
 
-## Repository Audit
+## Current Status
 
-Initial cleanup date: 2026-05-31
+- Root launcher exists as an AI Observatory UI.
+- `games/manifest.json` lists the playable catalog.
+- Game 001 local source is included.
+- Community and maintenance files exist.
+- Real screenshots and public hosting are still TODO.
 
-Before the first open-source cleanup, the repository directory did not contain:
+## Design Principles
 
-- `index.html`
-- JavaScript game source
-- CSS source
-- image assets
-- audio assets
-- Git metadata
-
-The first cleanup created a single-game skeleton. This update reframes the project as 99 AI Games and creates the collection launcher plus per-game metadata structure.
-
-## Current Risk
-
-The main risk is confusing placeholders with playable game source. To avoid that, the launcher, README, TODO, and Game 001 metadata all state that the real Star Survivor PX Neon source still needs to be imported and verified.
+- Keep every game small enough to inspect and test.
+- Keep metadata honest and visible.
+- Do not claim popularity, users, or source history that does not exist.
+- Prefer gradual progress over rushing to 99 games.
+- Record how AI-generated gameplay and code quality changes across time.

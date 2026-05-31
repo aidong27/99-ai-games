@@ -1,6 +1,6 @@
 # Security Policy
 
-99 AI Games is intended to be a static HTML/CSS/JavaScript browser-game collection. It should not require a backend service, user accounts, or private user data.
+99 AI Games is intended to be a static HTML/CSS/JavaScript browser-game collection. It should not require a backend service, user accounts, payments, or private user data.
 
 Even for static games, security reports are welcome.
 
@@ -12,7 +12,7 @@ Please report issues such as:
 - Unsafe use of user-controlled input.
 - Malicious or unexpected external resource loading.
 - Supply-chain risks from added dependencies.
-- Insecure build or release scripts.
+- Insecure build, release, or deployment scripts.
 - Asset files with unclear or unsafe origins.
 - Metadata or launcher behavior that could mislead users into unsafe links.
 
@@ -25,8 +25,8 @@ Please include:
 - A clear description of the problem.
 - Steps to reproduce it.
 - Browser and operating system, if relevant.
-- Whether the issue affects the collection launcher, a specific game, an itch.io build, or repository tooling.
+- Whether the issue affects the collection launcher, a specific game, repository tooling, or a future deployment.
 
 ## Scope
 
-The main supported surface is the static browser-game source in this repository. Third-party platforms such as itch.io and GitHub are outside this repository's direct control, but reports that affect the project files or release process are still useful.
+The main supported surface is the static browser-game source in this repository. Third-party hosting providers are outside this repository's direct control, but reports that affect project files, links, assets, or deployment steps are still useful.

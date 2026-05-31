@@ -1,104 +1,34 @@
 # 99 AI Games Project Plan
 
-Date: 2026-05-31
-Maintainer: aidong27
-Repository: https://github.com/aidong27/99-ai-games
+## 1. Project Definition
 
-## 1. Project Overview
+**99 AI Games** is a long-term open-source project that will collect 99 small browser games made by Codex or other AI agents.
 
-99 AI Games is a long-term open-source collection of 99 small browser games made by Codex or other AI agents.
+The project is also an observation log. Each game should show what AI agents were capable of at the time it was made: mechanics, code structure, controls, visual polish, accessibility, and reliability.
 
-The project is not a short-term challenge to produce 99 games quickly. Its core purpose is to witness and document the growth of AI agents as creative coding partners. Each game should act as a time capsule: what model was used, what agent or tool produced it, what the game feels like, what it does well, and where it still falls short.
+## 2. Maintainer Role
 
-The maintainer does not hand-write or hand-edit game code. The maintainer's role is to provide direction, test builds, publish games, preserve source files, and keep honest provenance records.
+The maintainer acts as:
 
-## 2. Vision
+- project director
+- prompt writer
+- tester
+- publisher
+- curator
+- provenance record keeper
 
-The long-term vision is to build a public archive where people can follow the evolution of AI-made browser games across many model generations.
+The maintainer does not hand-write or hand-edit game code. If this rule ever changes, the affected game must say so clearly in metadata.
 
-By the end of the project, the repository should contain:
+## 3. Core Rules
 
-- 99 small browser games.
-- A shared launcher UI for browsing and opening the games.
-- Provenance metadata for every game.
-- Notes about model behavior, strengths, failures, and improvements.
-- A transparent record that separates AI-generated implementation from human direction and testing.
+- Every game must be playable locally from the repository before it is marked playable.
+- Every game must have a `game.json` file.
+- Every game must be listed in `games/manifest.json`.
+- Every game must record model, agent/tool, creation date, status, and `humanCodeEdits`.
+- Missing or uncertain information must be labeled honestly.
+- Do not claim users, stars, downloads, or popularity without evidence.
 
-## 3. Principles
-
-### AI-Made Game Code
-
-Game code should be created by Codex or another AI agent. Human work should focus on prompting, testing, reviewing, publishing, and documentation.
-
-Each game must record:
-
-- model name
-- agent or tool name
-- creation date
-- source completeness
-- `humanCodeEdits: false`
-
-If a fact is unknown, the repository should say `Pending maintainer confirmation` instead of guessing.
-
-### Honest Status
-
-The project should never claim a game is source-complete, tested, popular, or community-backed unless that is actually true.
-
-For Game 001, Star Survivor PX Neon, the published itch.io page exists, but the real playable source has not yet been imported into this repository. This must remain visible until the source is added and verified.
-
-### Slow Growth
-
-The 99 games should be created over time. The pace should follow meaningful AI progress, not a fixed content deadline.
-
-### Beginner-Friendly Structure
-
-The repository should remain understandable to beginner developers:
-
-- plain HTML/CSS/JavaScript by default
-- small self-contained game folders
-- minimal build tooling
-- readable metadata
-- clear local preview instructions
-
-## 4. Target Audience
-
-Primary audience:
-
-- the maintainer, as a long-term AI coding experiment curator
-- beginner developers interested in browser games
-- people interested in AI-assisted creative coding
-- OpenAI Codex for Open Source reviewers
-
-Secondary audience:
-
-- playtesters
-- game jam participants
-- AI tool builders
-- educators looking for small examples of AI-generated code
-
-## 5. Current State
-
-Current status:
-
-- GitHub repository exists and is public.
-- Shared launcher UI exists.
-- `games/manifest.json` exists.
-- Game 001, Star Survivor PX Neon, has a placeholder entry.
-- Game 001 has live itch.io link.
-- Game 001 source is not yet imported.
-- Game 001 exact model and agent provenance still need confirmation.
-
-Current repository URL:
-
-https://github.com/aidong27/99-ai-games
-
-Game 001 live URL:
-
-https://aidong27.itch.io/star-survivor-px-neon
-
-## 6. Repository Structure
-
-The long-term structure should stay stable:
+## 4. Repository Shape
 
 ```text
 .
@@ -107,188 +37,132 @@ The long-term structure should stay stable:
 ├── styles/
 ├── games/
 │   ├── manifest.json
-│   └── <game-slug>/
+│   └── <slug>/
 │       ├── index.html
 │       ├── game.json
 │       ├── src/
 │       ├── styles/
 │       └── assets/
 ├── docs/
-├── AGENTS.md
 ├── README.md
 ├── ROADMAP.md
-└── TODO.md
+├── TODO.md
+└── OPENAI_OSS_APPLICATION.md
 ```
 
-Each game should be runnable from its own folder and reachable from the root launcher.
+The root page is the AI Observatory launcher. Individual games stay isolated in `games/<slug>/`.
 
-## 7. Game Lifecycle
+## 5. Game 001
 
-Each game should move through these stages:
+Game 001 is **Signal Cartographer**.
 
-1. Idea
-   - Maintainer writes or selects a concept.
-   - Concept should include core mechanic, mood, controls, and expected scope.
+Summary:
 
-2. AI Build
-   - Codex or another AI agent creates the implementation.
-   - Human maintainer should not hand-edit game code.
+- Canvas navigation survival game.
+- Player maps a hostile signal field.
+- Goal is to collect fragments, deploy beacons, and reach the exit.
+- Hazards include interference waves, corrupted zones, and drifting noise.
+- The run spans three short sectors with upgrade choices.
+- Controls include keyboard, pointer steering, and mobile-friendly buttons.
 
-3. Local Verification
-   - Run through a local static server.
-   - Check desktop and mobile viewport basics.
-   - Check browser console errors.
-   - Verify the game can start, play, and restart or end.
+Provenance:
 
-4. Metadata
-   - Add or update `game.json`.
-   - Update `games/manifest.json`.
-   - Record model, agent, date, and source completeness.
+- Model label: `GPT-5.5 xhigh`
+- Agent/tool: `Codex`
+- Created date: `2026-05-31`
+- Human code edits: `false`
+- Note: model label is maintainer-declared for this project entry.
 
-5. Documentation
-   - Add controls, gameplay summary, screenshots, and known limitations.
-   - Keep claims aligned with the actual build.
+## 6. Game Lifecycle
 
-6. Publication
-   - Push to GitHub.
-   - Optionally publish selected games to itch.io.
+1. Define a small game concept.
+2. Ask an AI agent to implement it.
+3. Keep the code in `games/<slug>/`.
+4. Add or update `game.json`.
+5. Add the game to `games/manifest.json`.
+6. Run local static-server checks.
+7. Verify controls, layout, and console state.
+8. Capture screenshots.
+9. Write short development notes.
+10. Commit and publish.
 
-7. Reflection
-   - Record what the AI agent did well.
-   - Record weaknesses, bugs, or design limitations.
-   - Compare with older games where useful.
+## 7. Launcher Plan
 
-## 8. Milestones
+The launcher should behave like an AI Observatory:
 
-### Phase 1: Foundation
+- show collection progress
+- show the latest playable game
+- show model and agent provenance
+- show launch and metadata actions
+- remain usable on mobile
+- avoid fake rankings or popularity claims
 
-Status: in progress
+The launcher should read `games/manifest.json` rather than hard-coding the full game list.
 
-- Public GitHub repository.
-- Shared launcher UI.
-- Game manifest.
-- Game 001 placeholder.
-- Contribution and security policies.
-- Project plan.
-- Codex agent instructions.
+## 8. Contribution Policy
 
-### Phase 2: Game 001 Completion
+The project is issues-first:
 
-Goal:
+- bug reports are welcome
+- feature ideas are welcome
+- accessibility feedback is welcome
+- metadata corrections are welcome
+- ordinary human-written game-code PRs are not the default contribution path
 
-- Import the real Star Survivor PX Neon source.
-- Confirm model and agent provenance if available.
-- Add real screenshots.
-- Verify local build against itch.io version.
-- Mark Game 001 source status accurately.
+Code changes should normally be maintainer-controlled AI-generated work, with model and agent details recorded.
 
-### Phase 3: Repeatable Game Pipeline
+## 9. Quality Bar
 
-Goal:
+A game is ready for the catalog when:
 
-- Create a checklist for adding each new AI-made game.
-- Standardize `game.json` metadata.
-- Add smoke-test notes or scripts if the project grows enough to justify them.
-- Document how to publish selected games to itch.io.
+- it loads locally over a static server
+- the launcher can open it
+- the primary game surface renders
+- documented controls work
+- the browser console has no errors
+- desktop and mobile layouts do not overflow horizontally
+- metadata matches the actual source state
 
-### Phase 4: Early Collection
+## 10. Milestones
 
-Goal:
+### v0.1 Open Source Cleanup
 
-- Add Games 002-010 gradually.
-- Try different models or agent workflows.
-- Keep every game small, playable, and documented.
-- Start comparing model behavior across entries.
+- Publish repository.
+- Replace placeholder Game 001 with Signal Cartographer.
+- Redesign launcher as AI Observatory.
+- Add current docs, issue templates, PR template, and metadata.
 
-### Phase 5: Long-Term Archive
+### v0.2 Gameplay Polish
 
-Goal:
+- Tune Game 001.
+- Capture screenshots.
+- Add postmortem notes.
+- Improve local verification checklist.
 
-- Continue toward 99 games over a longer period.
-- Preserve a public timeline of AI game-making progress.
-- Improve launcher browsing, tags, screenshots, and accessibility.
+### v0.3 Mobile and Accessibility
 
-## 9. Success Criteria
+- Improve touch controls.
+- Add reduced-motion support if needed.
+- Review contrast and keyboard focus.
+- Verify common mobile widths.
 
-Short-term success:
+### v0.4 Content Expansion
 
-- A visitor can understand the project in under one minute.
-- The root launcher opens locally and from GitHub-hosted static files.
-- Game 001's incomplete source status is clear and honest.
-- Codex agents entering the repo know the rules from `AGENTS.md`.
+- Add Game 002.
+- Add filters or tags to the launcher.
+- Compare Game 002 with Game 001 in a short notes file.
 
-Medium-term success:
+## 11. Risks
 
-- Game 001 source is imported and verified.
-- At least several AI-made games are added with consistent metadata.
-- The maintainer can add a new game without redesigning the repository structure.
-
-Long-term success:
-
-- 99 games are completed over time.
-- Each game preserves its AI provenance.
-- The collection visibly shows how AI-generated games evolved.
-
-## 10. Risks and Mitigations
-
-### Risk: Fake or unclear provenance
-
-Mitigation:
-
-- Use `Pending maintainer confirmation` when model or agent identity is unknown.
-- Do not infer provenance from memory or guesses.
-
-### Risk: Placeholder mistaken for playable source
-
-Mitigation:
-
-- Keep source status visible in README, TODO, manifest, and each game page.
-
-### Risk: Project becomes a generic game dump
-
-Mitigation:
-
-- Require provenance and reflection for every game.
-- Prefer slow, meaningful additions over bulk generation.
-
-### Risk: Human code edits weaken the concept
-
-Mitigation:
-
-- Keep `humanCodeEdits: false` as a required metadata field.
-- If policy changes later, document the change explicitly.
-
-### Risk: AI-generated code quality varies
-
-Mitigation:
-
-- Use local server verification.
-- Keep games small.
-- Record known limitations instead of hiding them.
-
-## 11. OpenAI Codex for Open Source Fit
-
-This project is a strong fit for Codex because Codex is not just a helper around the project; Codex and similar agents are part of the project's subject.
-
-Codex can help by:
-
-- generating new game implementations
-- preserving consistent project structure
-- writing and updating metadata
-- running browser checks
-- documenting model behavior
-- improving accessibility and code readability
-- keeping the no-human-code-edits rule explicit
-
-The project should remain honest: it is a small independent long-term experiment, not a large existing open-source community.
+- The project could accidentally imply a fake history if metadata is vague.
+- AI-generated games can be playable but shallow, so each game needs a clear hook.
+- Layout and controls can break on mobile if not checked.
+- A rushed 99-game target would reduce the value of observing AI progress.
 
 ## 12. Next Actions
 
-Recommended next actions:
-
-1. Import the real Star Survivor PX Neon source.
-2. Confirm the AI model and agent used for Game 001.
-3. Add real screenshots from Game 001.
-4. Add a Game 002 concept issue.
-5. Decide whether to enable GitHub Pages for the launcher.
-6. Keep this plan updated as the project evolves.
+- Finish browser QA for the redesigned launcher and Signal Cartographer.
+- Commit and push the current open-source release.
+- Capture verified screenshots.
+- Decide how to host the static site publicly.
+- Begin designing Game 002 only after Game 001 is stable.
