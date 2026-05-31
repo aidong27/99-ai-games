@@ -25,6 +25,10 @@ This is not meant to be a fast content dump of 99 games. The long-term purpose i
 
 Each game should record which model and agent/tool produced it, when it was made, and whether any human code edits were made.
 
+## Project Plan
+
+The detailed project plan is in [`docs/project-plan.md`](docs/project-plan.md). It defines the long-term vision, milestones, game lifecycle, provenance rules, risks, and next actions.
+
 ## Game List
 
 | # | Game | Status | AI provenance | Play |
@@ -59,6 +63,7 @@ Screenshots are not included yet. After the real game source is imported, add sc
 │       ├── styles/
 │       └── assets/
 ├── docs/
+├── AGENTS.md
 ├── README.md
 ├── ROADMAP.md
 └── TODO.md
