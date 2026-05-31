@@ -6,6 +6,7 @@ Keep this TODO honest and based on real missing work.
 
 - Keep `games/manifest.json`, `halls/halls.json`, and per-game metadata synchronized.
 - Run validation before every release.
+- Push `.github/workflows/validate.yml` after GitHub credentials have `workflow` scope.
 - Decide whether `scripts/new-game.mjs` should eventually update manifest and halls automatically.
 - Decide whether future variants should duplicate full source or reference a canonical implementation path.
 - Add generated hall pages if the catalog grows.

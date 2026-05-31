@@ -42,4 +42,6 @@ After scaffolding, update:
 
 ## GitHub Workflow
 
-The validation workflow checks metadata and JavaScript syntax. It does not replace browser playtesting.
+A validation workflow should run the same metadata and syntax checks in GitHub Actions. The workflow file is prepared locally as `.github/workflows/validate.yml`, but it cannot be pushed by the current GitHub token until the token has `workflow` scope.
+
+When that permission is available, commit the workflow and run the first Actions check. CI does not replace browser playtesting.

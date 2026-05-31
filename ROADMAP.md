@@ -7,7 +7,8 @@
 - Preserve Game 001, Signal Cartographer, as the first playable slot.
 - Add the 9 Game Halls framework.
 - Define game slots, model variants, and run records.
-- Add schemas, templates, validation scripts, and GitHub workflow checks.
+- Add schemas, templates, and validation scripts.
+- Add GitHub workflow checks after repository credentials have `workflow` scope.
 - Keep the AI Observatory launcher connected to `games/manifest.json`.
 
 ## v0.2 Game 001 Polish
