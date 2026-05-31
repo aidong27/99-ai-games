@@ -1,10 +1,18 @@
 ---
 name: Feature request
-about: Suggest a focused improvement for the game
+about: Suggest a game idea or focused improvement for 99 AI Games
 title: "[Feature]: "
 labels: enhancement
 assignees: ""
 ---
+
+## Type
+
+- [ ] New game idea
+- [ ] Launcher improvement
+- [ ] Accessibility improvement
+- [ ] Documentation improvement
+- [ ] Other
 
 ## Problem or opportunity
 
@@ -12,12 +20,12 @@ What gameplay, accessibility, documentation, or maintenance problem would this i
 
 ## Proposed change
 
-Describe the feature or improvement.
+Describe the idea or improvement.
 
 ## Why it fits this project
 
-Explain why this belongs in Star Survivor PX Neon.
+Explain how this supports the long-term AI-made game collection.
 
-## Alternatives
+## AI angle
 
-List any simpler alternatives or related ideas.
+If this is a game idea, what would make it interesting as an AI-agent-created game?

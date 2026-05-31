@@ -2,66 +2,70 @@
 
 ## Project Summary
 
-Star Survivor PX Neon is a small HTML/CSS/JavaScript browser game created by aidong27 and published on itch.io. It is a pixel/neon style roguelike survival game intended to run as a single-page web game.
+99 AI Games is a long-term open-source browser-game collection by aidong27. The goal is to collect 99 small HTML/CSS/JavaScript games made by Codex or other AI agents, while documenting which model and agent made each game and how AI game-making quality changes over time.
 
-The goal of this repository is to make the game's source code public, understandable, and maintainable. The project is currently in an open-source cleanup stage: documentation, contribution rules, roadmap, security notes, and GitHub templates are being added first, while the real playable itch.io source still needs to be imported into the repository.
+The first game is Star Survivor PX Neon, a pixel/neon survival game published on itch.io:
 
-Live game page: https://aidong27.itch.io/star-survivor-px-neon
+https://aidong27.itch.io/star-survivor-px-neon
+
+The repository is being prepared as the public home for the collection. It currently contains the shared launcher structure, documentation, contribution policy, roadmap, and metadata format. The real playable source for Star Survivor PX Neon still needs to be imported before Game 001 can be marked source-complete.
 
 ## Why I Am the Maintainer
 
-I am the creator and maintainer of Star Survivor PX Neon. I published the game on itch.io and I am now preparing the source code for public maintenance on GitHub. This is not a large community project yet; it is an independent student/developer project that I want to maintain honestly and improve over time.
+I am the creator, curator, tester, and maintainer of the 99 AI Games project. My role is not to hand-write the game code. Instead, I define the direction, use Codex or other AI agents to create the games, test the results, publish them, and keep honest records of which AI systems made what.
+
+This is not a large established open-source project. It is a small, transparent, long-term experiment by an independent developer who wants to document AI-assisted game creation over time.
 
 ## What I Use Codex For
 
-I use Codex as an engineering assistant for practical open-source maintenance work, including:
+I use Codex as an AI engineering and game-building agent for:
 
-- Organizing files into a cleaner project structure.
-- Writing documentation that is accurate and beginner-friendly.
-- Creating contribution, security, and roadmap materials.
-- Reviewing code changes before they are merged.
-- Planning small, safe refactors.
-- Helping create browser smoke tests after the real game source is imported.
-- Improving accessibility and mobile support.
+- Creating small browser games from prompts.
+- Building and maintaining the shared launcher UI.
+- Organizing each game into a clear folder structure.
+- Writing metadata that records model, agent, date, and human edit status.
+- Refactoring AI-generated code while preserving the "no human code edits" rule.
+- Running local browser checks.
+- Writing documentation, TODOs, and release notes.
 
-I do not want Codex to invent fake project history, fake users, or features that are not in the code.
+I do not want Codex to invent fake history, fake user numbers, or fake source completeness. If source or provenance is missing, the repository should say so clearly.
 
 ## How Codex Would Help the Project
 
-Codex would make the project easier to maintain by turning a small published game into a structured open-source repository. For a solo maintainer, Codex can help keep changes smaller, document decisions, and reduce the overhead of reviewing issues and pull requests.
+Codex would help by making the project sustainable for a solo maintainer. The project needs repeated small cycles: design a game, generate code, test it, document it, publish it, and compare it with earlier games. Codex can reduce the overhead of each cycle while keeping the repository structured and reviewable.
 
 The most useful Codex support would be:
 
-- Refactoring a single-file game carefully without breaking gameplay.
-- Explaining game systems in documentation.
-- Finding regressions in JavaScript, CSS, and browser behavior.
-- Creating checklists for itch.io release builds.
-- Improving code readability for beginner contributors.
-- Helping convert vague ideas into clear GitHub issues.
+- Generating new HTML5 games.
+- Building smoke tests for static browser games.
+- Checking whether each game remains playable after changes.
+- Keeping metadata and documentation synchronized.
+- Improving accessibility and mobile support.
+- Helping compare games across model generations.
 
 ## Why the Project Is Useful to Open Source and Beginner Developers
 
-Star Survivor PX Neon can be useful as a small, approachable example of a browser game that does not require a complex engine or build system. Beginner developers can learn from:
+99 AI Games can be useful as a public record of AI-assisted creative coding. Beginner developers can inspect:
 
-- Plain HTML/CSS/JavaScript structure.
-- Canvas or DOM-based game-loop organization, once the source is imported.
-- Small module design for player, enemies, upgrades, and utilities.
-- Issue and pull request workflow on a real project.
-- Accessibility and mobile improvements in a simple web game.
+- Small browser-game structures.
+- How AI agents organize game loops, controls, assets, and UI.
+- What metadata is useful for AI-generated projects.
+- How project quality changes as models improve.
+- How a maintainer can stay honest about missing files, bugs, and limitations.
 
-The project is intentionally modest, which makes it easier for beginners to understand and contribute to.
+The project is intentionally modest and transparent. It does not claim to be a large community project.
 
 ## Honest Status and Future Plan
 
-The game is already published on itch.io, but this GitHub repository is still being prepared. At the time of this cleanup, the actual playable source files are not yet present in the repository. The current work creates the open-source structure and clearly documents what is missing.
+The project is in its early open-source setup stage. Game 001 exists on itch.io, but its real playable source has not yet been imported into this repository. The current repository work creates the collection structure and clearly marks what is missing.
 
 The next steps are:
 
-1. Import the real itch.io game source into the repository.
-2. Verify that the local build matches the published game.
-3. Add screenshots from the real build.
-4. Document the core game systems.
-5. Add small smoke tests for the main browser flows.
-6. Improve gameplay polish, mobile support, and accessibility.
+1. Import the real Star Survivor PX Neon source into `games/star-survivor-px-neon/`.
+2. Confirm the original model and agent provenance for Game 001, if available.
+3. Verify the local build against the itch.io version.
+4. Add real screenshots.
+5. Keep adding AI-made games gradually over time.
+6. Track model, agent, date, and human edit status for every game.
 
-This is a real small-project maintenance effort, not an established large open-source project.
+The long-term goal is to complete 99 AI-made games, but not quickly or artificially. The point is to witness AI agents improving over time.

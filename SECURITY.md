@@ -1,8 +1,8 @@
 # Security Policy
 
-Star Survivor PX Neon is intended to be a static HTML/CSS/JavaScript browser game. It should not require a backend service, user accounts, or private user data.
+99 AI Games is intended to be a static HTML/CSS/JavaScript browser-game collection. It should not require a backend service, user accounts, or private user data.
 
-Even for a static game, security reports are welcome.
+Even for static games, security reports are welcome.
 
 ## What To Report
 
@@ -14,6 +14,7 @@ Please report issues such as:
 - Supply-chain risks from added dependencies.
 - Insecure build or release scripts.
 - Asset files with unclear or unsafe origins.
+- Metadata or launcher behavior that could mislead users into unsafe links.
 
 ## How To Report
 
@@ -24,8 +25,8 @@ Please include:
 - A clear description of the problem.
 - Steps to reproduce it.
 - Browser and operating system, if relevant.
-- Whether the issue affects the published itch.io build, this repository, or both.
+- Whether the issue affects the collection launcher, a specific game, an itch.io build, or repository tooling.
 
 ## Scope
 
-The main supported surface is the static browser game source in this repository. Third-party platforms such as itch.io and GitHub are outside this repository's direct control, but reports that affect the project files or release process are still useful.
+The main supported surface is the static browser-game source in this repository. Third-party platforms such as itch.io and GitHub are outside this repository's direct control, but reports that affect the project files or release process are still useful.

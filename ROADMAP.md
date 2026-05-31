@@ -1,44 +1,42 @@
 # Roadmap
 
-This roadmap is intentionally modest. The project is a student/independent developer game, and work should stay realistic and reviewable.
+99 AI Games is a long-term project. The goal is not to finish 99 games quickly; the goal is to preserve a visible record of how AI agents improve at making small browser games over time.
 
-## v0.1 Open Source Cleanup
+## v0.1 Collection Foundation
 
-- Create public repository structure.
-- Add README, license, contribution guide, security policy, and code of conduct.
-- Add GitHub issue and pull request templates.
-- Document the current source-import gap.
-- Import the real itch.io game source files.
-- Verify that the local build matches the published game.
+- Reframe the repository as 99 AI Games.
+- Build the shared launcher UI.
+- Add `games/manifest.json`.
+- Move Star Survivor PX Neon into `games/star-survivor-px-neon/`.
+- Add `game.json` provenance metadata for Game 001.
+- Keep the missing-source status visible until the real itch.io files are imported.
 
-## v0.2 Gameplay Polish
+## v0.2 Game 001 Source Import
 
-- Review player movement and combat feel.
-- Document enemy behavior and upgrade rules.
-- Balance early difficulty.
-- Add simple browser smoke tests for start, play, upgrade, and game-over flows.
-- Fix obvious bugs found during local playtesting.
+- Import the real Star Survivor PX Neon itch.io source.
+- Verify the local build against the published game.
+- Add real screenshots from the current build.
+- Document controls, core loop, enemies, upgrades, and known limitations.
+- Confirm the original AI model and agent used to create the game, if available.
 
-## v0.3 Mobile and Accessibility
+## v0.3 Provenance and QA System
 
-- Improve responsive layout.
-- Add or refine touch controls.
-- Check keyboard accessibility for menus.
-- Improve contrast and text readability.
-- Add reduced-motion considerations where possible.
+- Standardize metadata for every game.
+- Add a lightweight checklist for new AI-made games.
+- Add browser smoke checks for launcher loading and game entry loading.
+- Track model, agent, date, human edit status, and verification status for each game.
 
-## v0.4 Content Expansion
+## v0.4 More AI-Made Games
 
-- Add new enemy variants.
-- Add new upgrades or upgrade combinations.
-- Improve visual effects without harming readability.
-- Add more sound effects or music if licensing is clear.
-- Document asset sources and licensing.
+- Add games gradually as AI agents create them.
+- Prefer variety over speed.
+- Record what each model did well and where it struggled.
+- Keep each game small enough to understand and test.
 
 ## Future Ideas
 
-- Score history or local best runs.
-- Optional difficulty modifiers.
-- More arenas or waves.
-- Lightweight localization.
-- A small contributor guide for adding enemies or upgrades.
+- Compare games by model generation.
+- Add timeline pages for AI progress.
+- Add tags for genre, controls, model, and agent.
+- Publish selected games to itch.io.
+- Add accessibility and mobile-readiness badges.

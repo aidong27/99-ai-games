@@ -1,10 +1,14 @@
 ---
 name: Bug report
-about: Report a reproducible problem in Star Survivor PX Neon
+about: Report a reproducible problem in 99 AI Games
 title: "[Bug]: "
 labels: bug
 assignees: ""
 ---
+
+## Affected area
+
+- Game number/title or launcher:
 
 ## What happened?
 

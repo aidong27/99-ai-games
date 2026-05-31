@@ -1,6 +1,6 @@
 # Code of Conduct
 
-This project should be a friendly place for learning, small contributions, and independent game development.
+99 AI Games should be a friendly place for learning, playtesting, and discussing AI-made browser games.
 
 ## Expected Behavior
 
@@ -8,7 +8,7 @@ This project should be a friendly place for learning, small contributions, and i
 - Give constructive feedback.
 - Assume good faith when possible.
 - Keep discussions focused on the project.
-- Welcome beginner questions.
+- Welcome beginner questions and thoughtful game ideas.
 
 ## Unacceptable Behavior
 

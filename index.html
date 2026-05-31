@@ -5,32 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta
       name="description"
-      content="Open-source repository status page for Star Survivor PX Neon, a pixel/neon browser survival game by aidong27."
+      content="99 AI Games is a long-term collection of browser games made by Codex or other AI agents."
     >
-    <title>Star Survivor PX Neon</title>
+    <title>99 AI Games</title>
     <link rel="icon" href="data:,">
     <link rel="stylesheet" href="./styles/main.css">
   </head>
   <body>
     <main class="shell">
       <section class="hero" aria-labelledby="project-title">
-        <p class="eyebrow">Open-source cleanup in progress</p>
-        <h1 id="project-title">Star Survivor PX Neon</h1>
+        <p class="eyebrow">Long-term AI game archive</p>
+        <h1 id="project-title">99 AI Games</h1>
         <p class="lede">
-          This repository is being prepared as the public source home for the itch.io browser game.
-          The playable source files still need to be imported and verified.
+          A public collection of 99 small browser games made by Codex or other AI agents.
+          The maintainer curates, tests, and documents the work without hand-editing game code.
         </p>
-        <div class="actions" aria-label="Project links">
-          <a class="button primary" href="https://aidong27.itch.io/star-survivor-px-neon">Play on itch.io</a>
-          <a class="button" href="./README.md">Read project notes</a>
+        <div class="hero-meta" aria-label="Project facts">
+          <span>99 planned games</span>
+          <span>AI-made code</span>
+          <span>Human code edits: false</span>
         </div>
       </section>
 
-      <section class="status-panel" aria-labelledby="status-title">
-        <h2 id="status-title">Repository Status</h2>
-        <div id="app" class="status-list" aria-live="polite">
-          <p>Loading project status...</p>
+      <section class="games-section" aria-labelledby="games-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Collection launcher</p>
+            <h2 id="games-title">Games</h2>
+          </div>
+          <p id="collection-status">Loading collection metadata...</p>
         </div>
+        <div id="game-list" class="game-grid" aria-live="polite"></div>
+      </section>
+
+      <section class="timeline" aria-labelledby="timeline-title">
+        <div>
+          <p class="eyebrow">Why this exists</p>
+          <h2 id="timeline-title">A slow record of AI growth</h2>
+        </div>
+        <p>
+          This project is not trying to finish 99 games quickly. Each game is a snapshot of what
+          an AI agent could build at that moment: the idea, the code, the polish, the mistakes,
+          and the model provenance.
+        </p>
       </section>
     </main>
 

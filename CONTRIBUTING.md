@@ -1,70 +1,57 @@
-# Contributing to Star Survivor PX Neon
+# Contributing to 99 AI Games
 
-Thanks for your interest in contributing. This is a small independent game project, so the best contributions are focused, respectful, and easy to review.
+Thanks for your interest in 99 AI Games. This project is a long-term experiment in AI-made browser games, so the contribution model is intentionally different from a normal open-source game repository.
 
-## Before You Start
+## Contribution Policy
 
-- Check the README and roadmap first.
-- Open an issue for large changes before writing a big pull request.
-- Keep pull requests small whenever possible.
-- Do not submit generated spam, unrelated formatting churn, or mass file rewrites.
+The maintainer does not hand-edit game code. Game code should be produced by Codex or another AI agent, then reviewed, tested, documented, and published by the maintainer.
 
-## Reporting Issues
+For now, this repository accepts:
 
-When opening a bug report, please include:
+- Bug reports.
+- Feature ideas.
+- Accessibility feedback.
+- Game concept suggestions.
+- Documentation corrections.
+- Reports about broken links, missing provenance, or incorrect metadata.
 
+This repository does not accept ordinary human-written code pull requests by default. That policy keeps the project aligned with its main goal: observing AI agent growth across 99 games.
+
+## Issues
+
+When opening an issue, please include:
+
+- The game number or title, if relevant.
 - What you expected to happen.
 - What actually happened.
 - Browser and operating system.
-- Steps to reproduce the problem.
 - Screenshots or console errors if available.
 
-Security issues should follow `SECURITY.md` instead of a public issue.
-
-## Requesting Features
-
-Feature requests are welcome when they are specific and connected to the game's direction. Useful requests explain:
-
-- The gameplay or accessibility problem.
-- The proposed improvement.
-- Why it fits Star Survivor PX Neon.
+For new game ideas, include the core mechanic, mood, and what would make the game distinct.
 
 ## Pull Requests
 
-Good pull requests usually:
+Pull requests are only expected for maintainer-controlled AI-generated changes or small documentation corrections. A PR that changes game code should clearly state:
 
-- Fix one bug or add one small feature.
-- Include a short explanation of the change.
-- Avoid unrelated rewrites.
-- Keep the game playable in a local static server.
-- Update docs when behavior changes.
+- Which AI model created the change.
+- Which agent or tool was used.
+- Whether any human code edits were made.
+- How the game was tested locally.
+
+Spam PRs, unrelated rewrites, and unverified AI code dumps will not be accepted.
 
 ## Code Style
 
-- Use plain JavaScript, HTML, and CSS unless a dependency is clearly justified.
-- Prefer small modules with descriptive names.
-- Keep functions readable and focused.
-- Avoid global state unless it belongs to the core game loop.
-- Use clear names for gameplay concepts.
-- Test locally through a static server, not only by opening `index.html` directly.
+- Use plain HTML, CSS, and JavaScript unless a dependency is clearly justified.
+- Keep each game self-contained in `games/<slug>/`.
+- Keep asset paths relative.
+- Keep metadata current in both `games/manifest.json` and each game's `game.json`.
+- Test through a local static server instead of relying on `file://`.
 
-## Beginner-Friendly Contributions
+## Good Issue Ideas
 
-Good first issues may include:
-
-- Improving documentation.
-- Adding verified screenshots.
-- Reproducing and documenting bugs.
-- Small accessibility fixes.
-- Mobile layout improvements.
-- Refactoring one isolated helper function after the source is imported.
-
-## Low-Quality PRs
-
-This project will not accept:
-
-- Spam pull requests.
-- AI-generated code dumps with no testing or explanation.
-- Unrelated style-only rewrites across many files.
-- Changes that claim features without implementing them.
-- Code that adds tracking, ads, or remote scripts without prior discussion.
+- Suggest a new game concept for a future slot.
+- Report a browser compatibility issue.
+- Suggest accessibility improvements.
+- Point out unclear game metadata.
+- Compare one AI-made game with an earlier one in the collection.

@@ -1,0 +1,24 @@
+{
+  "number": 1,
+  "title": "Star Survivor PX Neon",
+  "slug": "star-survivor-px-neon",
+  "collection": "99 AI Games",
+  "status": "source-pending",
+  "statusLabel": "Published on itch.io, source pending",
+  "playUrl": "https://aidong27.itch.io/star-survivor-px-neon",
+  "sourceCompleteness": "Placeholder only; real itch.io source not imported yet",
+  "description": "A pixel/neon roguelike survival browser game and the first entry in the 99 AI Games collection.",
+  "provenance": {
+    "createdDate": "Pending maintainer confirmation",
+    "modelName": "Pending maintainer confirmation",
+    "agentName": "Pending maintainer confirmation",
+    "humanCodeEdits": false,
+    "notes": "The maintainer's project rule is no human code edits. The exact model and agent used for the original published game still need confirmation."
+  },
+  "screenshots": [
+    "assets/images/screenshot-title.png",
+    "assets/images/screenshot-gameplay.png",
+    "assets/images/screenshot-upgrades.png"
+  ],
+  "repositoryNote": "This directory currently contains a transparent placeholder, not the playable game source."
+}

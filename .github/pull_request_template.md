@@ -2,19 +2,24 @@
 
 -
 
-## Type of change
+## Contribution type
 
-- [ ] Bug fix
-- [ ] Feature
-- [ ] Documentation
-- [ ] Refactor
-- [ ] Maintenance
+- [ ] Maintainer-controlled AI-generated code change
+- [ ] Documentation correction
+- [ ] Metadata correction
+- [ ] Other
+
+## AI provenance
+
+- Model:
+- Agent/tool:
+- Human code edits made:
 
 ## Testing
 
 - [ ] I ran the project through a local static server.
 - [ ] I checked the browser console.
-- [ ] I tested the affected gameplay or UI path.
+- [ ] I tested the affected launcher or game path.
 - [ ] Not applicable because this is documentation-only.
 
 ## Notes for the maintainer

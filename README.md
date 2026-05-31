@@ -1,39 +1,68 @@
-# Star Survivor PX Neon
+# 99 AI Games
 
-Star Survivor PX Neon is a pixel/neon style browser survival game by [aidong27](https://github.com/aidong27). The public playable version is hosted on itch.io:
+99 AI Games is a long-term browser game collection by [aidong27](https://github.com/aidong27). The goal is to collect 99 small HTML/CSS/JavaScript games made by Codex or other AI agents, while tracking how AI-made games improve over time.
 
-[Play Star Survivor PX Neon on itch.io](https://aidong27.itch.io/star-survivor-px-neon)
-
-This repository is being prepared as the open-source home for the game. The current repository cleanup adds the project structure, documentation, contribution process, and maintenance plan. The playable itch.io source still needs to be imported before this repository can be treated as the canonical game source.
+The maintainer's role is to set direction, test the results, publish the work, and keep clear records. The maintainer does not hand-edit the game code.
 
 ## Current Status
 
-- Repository structure: ready for open-source maintenance.
-- Published game source: not yet present in this checkout.
-- Local page: runs as a source-import status page.
-- Main next step: add the real `index.html`, JavaScript, CSS, image, and audio assets used by the itch.io build.
+- Collection status: open-source structure in progress.
+- Game 001: **Star Survivor PX Neon**.
+- Game 001 live page: [Play on itch.io](https://aidong27.itch.io/star-survivor-px-neon).
+- Game 001 source status: the real playable itch.io source is not yet imported into this repository.
+- Human code edits policy: `humanCodeEdits: false` for game entries.
+
+This repository currently contains a launcher UI, metadata structure, documentation, and placeholders. It should not claim that Star Survivor PX Neon is source-complete until the real build files are added and verified.
+
+## Why This Exists
+
+This is not meant to be a fast content dump of 99 games. The long-term purpose is to watch AI agents grow as creative coding partners:
+
+- How do different models design game loops?
+- How do they handle polish, bugs, controls, and accessibility?
+- How does code quality change across time?
+- What kinds of games become possible with better agents?
+
+Each game should record which model and agent/tool produced it, when it was made, and whether any human code edits were made.
+
+## Game List
+
+| # | Game | Status | AI provenance | Play |
+|---|---|---|---|---|
+| 001 | Star Survivor PX Neon | Source pending | Model pending confirmation, agent pending confirmation, no human code edits | [itch.io](https://aidong27.itch.io/star-survivor-px-neon) |
+
+The canonical machine-readable index is [`games/manifest.json`](games/manifest.json).
 
 ## Screenshots
 
-Screenshots are not included yet. After the real game source is imported, add:
+Screenshots are not included yet. After the real game source is imported, add screenshots from the actual build, not mockups:
 
-- `assets/images/screenshot-title.png`
-- `assets/images/screenshot-gameplay.png`
-- `assets/images/screenshot-upgrades.png`
+- `games/star-survivor-px-neon/assets/images/screenshot-title.png`
+- `games/star-survivor-px-neon/assets/images/screenshot-gameplay.png`
+- `games/star-survivor-px-neon/assets/images/screenshot-upgrades.png`
 
-Please use screenshots from the actual current build, not mockups.
+## Project Structure
 
-## Features
-
-The published game is intended to be documented here as the source is imported. Known project direction:
-
-- Single-page HTML5 browser game.
-- Pixel/neon visual style.
-- Roguelike survival gameplay direction.
-- Keyboard or pointer controls, depending on the current itch.io build.
-- Upgrade and enemy systems planned for separate source modules.
-
-Items above should be verified against the real imported source before being marked complete.
+```text
+.
+├── index.html
+├── src/
+│   └── main.js
+├── styles/
+│   └── main.css
+├── games/
+│   ├── manifest.json
+│   └── star-survivor-px-neon/
+│       ├── index.html
+│       ├── game.json
+│       ├── src/
+│       ├── styles/
+│       └── assets/
+├── docs/
+├── README.md
+├── ROADMAP.md
+└── TODO.md
+```
 
 ## Tech Stack
 
@@ -41,13 +70,13 @@ Items above should be verified against the real imported source before being mar
 - CSS
 - JavaScript
 - Static web hosting
-- itch.io HTML5 distribution
+- itch.io HTML5 distribution for individual games
 
 No package manager or build step is required for the current repository skeleton.
 
 ## Local Development
 
-Run the project through a local static server:
+Run the collection through a local static server:
 
 ```bash
 python3 -m http.server 4173
@@ -59,35 +88,28 @@ Then open:
 http://localhost:4173
 ```
 
-Opening `index.html` directly through `file://` is not recommended for browser-game development because module loading, assets, and canvas testing can behave differently from the hosted version.
-
-## Project Goals
-
-- Preserve the source of the itch.io game in a public, understandable repository.
-- Keep the project friendly to beginner contributors.
-- Improve gameplay polish, mobile support, accessibility, and documentation over time.
-- Keep changes small and reviewable so the game remains easy to maintain.
+Opening files directly through `file://` is not recommended for browser-game development because modules, assets, and canvas testing can behave differently from the hosted version.
 
 ## Open-Source Maintenance Plan
 
-- Use GitHub Issues for bugs, feature requests, and beginner-friendly tasks.
-- Keep pull requests focused on one change at a time.
-- Document gameplay systems before making large rewrites.
-- Avoid accepting generated spam, unrelated rewrites, or untested feature dumps.
-- Track work in `ROADMAP.md` and project notes in `docs/`.
+- Keep every game in `games/<slug>/`.
+- Keep every game entry paired with a `game.json` provenance file.
+- Do not mark a game as source-complete until the real source, assets, screenshots, and local verification are present.
+- Use GitHub Issues for ideas, bugs, accessibility feedback, and release notes.
+- Treat ordinary external code PRs as out of scope unless the maintainer explicitly changes the policy.
 
 ## How Codex Can Help
 
-Codex can help this project by:
+Codex and other AI agents can help by:
 
-- Organizing the source into small JavaScript modules.
-- Writing and maintaining documentation.
-- Reviewing pull requests for regressions and unsafe changes.
-- Creating simple browser smoke tests after the real game source is imported.
-- Improving accessibility, mobile controls, and code readability.
-- Turning rough ideas into issues, roadmap items, and small implementation plans.
+- Creating new games from prompts.
+- Building the shared launcher UI.
+- Refactoring AI-generated code without human hand-editing.
+- Writing metadata, release notes, and documentation.
+- Running browser smoke checks.
+- Comparing newer games against older ones to document AI progress.
 
-Codex should not invent gameplay features that are not present in the source. When the source is incomplete, it should create TODOs and ask for the missing build files.
+Agents must stay honest about missing source, missing screenshots, and unknown model provenance.
 
 ## License
 
