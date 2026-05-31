@@ -6,7 +6,7 @@ Thanks for your interest in 99 AI Games. This project is a long-term experiment 
 
 The maintainer does not hand-edit game code. Game code should be produced by Codex or another AI agent, then reviewed, tested, documented, and published by the maintainer.
 
-The 99 game slots represent 99 game concepts, not 99 AI generations. If you are proposing a different model's attempt at an existing concept, use a model variant issue instead of asking for a new game number.
+The 99 game slots represent 99 observation samples, not 99 AI generations. If you are proposing a different model's attempt at an existing sample, use a model variant issue instead of asking for a new game number.
 
 For now, this repository accepts:
 

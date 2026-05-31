@@ -1,39 +1,39 @@
 # Game Halls
 
-The archive has 9 halls. Each hall can eventually contain 11 official game concepts.
+The archive has 9 halls. Each hall is an AI capability observation category, not just a genre bucket. Each hall can eventually contain 11 official observation samples.
 
-9 halls x 11 concepts = 99 game slots.
+9 halls x 11 observation samples = 99 game slots.
 
-Game numbers are global collection numbers. Hall order does not force number ranges. Game 001 belongs to the Survival Strategy Hall because Signal Cartographer is a survival and route-planning game.
+Game numbers are global observation samples. Hall order does not force number ranges. Observation 001 / Game 001 belongs to the Survival Strategy Hall because Signal Cartographer is a survival and route-planning game.
 
 ## Hall List
 
-| Hall | Description |
+| Hall | What it observes |
 |---|---|
-| Arcade Reaction Hall | Fast reaction games, dodging, jumping, score chasing, short-loop arcade games |
-| Puzzle Logic Hall | Puzzles, logic gates, mazes, sequencing, deduction, constrained movement |
-| Survival Strategy Hall | Survival loops, resource pressure, route planning, hostile environments, tactical movement |
-| Card Strategy Hall | Card games, dice games, turn-based battles, drafting, roguelite decision systems |
-| Text Adventure Hall | Interactive fiction, branching stories, terminal games, AI-themed stories, RPG-style text systems |
-| Clicker Management Hall | Incremental games, business sims, resource management, automation loops |
-| Physics Experiment Hall | Physics toys, gravity games, projectile games, magnets, bouncing, sandbox mechanics |
-| Rhythm Audio Hall | Rhythm games, music memory, beat timing, audio-reactive games |
-| AI Meme Hall | AI jokes, agent failures, prompt chaos, token bills, model battles, weird AI behavior games |
+| Arcade Reaction Hall | AI ability in feedback, timing, input feel, difficulty curves, and short-loop clarity |
+| Puzzle Logic Hall | AI ability in rules, constraints, state logic, solvability, and puzzle communication |
+| Survival Strategy Hall | AI ability in resource pressure, route planning, risk feedback, and tactical systems |
+| Card Strategy Hall | AI ability in probabilistic decisions, drafting, turn structure, and readable strategy |
+| Text Adventure Hall | AI ability in branching narrative, state memory, tone, and meaningful choices |
+| Clicker Management Hall | AI ability in economies, automation loops, scaling, and player motivation |
+| Physics Experiment Hall | AI ability in simulation feel, spatial reasoning, cause/effect, and sandbox tuning |
+| Rhythm Audio Hall | AI ability in timing windows, pattern memory, audio feedback, and input precision |
+| AI Meme Hall | AI ability in self-reference, humor, weird failure modes, and playful systems |
 
 ## Slot Mix
 
 Each hall should eventually include:
 
-- 3 benchmark concepts
-- 6 normal collection concepts
-- 1 failed/weird experiment concept
-- 1 future remake concept
+- 3 benchmark observation samples
+- 6 normal observation samples
+- 1 failed/weird observation sample
+- 1 future remake observation sample
 
 This gives the full archive:
 
-- 27 benchmark concepts
-- 54 normal collection concepts
-- 9 failed/weird concepts
-- 9 future remake concepts
+- 27 benchmark observation samples
+- 54 normal observation samples
+- 9 failed/weird observation samples
+- 9 future remake observation samples
 
 Do not fill empty slots with fake games. The hall structure is a planning framework.

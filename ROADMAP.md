@@ -1,23 +1,23 @@
 # Roadmap
 
-99 AI Games is a long-term experiment. The goal is not to complete 99 games quickly; the goal is to preserve a public record of how AI agents improve at making small browser games.
+99 AI Games is a long-term AI game-making evolution archive. The goal is not to complete 99 games quickly; the goal is to preserve a public record of how AI agents improve at making small browser games.
 
 ## v0.1 Archive Framework
 
-- Preserve Game 001, Signal Cartographer, as the first playable slot.
+- Preserve Observation 001 / Game 001, Signal Cartographer, as the first playable observation sample.
 - Add the 9 Game Halls framework.
 - Define game slots, model variants, and run records.
 - Add schemas, templates, and validation scripts.
 - Add GitHub workflow checks after repository credentials have `workflow` scope.
 - Keep the AI Observatory launcher connected to `games/manifest.json`.
 
-## v0.2 Game 001 Polish
+## v0.2 Observation 001 Polish
 
 - Tune Signal Cartographer difficulty, pacing, and upgrade balance.
 - Capture real screenshots from the local build.
 - Improve pause, restart, win, and failure states.
 - Document known limitations after real playtesting.
-- Add a short Game 001 postmortem.
+- Add a short Observation 001 postmortem.
 
 ## v0.3 Variant And Benchmark System
 
@@ -37,7 +37,7 @@
 
 ## v0.5 Content Expansion
 
-- Add Game 002 only after the framework and Game 001 documentation are stable.
+- Add Observation 002 / Game 002 only after the framework and Observation 001 documentation are stable.
 - Use the Game Halls structure to choose the next concept.
 - Prefer variety over speed.
 - Keep each game small enough to inspect, test, and maintain.

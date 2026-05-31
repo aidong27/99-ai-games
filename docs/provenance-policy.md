@@ -44,4 +44,4 @@ If a fact is missing, say it is missing.
 
 ## Maintainer-Declared Labels
 
-When the maintainer declares a model label, metadata should say so. Game 001 uses `GPT-5.5 xhigh` as a maintainer-declared model label.
+When the maintainer declares a model label, metadata should say so. Observation 001 / Game 001 uses `GPT-5.5 xhigh` as a maintainer-declared model label.

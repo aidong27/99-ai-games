@@ -539,7 +539,7 @@ function loop(now) {
 
 function showOverlay(title, copy, actionText, action) {
   ui.overlay.classList.remove("hidden");
-  ui.overlayKicker.textContent = "Signal Cartographer";
+  ui.overlayKicker.textContent = "Observation 001 / Game 001";
   ui.overlayTitle.textContent = title;
   ui.overlayCopy.textContent = copy;
   ui.primaryAction.replaceWith(ui.primaryAction.cloneNode(true));

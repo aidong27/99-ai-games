@@ -4,7 +4,7 @@ Benchmarks in this project are qualitative and transparent. They are not scienti
 
 ## Benchmark Slot
 
-A benchmark game concept should be useful for comparing AI agents because it has:
+A benchmark observation sample should be useful for comparing AI agents because it has:
 
 - clear rules
 - visible controls
@@ -12,7 +12,7 @@ A benchmark game concept should be useful for comparing AI agents because it has
 - enough complexity to reveal design tradeoffs
 - a small enough scope to inspect
 
-Game 001, Signal Cartographer, is currently marked as a benchmark slot because it tests canvas rendering, movement, hazard design, resource use, mobile controls, and metadata discipline.
+Observation 001 / Game 001, Signal Cartographer, is currently marked as a benchmark slot because it tests canvas rendering, movement, hazard design, resource use, mobile controls, and metadata discipline.
 
 ## What To Record
 

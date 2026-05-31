@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta
       name="description"
-      content="99 AI Games is an AI Observatory for browser games made by Codex and other AI agents."
+      content="99 AI Games is an AI game-making evolution archive built from playable browser-game observation samples."
     >
     <title>99 AI Games | AI Observatory</title>
     <link rel="icon" href="data:,">
@@ -20,7 +20,7 @@
         </a>
         <nav>
           <a href="#featured">Featured</a>
-          <a href="#games">Games</a>
+          <a href="#games">Observations</a>
           <a href="#protocol">Protocol</a>
           <a href="./docs/project-plan.md">Plan</a>
         </nav>
@@ -28,15 +28,16 @@
 
       <section class="hero" aria-labelledby="project-title">
         <div class="hero-copy">
-          <p class="eyebrow">AI Observatory / playable browser archive</p>
+          <p class="eyebrow">AI Game-Making Evolution Archive</p>
           <h1 id="project-title">99 AI Games</h1>
           <p class="lede">
-            A long-running collection of 99 small web games made by Codex and other
-            AI agents. Game slots are concepts, while model variants and run records
-            preserve the many attempts that can happen under one slot.
+            99 playable experiments. One long-term record of AI evolution.
+          </p>
+          <p class="lede exhibit-line">
+            The games are playable. The real exhibit is the AI that made them.
           </p>
           <div class="hero-actions">
-            <a id="latest-launch" class="button primary" href="./games/signal-cartographer/">Launch Game 001</a>
+            <a id="latest-launch" class="button primary" href="./games/signal-cartographer/">Open Observation 001</a>
             <a class="button" href="./games/manifest.json">Open manifest</a>
           </div>
         </div>
@@ -44,16 +45,16 @@
         <aside class="scope-panel" aria-label="AI Observatory signal scope">
           <canvas id="scope-canvas" width="740" height="520" aria-label="Animated signal map"></canvas>
           <div class="scope-readout">
-            <span>Current transmission</span>
+            <span>Current observation sample</span>
             <strong id="latest-title">Signal Cartographer</strong>
             <small id="scope-model">GPT-5.5 xhigh / Codex</small>
           </div>
         </aside>
       </section>
 
-      <section class="metrics" aria-label="Collection telemetry">
+      <section class="metrics" aria-label="Archive telemetry">
         <article class="stat-card">
-          <span>Official game slots</span>
+          <span>Observation samples</span>
           <strong><b id="completed-count">1</b> / <b id="target-count">99</b></strong>
         </article>
         <article class="stat-card">
@@ -73,10 +74,10 @@
       <section id="featured" class="featured-section" aria-labelledby="featured-title">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Featured transmission</p>
-            <h2 id="featured-title">Game 001</h2>
+            <p class="eyebrow">Featured archive entry</p>
+            <h2 id="featured-title">Observation 001 / Game 001</h2>
           </div>
-          <p id="collection-status">Loading collection metadata...</p>
+          <p id="collection-status">Loading archive metadata...</p>
         </div>
         <div id="featured-game" aria-live="polite"></div>
       </section>
@@ -84,10 +85,10 @@
       <section id="games" class="games-section" aria-labelledby="games-title">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Launch deck</p>
-            <h2 id="games-title">Playable catalog</h2>
+            <p class="eyebrow">Observation deck</p>
+            <h2 id="games-title">AI progress samples</h2>
           </div>
-          <p>Each card records model, agent, date, status, and source completeness.</p>
+          <p>Each entry records model, agent, date, variants, runs, and source completeness.</p>
         </div>
         <div id="game-list" class="game-grid" aria-live="polite"></div>
       </section>
@@ -95,10 +96,10 @@
       <section id="protocol" class="protocol-section" aria-labelledby="protocol-title">
         <div>
           <p class="eyebrow">Experiment protocol</p>
-          <h2 id="protocol-title">Built by agents, maintained with receipts</h2>
+          <h2 id="protocol-title">Games are evidence, AI progress is the subject</h2>
         </div>
         <ol>
-          <li>Game slots represent official concepts, not AI generations.</li>
+          <li>Game slots represent observation samples, not AI generations.</li>
           <li>Model variants live under the same game slot and do not consume new numbers.</li>
           <li>Run records preserve generation, revision, validation, and comparison attempts.</li>
           <li>The maintainer tests and publishes, but does not hand-write game code.</li>

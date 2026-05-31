@@ -7,12 +7,16 @@
   "launcherTheme": "AI Observatory",
   "hallsPath": "./halls/halls.json",
   "schemasPath": "./schemas/",
-  "mission": "A long-term collection of browser games made by Codex or other AI agents, used to observe AI game-making progress over time.",
+  "primaryGoal": "Witness AI development through 99 playable browser-game experiments.",
+  "notTheGoal": "This is not a rushed attempt to mass-produce 99 AI-made games.",
+  "archiveSubject": "AI agent capability growth",
+  "archiveMethod": "Playable game experiments with provenance, model variants, run records, and curator notes.",
+  "mission": "A long-term AI game-making evolution archive where playable browser games act as observation samples.",
   "maintainerRole": "The maintainer curates prompts, tests builds, publishes games, and documents provenance without hand-editing game code.",
   "humanCodeEditsPolicy": false,
   "slotVariantRunPolicy": {
-    "summary": "The 99 game slots represent 99 game concepts, not 99 AI generations.",
-    "gameSlot": "One official game concept in the 99-game archive.",
+    "summary": "The 99 game slots represent 99 observation samples, not 99 AI generations.",
+    "gameSlot": "One official playable experiment in the AI evolution archive.",
     "modelVariant": "A version of the same game concept made by a specific model or agent. Variants do not consume additional game numbers.",
     "runRecord": "One generation, revision, validation, or comparison attempt for a game or variant. Run records can grow indefinitely."
   },
@@ -24,8 +28,9 @@
       "slotType": "benchmark",
       "hallId": "survival-strategy",
       "hallName": "Survival Strategy Hall",
+      "archiveRole": "First playable observation sample",
       "status": "playable",
-      "statusLabel": "Playable original entry",
+      "statusLabel": "Playable observation sample",
       "description": "A tactical canvas survival game about mapping a hostile signal field before interference erases your route.",
       "localPath": "./games/signal-cartographer/",
       "metadataPath": "./games/signal-cartographer/game.json",
@@ -54,7 +59,7 @@
         "./games/signal-cartographer/runs/2026-05-31-codex-gpt-5-5-xhigh-initial.json"
       ],
       "tags": ["canvas", "navigation", "survival", "strategy", "signal"],
-      "repositoryNote": "First original playable game in the 99 AI Games archive."
+      "repositoryNote": "Observation 001 / Game 001. First playable evidence sample in the AI game-making evolution archive."
     }
   ]
 }

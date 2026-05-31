@@ -2,11 +2,13 @@
 
 ## Purpose
 
-99 AI Games is a long-term archive of browser games made by Codex or other AI agents. It is not a sprint to produce 99 games quickly. It is a structured record of how AI game-making improves over time.
+99 AI Games is a long-term AI game-making evolution archive. It is not a sprint to produce 99 games quickly. It is a structured record of how AI agents improve at game design, logic, coding, polish, debugging, controls, accessibility, and creative judgment over time.
 
 ## Core Rule
 
-The 99 game slots represent 99 game concepts, not 99 AI generations. A single game may contain multiple model variants and run records. Model comparisons are stored as variants/runs under the same game slot and do not consume additional game numbers.
+The 99 game slots represent 99 observation samples, not 99 AI generations. A single game may contain multiple model variants and run records. Model comparisons are stored as variants/runs under the same game slot and do not consume additional game numbers.
+
+The games are playable. The real exhibit is the AI that made them.
 
 ## Maintainer Role
 
@@ -21,17 +23,18 @@ The maintainer:
 
 ## Archive Model
 
-1. **Game Slot**: one official game concept.
+1. **Game Slot / Observation Sample**: one official playable experiment.
 2. **Model Variant**: one version of that concept made by a specific model or agent.
 3. **Run Record**: one generation, revision, validation, benchmark, or comparison attempt.
-4. **Game Hall**: one of 9 category halls, each with capacity for 11 official game concepts.
+4. **Game Hall**: one of 9 AI capability observation categories, each with capacity for 11 observation samples.
 
 ## Current Slot
 
-Game 001 is **Signal Cartographer**.
+Observation 001 / Game 001 is **Signal Cartographer**.
 
 - Hall: Survival Strategy Hall
 - Slot type: benchmark
+- Archive role: first playable observation sample
 - Status: playable
 - Canonical variant: `codex-gpt-5-5-xhigh-2026-05-31`
 - Model label: `GPT-5.5 xhigh`
@@ -40,19 +43,19 @@ Game 001 is **Signal Cartographer**.
 
 ## Growth Strategy
 
-Do not add placeholders for all 99 slots. Add game concepts gradually when an AI agent will actually build, revise, or compare something.
+Do not add placeholders for all 99 slots. Add observation samples gradually when an AI agent will actually build, revise, or compare something.
 
-Use halls to preserve variety:
+Use halls to observe different AI capabilities:
 
-- arcade reaction
-- puzzle logic
-- survival strategy
-- card strategy
-- text adventure
-- clicker management
-- physics experiment
-- rhythm audio
-- AI meme
+- arcade reaction: feedback, timing, input feel, difficulty curves
+- puzzle logic: rules, constraints, state logic, solvability
+- survival strategy: resource pressure, route planning, risk feedback
+- card strategy: probability, drafting, turn structure, strategic readability
+- text adventure: branching narrative, state memory, tone, meaningful choices
+- clicker management: economy loops, scaling, automation
+- physics experiment: simulation feel, spatial reasoning, cause/effect
+- rhythm audio: timing windows, pattern memory, input precision
+- AI meme: self-reference, humor, weird failure modes
 
 ## Quality Bar
 
@@ -81,8 +84,8 @@ Use `templates/` and `templates/prompts/` for future agent tasks.
 
 ## Near-Term Plan
 
-1. Keep Game 001 stable.
+1. Keep Observation 001 stable.
 2. Capture real screenshots.
 3. Enable public static hosting if desired.
 4. Add a first comparison variant only when there is a meaningful model comparison to record.
-5. Add Game 002 after the framework has been tested on Game 001.
+5. Add Observation 002 / Game 002 after the framework has been tested on Observation 001.

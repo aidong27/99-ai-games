@@ -2,7 +2,9 @@
 
 ## Principle
 
-The 99 game slots represent 99 game concepts, not 99 AI generations. A single game may contain multiple model variants and run records. Model comparisons are stored as variants/runs under the same game slot and do not consume additional game numbers.
+The 99 game slots represent 99 observation samples, not 99 AI generations. A single game may contain multiple model variants and run records. Model comparisons are stored as variants/runs under the same game slot and do not consume additional game numbers.
+
+The games are playable. The real exhibit is the AI that made them.
 
 ## Model Variant
 
@@ -32,7 +34,7 @@ Run records can grow indefinitely. They should be factual, short, and tied to re
 
 ## Current Baseline
 
-Game 001 has one canonical variant:
+Observation 001 / Game 001 has one canonical variant:
 
 ```text
 codex-gpt-5-5-xhigh-2026-05-31

@@ -6,18 +6,21 @@
 
 ## Concept
 
-99 AI Games is a long-term archive of small browser games made by Codex or other AI agents. It preserves playable games, model provenance, variants, and run records so future readers can see how AI game-making changes over time.
+99 AI Games is a long-term AI game-making evolution archive. It preserves playable observation samples, model provenance, variants, and run records so future readers can see how AI game-making changes over time.
 
 ## Core Archive Principle
 
-The 99 game slots represent 99 game concepts, not 99 AI generations. A single game may contain multiple model variants and run records. Model comparisons are stored as variants/runs under the same game slot and do not consume additional game numbers.
+The 99 game slots represent 99 observation samples, not 99 AI generations. A single game may contain multiple model variants and run records. Model comparisons are stored as variants/runs under the same game slot and do not consume additional game numbers.
+
+The games are playable. The real exhibit is the AI that made them.
 
 ## Current Game
 
-Game 001 is **Signal Cartographer**.
+Observation 001 / Game 001 is **Signal Cartographer**.
 
 - Hall: Survival Strategy Hall
 - Slot type: benchmark
+- Archive role: first playable observation sample
 - Status: playable
 - Canonical variant: `codex-gpt-5-5-xhigh-2026-05-31`
 - Model label: `GPT-5.5 xhigh`
@@ -38,5 +41,5 @@ Game 001 is **Signal Cartographer**.
 
 - Public hosting is not configured yet.
 - Real screenshots still need to be captured.
-- Game 001 balance needs more playtesting.
+- Observation 001 balance needs more playtesting.
 - Future model comparisons should be added only when real variants exist.

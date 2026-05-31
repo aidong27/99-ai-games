@@ -1,27 +1,42 @@
 # 99 AI Games
 
-99 AI Games is a long-term open-source archive of small browser games made by Codex and other AI agents. The purpose is to observe and preserve how AI agents improve at game-making over time.
+**The games are playable. The real exhibit is the AI that made them.**
+
+99 AI Games is a long-term AI game-making evolution archive. It uses 99 playable browser-game experiments as observation samples to witness how AI agents improve at design, logic, coding, polish, debugging, controls, accessibility, and creative judgment over time.
 
 The maintainer plans prompts, tests builds, publishes releases, and records provenance. The maintainer does not hand-write or hand-edit game code.
 
-## Core Archive Rule
+## The Real Goal
 
-The 99 game slots represent 99 game concepts, not 99 AI generations.
+The real goal is not to mass-produce 99 games. The real goal is to preserve a public, playable record of AI agent capability growth.
+
+Each game is evidence. It shows what an AI agent could design, implement, debug, and package at a specific moment, with a specific model label, tool, prompt context, and verification record.
+
+## What Does "99 Games" Mean?
+
+The 99 game slots represent 99 observation samples, not 99 AI generations.
 
 A single game may contain multiple model variants and run records. Model comparisons are stored as variants/runs under the same game slot and do not consume additional game numbers.
 
-- **Game Slot**: one official game concept in the 99-game archive.
+- **Game Slot / Observation Sample**: one official playable experiment in the archive.
 - **Model Variant**: a version of the same concept made by a specific model or agent.
 - **Run Record**: one generation, revision, validation, or comparison attempt.
 
+## Games as Evidence
+
+The games are playable because playability makes the AI's work inspectable. A reader can open a game, feel the controls, inspect the source, read the metadata, and compare it with future variants.
+
+Game quality matters, but the archive subject is AI progress. A flawed game can still be valuable evidence if it honestly reveals a model's limitations.
+
 ## Current Status
 
-- Collection status: independent open-source project.
+- Archive status: independent open-source project.
 - Launcher theme: **AI Observatory**.
-- Game 001: **Signal Cartographer**.
+- Observation 001 / Game 001: **Signal Cartographer**.
 - Hall: Survival Strategy Hall.
 - Slot type: benchmark.
-- Game 001 status: playable local source included.
+- Archive role: First playable observation sample.
+- Status: playable local source included.
 - Canonical variant: `codex-gpt-5-5-xhigh-2026-05-31`.
 - Model label: `GPT-5.5 xhigh` as declared by the maintainer for this entry.
 - Agent/tool: `Codex`.
@@ -31,21 +46,21 @@ There is no external platform dependency or missing outside source history in th
 
 ## Game Halls
 
-The archive has 9 halls. Each hall can eventually contain 11 official game concepts, for 99 total game slots.
+The archive has 9 halls. Each hall is an AI capability observation category, not just a genre bucket. Each hall can eventually contain 11 official observation samples, for 99 total game slots.
 
-| Hall | Focus |
+| Hall | What it observes |
 |---|---|
-| Arcade Reaction Hall | Fast reaction games, dodging, jumping, score chasing, short-loop arcade games |
-| Puzzle Logic Hall | Puzzles, logic gates, mazes, sequencing, deduction, constrained movement |
-| Survival Strategy Hall | Survival loops, resource pressure, route planning, hostile environments, tactical movement |
-| Card Strategy Hall | Card games, dice games, turn-based battles, drafting, roguelite decisions |
-| Text Adventure Hall | Interactive fiction, branching stories, terminal games, RPG-style text systems |
-| Clicker Management Hall | Incremental games, business sims, resource management, automation loops |
-| Physics Experiment Hall | Physics toys, gravity games, projectiles, magnets, bouncing, sandbox mechanics |
-| Rhythm Audio Hall | Rhythm games, music memory, beat timing, audio-reactive games |
-| AI Meme Hall | AI jokes, agent failures, prompt chaos, token bills, model battles |
+| Arcade Reaction Hall | AI ability in feedback, timing, input feel, difficulty curves, and short-loop clarity |
+| Puzzle Logic Hall | AI ability in rules, constraints, state logic, solvability, and puzzle communication |
+| Survival Strategy Hall | AI ability in resource pressure, route planning, risk feedback, and tactical systems |
+| Card Strategy Hall | AI ability in probabilistic decisions, drafting, turn structure, and readable strategy |
+| Text Adventure Hall | AI ability in branching narrative, state memory, tone, and meaningful choices |
+| Clicker Management Hall | AI ability in economies, automation loops, scaling, and player motivation |
+| Physics Experiment Hall | AI ability in simulation feel, spatial reasoning, cause/effect, and sandbox tuning |
+| Rhythm Audio Hall | AI ability in timing windows, pattern memory, audio feedback, and input precision |
+| AI Meme Hall | AI ability in self-reference, humor, weird failure modes, and playful systems |
 
-Each hall should eventually contain 3 benchmark concepts, 6 normal concepts, 1 failed/weird experiment, and 1 future remake concept. Do not fill all 99 slots with placeholders.
+Each hall should eventually contain 3 benchmark observation samples, 6 normal observation samples, 1 failed/weird observation sample, and 1 future remake observation sample. Do not fill all 99 slots with placeholders.
 
 ## Play Locally
 
@@ -61,15 +76,15 @@ Then open:
 http://localhost:4173
 ```
 
-The launcher opens Game 001 from:
+The launcher opens Observation 001 / Game 001 from:
 
 ```text
 games/signal-cartographer/
 ```
 
-## Game Index
+## Observation Index
 
-| # | Game | Hall | Slot type | Status | Variants | Runs |
+| # | Observation sample | Hall | Slot type | Status | Variants | Runs |
 |---|---|---|---|---|---:|---:|
 | 001 | Signal Cartographer | Survival Strategy Hall | benchmark | Playable | 1 | 1 |
 
@@ -141,7 +156,7 @@ node --check games/signal-cartographer/src/main.js
 
 Codex can help this project by creating new games, creating model variants, maintaining metadata, writing run records, checking local builds, and comparing newer results against older ones.
 
-Agents must not invent fake popularity, fake users, fake star counts, fake download numbers, fake screenshots, fake provenance, or fake verification.
+Agents should optimize for honest provenance, comparison value, and archival usefulness, not mass production. They must not invent fake popularity, fake users, fake star counts, fake download numbers, fake screenshots, fake provenance, or fake verification.
 
 ## License
 

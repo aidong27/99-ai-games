@@ -1,11 +1,13 @@
-# Game 001 Brief: Signal Cartographer
+# Observation 001 / Game 001 Brief: Signal Cartographer
 
 ## Slot
 
 - Game number: 001
+- Observation number: 001
 - Slot title: Signal Cartographer
 - Hall: Survival Strategy Hall
 - Slot type: benchmark
+- Archive role: First playable observation sample
 - Status: playable
 
 ## Concept
@@ -14,7 +16,7 @@ Pilot a mapping cursor through a hostile signal field. Collect signal fragments,
 
 ## Why This Fits The Hall
 
-Signal Cartographer belongs in the Survival Strategy Hall because it uses route planning, resource pressure, hostile terrain, and tactical movement. The player is not only dodging hazards; they are managing limited beacons and deciding how to cross a risky field.
+Signal Cartographer belongs in the Survival Strategy Hall because it lets the archive observe AI ability in route planning, resource pressure, hostile terrain, risk feedback, and tactical movement. The player is not only dodging hazards; they are managing limited beacons and deciding how to cross a risky field.
 
 ## Current Canonical Variant
 

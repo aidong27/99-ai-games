@@ -2,13 +2,15 @@
 
 ## Project Summary
 
-99 AI Games is a long-term open-source browser-game collection by aidong27. The goal is to create 99 small HTML/CSS/JavaScript games with Codex or other AI agents and record how AI game-making changes over time.
+99 AI Games is a long-term AI game-making evolution archive by aidong27. It uses 99 playable HTML/CSS/JavaScript browser-game experiments as observation samples to record how AI agent capability changes over time.
 
-The first game is **Signal Cartographer**, a self-contained Canvas game where the player maps a hostile signal field, collects fragments, drops beacons, and exits before signal integrity fails.
+Observation 001 / Game 001 is **Signal Cartographer**, a self-contained Canvas game where the player maps a hostile signal field, collects fragments, drops beacons, and exits before signal integrity fails.
 
-The repository includes the shared AI Observatory launcher, `games/manifest.json`, Game 001 source, the 9 Game Halls framework, schemas, templates, validation scripts, per-game metadata, documentation, community files, and a roadmap.
+The repository includes the shared AI Observatory launcher, `games/manifest.json`, Observation 001 source, the 9 Game Halls framework, schemas, templates, validation scripts, per-game metadata, documentation, community files, and a roadmap.
 
-The project distinguishes between game slots, model variants, and run records. The 99 game slots represent 99 game concepts, not 99 AI generations. Model comparisons are stored as variants/runs under the same game slot and do not consume additional game numbers.
+The games are playable. The real exhibit is the AI that made them.
+
+The project distinguishes between game slots, model variants, and run records. The 99 game slots represent 99 observation samples, not 99 AI generations. Model comparisons are stored as variants/runs under the same game slot and do not consume additional game numbers.
 
 ## Why I Am the Maintainer
 
@@ -62,7 +64,7 @@ The project is intentionally modest and transparent. It does not claim to be a l
 
 ## Honest Status and Future Plan
 
-The project is in its early open-source stage. Game 001, **Signal Cartographer**, is included as local playable source. The model label `GPT-5.5 xhigh` is maintainer-declared for this entry, and the agent is Codex.
+The project is in its early open-source stage. Observation 001 / Game 001, **Signal Cartographer**, is included as local playable source. The model label `GPT-5.5 xhigh` is maintainer-declared for this entry, and the agent is Codex.
 
 Current limitations:
 
@@ -71,4 +73,4 @@ Current limitations:
 - Gameplay balance needs more playtesting.
 - Future games should keep the same metadata standard.
 
-The long-term goal is to complete 99 AI-made games gradually. The point is not speed; the point is to witness and document AI agents improving over time.
+The long-term goal is to complete 99 playable observation samples gradually. The point is not speed; the point is to witness and document AI agents improving over time.

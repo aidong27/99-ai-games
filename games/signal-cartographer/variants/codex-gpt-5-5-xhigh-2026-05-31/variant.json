@@ -10,7 +10,7 @@
   "humanCodeEdits": false,
   "implementationPath": "../../",
   "metadataPath": "variant.json",
-  "notes": "This is the canonical first playable implementation for Game 001. The playable source currently lives at the game root. The model label is maintainer-declared for this project entry.",
+  "notes": "This is the canonical first playable implementation for Observation 001 / Game 001. The playable source currently lives at the game root. The model label is maintainer-declared for this project entry.",
   "comparisonRole": "baseline",
   "runRecords": [
     "../../runs/2026-05-31-codex-gpt-5-5-xhigh-initial.json"

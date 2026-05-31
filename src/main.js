@@ -49,7 +49,7 @@ function renderCollection(manifest) {
   hallCount.textContent = String(manifest.hallCount ?? 9);
   variantCount.textContent = String(variants);
   runCount.textContent = String(runs);
-  collectionStatus.textContent = `${playable.length} playable slot, ${variants} variant, ${runs} run record`;
+  collectionStatus.textContent = `${playable.length} playable observation sample, ${variants} variant, ${runs} run record`;
   featuredGame.replaceChildren(createFeaturedGame(featured));
   gameList.replaceChildren(...games.map(createGameCard));
 
@@ -77,7 +77,7 @@ function createFeaturedGame(game) {
   const copy = document.createElement("div");
   copy.className = "featured-copy";
   copy.append(
-    createText("span", "game-number", `Game ${String(game.number).padStart(3, "0")}`),
+    createText("span", "game-number", `Observation ${String(game.number).padStart(3, "0")} / Game ${String(game.number).padStart(3, "0")}`),
     createText("h3", "", game.title),
     createText("p", "game-description", game.description),
     createTags(game.tags),
@@ -101,7 +101,7 @@ function createGameCard(game) {
 
   const header = document.createElement("header");
   header.append(
-    createText("span", "game-number", `Game ${String(game.number).padStart(3, "0")}`),
+    createText("span", "game-number", `Observation ${String(game.number).padStart(3, "0")} / Game ${String(game.number).padStart(3, "0")}`),
     createText("h3", "", game.title),
     createText("p", "game-description", game.description)
   );
@@ -130,6 +130,7 @@ function createMetadataBlock(game) {
   metadata.className = "metadata";
   metadata.append(
     createMetadata("Status", game.statusLabel ?? game.status),
+    createMetadata("Archive role", game.archiveRole),
     createMetadata("Hall", game.hallName ?? game.hallId),
     createMetadata("Slot type", game.slotType),
     createMetadata("Model", provenance.modelName),
@@ -203,7 +204,7 @@ function getMetadataHref(game) {
 }
 
 function renderError(error) {
-  collectionStatus.textContent = "Manifest could not be loaded";
+  collectionStatus.textContent = "Archive manifest could not be loaded";
   featuredGame.replaceChildren(createNotice(`The observatory could not read games/manifest.json. ${error.message}`));
   gameList.replaceChildren();
 }
@@ -296,6 +297,6 @@ function drawScopeNodes(time) {
 function drawScopeLabels(width, height, time) {
   scopeCtx.fillStyle = "rgba(244, 247, 255, 0.82)";
   scopeCtx.font = "700 14px ui-sans-serif, system-ui";
-  scopeCtx.fillText("GAME 001 // SIGNAL FIELD LOCKED", 24, 34);
-  scopeCtx.fillText(`AI OBSERVATION T+${Math.floor(time).toString().padStart(4, "0")}`, width - 250, height - 28);
+  scopeCtx.fillText("OBSERVATION 001 // SIGNAL FIELD LOCKED", 24, 34);
+  scopeCtx.fillText(`AI EVOLUTION RECORD T+${Math.floor(time).toString().padStart(4, "0")}`, width - 270, height - 28);
 }

@@ -1,19 +1,19 @@
 # 99 AI Games Agent Instructions
 
-This repository is a long-term collection of 99 small browser games made by Codex or other AI agents.
+This repository is not primarily a game dump. It is a long-term AI game-making evolution archive. The games are evidence. The real subject is AI progress.
 
 ## Project Mission
 
-The goal is to witness AI agent growth over time, not to produce 99 games as quickly as possible.
+The goal is to witness AI agent growth over time, not to produce 99 games as quickly as possible. Agents should optimize for honest provenance, comparison value, and archival usefulness, not mass production.
 
-The 99 game slots represent 99 game concepts, not 99 AI generations. A single game may contain multiple model variants and run records. Model comparisons are stored as variants/runs under the same game slot and do not consume additional game numbers.
+The 99 game slots represent 99 observation samples, not 99 AI generations. A single game may contain multiple model variants and run records. Model comparisons are stored as variants/runs under the same game slot and do not consume additional game numbers.
 
 ## Terms
 
-- **Game Slot**: one official concept in the 99-game archive.
+- **Game Slot / Observation Sample**: one official playable experiment in the AI evolution archive.
 - **Model Variant**: a version of the same game concept made by a specific model or agent.
 - **Run Record**: one generation, revision, validation, or comparison attempt.
-- **Game Hall**: one of the 9 category halls, each with capacity for 11 game concepts.
+- **Game Hall**: one of the 9 AI capability observation categories, each with capacity for 11 observation samples.
 
 ## Non-Negotiable Rule
 
@@ -67,7 +67,7 @@ Every playable game should include:
 
 ## Game Halls
 
-There are 9 halls. Each hall eventually contains 11 official concepts:
+There are 9 halls. Each hall eventually contains 11 official observation samples:
 
 - Arcade Reaction Hall
 - Puzzle Logic Hall
@@ -79,7 +79,7 @@ There are 9 halls. Each hall eventually contains 11 official concepts:
 - Rhythm Audio Hall
 - AI Meme Hall
 
-Each hall should eventually contain 3 benchmark concepts, 6 normal concepts, 1 failed/weird experiment, and 1 future remake concept.
+Each hall should eventually contain 3 benchmark observation samples, 6 normal observation samples, 1 failed/weird observation sample, and 1 future remake observation sample. Halls are AI capability observation categories, not just genre buckets.
 
 Do not fill empty slots with fake games.
 
@@ -109,11 +109,12 @@ Avoid relying on `file://` for browser-game verification.
 
 ## Current Game 001 Status
 
-Game 001 is **Signal Cartographer**.
+Observation 001 / Game 001 is **Signal Cartographer**.
 
 Current repository status:
 
 - Local playable source is included.
+- Archive role is first playable observation sample.
 - Hall is Survival Strategy Hall.
 - Slot type is benchmark.
 - Canonical variant is `codex-gpt-5-5-xhigh-2026-05-31`.
