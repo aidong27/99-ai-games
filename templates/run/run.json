@@ -1,0 +1,19 @@
+{
+  "runId": "yyyy-mm-dd-model-agent-purpose",
+  "gameNumber": 0,
+  "gameSlug": "todo-game-slug",
+  "variantId": "todo-model-date",
+  "runType": "initial-generation",
+  "status": "planned",
+  "createdDate": "YYYY-MM-DD",
+  "modelName": "TODO model",
+  "agentName": "TODO agent",
+  "humanCodeEdits": false,
+  "promptSummary": "TODO: Summarize the prompt or task.",
+  "outputs": [],
+  "verification": {
+    "verifiedDate": "",
+    "checks": []
+  },
+  "notes": "Do not claim verification that did not happen."
+}

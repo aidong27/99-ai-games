@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/aidong27/99-ai-games/schemas/manifest.schema.json",
+  "title": "99 AI Games Manifest",
+  "type": "object",
+  "required": ["projectName", "repository", "targetGameCount", "humanCodeEditsPolicy", "slotVariantRunPolicy", "games"],
+  "properties": {
+    "projectName": { "const": "99 AI Games" },
+    "repository": { "type": "string" },
+    "targetGameCount": { "const": 99 },
+    "completedGameCount": { "type": "integer", "minimum": 0, "maximum": 99 },
+    "launcherTheme": { "type": "string" },
+    "hallsPath": { "type": "string" },
+    "schemasPath": { "type": "string" },
+    "mission": { "type": "string" },
+    "maintainerRole": { "type": "string" },
+    "humanCodeEditsPolicy": { "type": "boolean" },
+    "slotVariantRunPolicy": { "type": "object" },
+    "games": {
+      "type": "array",
+      "maxItems": 99,
+      "items": { "$ref": "./game.schema.json" }
+    }
+  },
+  "additionalProperties": true
+}

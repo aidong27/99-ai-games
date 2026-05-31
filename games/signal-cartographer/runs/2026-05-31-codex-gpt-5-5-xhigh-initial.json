@@ -1,0 +1,36 @@
+{
+  "runId": "2026-05-31-codex-gpt-5-5-xhigh-initial",
+  "gameNumber": 1,
+  "gameSlug": "signal-cartographer",
+  "variantId": "codex-gpt-5-5-xhigh-2026-05-31",
+  "runType": "initial-generation",
+  "status": "accepted-playable",
+  "createdDate": "2026-05-31",
+  "modelName": "GPT-5.5 xhigh",
+  "agentName": "Codex",
+  "humanCodeEdits": false,
+  "promptSummary": "Create the first original game for 99 AI Games, replacing the missing earlier Game 001 with a self-contained browser game and an AI Observatory launcher.",
+  "outputs": [
+    "games/signal-cartographer/index.html",
+    "games/signal-cartographer/src/main.js",
+    "games/signal-cartographer/styles/main.css",
+    "games/signal-cartographer/game.json"
+  ],
+  "verification": {
+    "verifiedDate": "2026-05-31",
+    "checks": [
+      "node --check src/main.js",
+      "node --check games/signal-cartographer/src/main.js",
+      "JSON parse check for games/manifest.json and games/signal-cartographer/game.json",
+      "git diff --check",
+      "local static server preview",
+      "launcher opens Game 001",
+      "canvas renders nonblank",
+      "keyboard movement works",
+      "beacon input works",
+      "390px mobile layout has no horizontal overflow",
+      "browser console has no warnings or errors"
+    ]
+  },
+  "notes": "This run record describes work already performed in this repository. It should not be treated as a benchmark score."
+}

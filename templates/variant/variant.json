@@ -1,0 +1,16 @@
+{
+  "variantId": "todo-model-date",
+  "gameNumber": 0,
+  "gameSlug": "todo-game-slug",
+  "gameTitle": "TODO Game Title",
+  "status": "planned",
+  "createdDate": "Pending AI generation",
+  "modelName": "Pending AI generation",
+  "agentName": "Pending AI generation",
+  "humanCodeEdits": false,
+  "implementationPath": "./",
+  "metadataPath": "variant.json",
+  "notes": "Do not mark playable until source and verification exist.",
+  "comparisonRole": "comparison",
+  "runRecords": []
+}

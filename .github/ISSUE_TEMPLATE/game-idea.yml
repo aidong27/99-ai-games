@@ -1,0 +1,44 @@
+name: Game idea
+description: Suggest a future official game slot
+title: "[Game Idea]: "
+labels: ["game-idea"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Suggest one game concept. Do not use this for model variants of an existing game.
+  - type: input
+    id: title
+    attributes:
+      label: Game title
+      description: Working title for the concept.
+  - type: dropdown
+    id: hall
+    attributes:
+      label: Hall
+      options:
+        - Arcade Reaction Hall
+        - Puzzle Logic Hall
+        - Survival Strategy Hall
+        - Card Strategy Hall
+        - Text Adventure Hall
+        - Clicker Management Hall
+        - Physics Experiment Hall
+        - Rhythm Audio Hall
+        - AI Meme Hall
+  - type: dropdown
+    id: slot_type
+    attributes:
+      label: Slot type
+      options:
+        - benchmark
+        - normal
+        - failed-weird
+        - future-remake
+  - type: textarea
+    id: concept
+    attributes:
+      label: Concept
+      description: Core mechanic, controls, and why it fits the hall.
+    validations:
+      required: true

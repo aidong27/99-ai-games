@@ -1,0 +1,38 @@
+name: Bug report
+description: Report a reproducible problem in the launcher, metadata, or a game
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: input
+    id: area
+    attributes:
+      label: Affected area
+      description: Launcher, Game 001, metadata, scripts, docs, or workflow.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Include the local URL, browser, and commands if relevant.
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Console logs or screenshots
+      description: Add real evidence only. Do not add mock screenshots.

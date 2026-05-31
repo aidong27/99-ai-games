@@ -1,0 +1,37 @@
+{
+  "number": 0,
+  "title": "TODO Game Title",
+  "slug": "todo-game-slug",
+  "collection": "99 AI Games",
+  "slotType": "normal",
+  "hallId": "todo-hall-id",
+  "hallName": "TODO Hall Name",
+  "status": "planned",
+  "statusLabel": "Planned",
+  "localPath": "./games/todo-game-slug/",
+  "metadataPath": "./games/todo-game-slug/game.json",
+  "briefPath": "./games/todo-game-slug/brief.md",
+  "variantsPath": "./games/todo-game-slug/variants/",
+  "runsPath": "./games/todo-game-slug/runs/",
+  "canonicalVariantId": "",
+  "sourceCompleteness": "Planned; source not generated yet",
+  "description": "TODO: Describe the game concept.",
+  "provenance": {
+    "createdDate": "Pending AI generation",
+    "modelName": "Pending AI generation",
+    "agentName": "Pending AI generation",
+    "humanCodeEdits": false,
+    "notes": "Do not mark playable until the local source and verification are present."
+  },
+  "slotVariantRunPolicy": {
+    "gameSlot": "This file describes one official game concept.",
+    "modelVariant": "Model variants belong under variants/ and do not consume new game numbers.",
+    "runRecord": "Generation, revision, validation, and comparison attempts belong under runs/."
+  },
+  "variants": [],
+  "runRecords": [],
+  "controls": {},
+  "screenshots": [],
+  "tags": [],
+  "repositoryNote": "Scaffold template only."
+}

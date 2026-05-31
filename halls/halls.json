@@ -1,0 +1,88 @@
+{
+  "projectName": "99 AI Games",
+  "totalHalls": 9,
+  "slotsPerHall": 11,
+  "totalGameSlots": 99,
+  "numberingPolicy": "Game numbers are global collection slots. Hall order does not force a numeric range; each hall can hold 11 official game concepts.",
+  "slotVariantRunPolicy": "The 99 game slots represent 99 game concepts, not 99 AI generations. A single game may contain multiple model variants and run records. Model comparisons are stored as variants/runs under the same game slot and do not consume additional game numbers.",
+  "slotMixPerHall": {
+    "benchmark": 3,
+    "normal": 6,
+    "failed-weird": 1,
+    "future-remake": 1
+  },
+  "halls": [
+    {
+      "id": "arcade-reaction",
+      "number": 1,
+      "name": "Arcade Reaction Hall",
+      "capacity": 11,
+      "description": "Fast reaction games, dodging, jumping, score chasing, and short-loop arcade games.",
+      "assignedGameNumbers": []
+    },
+    {
+      "id": "puzzle-logic",
+      "number": 2,
+      "name": "Puzzle Logic Hall",
+      "capacity": 11,
+      "description": "Puzzles, logic gates, mazes, sequencing, deduction, and constrained movement.",
+      "assignedGameNumbers": []
+    },
+    {
+      "id": "survival-strategy",
+      "number": 3,
+      "name": "Survival Strategy Hall",
+      "capacity": 11,
+      "description": "Survival loops, resource pressure, route planning, hostile environments, and tactical movement.",
+      "assignedGameNumbers": [1]
+    },
+    {
+      "id": "card-strategy",
+      "number": 4,
+      "name": "Card Strategy Hall",
+      "capacity": 11,
+      "description": "Card games, dice games, turn-based battles, drafting, and roguelite decision systems.",
+      "assignedGameNumbers": []
+    },
+    {
+      "id": "text-adventure",
+      "number": 5,
+      "name": "Text Adventure Hall",
+      "capacity": 11,
+      "description": "Interactive fiction, branching stories, terminal games, AI-themed stories, and RPG-style text systems.",
+      "assignedGameNumbers": []
+    },
+    {
+      "id": "clicker-management",
+      "number": 6,
+      "name": "Clicker Management Hall",
+      "capacity": 11,
+      "description": "Incremental games, business sims, resource management, and automation loops.",
+      "assignedGameNumbers": []
+    },
+    {
+      "id": "physics-experiment",
+      "number": 7,
+      "name": "Physics Experiment Hall",
+      "capacity": 11,
+      "description": "Physics toys, gravity games, projectile games, magnets, bouncing, and sandbox mechanics.",
+      "assignedGameNumbers": []
+    },
+    {
+      "id": "rhythm-audio",
+      "number": 8,
+      "name": "Rhythm Audio Hall",
+      "capacity": 11,
+      "description": "Rhythm games, music memory, beat timing, and audio-reactive games.",
+      "assignedGameNumbers": []
+    },
+    {
+      "id": "ai-meme",
+      "number": 9,
+      "name": "AI Meme Hall",
+      "capacity": 11,
+      "description": "AI jokes, agent failures, prompt chaos, token bills, model battles, and weird AI behavior games.",
+      "assignedGameNumbers": []
+    }
+  ]
+}

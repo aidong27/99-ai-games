@@ -3,8 +3,9 @@ const featuredGame = document.querySelector("#featured-game");
 const collectionStatus = document.querySelector("#collection-status");
 const completedCount = document.querySelector("#completed-count");
 const targetCount = document.querySelector("#target-count");
-const modelLabel = document.querySelector("#model-label");
-const humanEdits = document.querySelector("#human-edits");
+const hallCount = document.querySelector("#hall-count");
+const variantCount = document.querySelector("#variant-count");
+const runCount = document.querySelector("#run-count");
 const latestTitle = document.querySelector("#latest-title");
 const scopeModel = document.querySelector("#scope-model");
 const latestLaunch = document.querySelector("#latest-launch");
@@ -40,10 +41,15 @@ function renderCollection(manifest) {
   const playable = games.filter((game) => game.status === "playable");
   const featured = games[0];
   const target = manifest.targetGameCount ?? 99;
+  const variants = games.reduce((total, game) => total + (game.variants?.length ?? 0), 0);
+  const runs = games.reduce((total, game) => total + (game.runRecords?.length ?? 0), 0);
 
   completedCount.textContent = String(playable.length);
   targetCount.textContent = String(target);
-  collectionStatus.textContent = `${playable.length} / ${target} playable entries`;
+  hallCount.textContent = String(manifest.hallCount ?? 9);
+  variantCount.textContent = String(variants);
+  runCount.textContent = String(runs);
+  collectionStatus.textContent = `${playable.length} playable slot, ${variants} variant, ${runs} run record`;
   featuredGame.replaceChildren(createFeaturedGame(featured));
   gameList.replaceChildren(...games.map(createGameCard));
 
@@ -51,8 +57,6 @@ function renderCollection(manifest) {
     const launchHref = getLaunchHref(featured);
     latestTitle.textContent = featured.title;
     latestLaunch.href = launchHref;
-    modelLabel.textContent = featured.provenance?.modelName ?? "Unrecorded";
-    humanEdits.textContent = featured.provenance?.humanCodeEdits ? "true" : "false";
     scopeModel.textContent = `${featured.provenance?.modelName ?? "Unknown model"} / ${featured.provenance?.agentName ?? "Unknown agent"}`;
   }
 }
@@ -126,10 +130,14 @@ function createMetadataBlock(game) {
   metadata.className = "metadata";
   metadata.append(
     createMetadata("Status", game.statusLabel ?? game.status),
+    createMetadata("Hall", game.hallName ?? game.hallId),
+    createMetadata("Slot type", game.slotType),
     createMetadata("Model", provenance.modelName),
     createMetadata("Agent", provenance.agentName),
     createMetadata("Created", provenance.createdDate),
     createMetadata("Human edits", provenance.humanCodeEdits ? "Yes" : "No"),
+    createMetadata("Variants", String(game.variants?.length ?? 0)),
+    createMetadata("Runs", String(game.runRecords?.length ?? 0)),
     createMetadata("Source", game.sourceCompleteness)
   );
   return metadata;

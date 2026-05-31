@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/aidong27/99-ai-games/schemas/game.schema.json",
+  "title": "99 AI Games Game Slot",
+  "type": "object",
+  "required": ["number", "title", "slug", "status", "hallId", "slotType", "provenance"],
+  "properties": {
+    "number": { "type": "integer", "minimum": 1, "maximum": 99 },
+    "title": { "type": "string", "minLength": 1 },
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "collection": { "const": "99 AI Games" },
+    "slotType": { "enum": ["benchmark", "normal", "failed-weird", "future-remake"] },
+    "hallId": { "type": "string" },
+    "hallName": { "type": "string" },
+    "status": { "enum": ["planned", "playable", "prototype", "paused", "retired"] },
+    "statusLabel": { "type": "string" },
+    "localPath": { "type": "string" },
+    "metadataPath": { "type": "string" },
+    "briefPath": { "type": "string" },
+    "variantsPath": { "type": "string" },
+    "runsPath": { "type": "string" },
+    "canonicalVariantId": { "type": "string" },
+    "sourceCompleteness": { "type": "string" },
+    "description": { "type": "string" },
+    "provenance": {
+      "type": "object",
+      "required": ["createdDate", "modelName", "agentName", "humanCodeEdits"],
+      "properties": {
+        "createdDate": { "type": "string" },
+        "modelName": { "type": "string" },
+        "agentName": { "type": "string" },
+        "humanCodeEdits": { "type": "boolean" },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "variants": {
+      "type": "array",
+      "items": { "$ref": "./variant.schema.json" }
+    },
+    "runRecords": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": true
+}

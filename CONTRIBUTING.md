@@ -6,12 +6,15 @@ Thanks for your interest in 99 AI Games. This project is a long-term experiment 
 
 The maintainer does not hand-edit game code. Game code should be produced by Codex or another AI agent, then reviewed, tested, documented, and published by the maintainer.
 
+The 99 game slots represent 99 game concepts, not 99 AI generations. If you are proposing a different model's attempt at an existing concept, use a model variant issue instead of asking for a new game number.
+
 For now, this repository accepts:
 
 - Bug reports.
 - Feature ideas.
 - Accessibility feedback.
 - Game concept suggestions.
+- Model variant suggestions for existing game slots.
 - Documentation corrections.
 - Reports about broken links, missing provenance, or incorrect metadata.
 
@@ -44,6 +47,8 @@ Spam PRs, unrelated rewrites, and unverified AI code dumps will not be accepted.
 
 - Use plain HTML, CSS, and JavaScript unless a dependency is clearly justified.
 - Keep each game self-contained in `games/<slug>/`.
+- Keep variants under `games/<slug>/variants/<variant-id>/`.
+- Keep run records under `games/<slug>/runs/`.
 - Keep asset paths relative.
 - Keep metadata current in both `games/manifest.json` and each game's `game.json`.
 - Test through a local static server instead of relying on `file://`.

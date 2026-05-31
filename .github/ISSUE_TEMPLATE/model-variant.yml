@@ -1,0 +1,42 @@
+name: Model variant
+description: Propose or track a model variant for an existing game slot
+title: "[Variant]: "
+labels: ["model-variant"]
+body:
+  - type: input
+    id: game
+    attributes:
+      label: Existing game slot
+      description: Example: Game 001 Signal Cartographer.
+    validations:
+      required: true
+  - type: input
+    id: model
+    attributes:
+      label: Model label
+      description: Use the maintainer-declared label if exact system details are not externally verifiable.
+    validations:
+      required: true
+  - type: input
+    id: agent
+    attributes:
+      label: Agent/tool
+      description: Example: Codex.
+    validations:
+      required: true
+  - type: textarea
+    id: goal
+    attributes:
+      label: Variant goal
+      description: What should this variant explore or improve?
+    validations:
+      required: true
+  - type: checkboxes
+    id: policy
+    attributes:
+      label: Policy
+      options:
+        - label: This variant does not consume a new game number.
+          required: true
+        - label: Run records should be added for generation or validation attempts.
+          required: true

@@ -1,0 +1,31 @@
+name: Provenance correction
+description: Correct model, agent, date, source, or verification metadata
+title: "[Provenance]: "
+labels: ["provenance"]
+body:
+  - type: input
+    id: path
+    attributes:
+      label: File or game
+      description: Which metadata file or game slot needs correction?
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: Current value
+    validations:
+      required: true
+  - type: textarea
+    id: corrected
+    attributes:
+      label: Corrected value
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Link or explain the source of the correction. Do not guess.
+    validations:
+      required: true

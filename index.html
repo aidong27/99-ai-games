@@ -32,8 +32,8 @@
           <h1 id="project-title">99 AI Games</h1>
           <p class="lede">
             A long-running collection of 99 small web games made by Codex and other
-            AI agents. The maintainer curates prompts, tests releases, and records
-            provenance while keeping the project honest about what the AI made.
+            AI agents. Game slots are concepts, while model variants and run records
+            preserve the many attempts that can happen under one slot.
           </p>
           <div class="hero-actions">
             <a id="latest-launch" class="button primary" href="./games/signal-cartographer/">Launch Game 001</a>
@@ -53,20 +53,20 @@
 
       <section class="metrics" aria-label="Collection telemetry">
         <article class="stat-card">
-          <span>Playable entries</span>
+          <span>Official game slots</span>
           <strong><b id="completed-count">1</b> / <b id="target-count">99</b></strong>
         </article>
         <article class="stat-card">
-          <span>Current model label</span>
-          <strong id="model-label">GPT-5.5 xhigh</strong>
+          <span>Game halls</span>
+          <strong id="hall-count">9</strong>
         </article>
         <article class="stat-card">
-          <span>Human code edits</span>
-          <strong id="human-edits">false</strong>
+          <span>Model variants</span>
+          <strong id="variant-count">1</strong>
         </article>
         <article class="stat-card">
-          <span>Archive mode</span>
-          <strong>slow experiment</strong>
+          <span>Run records</span>
+          <strong id="run-count">1</strong>
         </article>
       </section>
 
@@ -98,10 +98,10 @@
           <h2 id="protocol-title">Built by agents, maintained with receipts</h2>
         </div>
         <ol>
-          <li>Every game lives in its own folder with a local playable build.</li>
-          <li>Every game has metadata for model label, agent, date, and edit policy.</li>
+          <li>Game slots represent official concepts, not AI generations.</li>
+          <li>Model variants live under the same game slot and do not consume new numbers.</li>
+          <li>Run records preserve generation, revision, validation, and comparison attempts.</li>
           <li>The maintainer tests and publishes, but does not hand-write game code.</li>
-          <li>The project grows gradually so each entry can reflect AI progress at that time.</li>
         </ol>
       </section>
     </main>

@@ -4,42 +4,39 @@
 
 99 AI Games
 
-## Repository
-
-`aidong27/99-ai-games`
-
 ## Concept
 
-99 AI Games is a long-term collection of 99 small browser games created by Codex or other AI agents. The project is both a playable archive and a public record of AI-assisted game development over time.
+99 AI Games is a long-term archive of small browser games made by Codex or other AI agents. It preserves playable games, model provenance, variants, and run records so future readers can see how AI game-making changes over time.
 
-The maintainer does not hand-write game code. The maintainer acts as curator, prompt designer, tester, publisher, and record keeper.
+## Core Archive Principle
 
-## Current Game 001
+The 99 game slots represent 99 game concepts, not 99 AI generations. A single game may contain multiple model variants and run records. Model comparisons are stored as variants/runs under the same game slot and do not consume additional game numbers.
 
-**Signal Cartographer** is Game 001.
+## Current Game
 
-It is a self-contained Canvas game where the player pilots a mapping cursor through a hostile signal field, collects fragments, drops stabilizing beacons, and reaches the exit before integrity reaches zero.
+Game 001 is **Signal Cartographer**.
 
-## Provenance
-
+- Hall: Survival Strategy Hall
+- Slot type: benchmark
+- Status: playable
+- Canonical variant: `codex-gpt-5-5-xhigh-2026-05-31`
 - Model label: `GPT-5.5 xhigh`
 - Agent/tool: `Codex`
 - Created date: `2026-05-31`
 - Human code edits: `false`
-- Note: the model label is maintainer-declared for this project entry.
 
-## Current Status
+## Framework Pieces
 
-- Root launcher exists as an AI Observatory UI.
-- `games/manifest.json` lists the playable catalog.
-- Game 001 local source is included.
-- Community and maintenance files exist.
-- Real screenshots and public hosting are still TODO.
+- `games/manifest.json`: collection index
+- `halls/halls.json`: hall structure
+- `schemas/`: metadata shapes
+- `scripts/`: validation and scaffolding
+- `templates/`: game, variant, run, and prompt templates
+- `docs/`: policies and process docs
 
-## Design Principles
+## Current Limitations
 
-- Keep every game small enough to inspect and test.
-- Keep metadata honest and visible.
-- Do not claim popularity, users, or source history that does not exist.
-- Prefer gradual progress over rushing to 99 games.
-- Record how AI-generated gameplay and code quality changes across time.
+- Public hosting is not configured yet.
+- Real screenshots still need to be captured.
+- Game 001 balance needs more playtesting.
+- Future model comparisons should be added only when real variants exist.

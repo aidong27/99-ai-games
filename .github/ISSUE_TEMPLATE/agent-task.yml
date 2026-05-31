@@ -1,0 +1,25 @@
+name: Agent task
+description: Request a focused AI-agent maintenance task
+title: "[Agent Task]: "
+labels: ["agent-task"]
+body:
+  - type: textarea
+    id: task
+    attributes:
+      label: Task
+      description: What should the AI agent do?
+    validations:
+      required: true
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Boundaries
+      options:
+        - label: Do not replace or delete Game 001.
+        - label: Do not invent provenance, screenshots, popularity, or verification.
+        - label: Keep game slots, variants, and runs distinct.
+  - type: textarea
+    id: verification
+    attributes:
+      label: Expected verification
+      description: Which commands or browser checks should be run?

@@ -16,9 +16,25 @@ http://localhost:4173
 
 Avoid relying on `file://` for testing because module loading, fetch calls, and canvas checks can behave differently.
 
-## Game Folder Standard
+## Metadata Checks
 
-Each game should live in:
+Run:
+
+```bash
+node scripts/validate-halls.mjs
+node scripts/validate-games.mjs
+node scripts/generate-index.mjs --check
+```
+
+Regenerate the markdown index after manifest changes:
+
+```bash
+node scripts/generate-index.mjs --write
+```
+
+## Folder Standard
+
+Each official game slot should live in:
 
 ```text
 games/<slug>/
@@ -29,32 +45,37 @@ Minimum structure:
 ```text
 index.html
 game.json
+brief.md
+README.md
 src/
 styles/
 assets/images/
 assets/audio/
+variants/
+runs/
 ```
 
-## Metadata Standard
+## Variant Standard
 
-Each game must record:
+Model variants live under:
 
-- `number`
-- `title`
-- `slug`
-- `status`
-- `createdDate`
-- `modelName`
-- `agentName`
-- `humanCodeEdits`
-- `sourceCompleteness`
-- any notes about uncertainty or maintainer-declared labels
+```text
+games/<slug>/variants/<variant-id>/
+```
 
-The root `games/manifest.json` should stay synchronized with each game's `game.json`.
+Variants do not consume new game numbers. They must record model, agent, date, status, and `humanCodeEdits`.
+
+## Run Standard
+
+Run records live under:
+
+```text
+games/<slug>/runs/<run-id>.json
+```
+
+A run can describe generation, revision, validation, comparison, benchmark, or release work.
 
 ## Verification Checklist
-
-Before marking a game playable:
 
 - Launcher loads `games/manifest.json`.
 - Launcher card opens the game.
@@ -65,14 +86,4 @@ Before marking a game playable:
 - Desktop layout has no horizontal overflow.
 - 390px mobile layout has no horizontal overflow.
 - Metadata matches the real game and source state.
-
-## Current Game 001 Notes
-
-Signal Cartographer is a local self-contained Canvas game with no external assets or runtime dependencies.
-
-Known next work:
-
-- Capture real screenshots.
-- Tune difficulty after playtesting.
-- Consider reduced-motion handling if the signal effects feel too intense.
-- Add a short postmortem after the first public release.
+- Hall assignment and run records validate.

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/aidong27/99-ai-games/schemas/variant.schema.json",
+  "title": "99 AI Games Model Variant",
+  "type": "object",
+  "required": ["variantId", "gameNumber", "gameSlug", "status", "createdDate", "modelName", "agentName", "humanCodeEdits"],
+  "properties": {
+    "variantId": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "gameNumber": { "type": "integer", "minimum": 1, "maximum": 99 },
+    "gameSlug": { "type": "string" },
+    "gameTitle": { "type": "string" },
+    "status": { "enum": ["planned", "prototype", "canonical-playable", "playable", "archived"] },
+    "createdDate": { "type": "string" },
+    "modelName": { "type": "string" },
+    "agentName": { "type": "string" },
+    "humanCodeEdits": { "type": "boolean" },
+    "implementationPath": { "type": "string" },
+    "metadataPath": { "type": "string" },
+    "notes": { "type": "string" },
+    "comparisonRole": { "type": "string" },
+    "runRecords": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": true
+}

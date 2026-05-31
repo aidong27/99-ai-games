@@ -1,0 +1,16 @@
+:root {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  color: #f5f8ff;
+  background: #07090d;
+}
+
+main {
+  width: min(720px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 48px 0;
+}

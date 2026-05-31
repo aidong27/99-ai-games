@@ -6,7 +6,9 @@
 
 The first game is **Signal Cartographer**, a self-contained Canvas game where the player maps a hostile signal field, collects fragments, drops beacons, and exits before signal integrity fails.
 
-The repository includes the shared AI Observatory launcher, `games/manifest.json`, Game 001 source, per-game metadata, documentation, community files, and a roadmap.
+The repository includes the shared AI Observatory launcher, `games/manifest.json`, Game 001 source, the 9 Game Halls framework, schemas, templates, validation scripts, per-game metadata, documentation, community files, and a roadmap.
+
+The project distinguishes between game slots, model variants, and run records. The 99 game slots represent 99 game concepts, not 99 AI generations. Model comparisons are stored as variants/runs under the same game slot and do not consume additional game numbers.
 
 ## Why I Am the Maintainer
 
@@ -21,6 +23,8 @@ I use Codex as an AI engineering and game-building agent for:
 - Creating small browser games from prompts.
 - Building and maintaining the shared launcher UI.
 - Organizing each game into a clear folder structure.
+- Creating model variants for the same game concept without consuming new game numbers.
+- Recording generation, revision, validation, and comparison attempts as run records.
 - Writing metadata that records model, agent, date, and human edit status.
 - Refactoring AI-generated code while preserving the no-human-code-edits rule.
 - Running local browser checks.
@@ -35,6 +39,7 @@ Codex would make the project sustainable for a solo maintainer. Each game needs 
 The most useful Codex support would be:
 
 - Generating new HTML5 games.
+- Generating controlled variants of existing games for model comparison.
 - Improving existing AI-generated game code.
 - Building smoke checks for static browser games.
 - Checking whether each game remains playable after changes.
@@ -50,6 +55,7 @@ The most useful Codex support would be:
 - How AI agents organize game loops, controls, UI, and metadata.
 - How a static JavaScript game can be documented and maintained.
 - What provenance fields are useful for AI-generated projects.
+- How model variants and run records can document AI work without inflating game counts.
 - How project quality changes as models and agents improve.
 
 The project is intentionally modest and transparent. It does not claim to be a large community project.

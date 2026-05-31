@@ -1,14 +1,14 @@
 # TODO
 
-This repository now starts with an original local Game 001, **Signal Cartographer**. Keep the TODO list honest and based on real missing work.
+Keep this TODO honest and based on real missing work.
 
-## Collection Setup
+## Framework
 
-- Confirm the public GitHub repository is `aidong27/99-ai-games`.
-- Enable GitHub Pages or another static host if an online demo is desired.
-- Add verified launcher screenshots after visual QA.
-- Document the exact process for adding Game 002.
-- Decide whether future games need a shared QA script.
+- Keep `games/manifest.json`, `halls/halls.json`, and per-game metadata synchronized.
+- Run validation before every release.
+- Decide whether `scripts/new-game.mjs` should eventually update manifest and halls automatically.
+- Decide whether future variants should duplicate full source or reference a canonical implementation path.
+- Add generated hall pages if the catalog grows.
 
 ## Game 001: Signal Cartographer
 
@@ -16,7 +16,7 @@ This repository now starts with an original local Game 001, **Signal Cartographe
 - Tune damage, beacon count, and sector pacing after playtesting.
 - Add optional audio only if it is generated or licensed for this repository.
 - Add asset credits if any external assets are introduced later.
-- Keep `game.json` synchronized with real game behavior.
+- Keep `game.json`, variant metadata, and run records synchronized with real game behavior.
 
 ## Verification
 
@@ -27,10 +27,13 @@ This repository now starts with an original local Game 001, **Signal Cartographe
 - Verify pointer controls.
 - Verify touch controls at mobile width.
 - Check for horizontal overflow at desktop and 390px mobile width.
+- Run `node scripts/validate-halls.mjs`.
+- Run `node scripts/validate-games.mjs`.
+- Run `node scripts/generate-index.mjs --check`.
 
 ## Documentation
 
-- Keep `README.md`, `ROADMAP.md`, and `OPENAI_OSS_APPLICATION.md` aligned with the real project state.
-- Add a short release note format for new games.
+- Keep `README.md`, `AGENTS.md`, `ROADMAP.md`, and `OPENAI_OSS_APPLICATION.md` aligned with the real project state.
+- Add release notes when GitHub Pages or another public host is configured.
 - Document how model labels are declared and verified.
-- Keep `games/manifest.json` and each `game.json` synchronized.
+- Add postmortems only after real testing.
