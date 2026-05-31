@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Open-source repository status page for Star Survivor PX Neon, a pixel/neon browser survival game by aidong27."
+    >
+    <title>Star Survivor PX Neon</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="./styles/main.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero" aria-labelledby="project-title">
+        <p class="eyebrow">Open-source cleanup in progress</p>
+        <h1 id="project-title">Star Survivor PX Neon</h1>
+        <p class="lede">
+          This repository is being prepared as the public source home for the itch.io browser game.
+          The playable source files still need to be imported and verified.
+        </p>
+        <div class="actions" aria-label="Project links">
+          <a class="button primary" href="https://aidong27.itch.io/star-survivor-px-neon">Play on itch.io</a>
+          <a class="button" href="./README.md">Read project notes</a>
+        </div>
+      </section>
+
+      <section class="status-panel" aria-labelledby="status-title">
+        <h2 id="status-title">Repository Status</h2>
+        <div id="app" class="status-list" aria-live="polite">
+          <p>Loading project status...</p>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
