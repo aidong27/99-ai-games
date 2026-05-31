@@ -26,7 +26,7 @@
       "name": "Puzzle Logic Hall",
       "capacity": 11,
       "description": "Observes AI ability in rules, constraints, state logic, solvability, and puzzle communication.",
-      "assignedGameNumbers": []
+      "assignedGameNumbers": [2]
     },
     {
       "id": "survival-strategy",
