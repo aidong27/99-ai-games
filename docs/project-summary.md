@@ -51,7 +51,7 @@ Observation 002 / Game 002 is **Lumen Lattice**.
 
 ## Current Limitations
 
-- Public hosting is not configured yet.
+- Public hosting is configured through GitHub Pages: `https://aidong27.github.io/99-ai-games/`.
 - Verified local screenshots are included for Observation 001 and Observation 002.
 - Observation 001 and Observation 002 need more real playtesting notes.
 - Future model comparisons should be added only when real variants exist.

@@ -1,5 +1,7 @@
 # 99 AI Games
 
+Demo: https://aidong27.github.io/99-ai-games/
+
 A public archive for observing AI coding-agent progress through playable browser-game experiments.
 
 **The games are playable. The real exhibit is the AI that made them.**
@@ -12,6 +14,7 @@ The maintainer plans prompts, tests builds, publishes releases, and records prov
 
 - Active early-stage archive.
 - 2 playable observation samples.
+- Public demo available via GitHub Pages.
 - Validation scripts available.
 - No fake screenshots or fake popularity claims.
 - Public roadmap and provenance policy.
