@@ -96,7 +96,7 @@ Use `templates/` and `templates/prompts/` for future agent tasks.
 ## Near-Term Plan
 
 1. Keep Observation 001 and Observation 002 stable.
-2. Capture real screenshots for both playable samples.
+2. Keep verified screenshots current when playable samples change.
 3. Enable public static hosting with GitHub Pages.
 4. Add a first comparison variant only when there is a meaningful model comparison to record.
 5. Write the Game 003 benchmark brief before generating any new game source.

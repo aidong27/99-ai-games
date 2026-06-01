@@ -1,0 +1,33 @@
+{
+  "runId": "2026-06-01-codex-render-loop-screenshot-fix",
+  "gameNumber": 2,
+  "gameSlug": "lumen-lattice",
+  "variantId": "claude-opus-4-8-2026-05-31",
+  "runType": "revision",
+  "status": "accepted-maintenance-fix",
+  "createdDate": "2026-06-01",
+  "modelName": "GPT-5 (Codex session)",
+  "agentName": "Codex",
+  "humanCodeEdits": false,
+  "promptSummary": "Capture verified local screenshots for Game 001 and Game 002. During the browser pass, Lumen Lattice showed a blank board because the render loop tried to draw cells before the menu-state grid existed.",
+  "outputs": [
+    "games/lumen-lattice/src/main.js",
+    "games/lumen-lattice/assets/images/screenshot-title.png",
+    "games/lumen-lattice/assets/images/screenshot-puzzle.png",
+    "games/lumen-lattice/assets/images/screenshot-solved.png"
+  ],
+  "verification": {
+    "verifiedDate": "2026-06-01",
+    "performed": [
+      "Reproduced the blank-board issue through the local browser at http://localhost:4173/games/lumen-lattice/",
+      "Observed console error: TypeError: Cannot read properties of undefined (reading '0') at drawCells",
+      "Initialized the menu-state grid and remaining move matrix before the first render",
+      "Replayed the first lattice with real browser clicks and solved it in 4 moves",
+      "Captured verified local screenshots for title, puzzle, and solved states"
+    ],
+    "pending": [
+      "Full multi-level manual playtest beyond the first solved lattice"
+    ]
+  },
+  "notes": "This is a narrow render-loop fix discovered while capturing real screenshots. It does not change the puzzle rules, level generation, solution tracking, controls, or scoring."
+}

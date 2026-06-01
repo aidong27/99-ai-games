@@ -39,7 +39,8 @@
     }
   ],
   "runRecords": [
-    "runs/2026-05-31-claude-opus-4-8-initial.json"
+    "runs/2026-05-31-claude-opus-4-8-initial.json",
+    "runs/2026-06-01-codex-render-loop-screenshot-fix.json"
   ],
   "controls": {
     "keyboard": ["WASD or Arrow keys to move the cursor", "Space or Enter to fire a node", "H for a hint", "U to undo", "R to reset the lattice"],
