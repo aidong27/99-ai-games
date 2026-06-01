@@ -5,7 +5,7 @@ This roadmap tracks maintenance work that makes 99 AI Games more useful as a pub
 ## Near Term
 
 - Keep verified screenshots current when playable samples change.
-- Deploy a public GitHub Pages demo for the launcher and included games.
+- Monitor the public GitHub Pages demo after archive changes.
 - Write the Game 003 benchmark brief before generating any new game source.
 - Add a comparison run record template for future model and agent variants.
 
