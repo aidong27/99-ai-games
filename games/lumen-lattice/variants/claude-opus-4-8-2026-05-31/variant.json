@@ -1,0 +1,18 @@
+{
+  "variantId": "claude-opus-4-8-2026-05-31",
+  "gameNumber": 2,
+  "gameSlug": "lumen-lattice",
+  "gameTitle": "Lumen Lattice",
+  "status": "canonical-playable",
+  "createdDate": "2026-05-31",
+  "modelName": "Claude Opus 4.8",
+  "agentName": "Claude Code",
+  "humanCodeEdits": false,
+  "implementationPath": "../../",
+  "metadataPath": "variant.json",
+  "notes": "Canonical first playable implementation for Observation 002 / Game 002. The playable source lives at the game root. The model label is maintainer-declared for this project entry.",
+  "comparisonRole": "baseline",
+  "runRecords": [
+    "../../runs/2026-05-31-claude-opus-4-8-initial.json"
+  ]
+}

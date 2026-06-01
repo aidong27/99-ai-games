@@ -49,9 +49,13 @@ function renderCollection(manifest) {
   hallCount.textContent = String(manifest.hallCount ?? 9);
   variantCount.textContent = String(variants);
   runCount.textContent = String(runs);
-  collectionStatus.textContent = `${playable.length} playable observation sample, ${variants} variant, ${runs} run record`;
+  collectionStatus.textContent = `${pluralize(playable.length, "playable observation sample")}, ${pluralize(variants, "variant")}, ${pluralize(runs, "run record")}`;
   featuredGame.replaceChildren(createFeaturedGame(featured));
-  gameList.replaceChildren(...games.map(createGameCard));
+
+  // Avoid showing the featured entry twice: once there is more than one sample,
+  // the observation deck lists everything except the featured highlight.
+  const deck = games.length > 1 ? games.filter((game) => game !== featured) : games;
+  gameList.replaceChildren(...deck.map(createGameCard));
 
   if (featured) {
     const launchHref = getLaunchHref(featured);
@@ -192,6 +196,10 @@ function createText(tagName, className, text) {
   }
   element.textContent = text ?? "";
   return element;
+}
+
+function pluralize(count, noun) {
+  return `${count} ${noun}${count === 1 ? "" : "s"}`;
 }
 
 function getLaunchHref(game) {
