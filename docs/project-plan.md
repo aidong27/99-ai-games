@@ -28,7 +28,7 @@ The maintainer:
 3. **Run Record**: one generation, revision, validation, benchmark, or comparison attempt.
 4. **Game Hall**: one of 9 AI capability observation categories, each with capacity for 11 observation samples.
 
-## Current Slot
+## Current Slots
 
 Observation 001 / Game 001 is **Signal Cartographer**.
 
@@ -39,6 +39,17 @@ Observation 001 / Game 001 is **Signal Cartographer**.
 - Canonical variant: `codex-gpt-5-5-xhigh-2026-05-31`
 - Model label: `GPT-5.5 xhigh`
 - Agent/tool: `Codex`
+- Human code edits: `false`
+
+Observation 002 / Game 002 is **Lumen Lattice**.
+
+- Hall: Puzzle Logic Hall
+- Slot type: benchmark
+- Archive role: first Puzzle Logic Hall observation sample
+- Status: playable
+- Canonical variant: `claude-opus-4-8-2026-05-31`
+- Model label: `Claude Opus 4.8`
+- Agent/tool: `Claude Code`
 - Human code edits: `false`
 
 ## Growth Strategy
@@ -84,8 +95,8 @@ Use `templates/` and `templates/prompts/` for future agent tasks.
 
 ## Near-Term Plan
 
-1. Keep Observation 001 stable.
-2. Capture real screenshots.
-3. Enable public static hosting if desired.
+1. Keep Observation 001 and Observation 002 stable.
+2. Capture real screenshots for both playable samples.
+3. Enable public static hosting with GitHub Pages.
 4. Add a first comparison variant only when there is a meaningful model comparison to record.
-5. Add Observation 002 / Game 002 after the framework has been tested on Observation 001.
+5. Write the Game 003 benchmark brief before generating any new game source.

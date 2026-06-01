@@ -1,10 +1,20 @@
 # 99 AI Games
 
+A public archive for observing AI coding-agent progress through playable browser-game experiments.
+
 **The games are playable. The real exhibit is the AI that made them.**
 
 99 AI Games is a long-term AI game-making evolution archive. It uses 99 playable browser-game experiments as observation samples to witness how AI agents improve at design, logic, coding, polish, debugging, controls, accessibility, and creative judgment over time.
 
 The maintainer plans prompts, tests builds, publishes releases, and records provenance. The maintainer does not hand-write or hand-edit game code.
+
+## Maintenance Status
+
+- Active early-stage archive.
+- 2 playable observation samples.
+- Validation scripts available.
+- No fake screenshots or fake popularity claims.
+- Public roadmap and provenance policy.
 
 ## The Real Goal
 
@@ -87,10 +97,11 @@ Then open:
 http://localhost:4173
 ```
 
-The launcher opens Observation 001 / Game 001 from:
+The launcher opens the included observation samples from:
 
 ```text
 games/signal-cartographer/
+games/lumen-lattice/
 ```
 
 ## Observation Index
@@ -104,13 +115,19 @@ The canonical machine-readable index is [`games/manifest.json`](games/manifest.j
 
 ## Screenshots
 
-Screenshots are still TODO. Add verified screenshots from the local build when they are captured:
+Screenshots are still TODO. Add verified screenshots from the local build when they are captured. Do not add mock screenshots as if they were real gameplay captures.
+
+Planned Game 001 screenshot paths:
 
 - `games/signal-cartographer/assets/images/screenshot-title.png`
 - `games/signal-cartographer/assets/images/screenshot-gameplay.png`
 - `games/signal-cartographer/assets/images/screenshot-upgrades.png`
 
-Do not add mock screenshots as if they were real gameplay captures.
+Planned Game 002 screenshot paths:
+
+- `games/lumen-lattice/assets/images/screenshot-title.png`
+- `games/lumen-lattice/assets/images/screenshot-puzzle.png`
+- `games/lumen-lattice/assets/images/screenshot-solved.png`
 
 ## Project Structure
 
@@ -121,7 +138,14 @@ Do not add mock screenshots as if they were real gameplay captures.
 ├── styles/
 ├── games/
 │   ├── manifest.json
-│   └── signal-cartographer/
+│   ├── signal-cartographer/
+│       ├── index.html
+│       ├── game.json
+│       ├── brief.md
+│       ├── README.md
+│       ├── variants/
+│       └── runs/
+│   └── lumen-lattice/
 │       ├── index.html
 │       ├── game.json
 │       ├── brief.md
@@ -150,10 +174,16 @@ Syntax checks:
 ```bash
 node --check src/main.js
 node --check games/signal-cartographer/src/main.js
+node --check games/lumen-lattice/src/main.js
 ```
 
 ## Documentation
 
+- [Contributing](CONTRIBUTING.md)
+- [Changelog](CHANGELOG.md)
+- [Security policy](SECURITY.md)
+- [Roadmap](docs/roadmap.md)
+- [Codex for Open Source application draft](docs/codex-open-source-application.md)
 - [Project plan](docs/project-plan.md)
 - [Game halls](docs/game-halls.md)
 - [Provenance policy](docs/provenance-policy.md)

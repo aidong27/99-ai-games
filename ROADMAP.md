@@ -1,51 +1,11 @@
 # Roadmap
 
-99 AI Games is a long-term AI game-making evolution archive. The goal is not to complete 99 games quickly; the goal is to preserve a public record of how AI agents improve at making small browser games.
+The canonical maintenance roadmap now lives at [`docs/roadmap.md`](docs/roadmap.md).
 
-## v0.1 Archive Framework
+The short version:
 
-- Preserve Observation 001 / Game 001, Signal Cartographer, as the first playable observation sample.
-- Add the 9 Game Halls framework.
-- Define game slots, model variants, and run records.
-- Add schemas, templates, and validation scripts.
-- Add GitHub workflow checks after repository credentials have `workflow` scope.
-- Keep the AI Observatory launcher connected to `games/manifest.json`.
+- Near term: verified screenshots, GitHub Pages demo, Game 003 benchmark brief, and comparison run record template.
+- Mid term: real model/agent variants, generated comparison reports, and an accessibility checklist.
+- Long term: 99 observation samples, a model evolution timeline, and a public playable archive.
 
-## v0.2 Observation 001 Polish
-
-- Tune Signal Cartographer difficulty, pacing, and upgrade balance.
-- Capture real screenshots from the local build.
-- Improve pause, restart, win, and failure states.
-- Document known limitations after real playtesting.
-- Add a short Observation 001 postmortem.
-
-## v0.3 Variant And Benchmark System
-
-- Add a repeatable benchmark checklist for generated games.
-- Add the first true comparison variant for an existing slot.
-- Store comparison notes as run records.
-- Track what each model did well and where it struggled.
-- Avoid turning variant comparisons into fake rankings.
-
-## v0.4 Mobile And Accessibility
-
-- Improve touch controls across common phone sizes.
-- Add clearer focus states and keyboard navigation around launcher controls.
-- Review color contrast and motion intensity.
-- Add reduced-motion handling where useful.
-- Test desktop and 390px mobile layouts before each game release.
-
-## v0.5 Content Expansion
-
-- Add Observation 002 / Game 002 only after the framework and Observation 001 documentation are stable.
-- Use the Game Halls structure to choose the next concept.
-- Prefer variety over speed.
-- Keep each game small enough to inspect, test, and maintain.
-
-## Future Ideas
-
-- Add public static hosting.
-- Add generated hall pages.
-- Add optional local browser smoke scripts.
-- Add model comparison summaries per game slot.
-- Revisit older slots as future remake concepts when AI agents improve.
+Do not treat future roadmap items as completed work, and do not create empty game slots just to imply progress.
