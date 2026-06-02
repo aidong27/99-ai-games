@@ -39,6 +39,14 @@ const gameJson = {
   statusLabel: "Planned",
   sourceCompleteness: "Planned; source not generated yet",
   description: "TODO: Describe the game concept.",
+  deviceSupport: {
+    desktop: "unsupported",
+    mobile: "unsupported",
+    minViewport: { width: 390, height: 700 },
+    inputs: ["keyboard", "pointer", "touch"],
+    mobileNotes: "Scaffold only. Do not allow launcher play until source and mobile behavior are implemented and verified.",
+    launcherPolicy: "block"
+  },
   provenance: {
     createdDate: "Pending AI generation",
     modelName: "Pending AI generation",

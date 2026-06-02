@@ -39,6 +39,14 @@
       "runsPath": "./games/signal-cartographer/runs/",
       "canonicalVariantId": "codex-gpt-5-5-xhigh-2026-05-31",
       "sourceCompleteness": "Complete local source included",
+      "deviceSupport": {
+        "desktop": "supported",
+        "mobile": "supported",
+        "minViewport": { "width": 390, "height": 700 },
+        "inputs": ["keyboard", "pointer", "touch"],
+        "mobileNotes": "Mobile play mode includes a virtual joystick, beacon, pause, and restart controls near the canvas. Verified in local browser mobile viewports; no physical handset claim is made.",
+        "launcherPolicy": "allow"
+      },
       "provenance": {
         "createdDate": "2026-05-31",
         "modelName": "GPT-5.5 xhigh",
@@ -56,8 +64,17 @@
         }
       ],
       "runRecords": [
-        "./games/signal-cartographer/runs/2026-05-31-codex-gpt-5-5-xhigh-initial.json"
+        "./games/signal-cartographer/runs/2026-05-31-codex-gpt-5-5-xhigh-initial.json",
+        "./games/signal-cartographer/runs/2026-06-02-codex-mobile-playability-fix.json"
       ],
+      "media": {
+        "thumbnail": "assets/images/screenshot-title.png",
+        "screenshots": [
+          "assets/images/screenshot-title.png",
+          "assets/images/screenshot-gameplay.png",
+          "assets/images/screenshot-upgrades.png"
+        ]
+      },
       "tags": ["canvas", "navigation", "survival", "strategy", "signal"],
       "repositoryNote": "Observation 001 / Game 001. First playable evidence sample in the AI game-making evolution archive."
     },
@@ -79,6 +96,14 @@
       "runsPath": "./games/lumen-lattice/runs/",
       "canonicalVariantId": "claude-opus-4-8-2026-05-31",
       "sourceCompleteness": "Complete local source included",
+      "deviceSupport": {
+        "desktop": "supported",
+        "mobile": "supported",
+        "minViewport": { "width": 390, "height": 700 },
+        "inputs": ["keyboard", "pointer", "touch"],
+        "mobileNotes": "Tap-first play is supported with a square canvas and compact Hint, Undo, and Reset toolbar near the lattice. Verified in local browser mobile viewports; no physical handset claim is made.",
+        "launcherPolicy": "allow"
+      },
       "provenance": {
         "createdDate": "2026-05-31",
         "modelName": "Claude Opus 4.8",
@@ -97,8 +122,17 @@
       ],
       "runRecords": [
         "./games/lumen-lattice/runs/2026-05-31-claude-opus-4-8-initial.json",
-        "./games/lumen-lattice/runs/2026-06-01-codex-render-loop-screenshot-fix.json"
+        "./games/lumen-lattice/runs/2026-06-01-codex-render-loop-screenshot-fix.json",
+        "./games/lumen-lattice/runs/2026-06-02-codex-mobile-playability-fix.json"
       ],
+      "media": {
+        "thumbnail": "assets/images/screenshot-title.png",
+        "screenshots": [
+          "assets/images/screenshot-title.png",
+          "assets/images/screenshot-puzzle.png",
+          "assets/images/screenshot-solved.png"
+        ]
+      },
       "tags": ["canvas", "puzzle", "logic", "parity", "solvable"],
       "repositoryNote": "Observation 002 / Game 002. First Puzzle Logic Hall sample, contributed as evidence of what Claude Opus 4.8 could design and implement."
     }

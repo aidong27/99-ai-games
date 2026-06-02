@@ -41,6 +41,12 @@ The games are playable because playability makes the AI's work inspectable. A re
 
 Game quality matters, but the archive subject is AI progress. A flawed game can still be valuable evidence if it honestly reveals a model's limitations.
 
+## Device Support Contract
+
+Every game entry declares `deviceSupport` in both `games/manifest.json` and `games/<slug>/game.json`. The launcher uses this machine-readable contract to allow mobile play, show a warning for limited support, or block direct mobile launch for desktop-only entries.
+
+Do not mark mobile as `supported` unless mobile behavior has been implemented and checked. If support is uncertain, mark it `limited` or `unsupported` and document the pending work in `mobileNotes`.
+
 ## Current Status
 
 - Archive status: independent open-source project.
@@ -111,8 +117,8 @@ games/lumen-lattice/
 
 | # | Observation sample | Hall | Slot type | Status | Variants | Runs |
 |---|---|---|---|---|---:|---:|
-| 001 | Signal Cartographer | Survival Strategy Hall | benchmark | Playable | 1 | 1 |
-| 002 | Lumen Lattice | Puzzle Logic Hall | benchmark | Playable | 1 | 2 |
+| 001 | Signal Cartographer | Survival Strategy Hall | benchmark | Playable | 1 | 2 |
+| 002 | Lumen Lattice | Puzzle Logic Hall | benchmark | Playable | 1 | 3 |
 
 The canonical machine-readable index is [`games/manifest.json`](games/manifest.json). A generated markdown view is in [`docs/generated-index.md`](docs/generated-index.md).
 

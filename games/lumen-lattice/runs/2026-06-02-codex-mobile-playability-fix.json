@@ -1,0 +1,44 @@
+{
+  "runId": "2026-06-02-codex-mobile-playability-fix",
+  "gameNumber": 2,
+  "gameSlug": "lumen-lattice",
+  "variantId": "claude-opus-4-8-2026-05-31",
+  "runType": "revision",
+  "status": "accepted-maintenance-fix",
+  "createdDate": "2026-06-02",
+  "modelName": "GPT-5 (Codex session)",
+  "agentName": "Codex",
+  "humanCodeEdits": false,
+  "promptSummary": "Repair mobile playability and launcher device gating for Lumen Lattice without changing the row-and-column toggle puzzle rules or fabricating screenshots, popularity, validation, or provenance.",
+  "outputs": [
+    "games/lumen-lattice/index.html",
+    "games/lumen-lattice/src/main.js",
+    "games/lumen-lattice/styles/main.css",
+    "games/lumen-lattice/game.json",
+    "games/manifest.json",
+    "styles/game-shell.css"
+  ],
+  "verification": {
+    "verifiedDate": "2026-06-02",
+    "performed": [
+      "node scripts/validate-halls.mjs",
+      "node scripts/validate-games.mjs",
+      "node scripts/generate-index.mjs --check",
+      "node --check src/main.js",
+      "node --check games/signal-cartographer/src/main.js",
+      "node --check games/lumen-lattice/src/main.js",
+      "git diff --check",
+      "Started local static server with python3 -m http.server 4173",
+      "Browser smoke checked launcher, Signal Cartographer, and Lumen Lattice at 390x844, 393x873, and 430x932 with no horizontal overflow and no console warnings/errors",
+      "Browser interaction checked Lumen Lattice at 390x844: Start lattice worked, transparent hit-grid tap target changed moves from 0 to 1, Hint remained reachable in the compact toolbar"
+    ],
+    "pending": [
+      "Physical handset QA beyond local browser mobile viewport checks"
+    ]
+  },
+  "knownIssues": [
+    "No new screenshots were captured or claimed in this run.",
+    "Physical handset QA is not claimed; local browser mobile viewport checks passed."
+  ],
+  "notes": "This revision moves Hint, Undo, and Reset near the square canvas, keeps tap-first play available on mobile, and adds pointercancel/blur/visibility cleanup. It does not change the guaranteed-solvable generator, row-and-column toggle rule, solution tracking, levels, or scoring."
+}

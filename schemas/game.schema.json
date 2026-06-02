@@ -3,7 +3,7 @@
   "$id": "https://github.com/aidong27/99-ai-games/schemas/game.schema.json",
   "title": "99 AI Games Game Slot",
   "type": "object",
-  "required": ["number", "title", "slug", "status", "hallId", "slotType", "provenance"],
+  "required": ["number", "title", "slug", "status", "hallId", "slotType", "provenance", "deviceSupport"],
   "properties": {
     "number": { "type": "integer", "minimum": 1, "maximum": 99 },
     "title": { "type": "string", "minLength": 1 },
@@ -22,6 +22,43 @@
     "canonicalVariantId": { "type": "string" },
     "sourceCompleteness": { "type": "string" },
     "description": { "type": "string" },
+    "deviceSupport": {
+      "type": "object",
+      "required": ["desktop", "mobile", "minViewport", "inputs", "mobileNotes", "launcherPolicy"],
+      "properties": {
+        "desktop": { "enum": ["supported", "limited", "unsupported"] },
+        "mobile": { "enum": ["supported", "limited", "unsupported"] },
+        "minViewport": {
+          "type": "object",
+          "required": ["width", "height"],
+          "properties": {
+            "width": { "type": "integer", "minimum": 320 },
+            "height": { "type": "integer", "minimum": 480 }
+          },
+          "additionalProperties": false
+        },
+        "inputs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "enum": ["keyboard", "pointer", "touch", "gamepad"] }
+        },
+        "mobileNotes": { "type": "string", "minLength": 1 },
+        "launcherPolicy": { "enum": ["allow", "warn", "block"] }
+      },
+      "additionalProperties": true
+    },
+    "media": {
+      "type": "object",
+      "properties": {
+        "thumbnail": { "type": "string" },
+        "screenshots": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": true
+    },
     "provenance": {
       "type": "object",
       "required": ["createdDate", "modelName", "agentName", "humanCodeEdits"],

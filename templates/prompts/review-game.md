@@ -11,6 +11,8 @@ Check:
 - Is the canvas or main play surface nonblank?
 - Do documented controls work?
 - Is there horizontal overflow at desktop or 390px mobile width?
+- Does `deviceSupport` match the actual desktop/mobile behavior and launcher policy?
+- Are limited or unsupported mobile entries warning or blocking launch correctly?
 - Are console warnings/errors present?
 - Does metadata match the actual source state?
 - Are any claims unverified or exaggerated?

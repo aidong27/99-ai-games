@@ -9,73 +9,71 @@
     >
     <title>99 AI Games | AI Observatory</title>
     <link rel="icon" href="data:,">
-    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="./styles/main.css?v=2026-06-02-mobile3">
   </head>
   <body>
     <main class="observatory">
       <header class="site-header" aria-label="Project navigation">
         <a class="brand" href="./" aria-label="99 AI Games home">
-          <span>99</span>
+          <span aria-hidden="true">99</span>
           <strong>AI Games</strong>
         </a>
-        <nav>
-          <a href="#featured">Featured</a>
-          <a href="#games">Observations</a>
+        <nav aria-label="Archive links">
+          <a href="#games">Library</a>
           <a href="#protocol">Protocol</a>
-          <a href="./docs/project-plan.md">Plan</a>
+          <a href="./games/manifest.json">Manifest</a>
+          <a href="./docs/generated-index.md">Index</a>
         </nav>
       </header>
 
       <section class="hero" aria-labelledby="project-title">
         <div class="hero-copy">
-          <p class="eyebrow">AI Game-Making Evolution Archive</p>
+          <p class="eyebrow">AI Games Observatory</p>
           <h1 id="project-title">99 AI Games</h1>
           <p class="lede">
-            99 playable experiments. One long-term record of AI evolution.
+            A provenance-first archive where playable browser games are observation samples for AI coding-agent progress.
           </p>
-          <p class="lede exhibit-line">
-            The games are playable. The real exhibit is the AI that made them.
-          </p>
+          <p class="exhibit-line">The games are playable. The real exhibit is the AI that made them.</p>
           <div class="hero-actions">
-            <a id="latest-launch" class="button primary" href="./games/signal-cartographer/">Open Observation 001</a>
-            <a class="button" href="./games/manifest.json">Open manifest</a>
+            <a id="latest-launch" class="button primary" href="#games">Browse mobile-ready games</a>
+            <a class="button secondary" href="./README.md">Read archive notes</a>
           </div>
         </div>
 
-        <aside class="scope-panel" aria-label="AI Observatory signal scope">
-          <canvas id="scope-canvas" width="740" height="520" aria-label="Animated signal map"></canvas>
+        <aside class="scope-panel" aria-label="Current observation signal">
+          <canvas id="scope-canvas" width="720" height="420" aria-label="Animated AI observatory signal map"></canvas>
           <div class="scope-readout">
-            <span>Current observation sample</span>
-            <strong id="latest-title">Signal Cartographer</strong>
-            <small id="scope-model">GPT-5.5 xhigh / Codex</small>
+            <span>Featured observation</span>
+            <strong id="latest-title">Loading archive...</strong>
+            <small id="scope-model">Manifest pending</small>
           </div>
         </aside>
       </section>
 
       <section class="metrics" aria-label="Archive telemetry">
         <article class="stat-card">
-          <span>Observation samples</span>
-          <strong><b id="completed-count">2</b> / <b id="target-count">99</b></strong>
+          <span>Samples</span>
+          <strong><b id="completed-count">0</b> / <b id="target-count">99</b></strong>
         </article>
         <article class="stat-card">
-          <span>Game halls</span>
+          <span>Halls</span>
           <strong id="hall-count">9</strong>
         </article>
         <article class="stat-card">
-          <span>Model variants</span>
-          <strong id="variant-count">2</strong>
+          <span>Variants</span>
+          <strong id="variant-count">0</strong>
         </article>
         <article class="stat-card">
-          <span>Run records</span>
-          <strong id="run-count">2</strong>
+          <span>Runs</span>
+          <strong id="run-count">0</strong>
         </article>
       </section>
 
       <section id="featured" class="featured-section" aria-labelledby="featured-title">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Featured archive entry</p>
-            <h2 id="featured-title">Observation 001 / Game 001</h2>
+            <p class="eyebrow">Selected for this device</p>
+            <h2 id="featured-title">Latest playable observation</h2>
           </div>
           <p id="collection-status">Loading archive metadata...</p>
         </div>
@@ -85,28 +83,65 @@
       <section id="games" class="games-section" aria-labelledby="games-title">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Observation deck</p>
-            <h2 id="games-title">AI progress samples</h2>
+            <p class="eyebrow">Observation library</p>
+            <h2 id="games-title">Browse the archive</h2>
           </div>
-          <p>Each entry records model, agent, date, variants, runs, and source completeness.</p>
+          <p id="filter-summary">Filters appear after the manifest loads.</p>
         </div>
+
+        <form class="filters" aria-label="Filter observation samples">
+          <label>
+            <span>Hall</span>
+            <select id="hall-filter">
+              <option value="all">All halls</option>
+            </select>
+          </label>
+          <label>
+            <span>Status</span>
+            <select id="status-filter">
+              <option value="all">All statuses</option>
+            </select>
+          </label>
+          <label>
+            <span>Device</span>
+            <select id="device-filter">
+              <option value="all">All device states</option>
+              <option value="mobile-supported">Mobile supported</option>
+              <option value="mobile-limited">Mobile limited</option>
+              <option value="desktop-recommended">Desktop recommended</option>
+            </select>
+          </label>
+        </form>
+
         <div id="game-list" class="game-grid" aria-live="polite"></div>
       </section>
 
       <section id="protocol" class="protocol-section" aria-labelledby="protocol-title">
         <div>
-          <p class="eyebrow">Experiment protocol</p>
-          <h2 id="protocol-title">Games are evidence, AI progress is the subject</h2>
+          <p class="eyebrow">Archive protocol</p>
+          <h2 id="protocol-title">Playable samples, honest provenance</h2>
         </div>
         <ol>
-          <li>Game slots represent observation samples, not AI generations.</li>
-          <li>Model variants live under the same game slot and do not consume new numbers.</li>
-          <li>Run records preserve generation, revision, validation, and comparison attempts.</li>
-          <li>The maintainer tests and publishes, but does not hand-write game code.</li>
+          <li>Game slots are observation samples, not bulk placeholders.</li>
+          <li>Model variants and run records stay attached to their game slot.</li>
+          <li>Device support is declared in machine-readable metadata.</li>
+          <li>No fake screenshots, popularity metrics, source history, or validation claims.</li>
         </ol>
       </section>
     </main>
 
-    <script type="module" src="./src/main.js"></script>
+    <dialog id="device-dialog" class="device-dialog" aria-labelledby="device-dialog-title">
+      <form method="dialog">
+        <p class="eyebrow">Device notice</p>
+        <h2 id="device-dialog-title">Before opening</h2>
+        <p id="device-dialog-copy"></p>
+        <div class="dialog-actions">
+          <a id="device-dialog-open" class="button primary" href="#">Open game</a>
+          <button class="button secondary" value="cancel" type="submit">Cancel</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script type="module" src="./src/main.js?v=2026-06-02-mobile3"></script>
   </body>
 </html>

@@ -14,7 +14,8 @@ const ui = {
   primaryAction: document.querySelector("#primary-action"),
   hintButton: document.querySelector("#hint-button"),
   undoButton: document.querySelector("#undo-button"),
-  resetButton: document.querySelector("#reset-button")
+  resetButton: document.querySelector("#reset-button"),
+  hitGrid: document.querySelector("#lattice-hit-grid")
 };
 
 const WORLD = { width: 720, height: 720 };
@@ -33,6 +34,8 @@ const BASE_SEED = 0x9e3779b1;
 
 let state = createInitialState();
 let lastTime = performance.now();
+let activePointerId = null;
+let lastCanvasPointerAt = 0;
 
 function createInitialState() {
   return {
@@ -90,6 +93,7 @@ function startLevel(index) {
   state.hintCell = null;
   state.hintUntil = 0;
   state.mode = "playing";
+  syncHitGrid();
   hideOverlay();
   updateUi();
 }
@@ -438,6 +442,8 @@ function updateUi() {
   ui.progressMeter.style.width = `${Math.round(lit / total * 100)}%`;
   ui.undoButton.disabled = state.mode !== "playing" || state.history.length === 0;
   ui.hintButton.disabled = state.mode !== "playing";
+  ui.hitGrid.hidden = state.mode !== "playing";
+  syncHitGridState();
 
   canvas.dataset.mode = state.mode;
   canvas.dataset.level = String(state.levelIndex + 1);
@@ -445,6 +451,52 @@ function updateUi() {
   canvas.dataset.lit = String(lit);
   canvas.dataset.total = String(total);
   canvas.dataset.solved = String(lit === total);
+}
+
+function syncHitGrid() {
+  if (!ui.hitGrid) {
+    return;
+  }
+
+  const size = state.size;
+  ui.hitGrid.style.setProperty("--lattice-size", String(size));
+  ui.hitGrid.style.setProperty("--lattice-gap", `${(592 * 0.06 / size / 720 * 100).toFixed(3)}%`);
+
+  const expected = size * size;
+  if (ui.hitGrid.children.length === expected) {
+    syncHitGridState();
+    return;
+  }
+
+  const buttons = [];
+  for (let row = 0; row < size; row += 1) {
+    for (let col = 0; col < size; col += 1) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.dataset.row = String(row);
+      button.dataset.col = String(col);
+      buttons.push(button);
+    }
+  }
+  ui.hitGrid.replaceChildren(...buttons);
+  syncHitGridState();
+}
+
+function syncHitGridState() {
+  if (!ui.hitGrid) {
+    return;
+  }
+
+  for (const button of ui.hitGrid.querySelectorAll("button")) {
+    const row = Number(button.dataset.row);
+    const col = Number(button.dataset.col);
+    const lit = Boolean(state.grid[row]?.[col]);
+    const hinted = state.hintCell && state.hintCell.row === row && state.hintCell.col === col;
+    button.disabled = state.mode !== "playing";
+    button.dataset.lit = String(lit);
+    button.dataset.hint = String(Boolean(hinted));
+    button.setAttribute("aria-label", `Fire row ${row + 1}, column ${col + 1}${lit ? ", lit" : ", dark"}`);
+  }
 }
 
 function loop(now) {
@@ -492,15 +544,99 @@ function mulberry32(seed) {
   };
 }
 
-canvas.addEventListener("pointerdown", (event) => {
+function clearPointerState() {
+  activePointerId = null;
+}
+
+function releasePointer(target, pointerId) {
+  try {
+    target.releasePointerCapture(pointerId);
+  } catch {
+    // The browser may have already released this pointer.
+  }
+}
+
+function pressCanvasPoint(clientX, clientY) {
   if (state.mode !== "playing") {
     return;
   }
-  const point = screenToWorld(event.clientX, event.clientY);
+
+  const point = screenToWorld(clientX, clientY);
   const cell = cellAtPoint(point.x, point.y);
   if (cell) {
     state.cursor = { row: cell.row, col: cell.col };
     clickCell(cell.row, cell.col);
+  }
+}
+
+canvas.addEventListener("pointerdown", (event) => {
+  event.preventDefault();
+  if (state.mode !== "playing") {
+    return;
+  }
+  activePointerId = event.pointerId;
+  lastCanvasPointerAt = performance.now();
+  canvas.setPointerCapture(event.pointerId);
+  pressCanvasPoint(event.clientX, event.clientY);
+});
+
+canvas.addEventListener("pointerup", (event) => {
+  if (activePointerId === event.pointerId) {
+    event.preventDefault();
+    clearPointerState();
+  }
+  releasePointer(canvas, event.pointerId);
+});
+
+canvas.addEventListener("pointercancel", (event) => {
+  if (activePointerId === event.pointerId) {
+    clearPointerState();
+  }
+  releasePointer(canvas, event.pointerId);
+});
+
+canvas.addEventListener("lostpointercapture", (event) => {
+  if (activePointerId === event.pointerId) {
+    clearPointerState();
+  }
+});
+
+canvas.addEventListener("dblclick", (event) => {
+  event.preventDefault();
+});
+
+canvas.addEventListener("click", (event) => {
+  event.preventDefault();
+  if (performance.now() - lastCanvasPointerAt < 250) {
+    return;
+  }
+  lastCanvasPointerAt = performance.now();
+  pressCanvasPoint(event.clientX, event.clientY);
+});
+
+canvas.addEventListener("mousedown", (event) => {
+  event.preventDefault();
+  if (performance.now() - lastCanvasPointerAt < 250) {
+    return;
+  }
+  lastCanvasPointerAt = performance.now();
+  pressCanvasPoint(event.clientX, event.clientY);
+});
+
+canvas.addEventListener("touchstart", (event) => {
+  event.preventDefault();
+  if (performance.now() - lastCanvasPointerAt < 250 || event.touches.length === 0) {
+    return;
+  }
+  const touch = event.touches[0];
+  lastCanvasPointerAt = performance.now();
+  pressCanvasPoint(touch.clientX, touch.clientY);
+}, { passive: false });
+
+window.addEventListener("blur", clearPointerState);
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    clearPointerState();
   }
 });
 
@@ -553,6 +689,17 @@ ui.hintButton.addEventListener("click", showHint);
 ui.undoButton.addEventListener("click", undo);
 ui.resetButton.addEventListener("click", reset);
 ui.primaryAction.addEventListener("click", () => startLevel(0));
+ui.hitGrid.addEventListener("pointerdown", (event) => {
+  event.preventDefault();
+});
+ui.hitGrid.addEventListener("click", (event) => {
+  const button = event.target.closest("button[data-row][data-col]");
+  if (!button) {
+    return;
+  }
+  event.preventDefault();
+  clickCell(Number(button.dataset.row), Number(button.dataset.col));
+});
 
 window.__lumenLatticeQA = {
   start: () => startLevel(0),
