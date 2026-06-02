@@ -19,3 +19,4 @@ Every prompt should remind the agent:
 - device support and mobile readiness must be machine-readable and evidence-based
 - `humanCodeEdits` should remain false unless an exception is documented
 - no fake screenshots or fake verification
+- launcher reviews must check the four-level static path: title screen, library, observation record, and play gate

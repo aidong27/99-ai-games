@@ -4,6 +4,10 @@ All notable project-level changes are recorded here. This archive does not use c
 
 ## [Unreleased]
 
+- Redesign the public launcher as a four-level archive flow: title screen, model-axis observation library, observation record, and minimalist play gate.
+- Add a model-axis observation selector backed by real manifest and game metadata, with real screenshots or explicit no-screenshot fallbacks.
+- Add `observation.html` records for device support, provenance, variants, controls, and run records.
+- Add `play.html` as a final device-aware Start Observation gate before entering a game.
 - Add a machine-readable mobile device support contract for game metadata and launcher policy.
 - Redesign the launcher as a mobile-first AI Games Observatory library with real screenshot thumbnails, filters, and device-aware CTAs.
 - Repair Signal Cartographer mobile controls with a joystick-style control surface, Beacon state, Pause, Restart, and input cleanup.
