@@ -1,0 +1,44 @@
+{
+  "runId": "2026-06-02-codex-mobile-playability-fix",
+  "gameNumber": 1,
+  "gameSlug": "signal-cartographer",
+  "variantId": "codex-gpt-5-5-xhigh-2026-05-31",
+  "runType": "revision",
+  "status": "accepted-maintenance-fix",
+  "createdDate": "2026-06-02",
+  "modelName": "GPT-5 (Codex session)",
+  "agentName": "Codex",
+  "humanCodeEdits": false,
+  "promptSummary": "Repair mobile playability and launcher device gating for Signal Cartographer without changing the core gameplay or fabricating screenshots, popularity, validation, or provenance.",
+  "outputs": [
+    "games/signal-cartographer/index.html",
+    "games/signal-cartographer/src/main.js",
+    "games/signal-cartographer/styles/main.css",
+    "games/signal-cartographer/game.json",
+    "games/manifest.json",
+    "styles/game-shell.css"
+  ],
+  "verification": {
+    "verifiedDate": "2026-06-02",
+    "performed": [
+      "node scripts/validate-halls.mjs",
+      "node scripts/validate-games.mjs",
+      "node scripts/generate-index.mjs --check",
+      "node --check src/main.js",
+      "node --check games/signal-cartographer/src/main.js",
+      "node --check games/lumen-lattice/src/main.js",
+      "git diff --check",
+      "Started local static server with python3 -m http.server 4173",
+      "Browser smoke checked launcher, Signal Cartographer, and Lumen Lattice at 390x844, 393x873, and 430x932 with no horizontal overflow and no console warnings/errors",
+      "Browser interaction checked Signal Cartographer at 390x844: Start run worked, Beacon button reduced remaining beacons from 4 to 3, Pause and Restart controls were visible"
+    ],
+    "pending": [
+      "Physical handset QA beyond local browser mobile viewport checks"
+    ]
+  },
+  "knownIssues": [
+    "No new screenshots were captured or claimed in this run.",
+    "Physical handset QA is not claimed; local browser mobile viewport checks passed."
+  ],
+  "notes": "This revision adds a mobile play mode with virtual joystick, Beacon count/disabled state, Pause and Restart buttons, and pointercancel/blur/visibility input cleanup. It does not change the game objective, sectors, hazards, fragments, beacon rules, or upgrade rules."
+}
