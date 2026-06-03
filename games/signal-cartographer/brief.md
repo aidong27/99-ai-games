@@ -21,7 +21,7 @@ Signal Cartographer belongs in the Survival Strategy Hall because it lets the ar
 ## Current Canonical Variant
 
 - Variant ID: `codex-signal-cartographer-deep-field-2026-06-03`
-- Model label: `GPT-5 (Codex session)`
+- Model label: `GPT-5.5 xhigh`
 - Agent/tool: `Codex`
 - Human code edits: `false`
 - Note: this is a canonical PC-first remake of Game 001. The earlier `codex-gpt-5-5-xhigh-2026-05-31` implementation remains archived as a historical baseline variant.

@@ -1,0 +1,56 @@
+{
+  "runId": "2026-06-03-codex-neon-pulse-courier-model-label-code-cleanup",
+  "gameNumber": 3,
+  "gameSlug": "neon-pulse-courier",
+  "variantId": "codex-neon-pulse-courier-2026-06-03",
+  "runType": "revision",
+  "status": "accepted-maintenance",
+  "createdDate": "2026-06-03",
+  "modelName": "GPT-5.5 xhigh",
+  "agentName": "Codex",
+  "humanCodeEdits": false,
+  "promptSummary": "Normalize Codex-authored provenance labels to GPT-5.5 xhigh / Codex and clean up Neon Pulse Courier source code without changing gameplay.",
+  "outputs": [
+    "games/neon-pulse-courier/src/main.js",
+    "games/neon-pulse-courier/game.json",
+    "games/neon-pulse-courier/variants/codex-neon-pulse-courier-2026-06-03/variant.json",
+    "games/neon-pulse-courier/runs/2026-06-03-codex-neon-pulse-courier-initial.json",
+    "games/neon-pulse-courier/runs/2026-06-03-codex-neon-pulse-courier-model-label-code-cleanup.json",
+    "games/signal-cartographer/game.json",
+    "games/signal-cartographer/README.md",
+    "games/signal-cartographer/brief.md",
+    "games/signal-cartographer/variants/codex-signal-cartographer-deep-field-2026-06-03/variant.json",
+    "games/signal-cartographer/runs/2026-06-02-codex-mobile-playability-fix.json",
+    "games/signal-cartographer/runs/2026-06-03-codex-signal-cartographer-deep-field-remake.json",
+    "games/lumen-lattice/runs/2026-06-01-codex-render-loop-screenshot-fix.json",
+    "games/lumen-lattice/runs/2026-06-02-codex-mobile-playability-fix.json",
+    "games/manifest.json",
+    "docs/generated-index.md",
+    "CHANGELOG.md"
+  ],
+  "verification": {
+    "verifiedDate": "2026-06-03",
+    "performed": [
+      "node scripts/validate-halls.mjs",
+      "node scripts/validate-games.mjs",
+      "node scripts/validate-launcher.mjs",
+      "node scripts/generate-index.mjs --check",
+      "node --check games/neon-pulse-courier/src/main.js",
+      "node --check src/main.js",
+      "node --check src/archive-data.js",
+      "node --check src/library.js",
+      "node --check src/observation.js",
+      "node --check src/play.js",
+      "git diff --check",
+      "HTTP/static smoke on localhost:4173 for root, library hash, observation, play gate, game page, manifest, and Neon Pulse Courier metadata"
+    ],
+    "pending": [
+      "Interactive browser smoke was not completed because Browser/Chrome automation was unavailable in this session and the repo has no Playwright/Puppeteer dependency.",
+      "No physical handset QA is claimed."
+    ]
+  },
+  "knownIssues": [
+    "This is a metadata/code-maintenance pass, not a gameplay redesign."
+  ],
+  "notes": "The model label is maintainer-declared as GPT-5.5 xhigh, and Codex is the tool/agent. This run removes stale alternate model wording from Codex-authored records."
+}
