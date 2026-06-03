@@ -48,7 +48,8 @@
   ],
   "runRecords": [
     "runs/2026-05-31-codex-gpt-5-5-xhigh-initial.json",
-    "runs/2026-06-02-codex-mobile-playability-fix.json"
+    "runs/2026-06-02-codex-mobile-playability-fix.json",
+    "runs/2026-06-03-codex-gpt55-style-alignment.json"
   ],
   "controls": {
     "keyboard": ["WASD or Arrow keys to move", "Space to deploy a beacon", "R to restart", "P to pause"],

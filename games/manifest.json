@@ -65,7 +65,8 @@
       ],
       "runRecords": [
         "./games/signal-cartographer/runs/2026-05-31-codex-gpt-5-5-xhigh-initial.json",
-        "./games/signal-cartographer/runs/2026-06-02-codex-mobile-playability-fix.json"
+        "./games/signal-cartographer/runs/2026-06-02-codex-mobile-playability-fix.json",
+        "./games/signal-cartographer/runs/2026-06-03-codex-gpt55-style-alignment.json"
       ],
       "media": {
         "thumbnail": "assets/images/screenshot-title.png",
