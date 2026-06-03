@@ -47,6 +47,14 @@ Date: 2026-06-03
 - Improve responsive behavior, keyboard handling, and accessible focus states.
 - Update `CHANGELOG.md` and keep README changes minimal.
 
+## PC-First Refinement Note
+
+- Primary visual target is now desktop showcase viewports from 1280px through 2560px wide.
+- The launcher should read as a game title screen, model-axis selector, and cinematic archive interface before it reads as a mobile app.
+- Mobile remains a baseline requirement for no horizontal overflow, stable paths, and usable controls, but it is not the main visual optimization target for this pass.
+- Desktop effects are limited to low-density canvas signal fields, pointer-only card tilt, active selection scan/pulse states, and graceful reduced-motion fallbacks.
+- The same truth constraints remain: no new games, no Game 003, no fake screenshots, no fake finished slots, and no physical phone QA claims.
+
 ## Explicitly Not Doing
 
 - No new games.

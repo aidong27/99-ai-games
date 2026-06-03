@@ -2,15 +2,26 @@ import {
   getGameBySlug,
   getGameNumberLabel,
   getLaunchHref,
+  getManifestHref,
   getMobileSupportInfo,
   getObservationHref,
-  getRuntimeLaunchState
+  getRuntimeLaunchState,
+  getSlugFromSearch
 } from "./archive-data.js";
+import { createSignalField } from "./archive-effects.js";
 
 const root = document.querySelector("#play-root");
+const signalCanvas = document.querySelector("#gate-signal");
+const signalField = createSignalField(signalCanvas, { variant: "gate", density: 16 });
 let currentGate = null;
 
-loadGate();
+if (root) {
+  loadGate();
+  signalField.start();
+  window.addEventListener("pagehide", () => signalField.destroy(), { once: true });
+} else {
+  signalField.destroy();
+}
 
 document.addEventListener("keydown", (event) => {
   if (event.metaKey || event.ctrlKey || event.altKey) {
@@ -29,7 +40,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 async function loadGate() {
-  const slug = new URLSearchParams(window.location.search).get("slug");
+  const slug = getSlugFromSearch();
   if (!slug) {
     renderError("No observation slug was provided.");
     return;
@@ -128,10 +139,21 @@ function createText(tagName, className, text) {
 }
 
 function renderError(message) {
+  currentGate = null;
   root.replaceChildren(
     createText("p", "archive-kicker", "Observation gate unavailable"),
     createText("h1", "", "Record missing"),
     createText("p", "archive-notice", message),
-    createLink("Back to Library", "./library.html", "archive-button primary")
+    createActionGroup([
+      createLink("Back to Library", "./library.html", "archive-button primary"),
+      createLink("Open Manifest", getManifestHref(), "archive-button secondary")
+    ])
   );
+}
+
+function createActionGroup(actions) {
+  const group = document.createElement("div");
+  group.className = "gate-actions";
+  group.append(...actions);
+  return group;
 }

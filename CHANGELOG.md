@@ -4,6 +4,15 @@ All notable project-level changes are recorded here. This archive does not use c
 
 ## [Unreleased]
 
+- Shift the launcher polish target to PC-first desktop showcase layouts while keeping mobile as a no-overflow baseline.
+- Add restrained desktop signal-field effects, pointer tilt, active-card scan, model-axis pulse, and animation lifecycle hardening.
+- Elevate the model-axis / observation-track visual hierarchy for larger desktop viewports.
+- Polish archive record and play gate presentation for stronger desktop launcher ritual without changing game entry data.
+- Extend launcher validation to cover cache-busted assets and shared effect files.
+- Harden deployed multi-level launcher paths and deep links for GitHub Pages subpath routing.
+- Add `scripts/validate-launcher.mjs` to check launcher files, HTML asset references, manifest paths, media paths, deviceSupport readiness, and reserved-slot truthfulness.
+- Improve library hash selection, model filtering, card focus, timeline selection, and back-link behavior.
+- Refine observation record and play gate interaction details for device-aware CTAs, missing slugs, and manifest fallback links.
 - Polish the multi-level launcher with stronger title-screen hierarchy, archive seed status, and refined cache-busted assets.
 - Refine the model-axis observation library with richer model/agent nodes, complete card facts, reserved future-slot treatment, and reduced-motion-aware selection scrolling.
 - Refine observation records with core facts, clearer device support/provenance sections, and layered run-record details.

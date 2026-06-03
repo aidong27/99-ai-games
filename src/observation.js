@@ -3,24 +3,36 @@ import {
   getDeviceSupport,
   getGameBySlug,
   getGameNumberLabel,
+  getLibrarySelectionHref,
   getLaunchHref,
+  getManifestHref,
   getMetadataHref,
   getMobileSupportInfo,
   getPlayGateHref,
-  getRunRecordHref,
   getScreenshotHref,
   getScreenshotList,
+  getSlugFromSearch,
   getVariantHref,
   loadRunRecords,
   toTitle
 } from "./archive-data.js";
+import { createSignalField } from "./archive-effects.js";
 
 const root = document.querySelector("#record-root");
+const recordBackLink = document.querySelector("#record-back-link");
+const signalCanvas = document.querySelector("#record-signal");
+const signalField = createSignalField(signalCanvas, { variant: "record", density: 18 });
 
-loadRecord();
+if (root) {
+  loadRecord();
+  signalField.start();
+  window.addEventListener("pagehide", () => signalField.destroy(), { once: true });
+} else {
+  signalField.destroy();
+}
 
 async function loadRecord() {
-  const slug = new URLSearchParams(window.location.search).get("slug");
+  const slug = getSlugFromSearch();
   if (!slug) {
     renderError("No observation slug was provided.");
     return;
@@ -45,6 +57,9 @@ function renderRecord(game, runs) {
   const mobile = getMobileSupportInfo(game);
   const screenshots = getScreenshotList(game);
   const heroImage = getScreenshotHref(game);
+  if (recordBackLink) {
+    recordBackLink.href = getLibrarySelectionHref(game);
+  }
 
   const record = document.createElement("article");
   record.className = "record";
@@ -94,8 +109,9 @@ function createHero(game, heroImage, mobile) {
       [mobile.label, mobile.tone],
       [game.provenance?.modelName ?? "Model unrecorded", "mono"]
     ]),
+    createText("p", `record-device-note ${mobile.tone}`, mobile.note),
     createActionRow([
-      ["Continue", getPlayGateHref(game), "primary"],
+      [mobile.key === "supported" ? "Continue" : mobile.ctaLabel, getPlayGateHref(game), "primary"],
       ["Metadata JSON", getMetadataHref(game), "secondary"],
       ["Direct game page", getLaunchHref(game), "ghost"]
     ])
@@ -127,8 +143,8 @@ function createCoreFactsPanel(game, mobile) {
       ["Model", game.provenance?.modelName],
       ["Agent", game.provenance?.agentName],
       ["Created", formatDate(game.provenance?.createdDate)],
-      ["Source", game.sourceCompleteness],
-      ["Device", mobile.label]
+      ["Mobile support", mobile.label],
+      ["Source completeness", game.sourceCompleteness]
     ])
   );
   return section;
@@ -399,13 +415,16 @@ function normalizeValue(value) {
 }
 
 function renderError(message) {
+  if (recordBackLink) {
+    recordBackLink.href = "./library.html";
+  }
   root.replaceChildren(
     createText("p", "archive-kicker", "Record unavailable"),
     createText("h2", "", "Observation not found"),
     createText("p", "archive-notice", message),
     createActionRow([
       ["Back to Library", "./library.html", "primary"],
-      ["Open Manifest", "./games/manifest.json", "secondary"]
+      ["Open Manifest", getManifestHref(), "secondary"]
     ])
   );
 }

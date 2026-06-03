@@ -66,6 +66,7 @@ Run these checks before a PR:
 ```bash
 node scripts/validate-halls.mjs
 node scripts/validate-games.mjs
+node scripts/validate-launcher.mjs
 node scripts/generate-index.mjs --check
 node --check src/main.js
 node --check games/signal-cartographer/src/main.js
