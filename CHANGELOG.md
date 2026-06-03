@@ -5,6 +5,8 @@ All notable project-level changes are recorded here. This archive does not use c
 ## [Unreleased]
 
 - Add Observation 004 / Game 004 **Ninefold Draft**, the first Card Strategy Hall benchmark: a PC-first card strategy game with deterministic drafting, an engine-builder, Energy/Focus/Integrity trade-offs, and a telegraphed hazard track. Logic and balance were verified by a standalone rules simulation (win and loss both reachable); interactive browser smoke and real screenshots are pending and not claimed.
+- Add Observation 003 / Game 003: Neon Pulse Courier, the first Arcade Reaction Hall benchmark sample.
+- Add a PC-first arcade reaction loop with pulse barriers, data parcels, combo scoring, dash timing, failure/completion states, QA hooks, and real local screenshot slots.
 - Shift the launcher polish target to PC-first desktop showcase layouts while keeping mobile as a no-overflow baseline.
 - Add restrained desktop signal-field effects, pointer tilt, active-card scan, model-axis pulse, and animation lifecycle hardening.
 - Elevate the model-axis / observation-track visual hierarchy for larger desktop viewports.
