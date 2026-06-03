@@ -8,5 +8,5 @@ The games are playable. The real exhibit is the AI that made them.
 
 | # | Observation sample | Hall | Slot type | Status | Variants | Runs |
 |---|---|---|---|---|---:|---:|
-| 001 | Signal Cartographer | Survival Strategy Hall | benchmark | playable | 1 | 2 |
+| 001 | Signal Cartographer | Survival Strategy Hall | benchmark | playable | 2 | 3 |
 | 002 | Lumen Lattice | Puzzle Logic Hall | benchmark | playable | 2 | 4 |

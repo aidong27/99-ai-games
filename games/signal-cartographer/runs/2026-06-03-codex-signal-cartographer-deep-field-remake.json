@@ -1,0 +1,57 @@
+{
+  "runId": "2026-06-03-codex-signal-cartographer-deep-field-remake",
+  "gameNumber": 1,
+  "gameSlug": "signal-cartographer",
+  "variantId": "codex-signal-cartographer-deep-field-2026-06-03",
+  "runType": "revision",
+  "status": "accepted-canonical-remake",
+  "createdDate": "2026-06-03",
+  "modelName": "GPT-5 (Codex session)",
+  "agentName": "Codex",
+  "humanCodeEdits": false,
+  "promptSummary": "Rebuild Observation 001 / Game 001 as Signal Cartographer: Deep Field, a PC-first tactical map survival remake with scanning, limited beacons, storm/drones/interference, sector progression, upgrades, QA hooks, real screenshots, and honest provenance.",
+  "outputs": [
+    "games/signal-cartographer/index.html",
+    "games/signal-cartographer/src/main.js",
+    "games/signal-cartographer/styles/main.css",
+    "games/signal-cartographer/game.json",
+    "games/signal-cartographer/README.md",
+    "games/signal-cartographer/brief.md",
+    "games/signal-cartographer/variants/codex-signal-cartographer-deep-field-2026-06-03/variant.json",
+    "games/signal-cartographer/variants/codex-gpt-5-5-xhigh-2026-05-31/variant.json",
+    "games/signal-cartographer/assets/images/screenshot-title.png",
+    "games/signal-cartographer/assets/images/screenshot-gameplay.png",
+    "games/signal-cartographer/assets/images/screenshot-upgrades.png",
+    "games/manifest.json",
+    "docs/generated-index.md"
+  ],
+  "verification": {
+    "verifiedDate": "2026-06-03",
+    "performed": [
+      "node scripts/validate-halls.mjs",
+      "node scripts/validate-games.mjs",
+      "node scripts/validate-launcher.mjs",
+      "node scripts/generate-index.mjs --check",
+      "node --check games/signal-cartographer/src/main.js",
+      "node --check src/main.js",
+      "node --check src/archive-data.js",
+      "node --check src/library.js",
+      "node --check src/observation.js",
+      "node --check src/play.js",
+      "git diff --check",
+      "Started local static server with python3 -m http.server 4173",
+      "Captured real local browser screenshots for title, gameplay, and sector upgrade states",
+      "Browser smoke checked Signal Cartographer, library deep link, observation record, and play gate at 1280x800, 1440x900, 1920x1080, 390x844, and 430x932",
+      "Browser game smoke checked start, keyboard movement, pointer route target, scan, beacon, pause, restart, fragment collection through QA hook, exit open, win state through QA hook, and loss state through QA hook"
+    ],
+    "pending": [
+      "No physical handset QA was performed",
+      "Mobile remains limited because the remake is PC-first and keyboard/mouse is the intended control mode"
+    ]
+  },
+  "knownIssues": [
+    "The old 2026-05-31 playable implementation is retained as archived baseline provenance rather than preserved as a separate root-playable source folder.",
+    "Physical phone QA is not claimed; mobile validation is limited to local browser viewport smoke."
+  ],
+  "notes": "This run replaces the root Signal Cartographer playable source with a new canonical Deep Field variant while keeping Observation 001 / Game 001, the old baseline variant metadata, and old run records intact. It does not create Game 003 or modify Lumen Lattice."
+}
