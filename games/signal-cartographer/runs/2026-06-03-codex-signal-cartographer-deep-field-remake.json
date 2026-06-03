@@ -6,7 +6,7 @@
   "runType": "revision",
   "status": "accepted-canonical-remake",
   "createdDate": "2026-06-03",
-  "modelName": "GPT-5 (Codex session)",
+  "modelName": "GPT-5.5 xhigh",
   "agentName": "Codex",
   "humanCodeEdits": false,
   "promptSummary": "Rebuild Observation 001 / Game 001 as Signal Cartographer: Deep Field, a PC-first tactical map survival remake with scanning, limited beacons, storm/drones/interference, sector progression, upgrades, QA hooks, real screenshots, and honest provenance.",
