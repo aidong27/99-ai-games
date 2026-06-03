@@ -9,6 +9,7 @@ const observationCount = document.querySelector("#observation-count");
 const targetCount = document.querySelector("#target-count");
 const playableCount = document.querySelector("#playable-count");
 const mobileCount = document.querySelector("#mobile-count");
+const runCount = document.querySelector("#run-count");
 const titleFeatured = document.querySelector("#title-featured");
 const canvas = document.querySelector("#title-signal");
 const ctx = canvas?.getContext("2d");
@@ -62,6 +63,7 @@ async function loadTitleData() {
     targetCount.textContent = String(stats.targetCount);
     playableCount.textContent = String(stats.playableCount);
     mobileCount.textContent = String(stats.mobileSupportedCount);
+    runCount.textContent = String(stats.runCount);
     titleFeatured.textContent = featured
       ? `Latest playable signal: ${featured.title}`
       : "No playable observation samples are listed yet.";

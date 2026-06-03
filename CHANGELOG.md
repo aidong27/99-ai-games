@@ -4,6 +4,11 @@ All notable project-level changes are recorded here. This archive does not use c
 
 ## [Unreleased]
 
+- Polish the multi-level launcher with stronger title-screen hierarchy, archive seed status, and refined cache-busted assets.
+- Refine the model-axis observation library with richer model/agent nodes, complete card facts, reserved future-slot treatment, and reduced-motion-aware selection scrolling.
+- Refine observation records with core facts, clearer device support/provenance sections, and layered run-record details.
+- Refine the play gate with clearer device support messaging and Enter/Escape keyboard handling.
+- Improve responsive and accessibility details across launcher pages.
 - Redesign the public launcher as a four-level archive flow: title screen, model-axis observation library, observation record, and minimalist play gate.
 - Add a model-axis observation selector backed by real manifest and game metadata, with real screenshots or explicit no-screenshot fallbacks.
 - Add `observation.html` records for device support, provenance, variants, controls, and run records.
