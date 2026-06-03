@@ -25,6 +25,7 @@ const playSelected = document.querySelector("#play-selected");
 const viewRecord = document.querySelector("#view-record");
 const openMetadata = document.querySelector("#open-metadata");
 const errorPanel = document.querySelector("#library-error");
+const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 const state = {
   manifest: null,
@@ -61,6 +62,10 @@ document.addEventListener("keydown", (event) => {
       window.location.href = "./";
     }
   }
+});
+
+window.addEventListener("hashchange", () => {
+  syncSelectionFromHash();
 });
 
 async function loadLibrary() {
@@ -113,8 +118,10 @@ function createModelButton(model, value) {
 
   const copy = document.createElement("span");
   copy.className = "axis-copy";
+  const agentNames = [...model.agents].join(", ") || "Agent unrecorded";
   copy.append(
     createText("strong", "", model.modelName),
+    createText("span", "axis-agent", agentNames),
     createText("small", "", `${model.games.length} ${model.games.length === 1 ? "observation" : "observations"} / ${model.agents.size} ${model.agents.size === 1 ? "agent" : "agents"}`)
   );
 
@@ -139,7 +146,11 @@ function renderLibrary() {
     return;
   }
 
-  track.replaceChildren(...state.filteredGames.map((game, index) => createObservationCard(game, index)));
+  const cards = state.filteredGames.map((game, index) => createObservationCard(game, index));
+  if (state.selectedModel === "all") {
+    cards.push(createReservedCard());
+  }
+  track.replaceChildren(...cards);
   renderTimeline();
   updateSelection();
 }
@@ -178,16 +189,43 @@ function createObservationCard(game, index) {
     createText("small", "", game.hallName ?? game.hallId ?? "Hall unrecorded")
   );
 
+  const facts = document.createElement("span");
+  facts.className = "card-facts";
+  facts.append(
+    createFact("Model", game.provenance?.modelName),
+    createFact("Agent", game.provenance?.agentName),
+    createFact("Status", game.statusLabel ?? toTitle(game.status))
+  );
+
   const badges = document.createElement("span");
   badges.className = "compact-badges";
   badges.append(
-    createBadge(game.statusLabel ?? toTitle(game.status), "neutral"),
     createBadge(support.label, support.tone),
-    createBadge(game.provenance?.modelName ?? "Model unrecorded", "mono")
+    createBadge(game.statusLabel ?? toTitle(game.status), "neutral")
   );
 
-  card.append(imageWrap, meta, badges);
+  card.append(imageWrap, meta, facts, badges);
   return card;
+}
+
+function createReservedCard() {
+  const reservedCount = Math.max(0, (state.manifest?.targetGameCount ?? 99) - state.games.length);
+  const card = document.createElement("div");
+  card.className = "observation-card reserved-card";
+  card.setAttribute("aria-label", "Reserved future observation slots. Not playable. No source yet.");
+  card.append(
+    createText("span", "reserved-mark", "Future"),
+    createText("strong", "", `${reservedCount} reserved future observation slots`),
+    createText("span", "", "Not playable"),
+    createText("small", "", "No source yet")
+  );
+  return card;
+}
+
+function createFact(label, value) {
+  const fact = document.createElement("span");
+  fact.append(createText("b", "", label), createText("em", "", value ?? "Unrecorded"));
+  return fact;
 }
 
 function renderTimeline() {
@@ -225,18 +263,21 @@ function updateSelection() {
   state.selectedSlug = selected.slug;
   window.history.replaceState(null, "", `#${selected.slug}`);
 
-  for (const card of track.querySelectorAll(".observation-card")) {
+  for (const card of track.querySelectorAll(".observation-card[data-index]")) {
     const active = Number(card.dataset.index) === state.selectedIndex;
     card.classList.toggle("active", active);
     card.setAttribute("aria-current", active ? "true" : "false");
     if (active) {
-      card.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      card.scrollIntoView({ behavior: reduceMotionQuery.matches ? "auto" : "smooth", inline: "center", block: "nearest" });
     }
   }
 
   for (const node of timeline.querySelectorAll(".timeline-node")) {
     const active = Number(node.dataset.index) === state.selectedIndex;
     node.classList.toggle("active", active);
+    if (active) {
+      node.scrollIntoView({ behavior: reduceMotionQuery.matches ? "auto" : "smooth", inline: "center", block: "nearest" });
+    }
   }
 
   const support = getMobileSupportInfo(selected);
@@ -247,6 +288,7 @@ function updateSelection() {
     createReadout("Agent", selected.provenance?.agentName),
     createReadout("Created", formatDate(selected.provenance?.createdDate)),
     createReadout("Device", support.label),
+    createReadout("Status", selected.statusLabel ?? toTitle(selected.status)),
     createReadout("Hall", selected.hallName ?? selected.hallId)
   );
   playSelected.href = getPlayGateHref(selected);
@@ -275,6 +317,30 @@ function selectByOffset(offset) {
 
 function selectIndex(index) {
   state.selectedIndex = index;
+  updateSelection();
+}
+
+function syncSelectionFromHash() {
+  const slug = readSlugFromHash();
+  if (!slug || slug === state.selectedSlug) {
+    return;
+  }
+
+  const gameExists = state.games.some((game) => game.slug === slug);
+  if (!gameExists) {
+    return;
+  }
+
+  state.selectedSlug = slug;
+  if (!filterGamesByModel(state.games, state.selectedModel).some((game) => game.slug === slug)) {
+    state.selectedModel = "all";
+    renderModels();
+    renderLibrary();
+    return;
+  }
+
+  state.filteredGames = filterGamesByModel(state.games, state.selectedModel);
+  state.selectedIndex = findSelectedIndex();
   updateSelection();
 }
 

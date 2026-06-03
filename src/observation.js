@@ -10,6 +10,7 @@ import {
   getRunRecordHref,
   getScreenshotHref,
   getScreenshotList,
+  getVariantHref,
   loadRunRecords,
   toTitle
 } from "./archive-data.js";
@@ -49,6 +50,8 @@ function renderRecord(game, runs) {
   record.className = "record";
   record.append(
     createHero(game, heroImage, mobile),
+    createMetadataWarning(game),
+    createCoreFactsPanel(game, mobile),
     createMediaSection(game, screenshots),
     createDevicePanel(support, mobile),
     createProvenancePanel(game),
@@ -102,6 +105,35 @@ function createHero(game, heroImage, mobile) {
   return hero;
 }
 
+function createMetadataWarning(game) {
+  if (!game._metadataError) {
+    const fragment = document.createDocumentFragment();
+    return fragment;
+  }
+
+  const warning = document.createElement("p");
+  warning.className = "archive-notice";
+  warning.textContent = `game.json could not be loaded completely. Rendering manifest-backed data only. ${game._metadataError}`;
+  return warning;
+}
+
+function createCoreFactsPanel(game, mobile) {
+  const section = createSection("Core Facts", "core-facts");
+  section.append(
+    createDefinitionGrid([
+      ["Observation", getGameNumberLabel(game)],
+      ["Hall", game.hallName ?? game.hallId],
+      ["Status", game.statusLabel ?? toTitle(game.status)],
+      ["Model", game.provenance?.modelName],
+      ["Agent", game.provenance?.agentName],
+      ["Created", formatDate(game.provenance?.createdDate)],
+      ["Source", game.sourceCompleteness],
+      ["Device", mobile.label]
+    ])
+  );
+  return section;
+}
+
 function createMediaSection(game, screenshots) {
   const section = createSection("Screenshots / Media");
   const gallery = document.createElement("div");
@@ -131,7 +163,7 @@ function createMediaSection(game, screenshots) {
 }
 
 function createDevicePanel(support, mobile) {
-  const section = createSection("Device Support");
+  const section = createSection("Device Support", "device-support");
   section.append(
     createDefinitionGrid([
       ["Desktop", toTitle(support.desktop)],
@@ -147,7 +179,7 @@ function createDevicePanel(support, mobile) {
 
 function createProvenancePanel(game) {
   const provenance = game.provenance ?? {};
-  const section = createSection("Provenance");
+  const section = createSection("Provenance", "provenance-panel");
   section.append(
     createDefinitionGrid([
       ["Model", provenance.modelName],
@@ -192,7 +224,7 @@ function createVariantsPanel(game) {
   const list = document.createElement("div");
   list.className = "record-list-grid";
   list.append(...variants.map((variant) => {
-    const path = variant.metadataPath ? getRunRecordHref(game, variant.metadataPath).replace("/runs/", "/variants/") : "";
+    const path = variant.metadataPath ? getVariantHref(game, variant.metadataPath) : "";
     return createDefinitionCard(variant.variantId ?? "Variant", [
       ["Model", variant.modelName],
       ["Agent", variant.agentName],
@@ -214,45 +246,72 @@ function createRunsPanel(game, runs) {
 
   const list = document.createElement("div");
   list.className = "run-list";
-  list.append(...runs.map((run) => createRunCard(game, run)));
+  list.append(...runs.map((run, index) => createRunCard(game, run, index)));
   section.append(list);
   return section;
 }
 
-function createRunCard(game, run) {
+function createRunCard(game, run, index) {
   if (run._loadError) {
-    return createDefinitionCard(run._runId, [
+    const card = createRunDetails(run._runId, "Run record load failed", index === 0);
+    card.append(createDefinitionGrid([
       ["Path", run._href],
       ["Status", `Could not load: ${run._loadError}`]
-    ]);
+    ]));
+    return card;
   }
 
   const verification = run.verification ?? {};
   const performed = verification.performed ?? verification.checks ?? [];
   const pending = verification.pending ?? run.pending ?? [];
   const knownIssues = run.knownIssues ?? [];
-
-  const card = createDefinitionCard(run._runId, [
-    ["Model", run.modelName],
-    ["Agent", run.agentName],
-    ["Verified", formatDate(verification.verifiedDate ?? run.date)],
-    ["Human code edits", String(run.humanCodeEdits)],
-    ["Path", getRunRecordHref(game, run._href)]
-  ]);
+  const card = createRunDetails(run._runId, run.status ?? run.runType ?? "Recorded attempt", index === 0);
 
   card.append(
+    createDefinitionGrid([
+      ["Model", run.modelName],
+      ["Agent", run.agentName],
+      ["Run type", run.runType],
+      ["Status", run.status],
+      ["Verified", formatDate(verification.verifiedDate ?? run.date)],
+      ["Human code edits", String(run.humanCodeEdits)],
+      ["Path", run._href]
+    ]),
+    createRunAlerts(knownIssues, pending),
     createListBlock("Prompt summary", [run.promptSummary ?? "No public prompt summary recorded."]),
     createListBlock("Outputs", run.outputs ?? []),
-    createListBlock("Verification", performed),
-    createListBlock("Known issues", Array.isArray(knownIssues) ? knownIssues : [String(knownIssues)]),
-    createListBlock("Pending", Array.isArray(pending) ? pending : [String(pending)])
+    createListBlock("Verification", performed)
   );
   return card;
 }
 
-function createSection(title) {
+function createRunDetails(title, status, open) {
+  const details = document.createElement("details");
+  details.className = "definition-card run-card";
+  details.open = open;
+
+  const summary = document.createElement("summary");
+  summary.append(
+    createText("h4", "", title),
+    createText("span", "", status ?? "Recorded attempt")
+  );
+  details.append(summary);
+  return details;
+}
+
+function createRunAlerts(knownIssues, pending) {
+  const block = document.createElement("div");
+  block.className = "run-alerts";
+  block.append(
+    createListBlock("Known issues", Array.isArray(knownIssues) ? knownIssues : [String(knownIssues)]),
+    createListBlock("Pending", Array.isArray(pending) ? pending : [String(pending)])
+  );
+  return block;
+}
+
+function createSection(title, extraClass = "") {
   const section = document.createElement("section");
-  section.className = "record-section";
+  section.className = `record-section${extraClass ? ` ${extraClass}` : ""}`;
   section.append(createText("h3", "", title));
   return section;
 }

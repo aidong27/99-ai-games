@@ -152,6 +152,22 @@ export function getRunRecordHref(game, runPath) {
   return `${getLaunchHref(game)}${clean}`;
 }
 
+export function getVariantHref(game, variantPath) {
+  if (!variantPath) {
+    return "";
+  }
+  if (isExternalOrRootPath(variantPath)) {
+    return normalizeRootPath(variantPath);
+  }
+
+  const clean = String(variantPath).replace(/^\.\//, "");
+  if (clean.startsWith("games/")) {
+    return `./${clean}`;
+  }
+
+  return `${getLaunchHref(game)}${clean}`;
+}
+
 export function getScreenshotHref(game, preferredPath) {
   const path = preferredPath
     ?? game?.media?.thumbnail
