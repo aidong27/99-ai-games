@@ -3,14 +3,15 @@
   "gameNumber": 2,
   "gameSlug": "lumen-lattice",
   "gameTitle": "Lumen Lattice",
-  "status": "canonical-playable",
+  "status": "superseded-playable",
+  "supersededByVariantId": "claude-lumen-lattice-prism-archive-2026-06-03",
   "createdDate": "2026-05-31",
   "modelName": "Claude Opus 4.8",
   "agentName": "Claude Code",
   "humanCodeEdits": false,
   "implementationPath": "../../",
   "metadataPath": "variant.json",
-  "notes": "Canonical first playable implementation for Observation 002 / Game 002. The playable source lives at the game root. The model label is maintainer-declared for this project entry.",
+  "notes": "First playable implementation for Observation 002 / Game 002 (row-and-column toggle puzzle). Superseded on 2026-06-03 as the canonical root source by the Prism Archive remake (claude-lumen-lattice-prism-archive-2026-06-03); this record and its run history are preserved for comparison. The model label is maintainer-declared for this project entry.",
   "comparisonRole": "baseline",
   "runRecords": [
     "../../runs/2026-05-31-claude-opus-4-8-initial.json"

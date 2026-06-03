@@ -5,114 +5,116 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta
       name="description"
-      content="Lumen Lattice, Observation 002 / Game 002 in 99 AI Games, a guaranteed-solvable logic puzzle made by Claude Code with model label Claude Opus 4.8."
+      content="Lumen Lattice: Prism Archive — Observation 002 / Game 002 in 99 AI Games. A PC-first, guaranteed-solvable constraint logic puzzle. Model label Claude Opus 4.8, agent Claude Code, maintainer-declared."
     >
-    <title>Lumen Lattice | 99 AI Games</title>
+    <title>Lumen Lattice: Prism Archive | 99 AI Games</title>
     <link rel="icon" href="data:,">
-    <link rel="stylesheet" href="../../styles/game-shell.css?v=2026-06-02-mobile3">
-    <link rel="stylesheet" href="./styles/main.css?v=2026-06-02-mobile3">
+    <link rel="stylesheet" href="../../styles/game-shell.css?v=2026-06-03-pcfirst">
+    <link rel="stylesheet" href="./styles/main.css?v=2026-06-03-pcfirst">
   </head>
   <body>
     <main class="game-shell">
       <header class="topbar">
-        <a class="back-link" href="../../">99 AI Games</a>
+        <a class="back-link" href="../../">&larr; 99 AI Games</a>
         <div class="model-chip" aria-label="AI provenance">
-          <span>Observation 002 / Game 002</span>
+          <span>Observation 002 / Game 002 &middot; Puzzle Logic Hall</span>
           <strong>Claude Opus 4.8 / Claude Code</strong>
         </div>
       </header>
 
       <section class="game-hero" aria-labelledby="game-title">
-        <div>
+        <div class="hero-copy">
           <p class="eyebrow">Constraint logic puzzle</p>
-          <h1 id="game-title">Lumen Lattice</h1>
+          <h1 id="game-title">Lumen Lattice<span class="title-edition">Prism Archive</span></h1>
           <p class="lede">
-            Press a node and light beams race down its entire row and column, flipping every
-            lumen they cross. Read the parity, plan your sequence, and light the whole lattice.
+            Realign every prism in the archive. Each press sends light through a fixed pattern —
+            read the rule, plan the sequence, and bring the whole lattice into phase.
           </p>
         </div>
         <dl class="quick-stats" aria-label="Puzzle status">
           <div>
             <dt>Lattice</dt>
-            <dd id="level-readout">1 / 5</dd>
+            <dd id="level-readout">1 / 6</dd>
           </div>
           <div>
             <dt>Moves</dt>
             <dd id="moves-readout">0</dd>
           </div>
           <div>
-            <dt>Lit</dt>
-            <dd id="lit-readout">0 / 0</dd>
+            <dt>Par</dt>
+            <dd id="par-readout">3</dd>
           </div>
           <div>
-            <dt>Par</dt>
-            <dd id="par-readout">4</dd>
+            <dt>Aligned</dt>
+            <dd id="aligned-readout">0 / 0</dd>
           </div>
         </dl>
       </section>
 
-      <section class="play-surface" aria-label="Lumen Lattice game">
+      <section class="play-surface" aria-label="Lumen Lattice: Prism Archive">
         <div class="play-column">
-          <div class="canvas-frame">
-            <canvas id="lattice-canvas" width="720" height="720" aria-label="Lumen lattice grid"></canvas>
-            <div id="lattice-hit-grid" class="lattice-hit-grid" aria-label="Tap lattice nodes" hidden></div>
+          <div class="board-frame">
+            <canvas id="lattice-canvas" width="900" height="900" aria-label="Prism lattice"></canvas>
+            <div id="lattice-hit-grid" class="lattice-hit-grid" aria-label="Press a prism" hidden></div>
             <div id="overlay" class="overlay">
               <div class="overlay-card">
                 <p class="eyebrow" id="overlay-kicker">Observation 002 / Game 002</p>
-                <h2 id="overlay-title">Light the lattice</h2>
+                <h2 id="overlay-title">Lumen Lattice: Prism Archive</h2>
                 <p id="overlay-copy">
-                  Press any node to fire light down its row and column. Light every node to win.
+                  Align every prism to synchronize the lattice. Each press sends light through a fixed pattern.
                 </p>
-                <button id="primary-action" class="button primary" type="button">Start lattice 1</button>
+                <p id="overlay-rule" class="overlay-rule" hidden></p>
+                <div id="overlay-actions" class="overlay-actions"></div>
               </div>
             </div>
           </div>
-
-          <section class="lattice-tools" aria-label="Lumen Lattice tools">
-            <button id="hint-button" class="button" type="button">Hint</button>
-            <button id="undo-button" class="button" type="button">Undo</button>
-            <button id="reset-button" class="button" type="button">Reset</button>
-          </section>
         </div>
 
-        <aside class="mission-panel">
-          <section>
-            <p class="eyebrow">Rules</p>
-            <ul>
-              <li>Every node starts lit or dark.</li>
-              <li>Pressing a node flips its full row and column.</li>
-              <li>The pressed node flips once, with the cross.</li>
-              <li>Light every node to synchronize the lattice.</li>
-            </ul>
+        <aside class="archive-panel" aria-label="Archive console">
+          <section class="panel-block">
+            <p class="eyebrow">Directive</p>
+            <p id="directive" class="directive">Align every prism to synchronize the lattice.</p>
           </section>
-          <section>
-            <p class="eyebrow">Controls</p>
-            <ul>
-              <li>Press a node: click / tap</li>
-              <li>Move cursor: WASD / Arrow keys</li>
-              <li>Fire node: Space or Enter</li>
-              <li>Hint: H &middot; Undo: U &middot; Reset: R</li>
-            </ul>
+
+          <section class="panel-block rule-block">
+            <p class="eyebrow">Active rule &middot; <span id="rule-name">Pulse</span></p>
+            <p id="rule-note" class="rule-note">Flips the prism you press and its four orthogonal neighbours.</p>
           </section>
-          <section>
-            <p class="eyebrow">Tools</p>
-            <p class="note">Hint, Undo, and Reset stay directly below the lattice on touch screens.</p>
-          </section>
-          <section>
-            <p class="eyebrow">Telemetry</p>
+
+          <section class="panel-block">
+            <p class="eyebrow">Progress</p>
             <div class="meter">
-              <span>Lattice lit</span>
+              <span id="progress-label">Aligned 0 / 0</span>
               <div><i id="progress-meter"></i></div>
             </div>
+          </section>
+
+          <section class="panel-block">
+            <p class="eyebrow">Tools</p>
+            <div class="tool-grid">
+              <button id="hint-button" class="tool" type="button">Hint <kbd>H</kbd></button>
+              <button id="undo-button" class="tool" type="button">Undo <kbd>U</kbd></button>
+              <button id="reset-button" class="tool" type="button">Reset <kbd>R</kbd></button>
+              <button id="pause-button" class="tool" type="button">Menu <kbd>P</kbd></button>
+            </div>
+          </section>
+
+          <section class="panel-block">
+            <p class="eyebrow">Controls</p>
+            <ul class="controls-list">
+              <li><span>Press prism</span><kbd>Click / Tap</kbd></li>
+              <li><span>Move cursor</span><kbd>Arrows / WASD</kbd></li>
+              <li><span>Activate</span><kbd>Space / Enter</kbd></li>
+            </ul>
             <p class="note">
-              Every lattice is generated by scrambling a fully lit board, so each puzzle is
-              guaranteed solvable. The hint reveals one node from a known solving sequence.
+              Each lattice is built by scrambling a solved board, so every puzzle is guaranteed
+              solvable. Hint reveals one prism from a known solving sequence — it never solves for you.
             </p>
           </section>
         </aside>
       </section>
     </main>
 
-    <script type="module" src="./src/main.js?v=2026-06-02-mobile3"></script>
+    <script type="module" src="./src/main.js?v=2026-06-03-pcfirst"></script>
   </body>
 </html>

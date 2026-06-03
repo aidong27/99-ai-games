@@ -1,67 +1,93 @@
 :root {
   color-scheme: dark;
-  --bg: #06070d;
-  --panel: rgba(18, 22, 36, 0.86);
-  --panel-strong: rgba(22, 27, 44, 0.96);
-  --ink: #f4f7ff;
-  --muted: rgba(196, 206, 232, 0.74);
-  --accent: #7cf6ff;
-  --accent-2: #a8ffc6;
-  --amber: #ffd166;
-  --line: rgba(123, 158, 255, 0.24);
-  --shadow: rgba(0, 0, 0, 0.42);
+  --bg: #050607;
+  --bg-deep: #020303;
+  --panel: #0b0d0f;
+  --panel-strong: #111417;
+  --panel-soft: rgba(255, 255, 255, 0.035);
+  --line: rgba(255, 255, 255, 0.12);
+  --line-strong: rgba(255, 255, 255, 0.22);
+  --text: #f4f1e8;
+  --muted: #8e918e;
+  --muted-strong: #b8b9b1;
+  --accent: #d8f75f;
+  --accent-soft: rgba(216, 247, 95, 0.16);
+  --cyan: #7fe9e0;
+  --shadow: 0 24px 90px rgba(0, 0, 0, 0.46);
+  --display-font: Georgia, "Times New Roman", ui-serif, serif;
+  --ui-font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --radius: 6px;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  color: var(--ink);
+  font-family: var(--ui-font);
+  color: var(--text);
   background-color: var(--bg);
   background-image:
-    linear-gradient(140deg, rgba(124, 246, 255, 0.09), transparent 42%),
-    linear-gradient(220deg, rgba(168, 255, 198, 0.08), transparent 46%),
-    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.024) 0 1px, transparent 1px 34px),
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0 1px, transparent 1px 34px);
+    radial-gradient(1200px 700px at 82% -12%, rgba(216, 247, 95, 0.06), transparent 60%),
+    radial-gradient(900px 600px at -8% 112%, rgba(127, 233, 224, 0.05), transparent 60%),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 40px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.015) 0 1px, transparent 1px 40px);
+}
+
+a,
+button {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
 }
 
 .game-shell {
-  width: min(1180px, calc(100% - 40px));
+  width: min(1320px, calc(100% - 48px));
   margin: 0 auto;
-  padding-top: 22px;
+  padding-top: 26px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 22px;
 }
+
+/* Header ------------------------------------------------------------- */
 
 .topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  flex-wrap: wrap;
 }
 
 .back-link {
   display: inline-flex;
   align-items: center;
+  padding: 0 16px;
   border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 0 14px;
-  color: var(--ink);
+  border-radius: var(--radius);
+  color: var(--text);
   text-decoration: none;
-  font-weight: 800;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  background: var(--panel-soft);
 }
 
 .back-link:hover {
   border-color: var(--accent);
+  color: var(--accent);
 }
 
 .model-chip {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  font-size: 0.82rem;
+  gap: 2px;
+  font-size: 0.8rem;
 }
 
 .model-chip span {
@@ -69,99 +95,124 @@ body {
 }
 
 .model-chip strong {
-  color: var(--accent);
+  color: var(--muted-strong);
+  font-weight: 600;
 }
 
 .eyebrow {
-  margin: 0 0 6px;
+  margin: 0 0 10px;
   color: var(--muted);
   font-size: 0.72rem;
-  font-weight: 900;
-  letter-spacing: 0;
+  font-weight: 700;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
+/* Hero --------------------------------------------------------------- */
+
 .game-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.85fr);
-  gap: 22px;
+  grid-template-columns: minmax(0, 1.5fr) minmax(300px, 0.7fr);
+  gap: 26px;
   align-items: end;
   border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 22px;
-  background: var(--panel);
-  box-shadow: 0 22px 70px var(--shadow);
+  border-radius: var(--radius);
+  padding: 30px 32px;
+  background: linear-gradient(180deg, var(--panel-strong), var(--panel));
+  box-shadow: var(--shadow);
 }
 
 .game-hero h1 {
-  margin: 0 0 10px;
-  font-size: 2.8rem;
+  margin: 0 0 14px;
+  font-family: var(--display-font);
+  font-weight: 600;
+  font-size: clamp(2.4rem, 4vw, 3.5rem);
   line-height: 1.02;
+  letter-spacing: -0.01em;
+}
+
+.title-edition {
+  display: block;
+  margin-top: 4px;
+  color: var(--accent);
+  font-size: 0.42em;
+  font-style: italic;
+  letter-spacing: 0.06em;
 }
 
 .lede {
-  max-width: 58ch;
+  max-width: 60ch;
   margin: 0;
-  color: var(--muted);
-  line-height: 1.55;
+  color: var(--muted-strong);
+  font-size: 1.02rem;
+  line-height: 1.6;
 }
 
 .quick-stats {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  gap: 12px;
   margin: 0;
 }
 
 .quick-stats div {
   border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 12px;
-  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius);
+  padding: 14px;
+  background: var(--bg-deep);
 }
 
 .quick-stats dt {
   color: var(--muted);
-  font-size: 0.74rem;
-  font-weight: 900;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 .quick-stats dd {
-  margin: 4px 0 0;
-  font-size: 1.24rem;
-  font-weight: 800;
+  margin: 6px 0 0;
+  font-family: var(--display-font);
+  font-size: 1.5rem;
+  font-weight: 600;
 }
+
+/* Play surface ------------------------------------------------------- */
 
 .play-surface {
   display: grid;
-  grid-template-columns: minmax(0, 720px) minmax(280px, 1fr);
-  gap: 18px;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 360px);
+  gap: 22px;
   align-items: start;
 }
 
 .play-column {
+  min-width: 0;
+  display: grid;
   justify-items: center;
 }
 
-.canvas-frame {
+.board-frame {
   position: relative;
-  width: min(100%, 720px);
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 8px;
+  width: min(100%, 760px);
   aspect-ratio: 1 / 1;
-  background: #05070f;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--bg-deep);
+  box-shadow: var(--shadow), inset 0 0 80px rgba(0, 0, 0, 0.55);
 }
 
 canvas {
+  display: block;
   width: 100%;
   height: 100%;
-  display: block;
   touch-action: none;
+  user-select: none;
 }
 
+/* The hit grid overlays the square canvas exactly: 8.889% padding matches the
+   80/900 world margin, and --lattice-size / --lattice-gap are set by the game. */
 .lattice-hit-grid {
   position: absolute;
   inset: 0;
@@ -184,16 +235,18 @@ canvas {
   width: 100%;
   height: 100%;
   border: 0;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 0;
   background: rgba(255, 255, 255, 0.001);
   touch-action: none;
 }
 
 .lattice-hit-grid button:focus-visible {
-  outline: 3px solid var(--amber);
+  outline: 3px solid var(--accent);
   outline-offset: 2px;
 }
+
+/* Overlay ------------------------------------------------------------ */
 
 .overlay {
   position: absolute;
@@ -201,9 +254,9 @@ canvas {
   z-index: 3;
   display: grid;
   place-items: center;
-  padding: 18px;
-  background: rgba(4, 6, 14, 0.78);
-  backdrop-filter: blur(6px);
+  padding: 20px;
+  background: rgba(3, 4, 5, 0.82);
+  backdrop-filter: blur(7px);
 }
 
 .overlay.hidden {
@@ -211,125 +264,220 @@ canvas {
 }
 
 .overlay-card {
-  width: min(420px, 100%);
+  width: min(440px, 100%);
   border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 24px;
+  border-radius: var(--radius);
+  padding: 28px 26px;
   text-align: center;
-  background: var(--panel-strong);
+  background: linear-gradient(180deg, var(--panel-strong), var(--panel));
+  box-shadow: var(--shadow);
 }
 
 .overlay-card h2 {
-  margin: 4px 0 10px;
-  font-size: 1.5rem;
+  margin: 6px 0 12px;
+  font-family: var(--display-font);
+  font-weight: 600;
+  font-size: 1.7rem;
 }
 
 .overlay-card p {
-  margin: 0 0 18px;
-  color: var(--muted);
-  line-height: 1.5;
+  margin: 0 0 16px;
+  color: var(--muted-strong);
+  line-height: 1.55;
 }
 
-.lattice-tools {
-  width: min(100%, 720px);
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 10px;
-  background: rgba(18, 22, 36, 0.94);
-  box-shadow: 0 16px 42px var(--shadow);
+.overlay-rule {
+  border: 1px solid var(--accent-soft);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  background: var(--accent-soft);
+  color: var(--text);
+  font-size: 0.92rem;
 }
 
-.mission-panel {
+.overlay-actions {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 20px;
-  background: var(--panel);
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 4px;
 }
 
-.mission-panel h2 {
-  margin: 0 0 8px;
-  font-size: 1.1rem;
-}
-
-.mission-panel ul {
-  margin: 0;
-  padding-left: 18px;
-  color: var(--muted);
-  line-height: 1.6;
-}
-
-.note {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.86rem;
-  line-height: 1.5;
-}
+/* Buttons ------------------------------------------------------------ */
 
 .button {
-  appearance: none;
-  min-height: 52px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 0 16px;
-  color: var(--ink);
-  background: rgba(124, 246, 255, 0.08);
-  font-weight: 800;
-  transition: border-color 0.15s ease, transform 0.1s ease, background 0.15s ease;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 22px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  color: var(--text);
+  background: var(--panel-soft);
+  font-weight: 600;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.1s ease;
 }
 
 .button:hover:not(:disabled) {
   border-color: var(--accent);
-  background: rgba(124, 246, 255, 0.16);
+  background: var(--accent-soft);
 }
 
 .button:active:not(:disabled) {
   transform: translateY(1px);
 }
 
-.button:disabled {
-  opacity: 0.42;
-  cursor: not-allowed;
-}
-
 .button.primary {
   border-color: transparent;
-  color: #04121a;
-  background: linear-gradient(120deg, var(--accent), var(--accent-2));
+  color: #14180a;
+  background: var(--accent);
+}
+
+.button.primary:hover:not(:disabled) {
+  background: #e4ff7a;
+}
+
+/* Archive console panel ---------------------------------------------- */
+
+.archive-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  background: linear-gradient(180deg, var(--panel-strong), var(--panel));
+  box-shadow: var(--shadow);
+}
+
+.panel-block {
+  display: grid;
+  gap: 8px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.panel-block:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.panel-block .eyebrow {
+  margin: 0;
+}
+
+.directive {
+  margin: 0;
+  font-family: var(--display-font);
+  font-size: 1.12rem;
+  line-height: 1.4;
+  color: var(--text);
+}
+
+.rule-block .eyebrow span {
+  color: var(--accent);
+}
+
+.rule-note {
+  margin: 0;
+  color: var(--muted-strong);
+  line-height: 1.5;
 }
 
 .meter {
   display: grid;
-  gap: 6px;
+  gap: 8px;
 }
 
 .meter span {
   color: var(--muted);
-  font-size: 0.78rem;
+  font-size: 0.82rem;
+  font-weight: 600;
 }
 
 .meter div {
-  height: 10px;
+  height: 8px;
   overflow: hidden;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.07);
 }
 
 .meter i {
+  display: block;
   width: 0%;
   height: 100%;
-  display: block;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
-  transition: width 0.2s ease;
+  background: linear-gradient(90deg, var(--cyan), var(--accent));
+  transition: width 0.25s ease;
 }
 
-@media (max-width: 960px) {
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.tool {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  color: var(--text);
+  background: var(--panel-soft);
+  font-weight: 600;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.1s ease;
+}
+
+.tool:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.tool:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+kbd {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.72rem;
+  padding: 2px 7px;
+  border: 1px solid var(--line-strong);
+  border-radius: 5px;
+  background: var(--bg-deep);
+  color: var(--muted-strong);
+}
+
+.controls-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+
+.controls-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--muted-strong);
+  font-size: 0.9rem;
+}
+
+.note {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+/* Responsive --------------------------------------------------------- */
+
+@media (max-width: 1024px) {
   .game-hero,
   .play-surface {
     grid-template-columns: 1fr;
@@ -339,89 +487,58 @@ canvas {
     align-items: flex-start;
   }
 
-  .mission-panel {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .board-frame {
+    width: min(100%, 640px);
+    margin: 0 auto;
+  }
+
+  .archive-panel {
+    width: 100%;
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 720px) {
   .game-shell {
-    width: min(100% - 20px, 1180px);
-    gap: 12px;
+    width: min(100% - 24px, 1320px);
+    padding-top: 16px;
+    gap: 16px;
   }
 
   .topbar {
-    align-items: stretch;
     flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
   }
 
   .back-link {
     justify-content: center;
-    width: 100%;
+    min-height: 46px;
   }
 
   .game-hero {
-    gap: 12px;
+    padding: 18px;
+    gap: 14px;
+  }
+
+  .play-surface {
+    gap: 14px;
+  }
+
+  .archive-panel {
     padding: 16px;
   }
 
-  .game-hero h1 {
-    font-size: 2.15rem;
+  .tool-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
 
+@media (max-width: 430px) {
   .quick-stats {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .play-surface {
-    gap: 10px;
-  }
-
-  .lattice-tools {
-    position: sticky;
-    bottom: 0;
-    z-index: 5;
-    padding: 8px;
-    background: rgba(10, 13, 23, 0.96);
-  }
-
-  .mission-panel {
-    grid-template-columns: 1fr;
-    padding: 16px;
-  }
-
-  .overlay {
-    padding: 12px;
-  }
-
-  .overlay-card {
-    padding: 18px;
-  }
-
-  .overlay-card .button {
-    width: 100%;
-  }
-}
-
-@media (max-width: 390px) {
-  .game-shell {
-    width: min(100% - 16px, 1180px);
-  }
-
-  .game-hero {
-    padding: 14px;
-  }
-
   .game-hero h1 {
-    font-size: 1.95rem;
-  }
-
-  .lattice-tools {
-    gap: 7px;
-  }
-
-  .button {
-    padding: 0 10px;
+    font-size: 2.1rem;
   }
 }
