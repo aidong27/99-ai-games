@@ -3,6 +3,8 @@ import {
   formatDate,
   getArchiveStats,
   getGameNumberLabel,
+  getLibrarySelectionHref,
+  getManifestHref,
   getMetadataHref,
   getMobileSupportInfo,
   getModelsFromGames,
@@ -13,6 +15,7 @@ import {
   loadArchive,
   toTitle
 } from "./archive-data.js";
+import { bindPointerTilt, createSignalField } from "./archive-effects.js";
 
 const modelAxis = document.querySelector("#model-axis");
 const modelCount = document.querySelector("#model-count");
@@ -25,7 +28,10 @@ const playSelected = document.querySelector("#play-selected");
 const viewRecord = document.querySelector("#view-record");
 const openMetadata = document.querySelector("#open-metadata");
 const errorPanel = document.querySelector("#library-error");
+const signalCanvas = document.querySelector("#library-signal");
 const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+const signalField = createSignalField(signalCanvas, { variant: "library", density: 26 });
+const cardTilt = bindPointerTilt(track, ".observation-card[data-index]", { maxTilt: 5 });
 
 const state = {
   manifest: null,
@@ -34,39 +40,68 @@ const state = {
   models: [],
   selectedModel: "all",
   selectedSlug: "",
-  selectedIndex: 0
+  selectedIndex: 0,
+  notice: ""
 };
 
-loadLibrary();
+const hasLibraryDom = [
+  modelAxis,
+  modelCount,
+  libraryStatus,
+  track,
+  timeline,
+  currentTitle,
+  currentReadout,
+  playSelected,
+  viewRecord,
+  openMetadata,
+  errorPanel
+].every(Boolean);
 
-document.addEventListener("keydown", (event) => {
-  if (event.metaKey || event.ctrlKey || event.altKey || isTypingTarget(event.target)) {
-    return;
-  }
+if (hasLibraryDom) {
+  loadLibrary();
+  signalField.start();
+  bindLibraryEvents();
+} else {
+  signalField.destroy();
+  cardTilt.destroy();
+}
 
-  if (event.key === "ArrowRight") {
-    event.preventDefault();
-    selectByOffset(1);
-  } else if (event.key === "ArrowLeft") {
-    event.preventDefault();
-    selectByOffset(-1);
-  } else if (event.key === "Enter") {
-    const selected = getSelectedGame();
-    if (selected) {
-      window.location.href = getObservationHref(selected);
+function bindLibraryEvents() {
+  window.addEventListener("pagehide", () => {
+    signalField.destroy();
+    cardTilt.destroy();
+  }, { once: true });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.metaKey || event.ctrlKey || event.altKey || isTypingTarget(event.target)) {
+      return;
     }
-  } else if (event.key === "Escape") {
-    if (state.selectedModel !== "all") {
-      selectModel("all");
-    } else {
-      window.location.href = "./";
-    }
-  }
-});
 
-window.addEventListener("hashchange", () => {
-  syncSelectionFromHash();
-});
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      selectByOffset(1);
+    } else if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      selectByOffset(-1);
+    } else if (event.key === "Enter") {
+      const selected = getSelectedGame();
+      if (selected) {
+        window.location.href = getObservationHref(selected);
+      }
+    } else if (event.key === "Escape") {
+      if (state.selectedModel !== "all") {
+        selectModel("all");
+      } else {
+        window.location.href = "./";
+      }
+    }
+  });
+
+  window.addEventListener("hashchange", () => {
+    syncSelectionFromHash();
+  });
+}
 
 async function loadLibrary() {
   try {
@@ -76,12 +111,13 @@ async function loadLibrary() {
     state.manifest = manifest;
     state.games = games;
     state.models = getModelsFromGames(games);
-    state.selectedSlug = readSlugFromHash() || selectInitialSlug(games);
+    state.selectedSlug = selectInitialSlug(games);
+    applyInitialHash();
     state.filteredGames = filterGamesByModel(games, state.selectedModel);
     state.selectedIndex = findSelectedIndex();
 
     libraryStatus.textContent = `${stats.playableCount} playable / ${stats.targetCount} target slots`;
-    modelCount.textContent = `${state.models.length} ${state.models.length === 1 ? "model" : "models"}`;
+    modelCount.textContent = `${state.models.length} ${state.models.length === 1 ? "model" : "models"} / ${stats.observationCount} observations`;
     renderModels();
     renderLibrary();
   } catch (error) {
@@ -90,10 +126,13 @@ async function loadLibrary() {
 }
 
 function renderModels() {
+  const agents = new Set(state.models.flatMap((model) => [...model.agents]));
   const allButton = createModelButton({
     modelName: "All Models",
     games: state.games,
-    agents: new Set(state.models.flatMap((model) => [...model.agents]))
+    agents,
+    agentSummary: agents.size ? "All recorded agents" : "Agent unrecorded",
+    countSummary: `${state.games.length} ${state.games.length === 1 ? "observation" : "observations"} / ${state.models.length} ${state.models.length === 1 ? "model" : "models"} / ${agents.size} ${agents.size === 1 ? "agent" : "agents"}`
   }, "all");
 
   const buttons = [
@@ -110,6 +149,11 @@ function createModelButton(model, value) {
   button.className = `model-axis-item${state.selectedModel === value ? " active" : ""}`;
   button.dataset.model = value;
   button.setAttribute("role", "listitem");
+  button.setAttribute("aria-pressed", state.selectedModel === value ? "true" : "false");
+  if (state.selectedModel === value) {
+    button.setAttribute("aria-current", "true");
+  }
+  button.setAttribute("aria-label", `${model.modelName}. ${model.countSummary ?? `${model.games.length} observations`}.`);
   button.addEventListener("click", () => selectModel(value));
 
   const icon = document.createElement("span");
@@ -118,11 +162,11 @@ function createModelButton(model, value) {
 
   const copy = document.createElement("span");
   copy.className = "axis-copy";
-  const agentNames = [...model.agents].join(", ") || "Agent unrecorded";
+  const agentNames = model.agentSummary ?? ([...model.agents].join(", ") || "Agent unrecorded");
   copy.append(
     createText("strong", "", model.modelName),
     createText("span", "axis-agent", agentNames),
-    createText("small", "", `${model.games.length} ${model.games.length === 1 ? "observation" : "observations"} / ${model.agents.size} ${model.agents.size === 1 ? "agent" : "agents"}`)
+    createText("small", "", model.countSummary ?? `${model.games.length} ${model.games.length === 1 ? "observation" : "observations"} / ${model.agents.size} ${model.agents.size === 1 ? "agent" : "agents"}`)
   );
 
   button.append(icon, copy);
@@ -132,6 +176,7 @@ function createModelButton(model, value) {
 function renderLibrary() {
   state.filteredGames = filterGamesByModel(state.games, state.selectedModel);
   state.selectedIndex = findSelectedIndex();
+  renderNotice();
 
   if (!state.filteredGames.length) {
     currentTitle.textContent = "No observations for this model";
@@ -142,7 +187,7 @@ function renderLibrary() {
     playSelected.textContent = "No playable sample";
     playSelected.className = "archive-button secondary";
     viewRecord.href = "./library.html";
-    openMetadata.href = "./games/manifest.json";
+    openMetadata.href = getManifestHref();
     return;
   }
 
@@ -161,8 +206,14 @@ function createObservationCard(game, index) {
   card.type = "button";
   card.className = "observation-card";
   card.dataset.index = String(index);
+  card.setAttribute("aria-label", `${getShortGameNumber(game)}. ${game.title ?? "Untitled observation"}. ${support.label}. Press Enter to open record.`);
   card.addEventListener("click", () => {
     window.location.href = getObservationHref(game);
+  });
+  card.addEventListener("focus", () => {
+    if (state.selectedIndex !== index) {
+      selectIndex(index, { scroll: false });
+    }
   });
 
   const imageWrap = document.createElement("span");
@@ -234,6 +285,7 @@ function renderTimeline() {
     button.type = "button";
     button.className = "timeline-node";
     button.dataset.index = String(index);
+    button.setAttribute("aria-label", `Select ${getShortGameNumber(game)} timeline node for ${game.title ?? "untitled observation"}`);
     button.addEventListener("click", () => selectIndex(index));
     button.append(
       createText("strong", "", getShortGameNumber(game)),
@@ -254,20 +306,20 @@ function renderTimeline() {
   timeline.replaceChildren(...nodes, reserved);
 }
 
-function updateSelection() {
+function updateSelection(options = {}) {
   const selected = getSelectedGame();
   if (!selected) {
     return;
   }
 
   state.selectedSlug = selected.slug;
-  window.history.replaceState(null, "", `#${selected.slug}`);
+  window.history.replaceState(null, "", getLibrarySelectionHref(selected));
 
   for (const card of track.querySelectorAll(".observation-card[data-index]")) {
     const active = Number(card.dataset.index) === state.selectedIndex;
     card.classList.toggle("active", active);
     card.setAttribute("aria-current", active ? "true" : "false");
-    if (active) {
+    if (active && options.scroll !== false) {
       card.scrollIntoView({ behavior: reduceMotionQuery.matches ? "auto" : "smooth", inline: "center", block: "nearest" });
     }
   }
@@ -275,7 +327,8 @@ function updateSelection() {
   for (const node of timeline.querySelectorAll(".timeline-node")) {
     const active = Number(node.dataset.index) === state.selectedIndex;
     node.classList.toggle("active", active);
-    if (active) {
+    node.setAttribute("aria-current", active ? "true" : "false");
+    if (active && options.scroll !== false) {
       node.scrollIntoView({ behavior: reduceMotionQuery.matches ? "auto" : "smooth", inline: "center", block: "nearest" });
     }
   }
@@ -289,7 +342,8 @@ function updateSelection() {
     createReadout("Created", formatDate(selected.provenance?.createdDate)),
     createReadout("Device", support.label),
     createReadout("Status", selected.statusLabel ?? toTitle(selected.status)),
-    createReadout("Hall", selected.hallName ?? selected.hallId)
+    createReadout("Hall", selected.hallName ?? selected.hallId),
+    createReadout("Source", selected.sourceCompleteness)
   );
   playSelected.href = getPlayGateHref(selected);
   playSelected.textContent = support.ctaLabel;
@@ -301,7 +355,10 @@ function updateSelection() {
 function selectModel(modelName) {
   state.selectedModel = modelName;
   const filtered = filterGamesByModel(state.games, state.selectedModel);
-  state.selectedSlug = filtered[0]?.slug ?? "";
+  state.notice = "";
+  if (!filtered.some((game) => game.slug === state.selectedSlug)) {
+    state.selectedSlug = filtered[0]?.slug ?? "";
+  }
   renderModels();
   renderLibrary();
 }
@@ -315,9 +372,12 @@ function selectByOffset(offset) {
   selectIndex(next);
 }
 
-function selectIndex(index) {
+function selectIndex(index, options = {}) {
   state.selectedIndex = index;
-  updateSelection();
+  state.selectedSlug = state.filteredGames[index]?.slug ?? state.selectedSlug;
+  state.notice = "";
+  renderNotice();
+  updateSelection(options);
 }
 
 function syncSelectionFromHash() {
@@ -328,10 +388,16 @@ function syncSelectionFromHash() {
 
   const gameExists = state.games.some((game) => game.slug === slug);
   if (!gameExists) {
+    state.notice = `No observation exists for hash "${slug}". Showing the latest playable observation instead.`;
+    state.selectedModel = "all";
+    state.selectedSlug = selectInitialSlug(state.games);
+    renderModels();
+    renderLibrary();
     return;
   }
 
   state.selectedSlug = slug;
+  state.notice = "";
   if (!filterGamesByModel(state.games, state.selectedModel).some((game) => game.slug === slug)) {
     state.selectedModel = "all";
     renderModels();
@@ -351,6 +417,20 @@ function getSelectedGame() {
 function findSelectedIndex() {
   const index = state.filteredGames.findIndex((game) => game.slug === state.selectedSlug);
   return index >= 0 ? index : 0;
+}
+
+function applyInitialHash() {
+  const slug = readSlugFromHash();
+  if (!slug) {
+    return;
+  }
+
+  if (state.games.some((game) => game.slug === slug)) {
+    state.selectedSlug = slug;
+    return;
+  }
+
+  state.notice = `No observation exists for hash "${slug}". Showing the latest playable observation instead.`;
 }
 
 function selectInitialSlug(games) {
@@ -384,6 +464,17 @@ function createNotice(message) {
   return notice;
 }
 
+function renderNotice() {
+  if (!state.notice) {
+    errorPanel.textContent = "";
+    errorPanel.classList.add("hidden");
+    return;
+  }
+
+  errorPanel.textContent = state.notice;
+  errorPanel.classList.remove("hidden");
+}
+
 function createText(tagName, className, text) {
   const element = document.createElement(tagName);
   if (className) {
@@ -402,4 +493,10 @@ function showError(message) {
   errorPanel.classList.remove("hidden");
   libraryStatus.textContent = "Archive unavailable";
   track.replaceChildren(createNotice("No observation cards can be rendered until the manifest loads."));
+  timeline.replaceChildren();
+  currentReadout.replaceChildren();
+  currentTitle.textContent = "Archive unavailable";
+  playSelected.href = "./library.html";
+  viewRecord.href = "./library.html";
+  openMetadata.href = getManifestHref();
 }
