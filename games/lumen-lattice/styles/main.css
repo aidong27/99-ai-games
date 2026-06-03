@@ -1,37 +1,50 @@
 :root {
   color-scheme: dark;
-  --bg: #06070d;
-  --panel: rgba(18, 22, 36, 0.86);
-  --panel-strong: rgba(22, 27, 44, 0.96);
-  --ink: #f4f7ff;
-  --muted: rgba(196, 206, 232, 0.74);
-  --accent: #7cf6ff;
-  --accent-2: #a8ffc6;
+  --bg: #08090e;
+  --panel: rgba(18, 24, 34, 0.88);
+  --panel-strong: rgba(25, 34, 48, 0.96);
+  --text: #f4f7ff;
+  --muted: #aeb8ca;
+  --line: rgba(255, 255, 255, 0.15);
+  --cyan: #3df2ff;
+  --green: #a8ff78;
+  --pink: #ff4ed2;
   --amber: #ffd166;
-  --line: rgba(123, 158, 255, 0.24);
-  --shadow: rgba(0, 0, 0, 0.42);
+  --red: #ff5d73;
+  --shadow: rgba(0, 0, 0, 0.38);
 }
 
 body {
-  margin: 0;
   min-height: 100vh;
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  color: var(--ink);
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text);
   background-color: var(--bg);
   background-image:
-    linear-gradient(140deg, rgba(124, 246, 255, 0.09), transparent 42%),
-    linear-gradient(220deg, rgba(168, 255, 198, 0.08), transparent 46%),
-    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.024) 0 1px, transparent 1px 34px),
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0 1px, transparent 1px 34px);
+    linear-gradient(135deg, rgba(61, 242, 255, 0.08), transparent 36%),
+    linear-gradient(225deg, rgba(255, 78, 210, 0.08), transparent 42%),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.026) 0 1px, transparent 1px 38px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.022) 0 1px, transparent 1px 38px);
+}
+
+a,
+button {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
 }
 
 .game-shell {
-  width: min(1180px, calc(100% - 40px));
+  width: min(1280px, calc(100% - 28px));
   margin: 0 auto;
-  padding-top: 22px;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+  padding-top: 20px;
 }
 
 .topbar {
@@ -39,29 +52,33 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.back-link,
+.model-chip,
+.button {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--text);
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .back-link {
   display: inline-flex;
   align-items: center;
-  border: 1px solid var(--line);
-  border-radius: 8px;
   padding: 0 14px;
-  color: var(--ink);
-  text-decoration: none;
-  font-weight: 800;
-}
-
-.back-link:hover {
-  border-color: var(--accent);
+  color: var(--cyan);
+  font-weight: 850;
 }
 
 .model-chip {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  font-size: 0.82rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px 12px;
+  padding: 10px 12px;
 }
 
 .model-chip span {
@@ -69,41 +86,60 @@ body {
 }
 
 .model-chip strong {
-  color: var(--accent);
+  color: var(--cyan);
+}
+
+.game-hero,
+.play-surface,
+.mission-panel,
+.lattice-tools {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: 0 24px 80px var(--shadow);
+}
+
+.game-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+  gap: 20px;
+  padding: 28px;
+  align-items: end;
 }
 
 .eyebrow {
-  margin: 0 0 6px;
-  color: var(--muted);
-  font-size: 0.72rem;
+  margin: 0 0 10px;
+  color: var(--cyan);
+  font-size: 0.78rem;
   font-weight: 900;
   letter-spacing: 0;
   text-transform: uppercase;
 }
 
-.game-hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.85fr);
-  gap: 22px;
-  align-items: end;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 22px;
-  background: var(--panel);
-  box-shadow: 0 22px 70px var(--shadow);
+h1,
+h2,
+p {
+  margin-top: 0;
 }
 
-.game-hero h1 {
-  margin: 0 0 10px;
-  font-size: 2.8rem;
-  line-height: 1.02;
+h1 {
+  max-width: 760px;
+  margin-bottom: 12px;
+  font-size: 4rem;
+  line-height: 0.94;
+}
+
+h2 {
+  margin-bottom: 10px;
+  font-size: 1.55rem;
 }
 
 .lede {
-  max-width: 58ch;
-  margin: 0;
+  max-width: 720px;
+  margin-bottom: 0;
   color: var(--muted);
-  line-height: 1.55;
+  font-size: 1.04rem;
+  line-height: 1.62;
 }
 
 .quick-stats {
@@ -122,25 +158,30 @@ body {
 
 .quick-stats dt {
   color: var(--muted);
-  font-size: 0.74rem;
-  font-weight: 900;
+  font-weight: 800;
   text-transform: uppercase;
+  font-size: 0.74rem;
 }
 
 .quick-stats dd {
   margin: 4px 0 0;
-  font-size: 1.24rem;
-  font-weight: 800;
+  font-size: 1.22rem;
+  font-weight: 900;
 }
 
 .play-surface {
   display: grid;
-  grid-template-columns: minmax(0, 720px) minmax(280px, 1fr);
-  gap: 18px;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 330px);
+  gap: 14px;
+  margin-top: 14px;
+  padding: 14px;
   align-items: start;
 }
 
 .play-column {
+  min-width: 0;
+  display: grid;
+  gap: 10px;
   justify-items: center;
 }
 
@@ -148,11 +189,10 @@ body {
   position: relative;
   width: min(100%, 720px);
   overflow: hidden;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(61, 242, 255, 0.24);
   border-radius: 8px;
   aspect-ratio: 1 / 1;
-  background: #05070f;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+  background: #060910;
 }
 
 canvas {
@@ -160,8 +200,11 @@ canvas {
   height: 100%;
   display: block;
   touch-action: none;
+  user-select: none;
 }
 
+/* The hit grid overlays the square canvas exactly: 8.889% padding matches the
+   64/720 world margin, and --lattice-size / --lattice-gap are set by the game. */
 .lattice-hit-grid {
   position: absolute;
   inset: 0;
@@ -201,9 +244,8 @@ canvas {
   z-index: 3;
   display: grid;
   place-items: center;
-  padding: 18px;
-  background: rgba(4, 6, 14, 0.78);
-  backdrop-filter: blur(6px);
+  padding: 16px;
+  background: rgba(5, 7, 12, 0.66);
 }
 
 .overlay.hidden {
@@ -211,12 +253,12 @@ canvas {
 }
 
 .overlay-card {
-  width: min(420px, 100%);
+  width: min(460px, 100%);
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 24px;
+  padding: 22px;
   text-align: center;
-  background: var(--panel-strong);
+  background: rgba(13, 17, 25, 0.96);
 }
 
 .overlay-card h2 {
@@ -230,38 +272,61 @@ canvas {
   line-height: 1.5;
 }
 
+.button {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 18px;
+  border-radius: 8px;
+  font-weight: 900;
+  transition: border-color 0.15s ease, transform 0.1s ease, background 0.15s ease;
+}
+
+.button:hover:not(:disabled) {
+  border-color: var(--cyan);
+  background: rgba(61, 242, 255, 0.16);
+}
+
+.button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.button.primary {
+  border-color: rgba(61, 242, 255, 0.62);
+  color: #041014;
+  background: linear-gradient(90deg, var(--cyan), var(--green));
+}
+
 .lattice-tools {
   width: min(100%, 720px);
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
   padding: 10px;
-  background: rgba(18, 22, 36, 0.94);
-  box-shadow: 0 16px 42px var(--shadow);
 }
 
 .mission-panel {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  align-content: start;
   gap: 16px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 20px;
-  background: var(--panel);
+  padding: 18px;
+  box-shadow: none;
 }
 
 .mission-panel h2 {
-  margin: 0 0 8px;
   font-size: 1.1rem;
+}
+
+.mission-panel p,
+.mission-panel li {
+  color: var(--muted);
+  line-height: 1.55;
 }
 
 .mission-panel ul {
   margin: 0;
   padding-left: 18px;
-  color: var(--muted);
-  line-height: 1.6;
 }
 
 .note {
@@ -271,84 +336,52 @@ canvas {
   line-height: 1.5;
 }
 
-.button {
-  appearance: none;
-  min-height: 52px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 0 16px;
-  color: var(--ink);
-  background: rgba(124, 246, 255, 0.08);
-  font-weight: 800;
-  transition: border-color 0.15s ease, transform 0.1s ease, background 0.15s ease;
-}
-
-.button:hover:not(:disabled) {
-  border-color: var(--accent);
-  background: rgba(124, 246, 255, 0.16);
-}
-
-.button:active:not(:disabled) {
-  transform: translateY(1px);
-}
-
-.button:disabled {
-  opacity: 0.42;
-  cursor: not-allowed;
-}
-
-.button.primary {
-  border-color: transparent;
-  color: #04121a;
-  background: linear-gradient(120deg, var(--accent), var(--accent-2));
-}
-
 .meter {
   display: grid;
-  gap: 6px;
+  gap: 8px;
+  margin-top: 4px;
 }
 
 .meter span {
   color: var(--muted);
-  font-size: 0.78rem;
+  font-weight: 800;
 }
 
 .meter div {
   height: 10px;
   overflow: hidden;
+  border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .meter i {
   width: 0%;
   height: 100%;
   display: block;
-  border-radius: inherit;
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  background: linear-gradient(90deg, var(--cyan), var(--green));
   transition: width 0.2s ease;
 }
 
-@media (max-width: 960px) {
+@media (max-width: 980px) {
   .game-hero,
   .play-surface {
     grid-template-columns: 1fr;
   }
 
   .model-chip {
-    align-items: flex-start;
+    justify-content: flex-start;
   }
 
   .mission-panel {
-    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 760px) {
   .game-shell {
-    width: min(100% - 20px, 1180px);
-    gap: 12px;
+    width: min(100% - 20px, 1280px);
+    padding-top: 12px;
   }
 
   .topbar {
@@ -356,26 +389,20 @@ canvas {
     flex-direction: column;
   }
 
-  .back-link {
-    justify-content: center;
-    width: 100%;
-  }
-
   .game-hero {
-    gap: 12px;
     padding: 16px;
   }
 
-  .game-hero h1 {
-    font-size: 2.15rem;
+  h1 {
+    font-size: 2.35rem;
   }
 
-  .quick-stats {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  h2 {
+    font-size: 1.25rem;
   }
 
   .play-surface {
-    gap: 10px;
+    padding: 10px;
   }
 
   .lattice-tools {
@@ -383,16 +410,16 @@ canvas {
     bottom: 0;
     z-index: 5;
     padding: 8px;
-    background: rgba(10, 13, 23, 0.96);
+    background: rgba(12, 16, 24, 0.96);
   }
 
   .mission-panel {
     grid-template-columns: 1fr;
-    padding: 16px;
   }
 
-  .overlay {
-    padding: 12px;
+  .back-link,
+  .button {
+    width: 100%;
   }
 
   .overlay-card {
@@ -406,15 +433,19 @@ canvas {
 
 @media (max-width: 390px) {
   .game-shell {
-    width: min(100% - 16px, 1180px);
+    width: min(100% - 16px, 1280px);
+  }
+
+  h1 {
+    font-size: 2.12rem;
   }
 
   .game-hero {
     padding: 14px;
   }
 
-  .game-hero h1 {
-    font-size: 1.95rem;
+  .play-surface {
+    padding: 8px;
   }
 
   .lattice-tools {
