@@ -1,0 +1,18 @@
+{
+  "variantId": "claude-ninefold-draft-2026-06-03",
+  "gameNumber": 4,
+  "gameSlug": "ninefold-draft",
+  "gameTitle": "Ninefold Draft",
+  "status": "canonical-playable",
+  "createdDate": "2026-06-03",
+  "modelName": "Claude Opus 4.8",
+  "agentName": "Claude Code",
+  "humanCodeEdits": false,
+  "implementationPath": "../../",
+  "metadataPath": "variant.json",
+  "notes": "Canonical first playable implementation for Observation 004 / Game 004. A PC-first card strategy benchmark with a deterministic draft and a telegraphed hazard track. The playable source lives at the game root. The model label is maintainer-declared for this project entry.",
+  "comparisonRole": "baseline",
+  "runRecords": [
+    "../../runs/2026-06-03-claude-ninefold-draft-initial.json"
+  ]
+}
