@@ -4,6 +4,7 @@ All notable project-level changes are recorded here. This archive does not use c
 
 ## [Unreleased]
 
+- Add public sharing infrastructure: Open Graph/Twitter social preview metadata, brand social assets, a press page, project log, title-screen copy actions, and a reusable share kit.
 - Normalize Codex-authored provenance labels to the single maintainer-declared model `GPT-5.5 xhigh` with `Codex` as the tool/agent.
 - Clean up Neon Pulse Courier source internals without changing gameplay: remove unused helpers, clarify vector/heading logic, and fix particle lifetime fading.
 - Add Observation 004 / Game 004 **Ninefold Draft**, the first Card Strategy Hall benchmark: a PC-first card strategy game with deterministic drafting, an engine-builder, Energy/Focus/Integrity trade-offs, and a telegraphed hazard track. Logic and balance were verified by a standalone rules simulation (win and loss both reachable); interactive browser smoke and real screenshots are pending and not claimed.

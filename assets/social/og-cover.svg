@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">99 AI Games social preview</title>
+  <desc id="desc">Brand social card for 99 AI Games, a playable archive observing how AI coding agents make browser games.</desc>
+  <defs>
+    <linearGradient id="fade" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#111417"/>
+      <stop offset="1" stop-color="#020303"/>
+    </linearGradient>
+    <radialGradient id="pulse" cx="74%" cy="28%" r="48%">
+      <stop offset="0" stop-color="#d8f75f" stop-opacity="0.18"/>
+      <stop offset="0.42" stop-color="#48e3ed" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#050607" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse">
+      <path d="M72 0H0V72" fill="none" stroke="#f4f1e8" stroke-opacity="0.055" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="#050607"/>
+  <rect width="1200" height="630" fill="url(#fade)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#pulse)"/>
+  <path d="M78 88H1122M78 542H1122M78 88V542M1122 88V542" fill="none" stroke="#f4f1e8" stroke-opacity="0.18" stroke-width="1"/>
+  <path d="M786 146c86 38 154 94 204 168M794 484c93-38 161-94 205-166" fill="none" stroke="#d8f75f" stroke-opacity="0.28" stroke-width="2"/>
+  <circle cx="1012" cy="315" r="88" fill="none" stroke="#d8f75f" stroke-opacity="0.22" stroke-width="2"/>
+  <circle cx="1012" cy="315" r="144" fill="none" stroke="#f4f1e8" stroke-opacity="0.08" stroke-width="1"/>
+  <circle cx="1012" cy="315" r="8" fill="#d8f75f"/>
+  <text x="92" y="134" fill="#d8f75f" font-family="SFMono-Regular, Menlo, Consolas, monospace" font-size="24" font-weight="700" letter-spacing="2">PLAYABLE ARCHIVE</text>
+  <text x="90" y="292" fill="#f4f1e8" font-family="Georgia, 'Times New Roman', serif" font-size="128" font-weight="700">99 AI Games</text>
+  <text x="96" y="356" fill="#b8b9b1" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="32">Observing how AI coding agents make browser games.</text>
+  <g font-family="SFMono-Regular, Menlo, Consolas, monospace" font-size="22" font-weight="700">
+    <text x="96" y="448" fill="#f4f1e8">Current observations</text>
+    <text x="360" y="448" fill="#d8f75f">4 / 99</text>
+    <text x="96" y="486" fill="#f4f1e8">Agents recorded</text>
+    <text x="360" y="486" fill="#d8f75f">Codex / Claude Code</text>
+  </g>
+  <text x="96" y="538" fill="#8e918e" font-family="SFMono-Regular, Menlo, Consolas, monospace" font-size="18">No fake screenshots. No fake popularity metrics. Provenance first.</text>
+</svg>
