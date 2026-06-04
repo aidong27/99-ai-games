@@ -1,111 +1,113 @@
 # 99 AI Games
 
-Demo: https://aidong27.github.io/99-ai-games/
+**A playable archive for observing AI coding-agent progress through browser-game experiments.**
 
-A public archive for observing AI coding-agent progress through playable browser-game experiments.
+[Enter the live archive](https://aidong27.github.io/99-ai-games/) · [Press kit](https://aidong27.github.io/99-ai-games/press.html) · [Project log](https://aidong27.github.io/99-ai-games/log.html) · [Share kit](docs/share-kit.md) · [Provenance policy](docs/provenance-policy.md)
 
-**The games are playable. The real exhibit is the AI that made them.**
+> The games are playable. The real exhibit is the AI that made them.
 
-99 AI Games is a long-term AI game-making evolution archive. It uses 99 playable browser-game experiments as observation samples to witness how AI agents improve at design, logic, coding, polish, debugging, controls, accessibility, and creative judgment over time.
+99 AI Games is a long-term AI game-making evolution archive. It preserves playable browser games as observation samples so future readers can inspect how AI agents handle mechanics, controls, interaction feedback, visual polish, debugging, documentation, accessibility, and provenance over time.
 
-The maintainer plans prompts, tests builds, publishes releases, and records provenance. The maintainer does not hand-write or hand-edit game code.
+The name is a target archive capacity, not a completion claim: **99 means 99 observation slots, not filled capacity and not 99 generations.** A single slot can contain multiple model variants and many run records.
 
-## Maintenance Status
+![99 AI Games social preview brand card](assets/social/og-cover.png)
 
-- Active early-stage archive.
-- 2 playable observation samples.
-- Public demo available via GitHub Pages.
-- Validation scripts available.
-- No fake screenshots or fake popularity claims.
-- Public roadmap and provenance policy.
+The image above is a brand/social preview asset, not a screenshot and not evidence of additional playable games.
 
-## The Real Goal
+## Current Archive Signal
 
-The real goal is not to mass-produce 99 games. The real goal is to preserve a public, playable record of AI agent capability growth.
+| Metric | Current value |
+|---|---:|
+| Target observation slots | 99 |
+| Playable observations | 4 |
+| Game halls | 9 |
+| Model variants | 6 |
+| Run records | 10 |
 
-Each game is evidence. It shows what an AI agent could design, implement, debug, and package at a specific moment, with a specific model label, tool, prompt context, and verification record.
+The maintainer curates prompts, tests builds, publishes releases, and records provenance. The maintainer does not hand-write or hand-edit game code. Game code provenance uses `humanCodeEdits: false` unless a future exception is explicitly documented.
 
-## What Does "99 Games" Mean?
+No fake screenshots, fake users, fake downloads, fake ratings, fake popularity, or hidden provenance are used to make the archive look more complete than it is.
 
-The 99 game slots represent 99 observation samples, not 99 AI generations.
+## What You Can Inspect
 
-A single game may contain multiple model variants and run records. Model comparisons are stored as variants/runs under the same game slot and do not consume additional game numbers.
+- Play the static launcher on GitHub Pages: <https://aidong27.github.io/99-ai-games/>.
+- Read the public project explainer: <https://aidong27.github.io/99-ai-games/press.html>.
+- Follow the project timeline: <https://aidong27.github.io/99-ai-games/log.html>.
+- Browse the model-axis observation library and each observation record.
+- Open every game's `game.json`, variants, run records, controls, and device-support metadata.
+- Review the hall taxonomy, schemas, validation scripts, and generated index.
+- Compare playable output against the recorded model/tool labels and verification notes.
 
-- **Game Slot / Observation Sample**: one official playable experiment in the archive.
-- **Model Variant**: a version of the same concept made by a specific model or agent.
-- **Run Record**: one generation, revision, validation, or comparison attempt.
+## Playable Observations
 
-## Games as Evidence
+| # | Observation | Hall | Model / tool | Archive role | Device support | Record |
+|---:|---|---|---|---|---|---|
+| 001 | Signal Cartographer | Survival Strategy Hall | GPT-5.5 xhigh / Codex | First playable observation sample; current canonical Deep Field remake | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=signal-cartographer) |
+| 002 | Lumen Lattice | Puzzle Logic Hall | Claude Opus 4.8 / Claude Code | First Puzzle Logic Hall benchmark; current canonical Prism Archive remake | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=lumen-lattice) |
+| 003 | Neon Pulse Courier | Arcade Reaction Hall | GPT-5.5 xhigh / Codex | First Arcade Reaction Hall benchmark | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=neon-pulse-courier) |
+| 004 | Ninefold Draft | Card Strategy Hall | Claude Opus 4.8 / Claude Code | First Card Strategy Hall benchmark | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=ninefold-draft) |
 
-The games are playable because playability makes the AI's work inspectable. A reader can open a game, feel the controls, inspect the source, read the metadata, and compare it with future variants.
+The canonical machine-readable source is [`games/manifest.json`](games/manifest.json). The generated markdown view is [`docs/generated-index.md`](docs/generated-index.md).
 
-Game quality matters, but the archive subject is AI progress. A flawed game can still be valuable evidence if it honestly reveals a model's limitations.
+## Screenshots
 
-## Device Support Contract
+Screenshots shown here are real repository files. Do not replace them with mockups, generated images, or screenshots that were not captured from a local build.
 
-Every game entry declares `deviceSupport` in both `games/manifest.json` and `games/<slug>/game.json`. The launcher uses this machine-readable contract to allow mobile play, show a warning for limited support, or block direct mobile launch for desktop-only entries.
+### Observation 001 / Game 001: Signal Cartographer
 
-Do not mark mobile as `supported` unless mobile behavior has been implemented and checked. If support is uncertain, mark it `limited` or `unsupported` and document the pending work in `mobileNotes`.
+![Signal Cartographer title screen](games/signal-cartographer/assets/images/screenshot-title.png)
+![Signal Cartographer gameplay](games/signal-cartographer/assets/images/screenshot-gameplay.png)
+![Signal Cartographer upgrade choice](games/signal-cartographer/assets/images/screenshot-upgrades.png)
+
+### Observation 002 / Game 002: Lumen Lattice
+
+These screenshots are historical. They predate the current Prism Archive remake and are kept as archive evidence, not as a claim that they reflect the latest canonical build.
+
+![Lumen Lattice title screen](games/lumen-lattice/assets/images/screenshot-title.png)
+![Lumen Lattice puzzle in progress](games/lumen-lattice/assets/images/screenshot-puzzle.png)
+![Lumen Lattice solved state](games/lumen-lattice/assets/images/screenshot-solved.png)
+
+### Observation 003 / Game 003: Neon Pulse Courier
+
+![Neon Pulse Courier title screen](games/neon-pulse-courier/assets/images/screenshot-title.png)
+![Neon Pulse Courier gameplay](games/neon-pulse-courier/assets/images/screenshot-gameplay.png)
+![Neon Pulse Courier completion screen](games/neon-pulse-courier/assets/images/screenshot-complete.png)
+
+### Observation 004 / Game 004: Ninefold Draft
+
+Real screenshots are pending. The game is playable in source, but this README does not claim screenshot evidence until verified image files exist.
+
+## Archive Model
+
+The project is organized around observation value, not raw output volume.
+
+- **Game slot / observation sample**: one official playable experiment in the archive.
+- **Model variant**: a version of the same game concept made by a specific model or agent. Variants do not consume additional game numbers.
+- **Run record**: one generation, revision, validation, comparison, or maintenance attempt.
+- **Game hall**: one of nine capability categories used to compare AI game-making behavior over time.
+
+The halls are: Arcade Reaction, Puzzle Logic, Survival Strategy, Card Strategy, Text Adventure, Clicker Management, Physics Experiment, Rhythm Audio, and AI Meme. Each hall can eventually hold 11 observation samples. Empty future slots are not represented as fake games.
+
+## Device Support
+
+Every game declares `deviceSupport` in both `games/manifest.json` and `games/<slug>/game.json`. The launcher uses this metadata to decide whether to allow direct play, warn before launch, or recommend desktop.
+
+The current archive is PC-first. All four playable observations are marked desktop supported and mobile limited. Mobile support means a no-overflow baseline unless a game explicitly records stronger mobile QA; no physical handset QA is claimed here.
 
 ## Launcher Structure
 
-The public launcher is a four-level static archive system:
+The public launcher is a static four-level archive system:
 
 - `index.html`: title screen and project entry point.
-- `library.html`: model-axis observation library with real manifest-backed game cards.
-- `observation.html?slug=<game-slug>`: archive record with screenshots, metadata, device support, provenance, variants, and run records.
-- `play.html?slug=<game-slug>`: minimalist play gate before entering `games/<slug>/`.
+- `library.html`: model-axis observation library backed by real manifest data.
+- `observation.html?slug=<game-slug>`: archive record with screenshots, metadata, device support, provenance, variants, controls, and run records.
+- `play.html?slug=<game-slug>`: device-aware play gate before entering `games/<slug>/`.
 
 Launcher pages read from `games/manifest.json` and each game's `game.json`. They must not invent games, models, screenshots, popularity, or provenance.
 
-## Current Status
+## Run Locally
 
-- Archive status: independent open-source project.
-- Launcher theme: **AI Observatory**.
-- Observation 001 / Game 001: **Signal Cartographer**.
-- Hall: Survival Strategy Hall.
-- Slot type: benchmark.
-- Archive role: First playable observation sample.
-- Status: playable local source included.
-- Canonical variant: `codex-gpt-5-5-xhigh-2026-05-31`.
-- Model label: `GPT-5.5 xhigh` as declared by the maintainer for this entry.
-- Agent/tool: `Codex`.
-- Human code edits: `false`.
-
-Observation 002 / Game 002: **Lumen Lattice**.
-
-- Hall: Puzzle Logic Hall.
-- Slot type: benchmark.
-- Archive role: First Puzzle Logic Hall observation sample.
-- Status: playable local source included.
-- Canonical variant: `claude-opus-4-8-2026-05-31`.
-- Model label: `Claude Opus 4.8` as declared by the maintainer for this entry.
-- Agent/tool: `Claude Code`.
-- Human code edits: `false`.
-
-There is no external platform dependency or missing outside source history in the current project state.
-
-## Game Halls
-
-The archive has 9 halls. Each hall is an AI capability observation category, not just a genre bucket. Each hall can eventually contain 11 official observation samples, for 99 total game slots.
-
-| Hall | What it observes |
-|---|---|
-| Arcade Reaction Hall | AI ability in feedback, timing, input feel, difficulty curves, and short-loop clarity |
-| Puzzle Logic Hall | AI ability in rules, constraints, state logic, solvability, and puzzle communication |
-| Survival Strategy Hall | AI ability in resource pressure, route planning, risk feedback, and tactical systems |
-| Card Strategy Hall | AI ability in probabilistic decisions, drafting, turn structure, and readable strategy |
-| Text Adventure Hall | AI ability in branching narrative, state memory, tone, and meaningful choices |
-| Clicker Management Hall | AI ability in economies, automation loops, scaling, and player motivation |
-| Physics Experiment Hall | AI ability in simulation feel, spatial reasoning, cause/effect, and sandbox tuning |
-| Rhythm Audio Hall | AI ability in timing windows, pattern memory, audio feedback, and input precision |
-| AI Meme Hall | AI ability in self-reference, humor, weird failure modes, and playful systems |
-
-Each hall should eventually contain 3 benchmark observation samples, 6 normal observation samples, 1 failed/weird observation sample, and 1 future remake observation sample. Do not fill all 99 slots with placeholders.
-
-## Play Locally
-
-Run a local static server:
+No package manager, framework, or build step is required.
 
 ```bash
 python3 -m http.server 4173
@@ -117,88 +119,33 @@ Then open:
 http://localhost:4173
 ```
 
-The launcher opens the included observation samples from:
-
-```text
-games/signal-cartographer/
-games/lumen-lattice/
-```
-
-## Observation Index
-
-| # | Observation sample | Hall | Slot type | Status | Variants | Runs |
-|---|---|---|---|---|---:|---:|
-| 001 | Signal Cartographer | Survival Strategy Hall | benchmark | Playable | 1 | 2 |
-| 002 | Lumen Lattice | Puzzle Logic Hall | benchmark | Playable | 1 | 3 |
-
-The canonical machine-readable index is [`games/manifest.json`](games/manifest.json). A generated markdown view is in [`docs/generated-index.md`](docs/generated-index.md).
-
-## Screenshots
-
-These screenshots were captured from the local build served at `http://localhost:4173` on 2026-06-01. Do not replace them with mock screenshots or generated images.
-
-### Observation 001 / Game 001: Signal Cartographer
-
-![Signal Cartographer title screen](games/signal-cartographer/assets/images/screenshot-title.png)
-![Signal Cartographer gameplay](games/signal-cartographer/assets/images/screenshot-gameplay.png)
-![Signal Cartographer upgrade choice](games/signal-cartographer/assets/images/screenshot-upgrades.png)
-
-### Observation 002 / Game 002: Lumen Lattice
-
-![Lumen Lattice title screen](games/lumen-lattice/assets/images/screenshot-title.png)
-![Lumen Lattice puzzle in progress](games/lumen-lattice/assets/images/screenshot-puzzle.png)
-![Lumen Lattice solved state](games/lumen-lattice/assets/images/screenshot-solved.png)
-
-## Project Structure
-
-```text
-.
-├── index.html
-├── library.html
-├── observation.html
-├── play.html
-├── src/
-├── styles/
-├── games/
-│   ├── manifest.json
-│   ├── signal-cartographer/
-│       ├── index.html
-│       ├── game.json
-│       ├── brief.md
-│       ├── README.md
-│       ├── variants/
-│       └── runs/
-│   └── lumen-lattice/
-│       ├── index.html
-│       ├── game.json
-│       ├── brief.md
-│       ├── README.md
-│       ├── variants/
-│       └── runs/
-├── halls/
-├── schemas/
-├── scripts/
-├── templates/
-└── docs/
-```
-
-## Automation
-
-No package manager or build step is required. Validation uses plain Node.js scripts:
+## Validate
 
 ```bash
 node scripts/validate-halls.mjs
 node scripts/validate-games.mjs
 node scripts/validate-launcher.mjs
 node scripts/generate-index.mjs --check
+git diff --check
 ```
 
-Syntax checks:
+Useful syntax checks:
 
 ```bash
 node --check src/main.js
+node --check src/archive-data.js
+node --check src/library.js
+node --check src/observation.js
+node --check src/play.js
+```
+
+Game source checks can be run directly, for example:
+
+```bash
 node --check games/signal-cartographer/src/main.js
 node --check games/lumen-lattice/src/main.js
+node --check games/neon-pulse-courier/src/main.js
+node --check games/ninefold-draft/src/main.js
 ```
 
 ## Documentation
@@ -207,8 +154,7 @@ node --check games/lumen-lattice/src/main.js
 - [Changelog](CHANGELOG.md)
 - [Security policy](SECURITY.md)
 - [Roadmap](docs/roadmap.md)
-- [Codex for Open Source application draft](docs/codex-open-source-application.md)
-- [Project plan](docs/project-plan.md)
+- [Share kit](docs/share-kit.md)
 - [Game halls](docs/game-halls.md)
 - [Provenance policy](docs/provenance-policy.md)
 - [Game lifecycle](docs/game-lifecycle.md)
@@ -217,12 +163,6 @@ node --check games/lumen-lattice/src/main.js
 - [Automation guide](docs/automation-guide.md)
 - [Prompt library](docs/prompt-library.md)
 - [Release process](docs/release-process.md)
-
-## How Codex Helps
-
-Codex can help this project by creating new games, creating model variants, maintaining metadata, writing run records, checking local builds, and comparing newer results against older ones.
-
-Agents should optimize for honest provenance, comparison value, and archival usefulness, not mass production. They must not invent fake popularity, fake users, fake star counts, fake download numbers, fake screenshots, fake provenance, or fake verification.
 
 ## License
 
