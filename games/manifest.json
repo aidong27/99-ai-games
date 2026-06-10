@@ -2,7 +2,7 @@
   "projectName": "99 AI Games",
   "repository": "aidong27/99-ai-games",
   "targetGameCount": 99,
-  "completedGameCount": 4,
+  "completedGameCount": 5,
   "hallCount": 9,
   "launcherTheme": "AI Observatory",
   "hallsPath": "./halls/halls.json",
@@ -261,6 +261,54 @@
       ],
       "tags": ["cards", "strategy", "draft", "engine-builder", "deterministic", "pc-first"],
       "repositoryNote": "Observation 004 / Game 004. First Card Strategy Hall benchmark: deterministic drafting, turn structure, resource trade-offs, and readable strategy."
+    },
+    {
+      "number": 5,
+      "title": "Gravity Atlas",
+      "slug": "gravity-atlas",
+      "slotType": "benchmark",
+      "hallId": "physics-experiment",
+      "hallName": "Physics Experiment Hall",
+      "archiveRole": "First Physics Experiment Hall observation sample",
+      "status": "playable",
+      "statusLabel": "Playable observation sample",
+      "description": "A PC-first deterministic physics puzzle. Drag from the launch pad to aim and fire a probe across six gravity plates, curving its path through masses, repulsors, and void zones into the target ring within each plate's shot budget. A committed Node verifier replays embedded reference launch vectors through the same engine the browser runs, proving every plate is completable.",
+      "localPath": "./games/gravity-atlas/",
+      "metadataPath": "./games/gravity-atlas/game.json",
+      "briefPath": "./games/gravity-atlas/brief.md",
+      "variantsPath": "./games/gravity-atlas/variants/",
+      "runsPath": "./games/gravity-atlas/runs/",
+      "canonicalVariantId": "claude-fable-5-gravity-atlas-2026-06-10",
+      "sourceCompleteness": "Complete local source included",
+      "deviceSupport": {
+        "desktop": "supported",
+        "mobile": "limited",
+        "minViewport": { "width": 390, "height": 700 },
+        "inputs": ["pointer", "keyboard", "touch"],
+        "mobileNotes": "PC-first physics benchmark tuned for mouse aiming at 1440x900 and 1920x1080. Mobile is a no-overflow baseline: the 16:9 plate scales to width and drag-aiming works as a touch gesture, but fine trajectory control is intended for a mouse. Interactive browser smoke and physical handset QA are pending and not claimed.",
+        "launcherPolicy": "warn"
+      },
+      "provenance": {
+        "createdDate": "2026-06-10",
+        "modelName": "Claude Fable 5",
+        "agentName": "Claude Code",
+        "humanCodeEdits": false,
+        "notes": "Model label is maintainer-declared for this project entry. The deterministic physics engine, plate designs, embedded reference solutions, and the standing Node verifier were authored by Claude Code under the no-human-code-edits project rule."
+      },
+      "variants": [
+        {
+          "variantId": "claude-fable-5-gravity-atlas-2026-06-10",
+          "modelName": "Claude Fable 5",
+          "agentName": "Claude Code",
+          "status": "canonical-playable",
+          "metadataPath": "./games/gravity-atlas/variants/claude-fable-5-gravity-atlas-2026-06-10/variant.json"
+        }
+      ],
+      "runRecords": [
+        "./games/gravity-atlas/runs/2026-06-10-claude-fable-5-gravity-atlas-initial.json"
+      ],
+      "tags": ["canvas", "physics", "trajectory", "deterministic", "puzzle", "pc-first"],
+      "repositoryNote": "Observation 005 / Game 005. First Physics Experiment Hall benchmark: simulation feel, spatial reasoning, cause/effect readability, and a machine-verifiable completability proof."
     }
   ]
 }

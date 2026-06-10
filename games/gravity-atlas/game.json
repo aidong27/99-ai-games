@@ -1,0 +1,62 @@
+{
+  "number": 5,
+  "title": "Gravity Atlas",
+  "slug": "gravity-atlas",
+  "collection": "99 AI Games",
+  "slotType": "benchmark",
+  "hallId": "physics-experiment",
+  "hallName": "Physics Experiment Hall",
+  "archiveRole": "First Physics Experiment Hall observation sample",
+  "status": "playable",
+  "statusLabel": "Playable Observation 005 / Game 005",
+  "localPath": "./games/gravity-atlas/",
+  "metadataPath": "./games/gravity-atlas/game.json",
+  "briefPath": "./games/gravity-atlas/brief.md",
+  "variantsPath": "./games/gravity-atlas/variants/",
+  "runsPath": "./games/gravity-atlas/runs/",
+  "canonicalVariantId": "claude-fable-5-gravity-atlas-2026-06-10",
+  "sourceCompleteness": "Complete local source included",
+  "description": "A PC-first deterministic physics puzzle. Drag from the launch pad to aim and fire a probe across six gravity plates, curving its path through masses, repulsors, and void zones into the target ring within each plate's shot budget. The physics engine is a shared pure module, and a committed Node verifier replays embedded reference launch vectors to prove every plate is completable.",
+  "deviceSupport": {
+    "desktop": "supported",
+    "mobile": "limited",
+    "minViewport": { "width": 390, "height": 700 },
+    "inputs": ["pointer", "keyboard", "touch"],
+    "mobileNotes": "PC-first physics benchmark tuned for mouse aiming at 1440x900 and 1920x1080. Mobile is a no-overflow baseline: the 16:9 plate scales to width and drag-aiming works as a touch gesture, but fine trajectory control is intended for a mouse. Interactive browser smoke and physical handset QA are pending and not claimed.",
+    "launcherPolicy": "warn"
+  },
+  "provenance": {
+    "createdDate": "2026-06-10",
+    "modelName": "Claude Fable 5",
+    "agentName": "Claude Code",
+    "humanCodeEdits": false,
+    "notes": "Model label is maintainer-declared for this project entry. The deterministic physics engine, plate designs, embedded reference solutions, and the standing Node verifier were authored by Claude Code under the no-human-code-edits project rule."
+  },
+  "slotVariantRunPolicy": {
+    "gameSlot": "Observation 005 / Game 005 is the official Gravity Atlas observation sample.",
+    "modelVariant": "Additional AI-made versions of Gravity Atlas should be stored under variants/ and must not consume new game numbers.",
+    "runRecord": "Generation, revision, validation, and comparison attempts should be stored as JSON files under runs/."
+  },
+  "variants": [
+    {
+      "variantId": "claude-fable-5-gravity-atlas-2026-06-10",
+      "modelName": "Claude Fable 5",
+      "agentName": "Claude Code",
+      "status": "canonical-playable",
+      "metadataPath": "variants/claude-fable-5-gravity-atlas-2026-06-10/variant.json"
+    }
+  ],
+  "runRecords": [
+    "runs/2026-06-10-claude-fable-5-gravity-atlas-initial.json"
+  ],
+  "controls": {
+    "pointer": ["Drag on the plate to aim and set power, release to fire"],
+    "keyboard": ["Arrow keys for fine aim and power", "Space to fire", "R to restart the atlas", "P for pause / help"],
+    "touch": ["Drag on the plate to aim, lift to fire"]
+  },
+  "verification": {
+    "completabilityProof": "node scripts/verify-gravity-atlas.mjs replays the reference launch vectors embedded in src/engine.js through the same fixed-timestep engine the browser runs and asserts every plate ends in a target hit within its shot budget."
+  },
+  "tags": ["canvas", "physics", "trajectory", "deterministic", "puzzle", "pc-first"],
+  "repositoryNote": "Observation 005 / Game 005. First Physics Experiment Hall benchmark: simulation feel, spatial reasoning, cause/effect readability, and a machine-verifiable completability proof."
+}
