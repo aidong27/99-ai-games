@@ -4,6 +4,7 @@ All notable project-level changes are recorded here. This archive does not use c
 
 ## [Unreleased]
 
+- Add Observation 005 / Game 005 **Gravity Atlas**, the first Physics Experiment Hall benchmark: a PC-first deterministic physics puzzle with six gravity plates, shot budgets, and par scoring. Its physics engine is a pure module shared by the page and a committed verifier (`scripts/verify-gravity-atlas.mjs`) that replays embedded reference launch vectors to prove every plate completable; interactive browser smoke and real screenshots are pending and not claimed.
 - Add public sharing infrastructure: Open Graph/Twitter social preview metadata, brand social assets, a press page, project log, title-screen copy actions, and a reusable share kit.
 - Normalize Codex-authored provenance labels to the single maintainer-declared model `GPT-5.5 xhigh` with `Codex` as the tool/agent.
 - Clean up Neon Pulse Courier source internals without changing gameplay: remove unused helpers, clarify vector/heading logic, and fix particle lifetime fading.

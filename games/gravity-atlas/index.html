@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Gravity Atlas — Observation 005 / Game 005 in 99 AI Games. A PC-first deterministic physics puzzle: curve a probe through gravity wells, repulsors, and void zones into the target ring. Every plate is provably completable."
+    >
+    <title>Gravity Atlas | 99 AI Games</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="../../styles/game-shell.css?v=2026-06-04-social">
+    <link rel="stylesheet" href="./styles/main.css?v=2026-06-04-social">
+  </head>
+  <body>
+    <main class="game-shell">
+      <header class="topbar">
+        <a class="back-link" href="../../">&larr; 99 AI Games</a>
+        <div class="model-chip" aria-label="AI provenance">
+          <span>Observation 005 / Game 005 &middot; Physics Experiment Hall</span>
+          <strong>Claude Fable 5 / Claude Code</strong>
+        </div>
+      </header>
+
+      <section class="game-hero" aria-labelledby="game-title">
+        <div class="hero-copy">
+          <p class="eyebrow">Deterministic physics puzzle</p>
+          <h1 id="game-title">Gravity Atlas</h1>
+          <p class="lede">
+            Six plates of curved space. Drag from the launch pad to aim, release to fire, and
+            bend the probe's path through masses, repulsors, and void zones into the target
+            ring — within each plate's shot budget. The physics is a fixed-step simulation,
+            and every plate ships with a machine-verified proof that it can be completed.
+          </p>
+        </div>
+        <dl class="quick-stats" aria-label="Run status">
+          <div>
+            <dt>Plate</dt>
+            <dd id="plate-readout">1 / 6</dd>
+          </div>
+          <div>
+            <dt>Shots left</dt>
+            <dd id="shots-readout">4</dd>
+          </div>
+          <div>
+            <dt>Par</dt>
+            <dd id="par-readout">1</dd>
+          </div>
+          <div>
+            <dt>Score</dt>
+            <dd id="score-readout">0</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="play-surface" aria-label="Gravity Atlas plate">
+        <div class="board-column">
+          <div class="board-frame">
+            <canvas id="atlas-canvas" width="1280" height="720" aria-label="Gravity plate"></canvas>
+            <div id="overlay" class="overlay">
+              <div class="overlay-card">
+                <p class="eyebrow" id="overlay-kicker">Observation 005 / Game 005</p>
+                <h2 id="overlay-title">Gravity Atlas</h2>
+                <p id="overlay-copy"></p>
+                <div id="overlay-actions" class="overlay-actions"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="action-bar">
+            <button id="fire-button" class="button primary" type="button">Fire <kbd>Space</kbd></button>
+            <button id="restart-button" class="button" type="button">Restart <kbd>R</kbd></button>
+            <button id="help-button" class="button" type="button">Pause / Help <kbd>P</kbd></button>
+          </div>
+        </div>
+
+        <aside class="console-panel" aria-label="Atlas console">
+          <section class="panel-block">
+            <p class="eyebrow">Current plate</p>
+            <p class="plate-name" id="plate-name">Plate I — Open Field</p>
+            <p class="note" id="plate-note">No gravity. Read the aim line, set power, hit the ring.</p>
+          </section>
+
+          <section class="panel-block">
+            <p class="eyebrow">Launch power</p>
+            <div class="meter">
+              <span id="power-label">420 / 560</span>
+              <div><i id="power-meter"></i></div>
+            </div>
+            <p class="note" id="outcome-line">Drag from the pad to aim, release to fire.</p>
+          </section>
+
+          <section class="panel-block">
+            <p class="eyebrow">Controls</p>
+            <ul class="controls-list">
+              <li><span>Aim &amp; power</span><kbd>Drag on plate</kbd></li>
+              <li><span>Fine aim / power</span><kbd>Arrow keys</kbd></li>
+              <li><span>Fire</span><kbd>Space / release</kbd></li>
+              <li><span>Restart</span><kbd>R</kbd></li>
+              <li><span>Pause / help</span><kbd>P</kbd></li>
+            </ul>
+          </section>
+
+          <section class="panel-block">
+            <p class="eyebrow">Reading the plate</p>
+            <ul class="legend">
+              <li><i class="swatch mass"></i> Mass — pulls the probe; the core destroys it</li>
+              <li><i class="swatch repulsor"></i> Repulsor — pushes the probe away</li>
+              <li><i class="swatch void"></i> Void zone — erases the probe</li>
+              <li><i class="swatch ring"></i> Target ring — reach it to clear the plate</li>
+            </ul>
+            <p class="note">
+              The dotted plotter previews only the first moments of the path; the rest of the
+              curve is yours to discover. A faint ghost shows your previous attempt.
+            </p>
+          </section>
+        </aside>
+      </section>
+    </main>
+
+    <script type="module" src="./src/main.js?v=2026-06-04-social"></script>
+  </body>
+</html>

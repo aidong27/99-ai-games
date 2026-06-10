@@ -1,0 +1,55 @@
+{
+  "runId": "2026-06-10-claude-fable-5-gravity-atlas-initial",
+  "gameNumber": 5,
+  "gameSlug": "gravity-atlas",
+  "variantId": "claude-fable-5-gravity-atlas-2026-06-10",
+  "runType": "initial-generation",
+  "status": "accepted-playable",
+  "createdDate": "2026-06-10",
+  "modelName": "Claude Fable 5",
+  "agentName": "Claude Code",
+  "humanCodeEdits": false,
+  "promptSummary": "Create Observation 005 / Game 005, Gravity Atlas: a PC-first deterministic physics puzzle for the Physics Experiment Hall, with a shared pure physics engine, six gravity plates, shot budgets, clear win/loss, and a committed Node verifier proving every plate completable. Wire it into the launcher, halls, manifest, changelog, README, and generated index.",
+  "outputs": [
+    "games/gravity-atlas/index.html",
+    "games/gravity-atlas/src/engine.js",
+    "games/gravity-atlas/src/main.js",
+    "games/gravity-atlas/styles/main.css",
+    "games/gravity-atlas/game.json",
+    "games/gravity-atlas/brief.md",
+    "games/gravity-atlas/README.md",
+    "games/gravity-atlas/variants/claude-fable-5-gravity-atlas-2026-06-10/variant.json",
+    "scripts/verify-gravity-atlas.mjs",
+    "games/manifest.json",
+    "halls/halls.json",
+    "docs/generated-index.md",
+    "CHANGELOG.md",
+    "README.md"
+  ],
+  "verification": {
+    "verifiedDate": "2026-06-10",
+    "performed": [
+      "node --check games/gravity-atlas/src/engine.js and games/gravity-atlas/src/main.js",
+      "node scripts/validate-halls.mjs (passed)",
+      "node scripts/validate-games.mjs (passed)",
+      "node scripts/validate-launcher.mjs (passed)",
+      "node scripts/generate-index.mjs --check (passed)",
+      "git diff --check (no whitespace errors)",
+      "node scripts/verify-gravity-atlas.mjs (passed): the committed verifier imports the same engine module the browser runs and replays the embedded reference launch vectors, confirming all six plates end in a target hit within budget and under the power cap",
+      "Plate design search: solutions were found by random launch-vector search through the real engine (about 3k-11k samples per plate to collect 40 hits each, giving rough hit-rate difficulty bands); Plate V was redesigned once after an initial layout proved unsolvable in 400k samples",
+      "Static HTTP serve via python3 -m http.server 4173: HTTP 200 for the game page, both source modules, the stylesheet, styles/game-shell.css, library.html, observation.html?slug=gravity-atlas, play.html?slug=gravity-atlas, games/manifest.json, game.json, and the variant.json"
+    ],
+    "pending": [
+      "Interactive in-browser smoke (title render, drag-aim, fire, trajectory animation, plate progression, win and loss overlays, pause/help, console-error check) at 1280x800, 1440x900, 1920x1080, and 390x844 — not run in this authoring environment because no browser is available",
+      "Real captured browser screenshots (screenshot-title.png, screenshot-plate.png, screenshot-complete.png)",
+      "Physical handset QA for the mobile baseline"
+    ]
+  },
+  "knownIssues": [
+    "No screenshots are captured or claimed; game.json and the manifest declare no media so the launcher shows an explicit no-screenshot state.",
+    "Interactive in-browser smoke and console-error verification were not performed in this environment; node-level checks, the committed completability verifier, and static HTTP serving were performed.",
+    "Reference-solution replay is bit-identical on V8 runtimes (Node and Chromium); the integrator avoids transcendental functions, but cross-browser float behavior of manual play has not been verified in a browser.",
+    "Mobile is declared limited; drag-aiming works as a touch gesture in principle but was not verified in a browser, and no physical handset QA is claimed."
+  ],
+  "notes": "Gravity Atlas's physics lives in games/gravity-atlas/src/engine.js, a pure module shared verbatim by the page and by scripts/verify-gravity-atlas.mjs, so the completability proof exercises exactly the shipped simulation: fixed-timestep (1/120s) semi-implicit Euler over softened inverse-square wells, using only arithmetic and Math.sqrt for cross-runtime determinism. Six plates escalate from an open field to a three-mass void corridor; each carries a shot budget (lose when exhausted) and a par (score bonus). window.__gravityAtlasQA exposes start, restart, getSnapshot, setAim, fire, fireVector, autoSolveShot (fires the proven reference vector for the current plate), simulate, forceWin, and forceLose."
+}
