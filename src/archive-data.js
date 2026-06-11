@@ -13,6 +13,16 @@ export async function loadArchive() {
   };
 }
 
+export async function loadHalls(manifest) {
+  const href = normalizeRootPath(manifest?.hallsPath ?? "./halls/halls.json");
+  try {
+    const data = await fetchJson(href, "halls.json");
+    return Array.isArray(data?.halls) ? data.halls : [];
+  } catch {
+    return [];
+  }
+}
+
 export async function getGameBySlug(slug) {
   const archive = await loadArchive();
   const game = archive.games.find((entry) => entry.slug === slug);
@@ -365,12 +375,65 @@ function registerModel(models, modelName, agentName, game) {
   }
 }
 
-async function fetchJson(href, label) {
-  const response = await fetch(href, { cache: "no-store" });
-  if (!response.ok) {
-    throw new Error(`${label} failed with HTTP ${response.status}`);
+// The launcher is a multi-page static app, so every navigation (title -> library
+// -> observation -> play) used to refetch the manifest and every game.json. A
+// per-session cache keyed by the deployed asset version removes that waterfall
+// while staying fresh across deploys (the version changes when assets change).
+// An in-memory promise map also dedupes concurrent requests within a page.
+const ASSET_VERSION = "2026-06-04-social";
+const memoryCache = new Map();
+
+function cacheKey(href) {
+  return `aa:${ASSET_VERSION}:${href}`;
+}
+
+function readSessionCache(href) {
+  try {
+    const raw = globalThis.sessionStorage?.getItem(cacheKey(href));
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
   }
-  return response.json();
+}
+
+function writeSessionCache(href, value) {
+  try {
+    globalThis.sessionStorage?.setItem(cacheKey(href), JSON.stringify(value));
+  } catch {
+    // Storage may be unavailable or full; the in-memory cache still applies.
+  }
+}
+
+function fetchJson(href, label) {
+  if (memoryCache.has(href)) {
+    return memoryCache.get(href);
+  }
+
+  const cached = readSessionCache(href);
+  if (cached) {
+    const resolved = Promise.resolve(cached);
+    memoryCache.set(href, resolved);
+    return resolved;
+  }
+
+  const request = fetch(href, { cache: "no-store" })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`${label} failed with HTTP ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((value) => {
+      writeSessionCache(href, value);
+      return value;
+    })
+    .catch((error) => {
+      memoryCache.delete(href);
+      throw error;
+    });
+
+  memoryCache.set(href, request);
+  return request;
 }
 
 function normalizeRootPath(value) {

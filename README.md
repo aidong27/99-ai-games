@@ -109,8 +109,9 @@ The public launcher is a static four-level archive system:
 - `library.html`: model-axis observation library backed by real manifest data.
 - `observation.html?slug=<game-slug>`: archive record with screenshots, metadata, device support, provenance, variants, controls, and run records.
 - `play.html?slug=<game-slug>`: device-aware play gate before entering `games/<slug>/`.
+- `compare.html`: a cross-model capability matrix (model × hall coverage, per-model totals, hall coverage) built only from real manifest data.
 
-Launcher pages read from `games/manifest.json` and each game's `game.json`. They must not invent games, models, screenshots, popularity, or provenance.
+Launcher pages read from `games/manifest.json` and each game's `game.json`. They must not invent games, models, screenshots, popularity, or provenance. Metadata fetches are cached per session (keyed by the deployed asset version) so navigation between pages does not refetch every record.
 
 ## Run Locally
 
