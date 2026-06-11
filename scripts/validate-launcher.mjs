@@ -14,6 +14,7 @@ const requiredFiles = [
   "play.html",
   "press.html",
   "log.html",
+  "compare.html",
   "styles/archive.css",
   "styles/main.css",
   "src/archive-effects.js",
@@ -24,6 +25,7 @@ const requiredFiles = [
   "src/play.js",
   "src/press.js",
   "src/share.js",
+  "src/compare.js",
   "assets/social/og-cover.svg",
   "assets/social/og-cover.png",
   "assets/social/social-card.svg",
@@ -38,7 +40,8 @@ const launcherPages = [
   "observation.html",
   "play.html",
   "press.html",
-  "log.html"
+  "log.html",
+  "compare.html"
 ];
 
 function fail(message) {

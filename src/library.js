@@ -224,6 +224,7 @@ function createObservationCard(game, index) {
     img.src = screenshot;
     img.alt = `${game.title} verified screenshot`;
     img.loading = "lazy";
+    img.decoding = "async";
     img.addEventListener("error", () => {
       imageWrap.replaceChildren(createText("span", "image-fallback", "No verified screenshot"));
     }, { once: true });

@@ -89,6 +89,7 @@ function createHero(game, heroImage, mobile) {
     const img = document.createElement("img");
     img.src = heroImage;
     img.alt = `${game.title} verified screenshot`;
+    img.decoding = "async";
     img.addEventListener("error", () => {
       image.replaceChildren(createText("span", "image-fallback", "No verified screenshot"));
     }, { once: true });
@@ -164,6 +165,7 @@ function createMediaSection(game, screenshots) {
       img.src = entry.href;
       img.alt = `${game.title} screenshot ${index + 1}`;
       img.loading = "lazy";
+      img.decoding = "async";
       img.addEventListener("error", () => {
         figure.replaceChildren(createText("div", "image-fallback", "Screenshot path missing"));
       }, { once: true });
