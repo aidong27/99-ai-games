@@ -4,6 +4,8 @@ All notable project-level changes are recorded here. This archive does not use c
 
 ## [Unreleased]
 
+- Redesign the launcher art direction as a "specimen ledger": warmer near-black/ivory tokens, sharper radii, film-grain and vignette texture pass, ruled kickers, corner-bracket buttons with hard offset shadows, uppercase mono badges, a hollow-stroke AI line in the title wordmark, an italic serif position line, a ledger status card with corner registration ticks, and a static meta rule. All selectors, DOM hooks, and dynamic-page structures are unchanged; cache-busting bumped to `2026-06-11-atelier` across the launcher and validator.
+
 - Add `compare.html`, a model-axis capability matrix that renders, from real manifest data only, which AI models and tools have produced playable observations in which game halls, plus per-model totals and hall coverage. Every cell links to a real observation record; empty halls are shown as empty, never as placeholder games. Brought under `validate-launcher`.
 - Speed up cross-page launcher navigation: `archive-data.js` now caches manifest and `game.json` fetches per session (keyed by the deployed asset version) so moving between title, library, compare, observation, and play no longer refetches every record. Add `modulepreload` hints for the data layer and `decoding="async"` on launcher images.
 
