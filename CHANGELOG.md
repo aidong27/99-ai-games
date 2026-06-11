@@ -4,6 +4,8 @@ All notable project-level changes are recorded here. This archive does not use c
 
 ## [Unreleased]
 
+- Make the archive's integrity machine-enforced: add `scripts/check.mjs` (one command that runs syntax checks, every validator, the generated-index freshness check, and per-game completability proofs) and a CI workflow (`.github/workflows/ci.yml`) that runs it on every push and pull request.
+- Add `scripts/validate-provenance.mjs`, an executable honesty gate that asserts `humanCodeEdits: false` across all metadata, real model/agent labels, at least one verified run record per game, and **no fabricated popularity/traffic metrics** anywhere — turning the project's written rules into enforced checks. Documented in `docs/quality-gate.md`.
 - Add Observation 005 / Game 005 **Gravity Atlas**, the first Physics Experiment Hall benchmark: a PC-first deterministic physics puzzle with six gravity plates, shot budgets, and par scoring. Its physics engine is a pure module shared by the page and a committed verifier (`scripts/verify-gravity-atlas.mjs`) that replays embedded reference launch vectors to prove every plate completable; interactive browser smoke and real screenshots are pending and not claimed.
 - Add public sharing infrastructure: Open Graph/Twitter social preview metadata, brand social assets, a press page, project log, title-screen copy actions, and a reusable share kit.
 - Normalize Codex-authored provenance labels to the single maintainer-declared model `GPT-5.5 xhigh` with `Codex` as the tool/agent.
