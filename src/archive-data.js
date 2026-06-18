@@ -380,7 +380,7 @@ function registerModel(models, modelName, agentName, game) {
 // per-session cache keyed by the deployed asset version removes that waterfall
 // while staying fresh across deploys (the version changes when assets change).
 // An in-memory promise map also dedupes concurrent requests within a page.
-const ASSET_VERSION = "2026-06-13-claude";
+const ASSET_VERSION = "2026-06-13-claude2";
 const memoryCache = new Map();
 
 function cacheKey(href) {
