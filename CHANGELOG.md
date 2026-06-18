@@ -4,6 +4,8 @@ All notable project-level changes are recorded here. This archive does not use c
 
 ## [Unreleased]
 
+- Cross-page consistency sweep: fix the top navigation on the title and compare pages (it was still rendering as dark-theme mono chips because main.css overrode the Claude link style) to plain Claude text links; switch the title footer to sans; and standardize all surfaces (shell, editorial, compare, front hall) to one calm content column (max 1360px, consistent gutters) instead of the previous four different widths. Override-only; cache-busting bumped to `2026-06-14-claude6`.
+
 - Bring the press kit and project log pages to the editorial Claude standard: larger serif lede at a readable measure, refined timeline entry typography (mono dates, serif headings, calm body), accent text links, and soft pill link tiles. The existing timeline rail is preserved. Override-only; cache-busting bumped to `2026-06-14-claude5`. This completes the Claude.ai theme across all seven launcher pages.
 
 - Bring the observation record and play gate pages up to the same calm Claude standard as the front hall: rounded soft cover/cards, larger editorial headings with tighter tracking, more readable description type, soft-rounded screenshot frames, and a generous centered play gate. Override-only; cache-busting bumped to `2026-06-14-claude4`.
