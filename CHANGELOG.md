@@ -4,6 +4,8 @@ All notable project-level changes are recorded here. This archive does not use c
 
 ## [Unreleased]
 
+- Bring the observation record and play gate pages up to the same calm Claude standard as the front hall: rounded soft cover/cards, larger editorial headings with tighter tracking, more readable description type, soft-rounded screenshot frames, and a generous centered play gate. Override-only; cache-busting bumped to `2026-06-14-claude4`.
+
 - Add a real brand favicon (inline SVG terracotta rounded-square "99") across all launcher pages, replacing the blank icon. Refine the Claude front-hall typography: a lighter, more editorial hero wordmark and position line, roomier section spacing, and an observation shelf with soft accent-chip number plates, sans metadata, and calmer cards. Override-only; cache-busting bumped to `2026-06-14-claude3`.
 
 - Polish the Claude.ai light theme into a native feel: replace the inverted-dark "specimen terminal" decorations with calm Claude conventions — fully rounded pill buttons in humanist sans (no uppercase/mono), plain-text top navigation, soft sans labels at readable warm-ink contrast (instead of low-contrast spaced terracotta), softer cards with gentle hover lift, a floating pill dock, removal of the global registration frame and card corner ticks, a quieter ambient signal field, and antialiased body type. Override-only in `styles/archive.css`; no DOM contract or structure change. Cache-busting bumped to `2026-06-13-claude2`.
