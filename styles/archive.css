@@ -2345,3 +2345,209 @@ body::before {
 .definition-card:hover {
   box-shadow: 0 10px 26px rgba(40, 38, 34, 0.1);
 }
+
+/* ════════════════════════════════════════════════════════════════════════
+   CLAUDE VISUAL UPGRADE (2026-06-13-claude2)
+   Lift the launcher from an inverted dark terminal to a native Claude.ai feel:
+   pill buttons in sans, calm readable labels, plain-text nav, soft cards, and
+   removal of the technical "specimen frame" decorations. Override-only layer —
+   no DOM contract or structure changes.
+   ════════════════════════════════════════════════════════════════════════ */
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+}
+
+/* Remove the technical viewport frame + card registration ticks — Claude is calm. */
+body::before,
+.title-status::before,
+.title-status::after,
+.library-readout::before,
+.record::before,
+.editorial-hero::before,
+.play-gate-content::after {
+  display: none !important;
+}
+
+/* Quieter ambient texture on the light ground. */
+.archive-signal-field {
+  opacity: 0.16;
+}
+
+/* Buttons → Claude pills: humanist sans, sentence-friendly, fully rounded. */
+.archive-button {
+  border-radius: 999px;
+  padding: 0 22px;
+  min-height: 48px;
+  font-family: var(--ui-font);
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.archive-button.compact {
+  min-height: 40px;
+  padding: 0 16px;
+  font-size: 0.86rem;
+}
+
+.archive-button.secondary {
+  border-color: var(--line-strong);
+  background: var(--panel);
+}
+
+.archive-button.ghost {
+  border-color: transparent;
+  background: transparent;
+  color: var(--muted-strong);
+}
+
+.archive-button:hover {
+  transform: translateY(-1px);
+}
+
+/* Labels: readable warm-ink, gentle tracking, with the small accent rule kept. */
+.archive-kicker {
+  color: var(--muted-strong);
+  font-family: var(--ui-font);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.archive-kicker::before {
+  width: 18px;
+  background: var(--accent);
+  opacity: 0.85;
+}
+
+/* Top navigation → plain Claude text links (no bordered mono chips). */
+.title-header nav a {
+  min-height: auto;
+  border: 0;
+  border-radius: 0;
+  padding: 6px 4px;
+  color: var(--muted-strong);
+  background: transparent;
+  font-family: var(--ui-font);
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.title-header nav a:hover {
+  color: var(--accent);
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+/* Badges → soft sans chips. */
+.archive-badge {
+  border-radius: 999px;
+  padding: 4px 11px;
+  font-family: var(--ui-font);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* Cards & panels: soft, generous, gentle hover — no hard chrome. */
+.observation-card,
+.definition-card,
+.model-axis-panel,
+.library-stage,
+.library-readout,
+.record,
+.editorial-shell .record-section,
+.play-gate-content,
+.shelf-row,
+.hall-cell,
+.model-node {
+  border-radius: var(--radius-lg);
+}
+
+.shelf-row:hover,
+.observation-card:hover,
+.definition-card:hover,
+.hall-cell.covered:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(40, 38, 34, 0.1);
+}
+
+/* The bottom dock reads as a soft floating pill bar. */
+.archive-dock {
+  border-radius: 999px;
+  padding: 8px 10px;
+  box-shadow: 0 14px 40px rgba(40, 38, 34, 0.12);
+}
+
+.archive-dock a {
+  border-radius: 999px;
+  font-family: var(--ui-font);
+  font-size: 0.84rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* Headings: warm serif, comfortable. The giant wordmark loses its heavy shadow. */
+.title-mark {
+  text-shadow: none;
+}
+
+.page-title h1,
+.record-copy h2,
+.play-gate h1,
+.hall-section-head h2,
+.compare-section-title {
+  letter-spacing: -0.015em;
+}
+
+/* Footer in sans, calmer. */
+.title-footer p {
+  font-family: var(--ui-font);
+  letter-spacing: 0;
+}
+
+/* Wordmark + remaining UI copy → Claude sans (mono is kept only for true
+   code-like tokens such as OBS plate numbers and the matrix chips). */
+.wordmark span {
+  border-radius: var(--radius-md);
+}
+
+.wordmark strong {
+  font-family: var(--ui-font);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+
+.title-protocol,
+.status-note,
+.topbar-status,
+.title-status dt,
+.share-status {
+  font-family: var(--ui-font);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.title-status dt {
+  font-size: 0.82rem;
+}
+
+.title-protocol {
+  font-size: 1rem;
+  line-height: 1.6;
+}
