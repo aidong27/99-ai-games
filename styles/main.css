@@ -1,28 +1,28 @@
 :root {
   color-scheme: dark;
-  --bg: #030712;
-  --bg-deep: #01030a;
-  --panel: rgba(9, 17, 31, 0.78);
-  --panel-strong: rgba(13, 25, 43, 0.92);
+  --bg: #000000;
+  --bg-deep: #000000;
+  --panel: rgba(28, 28, 30, 0.72);
+  --panel-strong: rgba(28, 28, 30, 0.92);
   --panel-soft: rgba(255, 255, 255, 0.055);
-  --line: rgba(153, 213, 255, 0.16);
-  --line-strong: rgba(166, 235, 255, 0.34);
-  --text: #edf7ff;
-  --muted: #8fa4b8;
-  --muted-strong: #bed2e4;
-  --accent: #53ffda;
-  --accent-soft: rgba(83, 255, 218, 0.15);
-  --accent-2: #7daaff;
-  --link: #9be8ff;
-  --warning: #ffd37a;
-  --warning-soft: rgba(255, 211, 122, 0.14);
-  --danger: #ff8e8e;
-  --danger-soft: rgba(255, 142, 142, 0.12);
-  --display-font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --ui-font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --mono-font: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
-  --shadow: 0 28px 90px rgba(0, 0, 0, 0.38);
-  --focus-ring: rgba(83, 255, 218, 0.22);
+  --line: rgba(255, 255, 255, 0.11);
+  --line-strong: rgba(255, 255, 255, 0.18);
+  --text: #f5f5f7;
+  --muted: #8e8e93;
+  --muted-strong: #c7c7cc;
+  --accent: #0a84ff;
+  --accent-soft: rgba(10, 132, 255, 0.16);
+  --accent-2: #64d2ff;
+  --link: #2997ff;
+  --warning: #ffd60a;
+  --warning-soft: rgba(255, 214, 10, 0.14);
+  --danger: #ff453a;
+  --danger-soft: rgba(255, 69, 58, 0.12);
+  --display-font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  --ui-font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+  --mono-font: "SF Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --shadow: none;
+  --focus-ring: rgba(10, 132, 255, 0.28);
 }
 
 .launcher-screen {
@@ -1143,5 +1143,269 @@
 @media (max-width: 420px) {
   .launcher-copy h1 {
     font-size: 2.72rem;
+  }
+}
+
+/* Apple HIG launcher alignment (2026-06-21): calm, system-like, content first. */
+:root {
+  --bg: #000000;
+  --bg-deep: #000000;
+  --panel: rgba(28, 28, 30, 0.72);
+  --panel-strong: rgba(28, 28, 30, 0.92);
+  --panel-soft: rgba(255, 255, 255, 0.055);
+  --line: rgba(255, 255, 255, 0.11);
+  --line-strong: rgba(255, 255, 255, 0.18);
+  --text: #f5f5f7;
+  --muted: #8e8e93;
+  --muted-strong: #c7c7cc;
+  --accent: #0a84ff;
+  --accent-soft: rgba(10, 132, 255, 0.16);
+  --accent-2: #64d2ff;
+  --link: #2997ff;
+  --display-font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  --ui-font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+  --mono-font: "SF Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --shadow: none;
+}
+
+.launcher-screen {
+  color: var(--text);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 220px),
+    var(--bg);
+  font-family: var(--ui-font);
+}
+
+.launcher-screen::before,
+.launcher-screen::after,
+.launcher-signal,
+.precision-backdrop {
+  display: none !important;
+}
+
+.launcher-header,
+.launcher-footer,
+.launcher-section-heading {
+  border-color: var(--line);
+}
+
+.launcher-header {
+  min-height: 72px;
+  background: rgba(0, 0, 0, 0.72);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+
+.launcher-mark-number {
+  width: 36px;
+  height: 36px;
+  border-color: var(--line-strong);
+  border-radius: 8px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+  font-family: var(--ui-font);
+}
+
+.launcher-header nav a,
+.launcher-section-heading a,
+.featured-links a,
+.game-card-links a {
+  color: var(--muted-strong);
+  font-family: var(--ui-font);
+  text-decoration: none;
+}
+
+.launcher-header nav a:hover,
+.launcher-section-heading a:hover,
+.featured-links a:hover,
+.game-card-links a:hover {
+  color: var(--link);
+  text-decoration: none;
+}
+
+.launcher-main {
+  padding: 64px 0 40px;
+}
+
+.launcher-hero {
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 0.68fr);
+  gap: 56px;
+  align-items: start;
+}
+
+.launcher-kicker,
+.game-card-label {
+  color: var(--muted);
+  font-family: var(--ui-font);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.launcher-kicker::before,
+.game-card-label::before {
+  display: none;
+}
+
+.launcher-copy h1 {
+  max-width: 720px;
+  margin-bottom: 22px;
+  color: var(--text);
+  font-family: var(--display-font);
+  font-size: 6.8rem;
+  line-height: 0.96;
+  font-weight: 750;
+}
+
+.launcher-lede {
+  max-width: 690px;
+  color: var(--text);
+  font-size: 1.38rem;
+  line-height: 1.32;
+  font-weight: 600;
+}
+
+.launcher-note {
+  max-width: 660px;
+  color: var(--muted-strong);
+  font-size: 1rem;
+  line-height: 1.62;
+}
+
+.launcher-screen .archive-button {
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--link);
+  background: rgba(255, 255, 255, 0.055);
+  box-shadow: none;
+  font-family: var(--ui-font);
+  font-weight: 600;
+  transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.launcher-screen .archive-button:hover {
+  border-color: rgba(10, 132, 255, 0.38);
+  color: #ffffff;
+  background: rgba(10, 132, 255, 0.16);
+  transform: none;
+  box-shadow: none;
+}
+
+.launcher-screen .archive-button.primary {
+  border-color: transparent;
+  color: #ffffff;
+  background: var(--accent);
+}
+
+.launcher-screen .archive-button.ghost {
+  color: var(--link);
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.hero-readout div,
+.featured-observation,
+.launcher-stats,
+.launcher-systems article,
+.game-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: none;
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+
+.hero-readout dt,
+.featured-meta dt,
+.launcher-stats dt {
+  color: var(--muted);
+  font-family: var(--ui-font);
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.featured-observation::before,
+.game-card::before,
+.launcher-systems article::before,
+.featured-media::after,
+.game-card-media::after {
+  display: none !important;
+}
+
+.featured-media,
+.game-card-media {
+  background: #111111;
+}
+
+.featured-body h2,
+.launcher-section-heading h2,
+.launcher-systems h2,
+.game-card-title {
+  color: var(--text);
+  font-family: var(--display-font);
+  font-weight: 700;
+}
+
+.featured-body p,
+.launcher-systems p,
+.game-card-description,
+.launcher-stats p,
+.launcher-footer p {
+  color: var(--muted-strong);
+}
+
+.launcher-stats,
+.launcher-systems article,
+.game-card {
+  box-shadow: none;
+}
+
+.game-card:hover {
+  border-color: rgba(10, 132, 255, 0.36);
+  background: rgba(44, 44, 46, 0.82);
+  transform: none;
+}
+
+@media (max-width: 1020px) {
+  .launcher-hero,
+  .launcher-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .launcher-copy h1 {
+    font-size: 4.8rem;
+  }
+
+  .launcher-lede {
+    font-size: 1.24rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .launcher-main {
+    padding-top: 34px;
+  }
+
+  .launcher-header {
+    min-height: 94px;
+  }
+
+  .launcher-copy h1 {
+    font-size: 3rem;
+    line-height: 1;
+  }
+
+  .launcher-lede {
+    font-size: 1.08rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .launcher-copy h1 {
+    font-size: 2.65rem;
   }
 }
