@@ -3341,3 +3341,284 @@ body::after {
     transition: none;
   }
 }
+
+/* Premium minimal archive layer: restraint over spectacle. */
+:root {
+  color-scheme: dark;
+  --bg: #080909;
+  --bg-deep: #030404;
+  --panel: rgba(17, 19, 19, 0.74);
+  --panel-strong: rgba(20, 23, 23, 0.88);
+  --panel-soft: rgba(255, 255, 255, 0.045);
+  --line: rgba(232, 238, 233, 0.12);
+  --line-strong: rgba(232, 238, 233, 0.22);
+  --text: #f3f1eb;
+  --muted: #8c918d;
+  --muted-strong: #bbbeb8;
+  --accent: #c8f4df;
+  --accent-soft: rgba(200, 244, 223, 0.13);
+  --accent-2: #d8e7ff;
+  --link: #d9efe6;
+  --warning: #f3d894;
+  --warning-soft: rgba(243, 216, 148, 0.12);
+  --danger: #f0aaa6;
+  --danger-soft: rgba(240, 170, 166, 0.1);
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+  --focus-ring: rgba(200, 244, 223, 0.2);
+}
+
+body {
+  background:
+    radial-gradient(circle at 74% 18%, rgba(216, 231, 255, 0.075), transparent 320px),
+    radial-gradient(circle at 18% 78%, rgba(200, 244, 223, 0.065), transparent 420px),
+    linear-gradient(180deg, #0d0f0f 0, #080909 48%, #030404 100%);
+}
+
+body::after {
+  opacity: 0.35;
+  background:
+    radial-gradient(130% 100% at 50% 30%, transparent 72%, rgba(0, 0, 0, 0.18)),
+    repeating-radial-gradient(circle at 17% 29%, rgba(255, 255, 255, 0.011) 0 1px, transparent 1px 4px);
+}
+
+.archive-signal-field,
+.page-signal,
+.compare-signal,
+.log-signal {
+  opacity: 0.24;
+  filter: saturate(0.52);
+}
+
+.archive-shell,
+.editorial-shell,
+.compare-stage,
+.title-header,
+.title-footer {
+  position: relative;
+  z-index: 1;
+}
+
+.archive-shell,
+.editorial-shell,
+.compare-stage {
+  padding-top: 34px;
+}
+
+.title-header,
+.archive-topbar,
+.editorial-header {
+  border-bottom-color: rgba(232, 238, 233, 0.1);
+}
+
+.title-mark,
+.archive-mark {
+  color: var(--text);
+}
+
+.title-mark-number,
+.archive-mark-number {
+  border-radius: 7px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.045);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.title-nav a,
+.archive-nav a,
+.editorial-nav a,
+.archive-bottom-dock a {
+  color: var(--muted-strong);
+}
+
+.title-nav a:hover,
+.archive-nav a:hover,
+.editorial-nav a:hover,
+.archive-bottom-dock a:hover,
+.archive-bottom-dock a.active {
+  color: var(--text);
+  text-decoration-color: rgba(200, 244, 223, 0.42);
+}
+
+.archive-bottom-dock {
+  border-color: rgba(232, 238, 233, 0.12);
+  border-radius: 12px;
+  background: rgba(12, 14, 14, 0.82);
+  box-shadow: 0 18px 54px rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(24px);
+}
+
+.archive-bottom-dock a.active {
+  border-color: rgba(200, 244, 223, 0.55);
+  background: rgba(200, 244, 223, 0.08);
+}
+
+.archive-button,
+.gate-actions .archive-button,
+.readout-actions .archive-button,
+.record-actions .archive-button {
+  border-color: rgba(232, 238, 233, 0.18);
+  border-radius: 7px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow: none;
+}
+
+.archive-button:hover {
+  border-color: rgba(232, 238, 233, 0.36);
+  background: rgba(255, 255, 255, 0.065);
+  transform: translateY(-1px);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.22);
+}
+
+.archive-button.primary,
+.gate-actions .archive-button.primary,
+.readout-actions .archive-button.primary,
+.record-actions .archive-button.primary {
+  border-color: transparent;
+  color: #090b0a;
+  background: linear-gradient(135deg, #f3f1eb, #c8f4df);
+}
+
+.archive-button.secondary,
+.archive-button.ghost {
+  color: var(--muted-strong);
+  background: transparent;
+}
+
+.library-layout,
+.library-readout,
+.model-axis-panel,
+.observation-card,
+.definition-card,
+.run-card,
+.compare-section,
+.compare-stats div,
+.model-card,
+.hall-row,
+.hall-cell,
+.editorial-hero,
+.editorial-layout,
+.record-section,
+.play-gate-content,
+.link-grid a,
+.archive-timeline li > div {
+  border-color: rgba(232, 238, 233, 0.12);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.022)),
+    rgba(12, 14, 14, 0.72);
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(22px);
+}
+
+.library-layout,
+.library-readout,
+.model-axis-panel,
+.compare-section,
+.editorial-hero,
+.editorial-layout,
+.record-section,
+.play-gate-content {
+  border-radius: 8px;
+}
+
+.observation-card,
+.definition-card,
+.run-card,
+.model-card,
+.hall-row,
+.hall-cell,
+.link-grid a,
+.archive-timeline li > div {
+  border-radius: 7px;
+  box-shadow: none;
+}
+
+.observation-card:hover,
+.observation-card.active,
+.definition-card:hover,
+.hall-cell.covered:hover,
+.model-card:hover {
+  border-color: rgba(232, 238, 233, 0.22);
+  transform: translateY(-2px);
+  box-shadow: none;
+}
+
+.model-axis-item.active,
+.matrix-cell.filled,
+.hall-cell.covered {
+  background: rgba(200, 244, 223, 0.08);
+}
+
+.matrix-chip,
+.hall-dot,
+.model-node-count,
+.axis-count {
+  color: #090b0a;
+  background: linear-gradient(135deg, #f3f1eb, #c8f4df);
+  box-shadow: none;
+}
+
+.card-image::after,
+.record-cover::after,
+.media-grid figure::after {
+  background: repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 6px);
+  opacity: 0.65;
+}
+
+.compare-intro,
+.editorial-hero {
+  border-bottom-color: rgba(232, 238, 233, 0.1);
+}
+
+.compare-intro h1,
+.editorial-hero h2,
+.page-title h1,
+.play-gate h1 {
+  color: var(--text);
+  font-weight: 780;
+}
+
+.compare-lede,
+.editorial-lede,
+.record-description,
+.gate-description,
+.gate-philosophy,
+.library-readout p,
+.model-card p,
+.hall-row p {
+  color: var(--muted-strong);
+}
+
+.record-section > h2::before,
+.record-section > h3::before,
+.editorial-layout h2::before {
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  opacity: 0.72;
+}
+
+.play-gate-content::before {
+  background:
+    radial-gradient(circle at 80% 20%, rgba(216, 231, 255, 0.08), transparent 220px),
+    linear-gradient(135deg, rgba(200, 244, 223, 0.065), transparent 44%, rgba(255, 255, 255, 0.035));
+}
+
+@media (max-width: 900px) {
+  .archive-shell,
+  .editorial-shell,
+  .compare-stage {
+    padding-top: 20px;
+  }
+
+  .compare-intro h1,
+  .editorial-hero h2 {
+    font-size: 2.75rem;
+    line-height: 1;
+  }
+}
+
+@media (max-width: 520px) {
+  .compare-intro h1,
+  .editorial-hero h2 {
+    font-size: 2.28rem;
+  }
+}
