@@ -14,6 +14,7 @@ import {
   getShortGameNumber,
   toTitle
 } from "./archive-data.js";
+import { createSignalField } from "./archive-effects.js";
 
 const statsEl = document.querySelector("#compare-stats");
 const tableEl = document.querySelector("#matrix-table");
@@ -21,8 +22,12 @@ const matrixEmptyEl = document.querySelector("#matrix-empty");
 const modelGridEl = document.querySelector("#model-grid");
 const hallCoverageEl = document.querySelector("#hall-coverage");
 const statusEl = document.querySelector("#compare-status");
+const signalCanvas = document.querySelector("#compare-signal");
+const signalField = createSignalField(signalCanvas, { variant: "compare", density: 30 });
 
+signalField.start();
 init();
+window.addEventListener("pagehide", () => signalField.destroy(), { once: true });
 
 async function init() {
   try {

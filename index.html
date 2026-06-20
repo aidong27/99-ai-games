@@ -16,15 +16,21 @@
     <meta name="twitter:title" content="99 AI Games">
     <meta name="twitter:description" content="A playable archive observing how AI coding agents make browser games.">
     <meta name="twitter:image" content="https://aidong27.github.io/99-ai-games/assets/social/og-cover.png">
-    <meta name="theme-color" content="#f7f8f7">
+    <meta name="theme-color" content="#030712">
     <title>99 AI Games | Minimal Launcher</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23141817'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-size='13' font-weight='700' fill='%23ffffff' text-anchor='middle'%3E99%3C/text%3E%3C/svg%3E">
-    <link rel="modulepreload" href="./src/archive-data.js?v=2026-06-14-claude7">
-    <link rel="stylesheet" href="./styles/archive.css?v=2026-06-14-claude7">
-    <link rel="stylesheet" href="./styles/main.css?v=2026-06-14-claude7">
+    <link rel="modulepreload" href="./src/archive-data.js?v=2026-06-21-precision">
+    <link rel="stylesheet" href="./styles/archive.css?v=2026-06-21-precision">
+    <link rel="stylesheet" href="./styles/main.css?v=2026-06-21-precision">
   </head>
   <body class="launcher-screen">
     <a class="skip-link" href="#observations-heading">Skip to observations</a>
+    <canvas id="launcher-signal" class="archive-signal-field launcher-signal" width="1200" height="720" aria-hidden="true"></canvas>
+    <div class="precision-backdrop" aria-hidden="true">
+      <span class="precision-orbit orbit-a"></span>
+      <span class="precision-orbit orbit-b"></span>
+      <span class="precision-scan"></span>
+    </div>
 
     <header class="launcher-header" aria-label="Archive launcher navigation">
       <a class="launcher-mark" href="./" aria-label="99 AI Games home">
@@ -46,11 +52,26 @@
           <p class="launcher-kicker">AI game-making evolution archive</p>
           <h1 id="launcher-heading">99 AI Games</h1>
           <p class="launcher-lede">The games are playable. The real exhibit is the AI that made them.</p>
-          <p class="launcher-note">A quiet launcher for browser-game observations, model provenance, variants, and run records.</p>
+          <p class="launcher-note">A precision launch deck for browser-game observations, model provenance, variants, run records, and the visible evolution of AI coding agents.</p>
           <div class="launcher-actions">
             <a id="enter-library" class="archive-button primary" href="./library.html">Open Library</a>
             <a id="play-featured" class="archive-button secondary" href="./library.html">Play Featured</a>
+            <a class="archive-button ghost" href="./compare.html">Compare Models</a>
           </div>
+          <dl class="hero-readout" aria-label="Archive protocol summary">
+            <div>
+              <dt>Protocol</dt>
+              <dd>Real builds only</dd>
+            </div>
+            <div>
+              <dt>Game code</dt>
+              <dd>No casual edits</dd>
+            </div>
+            <div>
+              <dt>Visual layer</dt>
+              <dd>Editorial allowed</dd>
+            </div>
+          </dl>
         </div>
 
         <section class="featured-observation" aria-label="Featured playable observation" aria-live="polite">
@@ -102,6 +123,24 @@
         <p id="archive-status">Loading archive manifest...</p>
       </section>
 
+      <section class="launcher-systems" aria-label="Archive systems">
+        <article>
+          <span>01</span>
+          <h2>Evidence Shelf</h2>
+          <p>Playable samples, verified screenshots where available, and honest missing-state labels where evidence is still pending.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h2>Model Axis</h2>
+          <p>Every model/tool label is pulled from metadata, keeping comparisons grounded in recorded provenance.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h2>Capability Halls</h2>
+          <p>Nine hall categories expose how AI handles timing, logic, physics, strategy, management, language, and weird systems.</p>
+        </article>
+      </section>
+
       <section class="launcher-library" aria-labelledby="observations-heading">
         <div class="launcher-section-heading">
           <div>
@@ -126,6 +165,6 @@
       <textarea id="share-fallback" class="share-fallback" readonly hidden aria-label="Manual share text"></textarea>
     </footer>
 
-    <script type="module" src="./src/main.js?v=2026-06-14-claude7"></script>
+    <script type="module" src="./src/main.js?v=2026-06-21-precision"></script>
   </body>
 </html>
