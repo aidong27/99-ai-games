@@ -1,22 +1,22 @@
 :root {
   color-scheme: light;
-  --bg: #f5f4ef;
-  --bg-deep: #ece9e0;
-  --panel: #ffffff;
-  --panel-strong: #ffffff;
-  --panel-soft: rgba(40, 38, 34, 0.035);
-  --line: rgba(40, 38, 34, 0.13);
-  --line-strong: rgba(40, 38, 34, 0.22);
-  --text: #20201e;
-  --muted: #6f6e66;
-  --muted-strong: #46453f;
-  --accent: #d97757;
-  --accent-soft: rgba(217, 119, 87, 0.14);
-  --accent-2: #5b7a99;
-  --warning: #b8823a;
-  --warning-soft: rgba(184, 130, 58, 0.14);
-  --danger: #bb5a4f;
-  --danger-soft: rgba(187, 90, 79, 0.13);
+  --bg: #030712;
+  --bg-deep: #01030a;
+  --panel: rgba(9, 17, 31, 0.78);
+  --panel-strong: rgba(13, 25, 43, 0.92);
+  --panel-soft: rgba(255, 255, 255, 0.055);
+  --line: rgba(153, 213, 255, 0.16);
+  --line-strong: rgba(166, 235, 255, 0.34);
+  --text: #edf7ff;
+  --muted: #8fa4b8;
+  --muted-strong: #bed2e4;
+  --accent: #53ffda;
+  --accent-soft: rgba(83, 255, 218, 0.15);
+  --accent-2: #7daaff;
+  --warning: #ffd37a;
+  --warning-soft: rgba(255, 211, 122, 0.14);
+  --danger: #ff8e8e;
+  --danger-soft: rgba(255, 142, 142, 0.12);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --display-font: "Tiempos Text", Georgia, "Times New Roman", ui-serif, serif;
   --ui-font: "Styrene B", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -1140,7 +1140,7 @@ dd {
   max-width: 980px;
   margin-bottom: 18px;
   font-family: var(--display-font);
-  font-size: clamp(4.5rem, 9vw, 10.5rem);
+  font-size: 8rem;
   line-height: 0.86;
   letter-spacing: 0;
 }
@@ -1155,7 +1155,7 @@ dd {
 .editorial-hero .editorial-lede {
   color: var(--text);
   font-family: var(--display-font);
-  font-size: clamp(1.75rem, 2.8vw, 3.1rem);
+  font-size: 2.45rem;
   line-height: 1.12;
 }
 
@@ -1752,7 +1752,7 @@ dd {
   margin: 8px 0 14px;
   font-family: var(--display-font);
   font-weight: 600;
-  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-size: 2.85rem;
   line-height: 1.02;
 }
 
@@ -2090,7 +2090,7 @@ body::before {
 .page-title h1,
 .play-gate h1 {
   position: relative;
-  font-size: clamp(1.7rem, 2.4vw, 2.35rem);
+  font-size: 2.1rem;
   letter-spacing: -0.01em;
 }
 
@@ -2254,7 +2254,7 @@ body::before {
 .editorial-lede {
   color: var(--muted-strong);
   font-family: var(--display-font);
-  font-size: clamp(1.1rem, 1.7vw, 1.4rem);
+  font-size: 1.28rem;
   font-style: italic;
   line-height: 1.5;
 }
@@ -2303,7 +2303,7 @@ body::before {
   }
 }
 
-/* ── Claude theme finish (light) ──────────────────────────────────────────
+/* ── Legacy light-theme finish (superseded) ──────────────────────────────────────────
    Final adjustments for the warm-cream / terracotta palette: white text on
    the accent, calmer chrome, and a quieter signal field on the light ground. */
 :root {
@@ -2347,8 +2347,8 @@ body::before {
 }
 
 /* ════════════════════════════════════════════════════════════════════════
-   CLAUDE VISUAL UPGRADE (2026-06-13-claude2)
-   Lift the launcher from an inverted dark terminal to a native Claude.ai feel:
+   PREVIOUS EDITORIAL VISUAL UPGRADE (2026-06-13-legacy)
+   Lift the launcher from an inverted dark terminal to a a previous calm editorial feel:
    pill buttons in sans, calm readable labels, plain-text nav, soft cards, and
    removal of the technical "specimen frame" decorations. Override-only layer —
    no DOM contract or structure changes.
@@ -2365,7 +2365,7 @@ body {
   letter-spacing: -0.005em;
 }
 
-/* Remove the technical viewport frame + card registration ticks — Claude is calm. */
+/* Remove the technical viewport frame + card registration ticks — the legacy surface is calm. */
 body::before,
 .title-status::before,
 .title-status::after,
@@ -2519,7 +2519,7 @@ body::before,
   letter-spacing: 0;
 }
 
-/* Wordmark + remaining UI copy → Claude sans (mono is kept only for true
+/* Wordmark + remaining UI copy → editorial sans (mono is kept only for true
    code-like tokens such as OBS plate numbers and the matrix chips). */
 .wordmark span {
   border-radius: var(--radius-md);
@@ -2552,9 +2552,9 @@ body::before,
   line-height: 1.6;
 }
 
-/* ── Claude inner-page polish: record + play gate (2026-06-14-claude4) ──────
+/* ── Legacy inner-page polish: record + play gate (2026-06-14-legacy) ──────
    Bring the observation record and play gate to the same calm, soft, editorial
-   Claude standard as the front hall. Override-only; no structure change. */
+   legacy editorial standard as the front hall. Override-only; no structure change. */
 
 /* Observation record (level 3) */
 .record-cover {
@@ -2563,7 +2563,7 @@ body::before,
 }
 
 .record-copy h2 {
-  font-size: clamp(1.65rem, 2.6vw, 2.25rem);
+  font-size: 2.05rem;
   letter-spacing: -0.015em;
   line-height: 1.06;
 }
@@ -2618,7 +2618,7 @@ body::before,
 }
 
 .play-gate h1 {
-  font-size: clamp(1.9rem, 3vw, 2.6rem);
+  font-size: 2.35rem;
   letter-spacing: -0.02em;
 }
 
@@ -2631,8 +2631,8 @@ body::before,
   min-width: 200px;
 }
 
-/* ── Claude editorial polish: press + log (2026-06-14-claude5) ──────────────
-   Bring the press kit and project log to the same editorial Claude standard.
+/* ── Legacy editorial polish: press + log (2026-06-14-legacy) ──────────────
+   Bring the press kit and project log to the same editorial legacy editorial standard.
    Override-only; the existing timeline rail/structure is preserved. */
 
 .editorial-hero {
@@ -2646,7 +2646,7 @@ body::before,
 
 .editorial-lede {
   max-width: 60ch;
-  font-size: clamp(1.18rem, 1.9vw, 1.5rem);
+  font-size: 1.34rem;
   line-height: 1.5;
   color: var(--muted-strong);
 }
@@ -2724,9 +2724,9 @@ body::before,
   }
 }
 
-/* ── Cross-page consistency: one content column (2026-06-14-claude6) ────────
+/* ── Cross-page consistency: one content column (2026-06-14-legacy) ────────
    The shell, editorial, and compare surfaces used four different max-widths
-   and gutters. Standardize to a single calm Claude content column. */
+   and gutters. Standardize to a single calm editorial content column. */
 .archive-shell,
 .editorial-shell,
 .compare-stage {
@@ -2741,8 +2741,8 @@ body::before,
   }
 }
 
-/* ── Calm the library: flatten the dark-era 3D tilt + scan (2026-06-14-claude7)
-   Claude is flat and quiet. Neutralize the pointer-driven 3D card tilt, the
+/* ── Calm the library: flatten the dark-era 3D tilt + scan (2026-06-14-legacy)
+   The legacy surface is flat and quiet. Neutralize the pointer-driven 3D card tilt, the
    active-card scan sweep, and the perspective container — keeping a simple,
    soft hover/active lift. The JS still sets the tilt vars; they become inert. */
 .observation-track {
@@ -2776,4 +2776,568 @@ body::before,
 /* Model-axis active node: keep a gentle highlight, drop the looping pulse glow. */
 .model-axis-item.active {
   animation: none;
+}
+
+/* ── Precision Observatory system (2026-06-21) ─────────────────────────────
+   Final shared look for every non-game surface: high-contrast dark glass,
+   cyan/blue instrumentation, real screenshot evidence, and subtle signal-field
+   motion. This supersedes the prior warm editorial / Claude override layers. */
+:root {
+  color-scheme: dark;
+  --bg: #030712;
+  --bg-deep: #01030a;
+  --panel: rgba(9, 17, 31, 0.78);
+  --panel-strong: rgba(13, 25, 43, 0.92);
+  --panel-soft: rgba(255, 255, 255, 0.055);
+  --line: rgba(153, 213, 255, 0.16);
+  --line-strong: rgba(166, 235, 255, 0.34);
+  --text: #edf7ff;
+  --muted: #8fa4b8;
+  --muted-strong: #bed2e4;
+  --accent: #53ffda;
+  --accent-soft: rgba(83, 255, 218, 0.15);
+  --accent-2: #7daaff;
+  --warning: #ffd37a;
+  --warning-soft: rgba(255, 211, 122, 0.14);
+  --danger: #ff8e8e;
+  --danger-soft: rgba(255, 142, 142, 0.12);
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --shadow: 0 28px 90px rgba(0, 0, 0, 0.38);
+  --focus-ring: rgba(83, 255, 218, 0.22);
+  --tick: rgba(83, 255, 218, 0.72);
+  --hair: rgba(153, 213, 255, 0.16);
+  --offset-shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+}
+
+body,
+.archive-page,
+.play-gate-page,
+.compare-page {
+  color: var(--text);
+  background:
+    radial-gradient(circle at 78% 14%, rgba(83, 255, 218, 0.11), transparent 330px),
+    radial-gradient(circle at 12% 78%, rgba(125, 170, 255, 0.09), transparent 390px),
+    linear-gradient(180deg, #07101f 0, var(--bg) 54%, var(--bg-deep));
+  line-height: 1.55;
+  letter-spacing: 0;
+}
+
+body::after {
+  background:
+    repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.026) 0 1px, transparent 1px 5px),
+    radial-gradient(120% 90% at 50% 20%, transparent 58%, rgba(0, 0, 0, 0.32));
+  opacity: 0.28;
+  mix-blend-mode: screen;
+}
+
+.archive-page::before,
+.compare-page::before,
+.play-gate-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(153, 213, 255, 0.045) 1px, transparent 1px) 0 0 / 100% 54px,
+    linear-gradient(90deg, rgba(153, 213, 255, 0.04) 1px, transparent 1px) 0 0 / 70px 100%,
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.08), transparent 42%);
+  opacity: 1;
+  mask-image: linear-gradient(180deg, black, transparent 88%);
+}
+
+.archive-signal-field {
+  opacity: 0.64;
+  mix-blend-mode: screen;
+}
+
+.archive-shell,
+.editorial-shell,
+.compare-stage,
+.title-header,
+.title-footer {
+  position: relative;
+  z-index: 1;
+  width: min(1240px, calc(100% - 44px));
+}
+
+.archive-shell,
+.editorial-shell,
+.compare-stage {
+  padding-top: 22px;
+}
+
+.archive-topbar,
+.title-header {
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  backdrop-filter: blur(16px);
+}
+
+.title-header {
+  margin: 0 auto;
+  min-height: 78px;
+  padding: 0;
+}
+
+.title-footer {
+  margin: 0 auto;
+  border-top: 1px solid var(--line);
+}
+
+.wordmark span {
+  border-color: var(--line-strong);
+  border-radius: 8px;
+  color: var(--accent);
+  background: linear-gradient(145deg, rgba(83, 255, 218, 0.12), rgba(125, 170, 255, 0.08));
+  box-shadow: inset 0 0 24px rgba(83, 255, 218, 0.09), 0 0 28px rgba(83, 255, 218, 0.09);
+}
+
+.wordmark strong,
+.page-title h1,
+.compare-intro h1,
+.editorial-hero h2,
+.play-gate h1,
+.record-copy h2 {
+  font-family: var(--ui-font);
+  letter-spacing: 0;
+}
+
+.wordmark strong {
+  color: var(--text);
+  font-weight: 760;
+}
+
+.archive-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--accent);
+  font-family: var(--mono-font);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.archive-kicker::before {
+  content: "";
+  width: 22px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.8;
+}
+
+.topbar-status,
+.status-note,
+.editorial-lede,
+.compare-lede,
+.record-description,
+.gate-description,
+.gate-philosophy,
+.archive-timeline p {
+  color: var(--muted-strong);
+}
+
+.title-header nav a,
+.archive-dock a {
+  color: var(--muted-strong);
+  font-family: var(--ui-font);
+  letter-spacing: 0;
+}
+
+.title-header nav a:hover,
+.archive-dock a:hover,
+.title-header nav a[aria-current="page"],
+.archive-dock a[aria-current="page"] {
+  color: var(--accent);
+}
+
+.archive-dock {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(3, 7, 18, 0.72);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+}
+
+.archive-button {
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.055);
+  font-family: var(--ui-font);
+  font-weight: 720;
+  box-shadow: none;
+  transition: border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.archive-button.primary {
+  border-color: rgba(83, 255, 218, 0.72);
+  color: #02110e;
+  background: linear-gradient(135deg, #53ffda, #9be8ff);
+  box-shadow: 0 0 30px rgba(83, 255, 218, 0.12);
+}
+
+.archive-button.secondary {
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.archive-button.ghost {
+  color: var(--muted-strong);
+  background: transparent;
+}
+
+.archive-button:hover,
+.link-grid a:hover {
+  border-color: rgba(83, 255, 218, 0.72);
+  color: var(--accent);
+  background: rgba(83, 255, 218, 0.1);
+  transform: translateY(-1px);
+  box-shadow: 0 0 28px rgba(83, 255, 218, 0.12);
+}
+
+.archive-badge,
+.compact-badges span,
+.game-card-meta span {
+  border-color: var(--line);
+  color: var(--muted-strong);
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.archive-badge.accent {
+  border-color: rgba(83, 255, 218, 0.45);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.archive-badge.warning {
+  border-color: rgba(255, 211, 122, 0.45);
+  color: var(--warning);
+  background: var(--warning-soft);
+}
+
+.archive-badge.danger {
+  border-color: rgba(255, 142, 142, 0.42);
+  color: var(--danger);
+  background: var(--danger-soft);
+}
+
+.archive-notice,
+.model-axis-panel,
+.library-stage,
+.library-readout,
+.record,
+.record-section,
+.definition-card,
+.play-gate-content,
+.editorial-hero,
+.press-observation,
+.hall-card,
+.compare-section,
+.model-card,
+.shelf-row,
+.hall-cell,
+.model-node,
+.observation-card {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03)),
+    rgba(3, 7, 18, 0.62);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+}
+
+.library-layout {
+  grid-template-columns: 310px minmax(0, 1fr);
+}
+
+.model-axis-panel,
+.library-stage {
+  min-height: 0;
+}
+
+.model-axis-item {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.model-axis-item.active,
+.model-axis-item:hover {
+  border-color: rgba(83, 255, 218, 0.55);
+  background: rgba(83, 255, 218, 0.1);
+}
+
+.axis-icon {
+  border-radius: 8px;
+  color: #02110e;
+  background: linear-gradient(135deg, #53ffda, #9be8ff);
+}
+
+.observation-card {
+  opacity: 0.88;
+}
+
+.observation-card:hover,
+.observation-card.active,
+.definition-card:hover,
+.hall-cell.covered:hover,
+.model-card:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.4), 0 0 34px rgba(83, 255, 218, 0.08);
+}
+
+.card-image,
+.record-cover,
+.media-grid figure {
+  border-color: var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.card-image::after,
+.record-cover::after,
+.media-grid figure::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 5px);
+  opacity: 0.45;
+}
+
+.readout-grid div,
+.definition-grid div,
+.compare-stats dt,
+.compare-stats dd {
+  border-color: var(--line);
+}
+
+.definition-grid dt,
+.readout-grid dt,
+.compare-stats dt,
+.title-status dt {
+  color: var(--muted);
+  font-family: var(--mono-font);
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.definition-grid dd,
+.readout-grid dd,
+.compare-stats dd {
+  color: var(--text);
+}
+
+.compare-page {
+  min-height: 100vh;
+}
+
+.compare-stage {
+  display: grid;
+  gap: 22px;
+  padding-bottom: 88px;
+}
+
+.compare-intro {
+  min-height: 300px;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-content: center;
+  border-bottom: 1px solid var(--line);
+}
+
+.compare-intro h1 {
+  max-width: 920px;
+  font-size: 5.1rem;
+  line-height: 0.95;
+  font-weight: 820;
+  overflow-wrap: anywhere;
+}
+
+.compare-stats,
+.model-grid,
+.hall-coverage {
+  gap: 14px;
+}
+
+.matrix-scroll {
+  border-color: var(--line);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.matrix th,
+.matrix td {
+  border-color: var(--line);
+}
+
+.matrix th {
+  color: var(--muted-strong);
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.matrix-cell.filled {
+  background: rgba(83, 255, 218, 0.08);
+}
+
+.matrix-chip {
+  border-radius: 999px;
+  color: #02110e;
+  background: linear-gradient(135deg, #53ffda, #9be8ff);
+}
+
+.hall-row {
+  border-color: var(--line);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.hall-dot {
+  background: var(--accent);
+  box-shadow: 0 0 18px rgba(83, 255, 218, 0.4);
+}
+
+.editorial-hero {
+  min-height: 360px;
+  display: grid;
+  align-content: center;
+}
+
+.editorial-hero h2 {
+  font-size: 5.4rem;
+  line-height: 0.92;
+  font-weight: 820;
+  overflow-wrap: anywhere;
+}
+
+.editorial-lede {
+  font-family: var(--ui-font);
+  font-style: normal;
+}
+
+.record-section > h2::before,
+.record-section > h3::before,
+.editorial-layout h2::before {
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+}
+
+.link-grid a,
+.archive-timeline li > div {
+  border-color: var(--line);
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.archive-timeline time,
+.archive-timeline a,
+.editorial-list a,
+.link-grid a,
+.hall-cell-link,
+.model-node-link {
+  color: var(--link);
+}
+
+.play-gate-page {
+  min-height: 100vh;
+}
+
+.play-gate-content {
+  position: relative;
+  overflow: hidden;
+}
+
+.play-gate-content::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 78% 20%, rgba(83, 255, 218, 0.12), transparent 220px),
+    linear-gradient(135deg, rgba(83, 255, 218, 0.09), transparent 36%, rgba(125, 170, 255, 0.08));
+}
+
+.play-gate-content > * {
+  position: relative;
+}
+
+.record-device-note,
+.gate-device-note {
+  border-color: var(--line);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.record-root li,
+.record-root code,
+.run-card li,
+.run-card code,
+.definition-card dd {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 900px) {
+  .archive-shell,
+  .editorial-shell,
+  .compare-stage,
+  .title-header,
+  .title-footer {
+    width: min(100% - 28px, 1240px);
+  }
+
+  .compare-stage,
+  .compare-intro,
+  .compare-section {
+    width: calc(100vw - 28px) !important;
+    max-width: calc(100vw - 28px) !important;
+    box-sizing: border-box;
+  }
+
+  .compare-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .library-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .compare-intro,
+  .editorial-hero {
+    min-height: 240px;
+  }
+
+  .compare-intro h1,
+  .editorial-hero h2 {
+    font-size: 3rem;
+    line-height: 0.98;
+  }
+
+  .editorial-lede {
+    font-size: 1.08rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .compare-intro h1,
+  .editorial-hero h2 {
+    font-size: 2.45rem;
+  }
+
+  .compare-lede,
+  .editorial-hero p {
+    font-size: 0.96rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .archive-button,
+  .observation-card,
+  .definition-card,
+  .model-card,
+  .hall-cell {
+    transition: none;
+  }
 }

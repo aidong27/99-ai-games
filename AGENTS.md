@@ -17,7 +17,10 @@ The 99 game slots represent 99 observation samples, not 99 AI generations. A sin
 
 ## Non-Negotiable Rule
 
-The maintainer does not hand-write or hand-edit game code.
+The maintainer does not hand-write or hand-edit game code. This protection
+applies to local game implementations, game entries, variants, and run records;
+it does not prohibit improving the launcher, documentation, editorial pages,
+brand/social assets, or non-evidence presentation screenshots.
 
 For game entries, variants, and runs, keep:
 
@@ -40,6 +43,8 @@ If a human-edited exception is ever introduced, it must be documented clearly an
 - Do not create fake screenshots.
 - Do not exaggerate users, stars, downloads, popularity, or community size.
 - Do not claim verification unless the exact checks were actually run.
+- Editorial or promotional visuals are allowed only when they are not presented
+  as gameplay evidence or verified game screenshots.
 
 ## Repository Conventions
 

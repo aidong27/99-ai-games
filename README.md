@@ -30,6 +30,8 @@ The maintainer curates prompts, tests builds, publishes releases, and records pr
 
 No fake screenshots, fake users, fake downloads, fake ratings, fake popularity, or hidden provenance are used to make the archive look more complete than it is.
 
+The no-hand-edit rule protects game implementations and provenance records. The launcher, editorial pages, README, social cards, and clearly labeled promotional visuals may be redesigned as presentation surfaces, provided they do not masquerade as gameplay evidence.
+
 ## What You Can Inspect
 
 - Play the static launcher on GitHub Pages: <https://aidong27.github.io/99-ai-games/>.

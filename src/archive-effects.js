@@ -29,7 +29,9 @@ export function createSignalField(canvas, options = {}) {
   const config = {
     density: options.density ?? 34,
     variant: options.variant ?? "archive",
-    accent: options.accent ?? "216, 247, 95"
+    accent: options.accent ?? "83, 255, 218",
+    secondary: options.secondary ?? "125, 170, 255",
+    background: options.background ?? "3, 7, 18"
   };
 
   function resize() {
@@ -54,7 +56,8 @@ export function createSignalField(canvas, options = {}) {
       y: ((index * 263) % 991) / 991,
       phase: index * 0.73,
       speed: 0.14 + (index % 5) * 0.018,
-      size: 1 + (index % 3) * 0.65
+      size: 0.85 + (index % 4) * 0.42,
+      orbit: 0.16 + (index % 7) * 0.021
     }));
   }
 
@@ -74,23 +77,52 @@ export function createSignalField(canvas, options = {}) {
     state.parallaxX += (state.pointerX * 28 * ratio - state.parallaxX) * 0.04;
     state.parallaxY += (state.pointerY * 18 * ratio - state.parallaxY) * 0.04;
 
-    ctx.clearRect(0, 0, width, height);
-    ctx.fillStyle = "#050607";
-    ctx.fillRect(0, 0, width, height);
-
+    drawBase(width, height);
     drawVignette(width, height);
+    drawGrid(width, height, ratio, t);
     drawGeometry(width, height, ratio, t);
     drawParticles(width, height, ratio, t);
+    drawConnections(width, height, ratio);
     drawVariantMark(width, height, ratio);
+  }
+
+  function drawBase(width, height) {
+    ctx.clearRect(0, 0, width, height);
+    const gradient = ctx.createLinearGradient(0, 0, width, height);
+    gradient.addColorStop(0, `rgb(${config.background})`);
+    gradient.addColorStop(0.46, "rgb(7, 15, 30)");
+    gradient.addColorStop(1, "rgb(1, 4, 12)");
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, width, height);
   }
 
   function drawVignette(width, height) {
     const gradient = ctx.createRadialGradient(width * 0.52, height * 0.38, 0, width * 0.52, height * 0.38, Math.max(width, height) * 0.72);
-    gradient.addColorStop(0, "rgba(244, 241, 232, 0.035)");
-    gradient.addColorStop(0.46, "rgba(5, 6, 7, 0.1)");
-    gradient.addColorStop(1, "rgba(0, 0, 0, 0.76)");
+    gradient.addColorStop(0, `rgba(${config.accent}, 0.08)`);
+    gradient.addColorStop(0.42, "rgba(3, 7, 18, 0.12)");
+    gradient.addColorStop(1, "rgba(0, 0, 0, 0.82)");
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, width, height);
+  }
+
+  function drawGrid(width, height, ratio, time) {
+    const grid = 76 * ratio;
+    const offset = reduceMotionQuery.matches ? 0 : (time * 11 * ratio) % grid;
+    ctx.lineWidth = Math.max(1, ratio * 0.8);
+    ctx.strokeStyle = `rgba(${config.secondary}, 0.055)`;
+    for (let x = -grid + offset; x < width + grid; x += grid) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x - height * 0.18, height);
+      ctx.stroke();
+    }
+    ctx.strokeStyle = `rgba(${config.accent}, 0.035)`;
+    for (let y = -grid; y < height + grid; y += grid) {
+      ctx.beginPath();
+      ctx.moveTo(0, y + offset * 0.34);
+      ctx.lineTo(width, y + offset * 0.34);
+      ctx.stroke();
+    }
   }
 
   function drawGeometry(width, height, ratio, time) {
@@ -98,7 +130,7 @@ export function createSignalField(canvas, options = {}) {
     const originX = width * (isTitle ? 0.67 : 0.52) + state.parallaxX;
     const originY = height * (isTitle ? 0.43 : 0.48) + state.parallaxY;
     const radius = Math.min(width, height) * (isTitle ? 0.18 : 0.14);
-    const lineAlpha = reduceMotionQuery.matches ? 0.12 : 0.11 + Math.sin(time * 0.65) * 0.025;
+    const lineAlpha = reduceMotionQuery.matches ? 0.14 : 0.12 + Math.sin(time * 0.65) * 0.035;
 
     ctx.lineWidth = Math.max(1, ratio);
     ctx.strokeStyle = `rgba(${config.accent}, ${lineAlpha})`;
@@ -108,7 +140,7 @@ export function createSignalField(canvas, options = {}) {
       ctx.stroke();
     }
 
-    ctx.strokeStyle = "rgba(244, 241, 232, 0.07)";
+    ctx.strokeStyle = `rgba(${config.secondary}, 0.07)`;
     for (let x = -width * 0.2; x < width * 1.15; x += 94 * ratio) {
       ctx.beginPath();
       ctx.moveTo(x + state.parallaxX * 0.18, 0);
@@ -117,22 +149,51 @@ export function createSignalField(canvas, options = {}) {
     }
 
     const sweep = reduceMotionQuery.matches ? -0.72 : time * 0.32;
-    ctx.strokeStyle = `rgba(${config.accent}, 0.2)`;
+    ctx.strokeStyle = `rgba(${config.accent}, 0.26)`;
     ctx.lineWidth = Math.max(1, 2 * ratio);
     ctx.beginPath();
     ctx.moveTo(originX, originY);
     ctx.lineTo(originX + Math.cos(sweep) * radius * 3.4, originY + Math.sin(sweep) * radius * 3.4);
     ctx.stroke();
+
+    const scanY = reduceMotionQuery.matches ? height * 0.44 : ((time * 46 * ratio) % (height * 1.35)) - height * 0.18;
+    const scan = ctx.createLinearGradient(0, scanY - 46 * ratio, 0, scanY + 46 * ratio);
+    scan.addColorStop(0, "rgba(255, 255, 255, 0)");
+    scan.addColorStop(0.5, `rgba(${config.accent}, 0.075)`);
+    scan.addColorStop(1, "rgba(255, 255, 255, 0)");
+    ctx.fillStyle = scan;
+    ctx.fillRect(0, scanY - 46 * ratio, width, 92 * ratio);
   }
 
   function drawParticles(width, height, ratio, time) {
-    ctx.fillStyle = "rgba(244, 241, 232, 0.34)";
+    ctx.fillStyle = `rgba(${config.accent}, 0.48)`;
     for (const particle of state.particles) {
       const drift = reduceMotionQuery.matches ? 0 : time * particle.speed;
-      const x = ((particle.x + drift * 0.035) % 1) * width + state.parallaxX * 0.1;
-      const y = ((particle.y + Math.sin(time * particle.speed + particle.phase) * 0.018 + 1) % 1) * height + state.parallaxY * 0.1;
+      const x = ((particle.x + drift * particle.orbit) % 1) * width + state.parallaxX * 0.1;
+      const y = ((particle.y + Math.sin(time * particle.speed + particle.phase) * 0.026 + 1) % 1) * height + state.parallaxY * 0.1;
       const pulse = reduceMotionQuery.matches ? 1 : 1 + Math.sin(time * 1.4 + particle.phase) * 0.28;
       ctx.fillRect(x, y, particle.size * ratio * pulse, particle.size * ratio * pulse);
+    }
+  }
+
+  function drawConnections(width, height, ratio) {
+    const nodes = state.particles.slice(0, Math.min(18, state.particles.length)).map((particle) => ({
+      x: particle.x * width + state.parallaxX * 0.08,
+      y: particle.y * height + state.parallaxY * 0.08
+    }));
+    ctx.lineWidth = Math.max(1, ratio * 0.65);
+    for (let index = 0; index < nodes.length - 1; index += 1) {
+      const first = nodes[index];
+      const second = nodes[index + 1];
+      const distance = Math.hypot(first.x - second.x, first.y - second.y);
+      if (distance > 270 * ratio) {
+        continue;
+      }
+      ctx.strokeStyle = `rgba(${index % 2 ? config.secondary : config.accent}, ${Math.max(0.025, 0.12 - distance / (3000 * ratio))})`;
+      ctx.beginPath();
+      ctx.moveTo(first.x, first.y);
+      ctx.lineTo(second.x, second.y);
+      ctx.stroke();
     }
   }
 
@@ -143,7 +204,11 @@ export function createSignalField(canvas, options = {}) {
       ? "START OBSERVATION GATE"
       : config.variant === "library"
         ? "MODEL AXIS / OBSERVATION TRACK"
-        : "OBSERVATORY PROTOCOL / 99 TARGET SLOTS";
+        : config.variant === "compare"
+          ? "MODEL × HALL MATRIX / REAL DATA ONLY"
+          : config.variant === "log"
+            ? "PROJECT TIMELINE / VERIFIED EVENTS"
+            : "OBSERVATORY PROTOCOL / 99 TARGET SLOTS";
     ctx.fillText(label, 24 * ratio, height - 30 * ratio);
   }
 
