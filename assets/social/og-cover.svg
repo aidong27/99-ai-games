@@ -2,36 +2,36 @@
   <title id="title">99 AI Games social preview</title>
   <desc id="desc">Brand social card for 99 AI Games, a playable archive observing how AI coding agents make browser games.</desc>
   <defs>
-    <linearGradient id="fade" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0" stop-color="#111417"/>
-      <stop offset="1" stop-color="#020303"/>
+    <linearGradient id="surface" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#1c1c1e"/>
+      <stop offset="1" stop-color="#141416"/>
     </linearGradient>
-    <radialGradient id="pulse" cx="74%" cy="28%" r="48%">
-      <stop offset="0" stop-color="#d8f75f" stop-opacity="0.18"/>
-      <stop offset="0.42" stop-color="#48e3ed" stop-opacity="0.08"/>
-      <stop offset="1" stop-color="#050607" stop-opacity="0"/>
-    </radialGradient>
-    <pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse">
-      <path d="M72 0H0V72" fill="none" stroke="#f4f1e8" stroke-opacity="0.055" stroke-width="1"/>
-    </pattern>
   </defs>
-  <rect width="1200" height="630" fill="#050607"/>
-  <rect width="1200" height="630" fill="url(#fade)"/>
-  <rect width="1200" height="630" fill="url(#grid)"/>
-  <rect width="1200" height="630" fill="url(#pulse)"/>
-  <path d="M78 88H1122M78 542H1122M78 88V542M1122 88V542" fill="none" stroke="#f4f1e8" stroke-opacity="0.18" stroke-width="1"/>
-  <path d="M786 146c86 38 154 94 204 168M794 484c93-38 161-94 205-166" fill="none" stroke="#d8f75f" stroke-opacity="0.28" stroke-width="2"/>
-  <circle cx="1012" cy="315" r="88" fill="none" stroke="#d8f75f" stroke-opacity="0.22" stroke-width="2"/>
-  <circle cx="1012" cy="315" r="144" fill="none" stroke="#f4f1e8" stroke-opacity="0.08" stroke-width="1"/>
-  <circle cx="1012" cy="315" r="8" fill="#d8f75f"/>
-  <text x="92" y="134" fill="#d8f75f" font-family="SFMono-Regular, Menlo, Consolas, monospace" font-size="24" font-weight="700" letter-spacing="2">PLAYABLE ARCHIVE</text>
-  <text x="90" y="292" fill="#f4f1e8" font-family="Georgia, 'Times New Roman', serif" font-size="128" font-weight="700">99 AI Games</text>
-  <text x="96" y="356" fill="#b8b9b1" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="32">Observing how AI coding agents make browser games.</text>
-  <g font-family="SFMono-Regular, Menlo, Consolas, monospace" font-size="22" font-weight="700">
-    <text x="96" y="448" fill="#f4f1e8">Current observations</text>
-    <text x="360" y="448" fill="#d8f75f">4 / 99</text>
-    <text x="96" y="486" fill="#f4f1e8">Agents recorded</text>
-    <text x="360" y="486" fill="#d8f75f">Codex / Claude Code</text>
+  <rect width="1200" height="630" fill="#000000"/>
+  <rect x="72" y="72" width="1056" height="486" rx="8" fill="url(#surface)" stroke="#38383a" stroke-width="1"/>
+  <rect x="96" y="96" width="52" height="52" rx="8" fill="#0a84ff"/>
+  <text x="122" y="130" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="700" text-anchor="middle">99</text>
+  <text x="168" y="130" fill="#f5f5f7" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="700">AI Games</text>
+  <text x="96" y="236" fill="#8e8e93" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="600">Playable archive</text>
+  <text x="96" y="330" fill="#f5f5f7" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-size="94" font-weight="760">99 AI Games</text>
+  <text x="102" y="388" fill="#c7c7cc" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="30">Observing how AI coding agents make browser games.</text>
+  <g font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif">
+    <rect x="96" y="444" width="210" height="72" rx="8" fill="#242426" stroke="#38383a"/>
+    <text x="116" y="474" fill="#8e8e93" font-size="16" font-weight="600">Playable</text>
+    <text x="116" y="504" fill="#f5f5f7" font-size="28" font-weight="760">5 / 99</text>
+    <rect x="324" y="444" width="210" height="72" rx="8" fill="#242426" stroke="#38383a"/>
+    <text x="344" y="474" fill="#8e8e93" font-size="16" font-weight="600">Models</text>
+    <text x="344" y="504" fill="#f5f5f7" font-size="28" font-weight="760">3 observed</text>
+    <rect x="552" y="444" width="210" height="72" rx="8" fill="#242426" stroke="#38383a"/>
+    <text x="572" y="474" fill="#8e8e93" font-size="16" font-weight="600">Run records</text>
+    <text x="572" y="504" fill="#f5f5f7" font-size="28" font-weight="760">11</text>
   </g>
-  <text x="96" y="538" fill="#8e918e" font-family="SFMono-Regular, Menlo, Consolas, monospace" font-size="18">No fake screenshots. No fake popularity metrics. Provenance first.</text>
+  <path d="M884 184h184M884 228h184M884 272h184M884 316h184" stroke="#38383a" stroke-width="1"/>
+  <rect x="860" y="170" width="232" height="172" rx="8" fill="#242426" stroke="#38383a"/>
+  <circle cx="900" cy="216" r="12" fill="#0a84ff"/>
+  <circle cx="900" cy="260" r="12" fill="#64d2ff"/>
+  <circle cx="900" cy="304" r="12" fill="#8e8e93"/>
+  <text x="928" y="222" fill="#f5f5f7" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="650">Real playable builds</text>
+  <text x="928" y="266" fill="#f5f5f7" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="650">Recorded provenance</text>
+  <text x="928" y="310" fill="#f5f5f7" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="650">No fake metrics</text>
 </svg>

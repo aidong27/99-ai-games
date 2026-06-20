@@ -7,4 +7,5 @@ These files are brand/share assets for 99 AI Games. They are not screenshots and
 - `social-card.svg`: wide reusable social card.
 - `social-card-square.svg`: square reusable social card.
 
-The current observation count in these assets is `4 / 99`, matching `games/manifest.json` at the time this share kit was added.
+The current observation count in these assets is `5 / 99`, matching `games/manifest.json`.
+The card style follows the launcher presentation layer: Apple-style system typography, dark material panels, and the archive's system-blue accent.

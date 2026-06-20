@@ -1,36 +1,36 @@
 :root {
-  color-scheme: light;
-  --bg: #030712;
-  --bg-deep: #01030a;
-  --panel: rgba(9, 17, 31, 0.78);
-  --panel-strong: rgba(13, 25, 43, 0.92);
+  color-scheme: dark;
+  --bg: #000000;
+  --bg-deep: #000000;
+  --panel: rgba(28, 28, 30, 0.72);
+  --panel-strong: rgba(28, 28, 30, 0.92);
   --panel-soft: rgba(255, 255, 255, 0.055);
-  --line: rgba(153, 213, 255, 0.16);
-  --line-strong: rgba(166, 235, 255, 0.34);
-  --text: #edf7ff;
-  --muted: #8fa4b8;
-  --muted-strong: #bed2e4;
-  --accent: #53ffda;
-  --accent-soft: rgba(83, 255, 218, 0.15);
-  --accent-2: #7daaff;
-  --warning: #ffd37a;
-  --warning-soft: rgba(255, 211, 122, 0.14);
-  --danger: #ff8e8e;
-  --danger-soft: rgba(255, 142, 142, 0.12);
+  --line: rgba(255, 255, 255, 0.11);
+  --line-strong: rgba(255, 255, 255, 0.18);
+  --text: #f5f5f7;
+  --muted: #8e8e93;
+  --muted-strong: #c7c7cc;
+  --accent: #0a84ff;
+  --accent-soft: rgba(10, 132, 255, 0.16);
+  --accent-2: #64d2ff;
+  --warning: #ffd60a;
+  --warning-soft: rgba(255, 214, 10, 0.14);
+  --danger: #ff453a;
+  --danger-soft: rgba(255, 69, 58, 0.12);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
-  --display-font: "Tiempos Text", Georgia, "Times New Roman", ui-serif, serif;
-  --ui-font: "Styrene B", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --mono-font: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --display-font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  --ui-font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+  --mono-font: "SF Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
   --space-4: 16px;
   --space-5: 24px;
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 18px;
-  --shadow: 0 18px 48px rgba(40, 38, 34, 0.1);
-  --focus-ring: rgba(217, 119, 87, 0.3);
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 8px;
+  --shadow: none;
+  --focus-ring: rgba(10, 132, 255, 0.28);
   --transition-fast: 160ms ease;
   --transition-slow: 640ms cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -2778,29 +2778,26 @@ body::before,
   animation: none;
 }
 
-/* ── Precision Observatory system (2026-06-21) ─────────────────────────────
-   Final shared look for every non-game surface: high-contrast dark glass,
-   cyan/blue instrumentation, real screenshot evidence, and subtle signal-field
-   motion. This supersedes the prior warm editorial / Claude override layers. */
+/* ── Legacy precision layer (superseded by the Apple HIG alignment layer). */
 :root {
   color-scheme: dark;
-  --bg: #030712;
-  --bg-deep: #01030a;
-  --panel: rgba(9, 17, 31, 0.78);
-  --panel-strong: rgba(13, 25, 43, 0.92);
+  --bg: #000000;
+  --bg-deep: #000000;
+  --panel: rgba(28, 28, 30, 0.72);
+  --panel-strong: rgba(28, 28, 30, 0.92);
   --panel-soft: rgba(255, 255, 255, 0.055);
-  --line: rgba(153, 213, 255, 0.16);
-  --line-strong: rgba(166, 235, 255, 0.34);
-  --text: #edf7ff;
-  --muted: #8fa4b8;
-  --muted-strong: #bed2e4;
-  --accent: #53ffda;
-  --accent-soft: rgba(83, 255, 218, 0.15);
-  --accent-2: #7daaff;
-  --warning: #ffd37a;
-  --warning-soft: rgba(255, 211, 122, 0.14);
-  --danger: #ff8e8e;
-  --danger-soft: rgba(255, 142, 142, 0.12);
+  --line: rgba(255, 255, 255, 0.11);
+  --line-strong: rgba(255, 255, 255, 0.18);
+  --text: #f5f5f7;
+  --muted: #8e8e93;
+  --muted-strong: #c7c7cc;
+  --accent: #0a84ff;
+  --accent-soft: rgba(10, 132, 255, 0.16);
+  --accent-2: #64d2ff;
+  --warning: #ffd60a;
+  --warning-soft: rgba(255, 214, 10, 0.14);
+  --danger: #ff453a;
+  --danger-soft: rgba(255, 69, 58, 0.12);
   --radius-sm: 6px;
   --radius-md: 8px;
   --radius-lg: 10px;
@@ -3279,6 +3276,68 @@ body::after {
   overflow-wrap: anywhere;
 }
 
+.record-hero,
+.record-copy {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--text);
+  background: var(--panel);
+  box-shadow: none;
+}
+
+.record-copy h2,
+.record-copy p,
+.record-copy .record-description {
+  color: var(--text);
+  font-family: var(--ui-font);
+  font-style: normal;
+}
+
+.record-copy .record-description {
+  color: var(--muted-strong);
+}
+
+.badge-row span,
+.archive-badge,
+.gate-support,
+.record-device-note {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--muted-strong);
+  background: rgba(255, 255, 255, 0.045);
+  font-family: var(--ui-font);
+  box-shadow: none;
+}
+
+.badge-row span.warning,
+.archive-badge.warning,
+.record-device-note.warning,
+.record-device-note.limited,
+.gate-support.warning {
+  border-color: rgba(255, 214, 10, 0.26);
+  color: var(--muted-strong);
+  background: rgba(255, 214, 10, 0.1);
+}
+
+.record-device-note.warning,
+.record-device-note.limited,
+.gate-support.warning {
+  border-left-color: rgba(255, 214, 10, 0.36);
+}
+
+.record-device-note strong,
+.gate-support strong,
+.gate-support.warning strong {
+  color: var(--text);
+  font-family: var(--ui-font);
+}
+
+.gate-support.warning span,
+.record-device-note.warning,
+.record-device-note.limited {
+  color: var(--muted-strong);
+}
+
 @media (max-width: 900px) {
   .archive-shell,
   .editorial-shell,
@@ -3620,5 +3679,373 @@ body::after {
   .compare-intro h1,
   .editorial-hero h2 {
     font-size: 2.28rem;
+  }
+}
+
+/* Apple HIG alignment layer (2026-06-21): one quiet presentation system. */
+:root {
+  color-scheme: dark;
+  --bg: #000000;
+  --bg-deep: #000000;
+  --panel: rgba(28, 28, 30, 0.72);
+  --panel-strong: rgba(28, 28, 30, 0.92);
+  --panel-soft: rgba(255, 255, 255, 0.055);
+  --line: rgba(255, 255, 255, 0.11);
+  --line-strong: rgba(255, 255, 255, 0.18);
+  --text: #f5f5f7;
+  --muted: #8e8e93;
+  --muted-strong: #c7c7cc;
+  --accent: #0a84ff;
+  --accent-soft: rgba(10, 132, 255, 0.16);
+  --accent-2: #64d2ff;
+  --link: #2997ff;
+  --warning: #ffd60a;
+  --warning-soft: rgba(255, 214, 10, 0.14);
+  --danger: #ff453a;
+  --danger-soft: rgba(255, 69, 58, 0.12);
+  --display-font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  --ui-font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+  --mono-font: "SF Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 8px;
+  --shadow: none;
+  --focus-ring: rgba(10, 132, 255, 0.28);
+}
+
+html,
+body {
+  background: var(--bg);
+}
+
+body,
+.archive-page,
+.compare-page,
+.play-gate-page {
+  color: var(--text);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 220px),
+    var(--bg);
+  font-family: var(--ui-font);
+}
+
+body::after,
+.archive-page::after,
+.launcher-screen::after,
+.archive-signal-field,
+.page-signal,
+.compare-signal,
+.log-signal,
+.precision-backdrop,
+.precision-orbit,
+.precision-scan {
+  display: none !important;
+}
+
+body * {
+  letter-spacing: 0;
+}
+
+.archive-kicker,
+.launcher-kicker,
+.game-card-label,
+.axis-heading,
+.compare-stats dt,
+.definition-grid dt,
+.readout-grid dt,
+.featured-meta dt,
+.launcher-stats dt,
+.title-status dt {
+  color: var(--muted);
+  font-family: var(--ui-font);
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.archive-shell,
+.editorial-shell,
+.compare-stage,
+.title-header,
+.title-footer {
+  width: min(100% - 48px, 1180px);
+}
+
+.archive-shell,
+.editorial-shell,
+.compare-stage {
+  padding-top: 28px;
+}
+
+.title-header,
+.archive-topbar,
+.editorial-header {
+  min-height: 72px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(0, 0, 0, 0.72);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+
+.wordmark,
+.title-mark,
+.archive-mark {
+  color: var(--text);
+  font-family: var(--ui-font);
+}
+
+.wordmark span,
+.title-mark-number,
+.archive-mark-number {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+  font-family: var(--ui-font);
+}
+
+.title-nav a,
+.archive-nav a,
+.editorial-nav a,
+.title-header nav a,
+.archive-topbar a,
+.archive-dock a,
+.archive-bottom-dock a {
+  color: var(--muted-strong);
+  font-family: var(--ui-font);
+  text-decoration: none;
+}
+
+.title-nav a:hover,
+.archive-nav a:hover,
+.editorial-nav a:hover,
+.title-header nav a:hover,
+.archive-topbar a:hover,
+.archive-dock a:hover,
+.archive-bottom-dock a:hover,
+.archive-dock a[aria-current="page"],
+.archive-bottom-dock a.active,
+.title-header nav a[aria-current="page"] {
+  color: var(--link);
+  text-decoration: none;
+}
+
+.archive-dock,
+.archive-bottom-dock {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(28, 28, 30, 0.78);
+  box-shadow: none;
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+
+.archive-dock a[aria-current="page"],
+.archive-bottom-dock a.active {
+  border-color: rgba(10, 132, 255, 0.38);
+  color: #ffffff;
+  background: rgba(10, 132, 255, 0.18);
+}
+
+.archive-button,
+.gate-actions .archive-button,
+.readout-actions .archive-button,
+.record-actions .archive-button {
+  min-height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--link);
+  background: rgba(255, 255, 255, 0.055);
+  box-shadow: none;
+  font-family: var(--ui-font);
+  font-weight: 600;
+  transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.archive-button:hover {
+  border-color: rgba(10, 132, 255, 0.38);
+  color: #ffffff;
+  background: rgba(10, 132, 255, 0.16);
+  transform: none;
+  box-shadow: none;
+}
+
+.archive-button.primary,
+.gate-actions .archive-button.primary,
+.readout-actions .archive-button.primary,
+.record-actions .archive-button.primary {
+  border-color: transparent;
+  color: #ffffff;
+  background: var(--accent);
+}
+
+.archive-button.secondary,
+.archive-button.ghost {
+  color: var(--link);
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.archive-button.warning {
+  color: #000000;
+  background: var(--warning);
+  border-color: transparent;
+}
+
+.library-layout,
+.library-readout,
+.model-axis-panel,
+.observation-card,
+.definition-card,
+.run-card,
+.compare-section,
+.compare-stats div,
+.model-card,
+.hall-row,
+.hall-cell,
+.editorial-hero,
+.editorial-layout,
+.record-section,
+.play-gate-content,
+.link-grid a,
+.archive-timeline li > div,
+.press-observation,
+.hall-card,
+.record-cover,
+.card-image,
+.media-grid figure,
+.record-device-note,
+.gate-device-note,
+.gate-support {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: none;
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+
+.observation-card:hover,
+.observation-card.active,
+.definition-card:hover,
+.hall-cell.covered:hover,
+.model-card:hover,
+.link-grid a:hover {
+  border-color: rgba(10, 132, 255, 0.36);
+  background: rgba(44, 44, 46, 0.82);
+  transform: none;
+  box-shadow: none;
+}
+
+.observation-card.active,
+.model-axis-item.active,
+.matrix-cell.filled,
+.hall-cell.covered {
+  background: rgba(10, 132, 255, 0.13);
+}
+
+.matrix-scroll,
+.matrix th,
+.matrix td {
+  border-color: var(--line);
+}
+
+.matrix-scroll,
+.matrix th {
+  background: rgba(28, 28, 30, 0.7);
+}
+
+.matrix-chip,
+.hall-dot,
+.model-node-count,
+.axis-count,
+.axis-icon {
+  color: #ffffff;
+  background: var(--accent);
+  box-shadow: none;
+  font-family: var(--ui-font);
+}
+
+.card-image::after,
+.record-cover::after,
+.media-grid figure::after,
+.play-gate-content::before,
+.featured-observation::before,
+.game-card::before,
+.launcher-systems article::before,
+.observation-card.active::after {
+  display: none !important;
+}
+
+.page-title h1,
+.compare-intro h1,
+.editorial-hero h2,
+.record-copy h2,
+.play-gate h1,
+.library-readout h2,
+.compare-section-title,
+.model-card h3,
+.press-observation h3,
+.hall-card h3 {
+  color: var(--text);
+  font-family: var(--display-font);
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.compare-lede,
+.editorial-lede,
+.record-description,
+.gate-description,
+.gate-philosophy,
+.library-readout p,
+.model-card p,
+.hall-row p,
+.press-observation p,
+.hall-card p,
+.archive-timeline p,
+.link-grid p {
+  color: var(--muted-strong);
+  font-family: var(--ui-font);
+  font-style: normal;
+}
+
+.archive-timeline::before,
+.record-section > h2::before,
+.record-section > h3::before,
+.editorial-layout h2::before {
+  background: var(--line-strong);
+}
+
+.record-root li,
+.record-root code,
+.run-card li,
+.run-card code,
+.definition-card dd {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 900px) {
+  .archive-shell,
+  .editorial-shell,
+  .compare-stage,
+  .title-header,
+  .title-footer {
+    width: min(100% - 28px, 1180px);
+  }
+
+  .archive-shell,
+  .editorial-shell,
+  .compare-stage {
+    padding-top: 18px;
+  }
+
+  .compare-intro h1,
+  .editorial-hero h2,
+  .page-title h1 {
+    font-size: 2.4rem;
+    line-height: 1.04;
   }
 }

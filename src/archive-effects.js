@@ -11,6 +11,10 @@ export function createSignalField(canvas, options = {}) {
     return createNoopEffect();
   }
 
+  if (canvas.hidden || window.getComputedStyle?.(canvas).display === "none") {
+    return createNoopEffect();
+  }
+
   const reduceMotionQuery = window.matchMedia(REDUCED_MOTION_QUERY);
   const finePointerQuery = window.matchMedia(FINE_POINTER_QUERY);
   const state = {
