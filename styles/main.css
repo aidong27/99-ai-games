@@ -800,3 +800,348 @@
     padding: 18px;
   }
 }
+
+/* Premium minimal launcher layer: quieter, higher-contrast, less spectacle. */
+:root {
+  --bg: #080909;
+  --bg-deep: #030404;
+  --panel: rgba(17, 19, 19, 0.74);
+  --panel-strong: rgba(20, 23, 23, 0.88);
+  --panel-soft: rgba(255, 255, 255, 0.045);
+  --line: rgba(232, 238, 233, 0.12);
+  --line-strong: rgba(232, 238, 233, 0.22);
+  --text: #f3f1eb;
+  --muted: #8c918d;
+  --muted-strong: #bbbeb8;
+  --accent: #c8f4df;
+  --accent-soft: rgba(200, 244, 223, 0.13);
+  --accent-2: #d8e7ff;
+  --link: #d9efe6;
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+  --focus-ring: rgba(200, 244, 223, 0.2);
+}
+
+.launcher-screen {
+  background:
+    radial-gradient(circle at 72% 18%, rgba(216, 231, 255, 0.08), transparent 330px),
+    radial-gradient(circle at 18% 74%, rgba(200, 244, 223, 0.075), transparent 390px),
+    linear-gradient(180deg, #0d0f0f 0, #080909 48%, #030404 100%);
+}
+
+.launcher-screen::before {
+  background:
+    linear-gradient(rgba(232, 238, 233, 0.026) 1px, transparent 1px) 0 0 / 100% 64px,
+    linear-gradient(90deg, rgba(232, 238, 233, 0.02) 1px, transparent 1px) 0 0 / 96px 100%,
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.045), transparent 40%);
+  mask-image: linear-gradient(180deg, black, transparent 82%);
+}
+
+.launcher-screen::after {
+  opacity: 0.12;
+}
+
+.launcher-signal {
+  opacity: 0.28;
+  filter: saturate(0.55);
+}
+
+.precision-orbit {
+  border-color: rgba(232, 238, 233, 0.09);
+  filter: none;
+  opacity: 0.45;
+}
+
+.orbit-a {
+  width: 38vw;
+  height: 38vw;
+  right: -14vw;
+  top: 13vh;
+}
+
+.orbit-b,
+.precision-scan {
+  display: none;
+}
+
+.launcher-header {
+  min-height: 86px;
+  border-bottom-color: rgba(232, 238, 233, 0.1);
+  backdrop-filter: blur(22px);
+}
+
+.launcher-mark-number {
+  border-radius: 7px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.045);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.launcher-header nav a,
+.launcher-section-heading a,
+.featured-links a,
+.game-card-links a {
+  color: var(--muted-strong);
+  font-size: 0.86rem;
+  font-weight: 680;
+}
+
+.launcher-header nav a:hover,
+.launcher-section-heading a:hover,
+.featured-links a:hover,
+.game-card-links a:hover {
+  color: var(--text);
+  text-decoration-color: rgba(200, 244, 223, 0.48);
+}
+
+.launcher-main {
+  padding: 70px 0 44px;
+}
+
+.launcher-hero {
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 0.7fr);
+  gap: 68px;
+}
+
+.launcher-kicker,
+.game-card-label {
+  color: var(--accent);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+}
+
+.launcher-kicker::before,
+.game-card-label::before {
+  width: 18px;
+  opacity: 0.65;
+}
+
+.launcher-copy h1 {
+  max-width: 720px;
+  margin-bottom: 26px;
+  font-size: 7.5rem;
+  line-height: 0.92;
+  font-weight: 800;
+}
+
+.launcher-lede {
+  max-width: 690px;
+  color: var(--text);
+  font-size: 1.52rem;
+  line-height: 1.32;
+  font-weight: 680;
+}
+
+.launcher-note {
+  max-width: 650px;
+  color: var(--muted-strong);
+  line-height: 1.72;
+}
+
+.launcher-actions {
+  gap: 12px;
+  margin-top: 34px;
+}
+
+.launcher-screen .archive-button {
+  min-height: 48px;
+  border-color: rgba(232, 238, 233, 0.18);
+  border-radius: 7px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow: none;
+}
+
+.launcher-screen .archive-button:hover {
+  border-color: rgba(232, 238, 233, 0.36);
+  background: rgba(255, 255, 255, 0.065);
+  transform: translateY(-1px);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.22);
+}
+
+.launcher-screen .archive-button.primary {
+  border-color: transparent;
+  color: #090b0a;
+  background: linear-gradient(135deg, #f3f1eb, #c8f4df);
+}
+
+.launcher-screen .archive-button.ghost {
+  color: var(--muted-strong);
+  background: transparent;
+}
+
+.hero-readout div,
+.featured-observation,
+.launcher-stats,
+.launcher-systems article,
+.game-card {
+  border-color: rgba(232, 238, 233, 0.12);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.022)),
+    rgba(12, 14, 14, 0.72);
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(22px);
+}
+
+.hero-readout div {
+  padding: 14px;
+}
+
+.hero-readout dt,
+.featured-meta dt,
+.launcher-stats dt {
+  color: var(--muted);
+  font-size: 0.64rem;
+  letter-spacing: 0.05em;
+}
+
+.featured-observation,
+.game-card {
+  border-radius: 8px;
+}
+
+.featured-observation::before,
+.game-card::before,
+.launcher-systems article::before {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.07), transparent 46%, rgba(200, 244, 223, 0.05));
+  opacity: 1;
+}
+
+.featured-media,
+.game-card-media {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.featured-media::after,
+.game-card-media::after {
+  background:
+    linear-gradient(180deg, transparent 66%, rgba(8, 9, 9, 0.68)),
+    repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 6px);
+  opacity: 0.7;
+}
+
+.featured-body {
+  gap: 16px;
+  padding: 24px;
+}
+
+.featured-body h2 {
+  font-size: 1.65rem;
+  line-height: 1.14;
+}
+
+.launcher-stats {
+  margin-top: 48px;
+  border-radius: 8px;
+  padding: 16px 18px;
+}
+
+.launcher-stats dd {
+  font-size: 1.4rem;
+}
+
+.launcher-systems {
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.launcher-systems article {
+  border-radius: 8px;
+  padding: 18px;
+  box-shadow: none;
+}
+
+.launcher-systems span {
+  color: var(--muted);
+}
+
+.launcher-systems h2 {
+  font-size: 1.08rem;
+}
+
+.launcher-library {
+  margin-top: 58px;
+}
+
+.launcher-section-heading h2 {
+  font-size: 2.1rem;
+}
+
+.game-grid {
+  gap: 14px;
+}
+
+.game-card {
+  box-shadow: none;
+}
+
+.game-card-body {
+  padding: 18px;
+}
+
+.game-card:hover {
+  border-color: rgba(232, 238, 233, 0.22);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 1020px) {
+  .launcher-main {
+    padding-top: 48px;
+  }
+
+  .launcher-hero,
+  .launcher-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .launcher-hero {
+    gap: 34px;
+  }
+
+  .launcher-copy,
+  .featured-observation {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .launcher-copy h1 {
+    font-size: 5.1rem;
+  }
+
+  .launcher-lede {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .launcher-main {
+    padding-top: 34px;
+  }
+
+  .launcher-header {
+    min-height: 96px;
+  }
+
+  .launcher-copy h1 {
+    font-size: 3.15rem;
+    line-height: 0.98;
+  }
+
+  .launcher-lede {
+    font-size: 1.06rem;
+    line-height: 1.42;
+  }
+
+  .launcher-actions {
+    margin-top: 28px;
+  }
+
+  .launcher-stats {
+    margin-top: 34px;
+  }
+}
+
+@media (max-width: 420px) {
+  .launcher-copy h1 {
+    font-size: 2.72rem;
+  }
+}

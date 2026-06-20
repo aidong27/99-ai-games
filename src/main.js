@@ -34,7 +34,7 @@ const refs = {
   variantCount: document.querySelector("#variant-count")
 };
 
-const signalField = createSignalField(refs.signalCanvas, { variant: "title", density: 52 });
+const signalField = createSignalField(refs.signalCanvas, { variant: "title", density: 18 });
 
 setupShareControls();
 loadLauncherData();
