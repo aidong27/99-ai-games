@@ -16,21 +16,20 @@
     <meta name="twitter:title" content="99 AI Games">
     <meta name="twitter:description" content="A playable archive observing how AI coding agents make browser games.">
     <meta name="twitter:image" content="https://aidong27.github.io/99-ai-games/assets/social/og-cover.png">
-    <meta name="theme-color" content="#f5f4ef">
-    <title>99 AI Games | Observatory Front Hall</title>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23d97757'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='17' font-weight='700' fill='%23ffffff' text-anchor='middle'%3E99%3C/text%3E%3C/svg%3E">
+    <meta name="theme-color" content="#f7f8f7">
+    <title>99 AI Games | Minimal Launcher</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23141817'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-size='13' font-weight='700' fill='%23ffffff' text-anchor='middle'%3E99%3C/text%3E%3C/svg%3E">
     <link rel="modulepreload" href="./src/archive-data.js?v=2026-06-14-claude7">
     <link rel="stylesheet" href="./styles/archive.css?v=2026-06-14-claude7">
     <link rel="stylesheet" href="./styles/main.css?v=2026-06-14-claude7">
   </head>
-  <body class="title-screen">
-    <a class="skip-link" href="#front-hall">Skip to the observation shelf</a>
-    <canvas id="title-signal" class="archive-signal-field" width="1200" height="720" aria-hidden="true"></canvas>
+  <body class="launcher-screen">
+    <a class="skip-link" href="#observations-heading">Skip to observations</a>
 
-    <header class="title-header" aria-label="Archive title navigation">
-      <a class="wordmark" href="./" aria-label="99 AI Games home">
-        <span>99</span>
-        <strong>AI Games</strong>
+    <header class="launcher-header" aria-label="Archive launcher navigation">
+      <a class="launcher-mark" href="./" aria-label="99 AI Games home">
+        <span class="launcher-mark-number">99</span>
+        <span class="launcher-mark-name">AI Games</span>
       </a>
       <nav aria-label="Archive links">
         <a href="./library.html">Library</a>
@@ -41,110 +40,90 @@
       </nav>
     </header>
 
-    <main class="front-hall-stage" aria-labelledby="title-heading">
-      <!-- Hero band -->
-      <section class="hero-band">
-        <div class="title-copy">
-          <p class="archive-kicker">AI Games Observatory</p>
-          <h1 id="title-heading" class="title-mark">
-            <span>99</span>
-            <span>AI</span>
-            <span>Games</span>
-          </h1>
-          <p class="title-position">An observatory for AI-made games.</p>
-          <p class="title-protocol">The archive is not a collection. It is a protocol.</p>
-          <div class="title-actions">
-            <a id="enter-observatory" class="archive-button primary" href="./library.html">Enter Observatory</a>
-            <a class="archive-button secondary" href="./compare.html">Compare Models</a>
-            <a class="archive-button ghost" href="./games/manifest.json">Open Manifest</a>
+    <main class="launcher-main" aria-labelledby="launcher-heading">
+      <section class="launcher-hero">
+        <div class="launcher-copy">
+          <p class="launcher-kicker">AI game-making evolution archive</p>
+          <h1 id="launcher-heading">99 AI Games</h1>
+          <p class="launcher-lede">The games are playable. The real exhibit is the AI that made them.</p>
+          <p class="launcher-note">A quiet launcher for browser-game observations, model provenance, variants, and run records.</p>
+          <div class="launcher-actions">
+            <a id="enter-library" class="archive-button primary" href="./library.html">Open Library</a>
+            <a id="play-featured" class="archive-button secondary" href="./library.html">Play Featured</a>
           </div>
         </div>
 
-        <aside class="title-status" aria-label="Current archive status" aria-live="polite">
-          <div class="signal-heading">
-            <span class="status-dot" aria-hidden="true"></span>
-            <p class="archive-kicker">Archive seed</p>
+        <section class="featured-observation" aria-label="Featured playable observation" aria-live="polite">
+          <a id="featured-image-link" class="featured-media" href="./library.html">
+            <img id="featured-image" alt="" hidden>
+            <span id="featured-placeholder" class="featured-placeholder">No preview image</span>
+          </a>
+          <div class="featured-body">
+            <p id="featured-label" class="launcher-kicker">Loading archive</p>
+            <h2 id="featured-title">Finding playable observations</h2>
+            <p id="featured-description">Loading the local manifest...</p>
+            <dl class="featured-meta" aria-label="Featured observation metadata">
+              <div>
+                <dt>Model</dt>
+                <dd id="featured-model">-</dd>
+              </div>
+              <div>
+                <dt>Agent</dt>
+                <dd id="featured-agent">-</dd>
+              </div>
+            </dl>
+            <div class="featured-links">
+              <a id="featured-play-link" href="./library.html">Play</a>
+              <a id="featured-record-link" href="./library.html">Record</a>
+            </div>
           </div>
-          <dl>
-            <div>
-              <dt>Observations</dt>
-              <dd id="observation-count">0</dd>
-            </div>
-            <div>
-              <dt>Target slots</dt>
-              <dd id="target-count">99</dd>
-            </div>
-            <div>
-              <dt>Playable</dt>
-              <dd id="playable-count">0</dd>
-            </div>
-            <div>
-              <dt>Mobile ready</dt>
-              <dd id="mobile-count">0</dd>
-            </div>
-            <div>
-              <dt>Run records</dt>
-              <dd id="run-count">0</dd>
-            </div>
-          </dl>
-          <p id="title-featured" class="status-note">Loading archive manifest...</p>
-          <div class="share-panel" aria-label="Share 99 AI Games">
-            <p class="archive-kicker">Share signal</p>
-            <div class="share-actions">
-              <button class="archive-button secondary compact" type="button" data-share-action="link">Copy project link</button>
-              <button class="archive-button secondary compact" type="button" data-share-action="text">Copy share text</button>
-            </div>
-            <p id="share-status" class="share-status" aria-live="polite">Ready to copy.</p>
-            <textarea id="share-fallback" class="share-fallback" readonly hidden aria-label="Manual share text"></textarea>
-          </div>
-        </aside>
+        </section>
       </section>
 
-      <!-- The observation shelf: every playable sample, rendered from the manifest. -->
-      <section id="front-hall" class="hall-section" aria-labelledby="shelf-heading">
-        <header class="hall-section-head">
+      <section class="launcher-stats" aria-label="Current archive status">
+        <dl>
           <div>
-            <p class="archive-kicker">Front hall</p>
-            <h2 id="shelf-heading">The observation shelf</h2>
+            <dt>Observations</dt>
+            <dd><span id="observation-count">0</span> / <span id="target-count">99</span></dd>
           </div>
-          <p class="hall-section-note">
-            Every entry below is a real, playable observation sample with recorded provenance.
-            Nothing here is mocked, reserved slots are not displayed as games.
-          </p>
-        </header>
-        <ol id="observation-shelf" class="observation-shelf" aria-live="polite"></ol>
+          <div>
+            <dt>Playable</dt>
+            <dd id="playable-count">0</dd>
+          </div>
+          <div>
+            <dt>Variants</dt>
+            <dd id="variant-count">0</dd>
+          </div>
+          <div>
+            <dt>Run Records</dt>
+            <dd id="run-count">0</dd>
+          </div>
+        </dl>
+        <p id="archive-status">Loading archive manifest...</p>
       </section>
 
-      <!-- Hall floor plan: 9 capability halls, covered or honestly open. -->
-      <section class="hall-section" aria-labelledby="floorplan-heading">
-        <header class="hall-section-head">
+      <section class="launcher-library" aria-labelledby="observations-heading">
+        <div class="launcher-section-heading">
           <div>
-            <p class="archive-kicker">Floor plan</p>
-            <h2 id="floorplan-heading">Nine capability halls</h2>
+            <p class="launcher-kicker">Playable index</p>
+            <h2 id="observations-heading">Observations</h2>
           </div>
-          <p class="hall-section-note">
-            Each hall observes one axis of AI game-making ability. Open halls are shown
-            open — never filled with placeholders.
-          </p>
-        </header>
-        <ul id="hall-map" class="hall-map"></ul>
-      </section>
-
-      <!-- Model axis strip. -->
-      <section class="hall-section" aria-labelledby="models-heading">
-        <header class="hall-section-head">
-          <div>
-            <p class="archive-kicker">Model axis</p>
-            <h2 id="models-heading">Who made what</h2>
-          </div>
-          <a class="archive-button compact secondary" href="./compare.html">Full capability matrix</a>
-        </header>
-        <ul id="model-strip" class="model-strip"></ul>
+          <a href="./library.html">View full library</a>
+        </div>
+        <div id="game-grid" class="game-grid" aria-live="polite">
+          <p class="launcher-empty">Loading playable observations...</p>
+        </div>
       </section>
     </main>
 
-    <footer class="title-footer">
-      <p>The games are playable. The real exhibit is the AI that made them. <a href="./docs/share-kit.md">Share kit</a></p>
+    <footer class="launcher-footer">
+      <p>Playable observations of AI capability growth.</p>
+      <div class="share-actions" aria-label="Share 99 AI Games">
+        <button class="archive-button compact" type="button" data-share-action="link">Copy Link</button>
+        <button class="archive-button compact" type="button" data-share-action="text">Copy Text</button>
+        <span id="share-status" class="share-status" aria-live="polite">Ready.</span>
+      </div>
+      <textarea id="share-fallback" class="share-fallback" readonly hidden aria-label="Manual share text"></textarea>
     </footer>
 
     <script type="module" src="./src/main.js?v=2026-06-14-claude7"></script>

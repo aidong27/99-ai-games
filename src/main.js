@@ -1,215 +1,220 @@
-/*
- * Observatory front hall.
- *
- * The title page is no longer a splash screen: it renders the actual archive —
- * every playable observation (the shelf), the nine capability halls (the floor
- * plan), and the model axis — entirely from games/manifest.json and
- * halls/halls.json. Nothing is mocked; open halls render as open.
- */
 import {
-  loadArchive,
-  loadHalls,
   getArchiveStats,
-  getModelsFromGames,
-  getMobileSupportInfo,
+  getGameNumberLabel,
   getObservationHref,
   getPlayGateHref,
-  getShortGameNumber,
-  selectFeaturedGame,
-  toTitle
+  getScreenshotHref,
+  loadArchive
 } from "./archive-data.js";
-import { createSignalField } from "./archive-effects.js";
 import { setupShareControls } from "./share.js";
 
-const enterLink = document.querySelector("#enter-observatory");
-const observationCount = document.querySelector("#observation-count");
-const targetCount = document.querySelector("#target-count");
-const playableCount = document.querySelector("#playable-count");
-const mobileCount = document.querySelector("#mobile-count");
-const runCount = document.querySelector("#run-count");
-const titleFeatured = document.querySelector("#title-featured");
-const shelfEl = document.querySelector("#observation-shelf");
-const hallMapEl = document.querySelector("#hall-map");
-const modelStripEl = document.querySelector("#model-strip");
-const canvas = document.querySelector("#title-signal");
-const signalField = createSignalField(canvas, { variant: "title", density: 32 });
+const MAX_VISIBLE_GAMES = 6;
 
-loadFrontHall();
-signalField.start();
+const refs = {
+  archiveStatus: document.querySelector("#archive-status"),
+  enterLibrary: document.querySelector("#enter-library"),
+  featuredAgent: document.querySelector("#featured-agent"),
+  featuredDescription: document.querySelector("#featured-description"),
+  featuredImage: document.querySelector("#featured-image"),
+  featuredImageLink: document.querySelector("#featured-image-link"),
+  featuredLabel: document.querySelector("#featured-label"),
+  featuredModel: document.querySelector("#featured-model"),
+  featuredPlaceholder: document.querySelector("#featured-placeholder"),
+  featuredPlay: document.querySelector("#play-featured"),
+  featuredPlayLink: document.querySelector("#featured-play-link"),
+  featuredRecordLink: document.querySelector("#featured-record-link"),
+  featuredTitle: document.querySelector("#featured-title"),
+  gameGrid: document.querySelector("#game-grid"),
+  observationCount: document.querySelector("#observation-count"),
+  playableCount: document.querySelector("#playable-count"),
+  runCount: document.querySelector("#run-count"),
+  targetCount: document.querySelector("#target-count"),
+  variantCount: document.querySelector("#variant-count")
+};
+
 setupShareControls();
+loadLauncherData();
 
-document.addEventListener("keydown", (event) => {
-  const active = document.activeElement;
-  const isBodyFocus = !active || active === document.body || active === document.documentElement;
-  if (!isBodyFocus || event.metaKey || event.ctrlKey || event.altKey) {
-    return;
-  }
-
-  if (event.key === "Enter") {
-    event.preventDefault();
-    window.location.href = enterLink?.href ?? "./library.html";
-  }
-});
-
-window.addEventListener("pagehide", () => signalField.destroy(), { once: true });
-
-async function loadFrontHall() {
+async function loadLauncherData() {
   try {
     const { manifest, games } = await loadArchive();
-    const halls = await loadHalls(manifest);
     const stats = getArchiveStats(manifest, games);
-    const featured = selectFeaturedGame(games);
+    const playableGames = games
+      .filter((game) => game.status === "playable")
+      .sort((a, b) => (a.number ?? 999) - (b.number ?? 999));
+    const featured = selectFeaturedWithPreview(playableGames) ?? playableGames[0] ?? games[0];
 
-    setText(observationCount, stats.observationCount);
-    setText(targetCount, stats.targetCount);
-    setText(playableCount, stats.playableCount);
-    setText(mobileCount, stats.mobileSupportedCount);
-    setText(runCount, stats.runCount);
-    setText(titleFeatured, featured
-      ? `Latest playable signal: ${featured.title}`
-      : "No playable observation samples are listed yet.");
-
-    renderShelf(games);
-    renderHallMap(halls, games);
-    renderModelStrip(games);
+    updateStats(stats);
+    updateFeatured(featured);
+    renderGameGrid(playableGames);
+    setText(
+      refs.archiveStatus,
+      `Showing ${Math.min(playableGames.length, MAX_VISIBLE_GAMES)} of ${playableGames.length} playable observations.`
+    );
   } catch (error) {
-    setText(titleFeatured, `Manifest unavailable: ${error.message}`);
-    shelfEl?.replaceChildren(el("li", "shelf-empty", `The shelf could not load the manifest. ${error.message}`));
+    setText(refs.archiveStatus, `Manifest unavailable: ${error.message}`);
+    setText(refs.featuredLabel, "Archive unavailable");
+    setText(refs.featuredTitle, "Manifest could not be loaded");
+    setText(refs.featuredDescription, "Check games/manifest.json and local server access.");
+    renderEmptyState("No playable observations could be loaded.");
   }
 }
 
-/* The observation shelf -------------------------------------------------- */
-
-function renderShelf(games) {
-  const ordered = [...games].sort((a, b) => (a.number ?? 0) - (b.number ?? 0));
-  if (!ordered.length) {
-    shelfEl.replaceChildren(el("li", "shelf-empty", "No observations are recorded yet."));
-    return;
-  }
-
-  shelfEl.replaceChildren(...ordered.map((game) => {
-    const item = el("li", "shelf-row");
-
-    const plate = el("span", "shelf-plate", getShortGameNumber(game));
-    plate.setAttribute("aria-hidden", "true");
-
-    const copy = el("div", "shelf-copy");
-    copy.append(
-      el("h3", "shelf-title", game.title ?? game.slug),
-      el("p", "shelf-meta", `${game.hallName ?? toTitle(game.hallId)} · ${game.provenance?.modelName ?? "Model unrecorded"} / ${game.provenance?.agentName ?? "Tool unrecorded"}`)
-    );
-    if (game.description) {
-      copy.append(el("p", "shelf-description", game.description));
-    }
-
-    const badges = el("div", "shelf-badges");
-    badges.append(badge(game.slotType ?? "sample", ""));
-    const mobile = getMobileSupportInfo(game);
-    badges.append(badge(mobile.shortLabel, mobile.tone === "accent" ? "accent" : mobile.tone === "warning" ? "warning" : "danger"));
-    if (game.status === "playable") {
-      badges.append(badge("Playable", "accent"));
-    }
-
-    const actions = el("div", "shelf-actions");
-    actions.append(
-      link("Record", getObservationHref(game), "archive-button compact secondary"),
-      link("Play", getPlayGateHref(game), "archive-button compact primary")
-    );
-
-    item.append(plate, copy, badges, actions);
-    return item;
-  }));
+function updateStats(stats) {
+  setText(refs.observationCount, stats.observationCount);
+  setText(refs.targetCount, stats.targetCount);
+  setText(refs.playableCount, stats.playableCount);
+  setText(refs.variantCount, stats.variantCount);
+  setText(refs.runCount, stats.runCount);
 }
 
-/* The hall floor plan ----------------------------------------------------- */
-
-function renderHallMap(halls, games) {
-  if (!halls.length) {
-    hallMapEl.replaceChildren(el("li", "shelf-empty", "Hall index unavailable."));
+function updateFeatured(game) {
+  if (!game) {
     return;
   }
 
-  const byHall = new Map();
-  for (const game of games) {
-    if (!byHall.has(game.hallId)) {
-      byHall.set(game.hallId, []);
-    }
-    byHall.get(game.hallId).push(game);
-  }
+  const playHref = getPlayGateHref(game);
+  const recordHref = getObservationHref(game);
+  const imageHref = getScreenshotHref(game);
 
-  hallMapEl.replaceChildren(...halls.map((hall) => {
-    const entries = (byHall.get(hall.id) ?? []).sort((a, b) => (a.number ?? 0) - (b.number ?? 0));
-    const item = el("li", `hall-cell ${entries.length ? "covered" : "open"}`);
+  setText(refs.featuredLabel, getGameNumberLabel(game));
+  setText(refs.featuredTitle, game.title ?? "Untitled observation");
+  setText(refs.featuredDescription, game.description ?? "No description recorded.");
+  setText(refs.featuredModel, game.provenance?.modelName ?? "Unrecorded");
+  setText(refs.featuredAgent, game.provenance?.agentName ?? "Unrecorded");
+  setHref(refs.featuredPlay, playHref);
+  setHref(refs.featuredPlayLink, playHref);
+  setHref(refs.featuredRecordLink, recordHref);
+  setHref(refs.featuredImageLink, playHref);
 
-    item.append(
-      el("span", "hall-cell-number", String(hall.number ?? "").padStart(2, "0")),
-      el("h3", "hall-cell-name", (hall.name ?? toTitle(hall.id)).replace(/\s*Hall$/, "")),
-      el("p", "hall-cell-description", hall.description ?? "")
-    );
-
-    if (entries.length) {
-      const list = el("div", "hall-cell-games");
-      list.append(...entries.map((game) => link(`${getShortGameNumber(game)} ${game.title}`, getObservationHref(game), "hall-cell-link")));
-      item.append(list);
+  if (refs.featuredImage && refs.featuredPlaceholder) {
+    if (imageHref) {
+      refs.featuredImage.hidden = false;
+      refs.featuredImage.src = imageHref;
+      refs.featuredImage.alt = `${game.title} screenshot`;
+      refs.featuredPlaceholder.hidden = true;
     } else {
-      item.append(el("p", "hall-cell-open", "Open"));
+      refs.featuredImage.hidden = true;
+      refs.featuredImage.removeAttribute("src");
+      refs.featuredPlaceholder.hidden = false;
     }
-    return item;
-  }));
+  }
 }
 
-/* The model axis strip ------------------------------------------------------ */
-
-function renderModelStrip(games) {
-  const models = getModelsFromGames(games);
-  if (!models.length) {
-    modelStripEl.replaceChildren(el("li", "shelf-empty", "No models recorded yet."));
+function renderGameGrid(games) {
+  if (!refs.gameGrid) {
     return;
   }
 
-  modelStripEl.replaceChildren(...models.map((model) => {
-    const item = el("li", "model-node");
-    item.append(
-      el("strong", "model-node-name", model.modelName),
-      el("span", "model-node-agent", [...model.agents].join(", ") || "Tool unrecorded"),
-      el("span", "model-node-count", `${model.games.length} observation${model.games.length === 1 ? "" : "s"}`)
-    );
-    const links = el("span", "model-node-games");
-    links.append(...model.games
-      .sort((a, b) => (a.number ?? 0) - (b.number ?? 0))
-      .map((game) => link(getShortGameNumber(game), getObservationHref(game), "model-node-link")));
-    item.append(links);
-    return item;
-  }));
-}
+  refs.gameGrid.replaceChildren();
 
-/* Helpers ------------------------------------------------------------------- */
-
-function badge(text, tone) {
-  return el("span", `archive-badge ${tone}`.trim(), text);
-}
-
-function link(text, href, className) {
-  const a = document.createElement("a");
-  a.href = href;
-  a.className = className;
-  a.textContent = text;
-  return a;
-}
-
-function el(tag, className, content) {
-  const node = document.createElement(tag);
-  if (className) {
-    node.className = className;
+  if (!games.length) {
+    renderEmptyState("No playable observations are listed yet.");
+    return;
   }
-  if (content != null) {
-    node.textContent = String(content);
+
+  for (const game of games.slice(0, MAX_VISIBLE_GAMES)) {
+    refs.gameGrid.append(createGameCard(game));
   }
-  return node;
+}
+
+function createGameCard(game) {
+  const card = document.createElement("article");
+  card.className = "game-card";
+
+  const playHref = getPlayGateHref(game);
+  const recordHref = getObservationHref(game);
+  const imageHref = getScreenshotHref(game);
+  const media = createElement("a", {
+    className: "game-card-media",
+    href: playHref,
+    ariaLabel: `Play ${game.title}`
+  });
+
+  if (imageHref) {
+    const image = createElement("img", {
+      src: imageHref,
+      alt: `${game.title} screenshot`,
+      loading: "lazy"
+    });
+    image.addEventListener("error", () => {
+      image.remove();
+      media.append(createElement("span", { className: "game-card-placeholder" }, "Preview pending"));
+    }, { once: true });
+    media.append(image);
+  } else {
+    media.append(createElement("span", { className: "game-card-placeholder" }, "Preview pending"));
+  }
+
+  const body = createElement("div", { className: "game-card-body" });
+  body.append(createElement("p", { className: "game-card-label" }, getGameNumberLabel(game)));
+
+  const title = createElement("h3");
+  title.append(createElement("a", { href: playHref }, game.title ?? "Untitled observation"));
+  body.append(title);
+
+  body.append(createElement("p", { className: "game-card-description" }, game.description ?? "No description recorded."));
+
+  const meta = createElement("div", { className: "game-card-meta" });
+  meta.append(createElement("span", {}, game.hallName ?? "Hall unrecorded"));
+  meta.append(createElement("span", {}, game.provenance?.modelName ?? "Model unrecorded"));
+  body.append(meta);
+
+  const links = createElement("div", { className: "game-card-links" });
+  links.append(createElement("a", { href: playHref }, "Play"));
+  links.append(createElement("a", { href: recordHref }, "Record"));
+  body.append(links);
+
+  card.append(media, body);
+  return card;
+}
+
+function renderEmptyState(message) {
+  refs.gameGrid?.replaceChildren(createElement("p", { className: "launcher-empty" }, message));
+}
+
+function selectFeaturedWithPreview(games) {
+  return [...games]
+    .sort((a, b) => (b.number ?? 0) - (a.number ?? 0))
+    .find((game) => Boolean(getScreenshotHref(game)));
+}
+
+function createElement(tagName, options = {}, text = "") {
+  const element = document.createElement(tagName);
+
+  if (options.className) {
+    element.className = options.className;
+  }
+  if (options.href) {
+    element.href = options.href;
+  }
+  if (options.src) {
+    element.src = options.src;
+  }
+  if (options.alt !== undefined) {
+    element.alt = options.alt;
+  }
+  if (options.loading) {
+    element.loading = options.loading;
+  }
+  if (options.ariaLabel) {
+    element.setAttribute("aria-label", options.ariaLabel);
+  }
+  if (text) {
+    element.textContent = text;
+  }
+
+  return element;
 }
 
 function setText(element, value) {
   if (element) {
     element.textContent = String(value);
+  }
+}
+
+function setHref(element, href) {
+  if (element && href) {
+    element.href = href;
   }
 }
