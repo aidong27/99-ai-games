@@ -3,6 +3,7 @@ import {
   getGameNumberLabel,
   getObservationHref,
   getPlayGateHref,
+  getPromoHref,
   getScreenshotHref,
   loadArchive
 } from "./archive-data.js";
@@ -23,6 +24,7 @@ const refs = {
   featuredPlaceholder: document.querySelector("#featured-placeholder"),
   featuredPlay: document.querySelector("#play-featured"),
   featuredPlayLink: document.querySelector("#featured-play-link"),
+  featuredPromoLink: document.querySelector("#featured-promo-link"),
   featuredRecordLink: document.querySelector("#featured-record-link"),
   featuredTitle: document.querySelector("#featured-title"),
   gameGrid: document.querySelector("#game-grid"),
@@ -81,6 +83,7 @@ function updateFeatured(game) {
 
   const playHref = getPlayGateHref(game);
   const recordHref = getObservationHref(game);
+  const promoHref = getPromoHref(game);
   const imageHref = getScreenshotHref(game);
 
   setText(refs.featuredLabel, getGameNumberLabel(game));
@@ -90,6 +93,7 @@ function updateFeatured(game) {
   setText(refs.featuredAgent, game.provenance?.agentName ?? "Unrecorded");
   setHref(refs.featuredPlay, playHref);
   setHref(refs.featuredPlayLink, playHref);
+  setHref(refs.featuredPromoLink, promoHref);
   setHref(refs.featuredRecordLink, recordHref);
   setHref(refs.featuredImageLink, playHref);
 
@@ -169,6 +173,7 @@ function createGameCard(game) {
   const links = createElement("div", { className: "game-card-links" });
   links.append(createElement("a", { href: playHref }, "Play"));
   links.append(createElement("a", { href: recordHref }, "Record"));
+  links.append(createElement("a", { href: getPromoHref(game) }, "Promo"));
   body.append(links);
 
   card.append(media, body);

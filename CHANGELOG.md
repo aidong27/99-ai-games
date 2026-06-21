@@ -4,6 +4,8 @@ All notable project-level changes are recorded here. This archive does not use c
 
 ## [Unreleased]
 
+- Add adaptive Apple-style light/dark theming for launcher/editorial pages, generated per-game promo pages under `promo/<slug>/`, and a clearer GitHub README/docs entry surface. Generated promo assets are labeled promotional, not gameplay evidence; no game implementation files are changed.
+
 - Calm the observation library to match Claude's flat, quiet feel: neutralize the dark-era pointer-driven 3D card tilt and perspective, remove the sweeping scan line on the active card, and drop the looping model-axis pulse glow — keeping a simple soft hover/active lift. CSS-only (the effect JS is untouched; its tilt vars become inert). Cache-busting bumped to `2026-06-14-claude7`.
 
 - Cross-page consistency sweep: fix the top navigation on the title and compare pages (it was still rendering as dark-theme mono chips because main.css overrode the Claude link style) to plain Claude text links; switch the title footer to sans; and standardize all surfaces (shell, editorial, compare, front hall) to one calm content column (max 1360px, consistent gutters) instead of the previous four different widths. Override-only; cache-busting bumped to `2026-06-14-claude6`.

@@ -5,6 +5,7 @@ import {
   getManifestHref,
   getMobileSupportInfo,
   getObservationHref,
+  getPromoHref,
   getRuntimeLaunchState,
   getSlugFromSearch
 } from "./archive-data.js";
@@ -118,6 +119,7 @@ function createGateActions(game, launchState) {
   }
 
   actions.append(createLink("Back to Record", getObservationHref(game), "archive-button secondary"));
+  actions.append(createLink("Promo Page", getPromoHref(game), "archive-button secondary"));
   return actions;
 }
 

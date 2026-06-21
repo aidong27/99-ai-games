@@ -9,6 +9,7 @@ import {
   getMetadataHref,
   getMobileSupportInfo,
   getPlayGateHref,
+  getPromoHref,
   getScreenshotHref,
   getScreenshotList,
   getSlugFromSearch,
@@ -113,6 +114,7 @@ function createHero(game, heroImage, mobile) {
     createText("p", `record-device-note ${mobile.tone}`, mobile.note),
     createActionRow([
       [mobile.key === "supported" ? "Continue" : mobile.ctaLabel, getPlayGateHref(game), "primary"],
+      ["Promo page", getPromoHref(game), "secondary"],
       ["Metadata JSON", getMetadataHref(game), "secondary"],
       ["Direct game page", getLaunchHref(game), "ghost"]
     ])

@@ -142,6 +142,10 @@ export function getObservationHref(game) {
   return `./observation.html?slug=${encodeURIComponent(game?.slug ?? "")}`;
 }
 
+export function getPromoHref(game) {
+  return `./promo/${encodeURIComponent(game?.slug ?? "")}/`;
+}
+
 export function getLibrarySelectionHref(gameOrSlug) {
   const slug = typeof gameOrSlug === "string" ? gameOrSlug : gameOrSlug?.slug;
   return slug ? `./library.html#${encodeURIComponent(slug)}` : "./library.html";
@@ -380,7 +384,7 @@ function registerModel(models, modelName, agentName, game) {
 // per-session cache keyed by the deployed asset version removes that waterfall
 // while staying fresh across deploys (the version changes when assets change).
 // An in-memory promise map also dedupes concurrent requests within a page.
-const ASSET_VERSION = "2026-06-14-claude7";
+const ASSET_VERSION = "2026-06-21-theme-promo";
 const memoryCache = new Map();
 
 function cacheKey(href) {
