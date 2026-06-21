@@ -4,7 +4,8 @@ import { fileURLToPath } from "node:url";
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 const errors = [];
-const requiredAssetVersion = "2026-06-21-hig";
+const requiredAssetVersion = "2026-06-21-theme-promo";
+const siteRoot = "https://aidong27.github.io/99-ai-games";
 const expectedOgImage = "https://aidong27.github.io/99-ai-games/assets/social/og-cover.png";
 
 const requiredFiles = [
@@ -17,6 +18,7 @@ const requiredFiles = [
   "compare.html",
   "styles/archive.css",
   "styles/main.css",
+  "src/theme.js",
   "src/archive-effects.js",
   "src/archive-data.js",
   "src/main.js",
@@ -26,10 +28,12 @@ const requiredFiles = [
   "src/press.js",
   "src/share.js",
   "src/compare.js",
+  "scripts/generate-promo-pages.mjs",
   "assets/social/og-cover.svg",
   "assets/social/og-cover.png",
   "assets/social/social-card.svg",
   "assets/social/social-card-square.svg",
+  "docs/index.md",
   "docs/share-kit.md",
   "games/manifest.json"
 ];
@@ -99,7 +103,7 @@ function isExternalRef(value) {
   return /^(?:https?:)?\/\//.test(value);
 }
 
-function normalizeLocalRef(value, context) {
+function normalizeLocalRef(value, context, fromPath = ".") {
   const clean = stripQueryAndHash(value);
   if (!clean || clean.startsWith("data:") || clean.startsWith("mailto:")) {
     return "";
@@ -112,7 +116,7 @@ function normalizeLocalRef(value, context) {
     fail(`${context} uses absolute root path ${value}`);
     return "";
   }
-  return clean.replace(/^\.\//, "");
+  return path.posix.normalize(path.posix.join(path.posix.dirname(fromPath), clean)).replace(/^\.\//, "");
 }
 
 function validateVersionedRef(value, context) {
@@ -143,10 +147,11 @@ function parseTags(html, tagName) {
 
 async function validateHtmlReferences(pagePath) {
   const html = await readText(pagePath);
+  let hasThemeScript = false;
 
   for (const match of html.matchAll(/\b(?:href|src)\s*=\s*["']([^"']+)["']/gi)) {
     if (!isExternalRef(match[1])) {
-      normalizeLocalRef(match[1], `${pagePath} reference`);
+      normalizeLocalRef(match[1], `${pagePath} reference`, pagePath);
     }
   }
 
@@ -157,7 +162,7 @@ async function validateHtmlReferences(pagePath) {
     }
     const href = getAttribute(tag, "href");
     validateVersionedRef(href, `${pagePath} stylesheet`);
-    const localPath = normalizeLocalRef(href, `${pagePath} stylesheet`);
+    const localPath = normalizeLocalRef(href, `${pagePath} stylesheet`, pagePath);
     if (localPath && !(await exists(localPath))) {
       fail(`${pagePath} stylesheet does not exist: ${href}`);
     }
@@ -169,10 +174,17 @@ async function validateHtmlReferences(pagePath) {
       continue;
     }
     validateVersionedRef(src, `${pagePath} script`);
-    const localPath = normalizeLocalRef(src, `${pagePath} script`);
+    const localPath = normalizeLocalRef(src, `${pagePath} script`, pagePath);
+    if (localPath === "src/theme.js") {
+      hasThemeScript = true;
+    }
     if (localPath && !(await exists(localPath))) {
       fail(`${pagePath} script does not exist: ${src}`);
     }
+  }
+
+  if (!hasThemeScript) {
+    fail(`${pagePath} should load src/theme.js before rendering themed UI`);
   }
 
   validateSocialMeta(html, pagePath);
@@ -201,12 +213,18 @@ function validateSocialMeta(html, pagePath) {
 
   const ogImage = getMetaContent(html, "property", "og:image");
   const twitterImage = getMetaContent(html, "name", "twitter:image");
-  if (ogImage !== expectedOgImage) {
-    fail(`${pagePath} og:image should be ${expectedOgImage}`);
+  const expectedImage = getExpectedOgImage(pagePath);
+  if (ogImage !== expectedImage) {
+    fail(`${pagePath} og:image should be ${expectedImage}`);
   }
-  if (twitterImage !== expectedOgImage) {
-    fail(`${pagePath} twitter:image should be ${expectedOgImage}`);
+  if (twitterImage !== expectedImage) {
+    fail(`${pagePath} twitter:image should be ${expectedImage}`);
   }
+}
+
+function getExpectedOgImage(pagePath) {
+  const promoMatch = pagePath.match(/^promo\/([^/]+)\/index\.html$/);
+  return promoMatch ? `${siteRoot}/assets/social/games/${promoMatch[1]}.svg` : expectedOgImage;
 }
 
 function getMetaContent(html, attribute, value) {
@@ -360,6 +378,20 @@ for (const game of games) {
   }
   if (!playGateHref.startsWith("./play.html?slug=")) {
     fail(`${label} play gate URL could not be generated safely`);
+  }
+  const promoPage = `promo/${game.slug}/index.html`;
+  const promoSocialImage = `assets/social/games/${game.slug}.svg`;
+  const promoHref = `./promo/${encodeURIComponent(game.slug)}/`;
+  if (!(await exists(promoPage))) {
+    fail(`${label} promo page does not exist: ${promoPage}`);
+  } else {
+    await validateHtmlReferences(promoPage);
+  }
+  if (!(await exists(promoSocialImage))) {
+    fail(`${label} promo social image does not exist: ${promoSocialImage}`);
+  }
+  if (!promoHref.startsWith("./promo/") || !promoHref.endsWith("/")) {
+    fail(`${label} promo URL could not be generated safely`);
   }
   if (!gameHref.startsWith("./games/") || !gameHref.endsWith("/")) {
     fail(`${label} game URL could not be generated safely from localPath`);

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Ninefold Draft promo card</title>
+  <desc id="desc">Promotional card for 99 AI Games observation 004. Not gameplay evidence.</desc>
+  <rect width="1200" height="630" fill="#000000"/>
+  <rect x="72" y="72" width="1056" height="486" rx="8" fill="#1c1c1e" opacity="0.92"/>
+  <rect x="96" y="96" width="52" height="52" rx="8" fill="#0a84ff"/>
+  <text x="122" y="130" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="700" text-anchor="middle">99</text>
+  <text x="168" y="130" fill="#f5f5f7" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="700">AI Games</text>
+  <text x="96" y="232" fill="#8e8e93" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="600">Observation 004</text>
+  <text x="96" y="326" fill="#f5f5f7" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-size="76" font-weight="760">Ninefold Draft</text>
+  <text x="100" y="390" fill="#c7c7cc" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="28">Card Strategy Hall</text>
+  <text x="100" y="442" fill="#c7c7cc" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="24">Claude Opus 4.8</text>
+  <text x="96" y="520" fill="#8e8e93" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="18">Promotional asset - not gameplay evidence</text>
+  <circle cx="1050" cy="132" r="12" fill="#0a84ff"/>
+</svg>

@@ -41,6 +41,12 @@ GitHub: https://github.com/aidong27/99-ai-games
 - Demo: https://aidong27.github.io/99-ai-games/
 - GitHub: https://github.com/aidong27/99-ai-games
 - Library: https://aidong27.github.io/99-ai-games/library.html
+- Promo pages:
+  - https://aidong27.github.io/99-ai-games/promo/signal-cartographer/
+  - https://aidong27.github.io/99-ai-games/promo/lumen-lattice/
+  - https://aidong27.github.io/99-ai-games/promo/neon-pulse-courier/
+  - https://aidong27.github.io/99-ai-games/promo/ninefold-draft/
+  - https://aidong27.github.io/99-ai-games/promo/gravity-atlas/
 - Manifest: https://aidong27.github.io/99-ai-games/games/manifest.json
 - Press page: https://aidong27.github.io/99-ai-games/press.html
 - Log page: https://aidong27.github.io/99-ai-games/log.html
@@ -51,6 +57,7 @@ GitHub: https://github.com/aidong27/99-ai-games
 - `assets/social/og-cover.svg`
 - `assets/social/social-card.svg`
 - `assets/social/social-card-square.svg`
+- `assets/social/games/<slug>.svg` game-specific promotional cards
 
 ## Suggested Hashtags
 
