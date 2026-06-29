@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Memory Bloom: Observation 006 / Game 006 in 99 AI Games, a PC-first clicker management game about nurturing a digital memory core.">
+    <title>Memory Bloom | 99 AI Games</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="./styles/main.css">
+  </head>
+  <body>
+    <main class="game-shell memory-bloom-shell">
+      <header class="topbar archive-header" aria-label="Archive navigation">
+        <a class="back-link" href="../../">99 AI Games</a>
+        <div class="model-chip" aria-label="AI provenance">
+          <span>Observation 006 / Game 006</span>
+          <strong>Memory Bloom</strong>
+          <em>Kimi Work / canonical variant</em>
+        </div>
+      </header>
+
+      <section class="game-hero" aria-labelledby="game-title">
+        <div class="hero-copy">
+          <p class="eyebrow">Clicker Management Hall / Benchmark</p>
+          <h1 id="game-title">Memory Bloom</h1>
+          <p class="lede">
+            Nurture a digital memory core. Click to spark data fragments,
+            place collectors, and cultivate recursive abundance.
+          </p>
+        </div>
+        <dl class="quick-stats" aria-label="Run status">
+          <div><dt>Energy</dt><dd id="energy-readout">0</dd></div>
+          <div><dt>Core Lv</dt><dd id="level-readout">1</dd></div>
+          <div><dt>Collectors</dt><dd id="collector-readout">0</dd></div>
+          <div><dt>Event</dt><dd id="event-readout">--</dd></div>
+        </dl>
+      </section>
+
+      <section class="play-surface memory-bloom-layout" aria-label="Memory Bloom game">
+        <div class="map-column">
+          <div class="canvas-frame">
+            <canvas id="game-canvas" width="1280" height="720" aria-label="Memory Bloom digital garden"></canvas>
+            <div id="overlay" class="overlay">
+              <div class="overlay-card">
+                <p id="overlay-kicker" class="eyebrow">Observation 006 / Game 006</p>
+                <h2 id="overlay-title">Memory Bloom</h2>
+                <p id="overlay-copy">
+                  A digital core hums with latent data. Click to spark memory fragments,
+                  build collectors, and cultivate recursive abundance.
+                </p>
+                <button id="primary-action" class="button primary" type="button">Start cultivating</button>
+              </div>
+            </div>
+          </div>
+          <div class="map-toolbar" aria-label="Primary actions">
+            <button id="pause-button" class="button ghost" type="button">Pause</button>
+            <button id="restart-button" class="button ghost" type="button">Restart</button>
+          </div>
+        </div>
+
+        <aside class="command-panel" aria-label="Run command panel">
+          <section class="panel-block objective-block">
+            <p class="eyebrow">Current objective</p>
+            <h2 id="objective-readout">Start cultivating</h2>
+            <p id="message-readout">Click the core to spark data fragments.</p>
+          </section>
+
+          <section class="panel-block meters-block" aria-label="Telemetry">
+            <div class="meter">
+              <span>Energy</span>
+              <div><i id="energy-meter"></i></div>
+            </div>
+            <div class="meter">
+              <span>Progress</span>
+              <div><i id="progress-meter"></i></div>
+            </div>
+            <div class="meter">
+              <span>Click combo</span>
+              <div><i id="combo-meter"></i></div>
+            </div>
+          </section>
+
+          <section class="panel-block upgrades-block" aria-label="Upgrades">
+            <p class="eyebrow">Upgrades</p>
+            <div id="upgrade-list" class="upgrade-list"></div>
+          </section>
+
+          <section class="panel-block event-log-block" aria-label="Event log">
+            <p class="eyebrow">Event Log</p>
+            <div id="event-log" class="event-log"></div>
+          </section>
+
+          <section class="panel-block controls-block">
+            <p class="eyebrow">Controls</p>
+            <ul>
+              <li>Click the core to spark data fragments</li>
+              <li>Click empty space to place a collector</li>
+              <li>Upgrade: improve core, collectors, automation</li>
+              <li>Pause: P. Restart: R.</li>
+            </ul>
+          </section>
+        </aside>
+      </section>
+    </main>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
