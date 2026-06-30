@@ -4,6 +4,8 @@ All notable project-level changes are recorded here. This archive does not use c
 
 ## [Unreleased]
 
+- Add public-surface validation so README stats, press fallback stats, social card counts, share kit promo URLs, generated promo pages, and per-game promo cards stay aligned with the real manifest.
+
 - Add adaptive Apple-style light/dark theming for launcher/editorial pages, generated per-game promo pages under `promo/<slug>/`, and a clearer GitHub README/docs entry surface. Generated promo assets are labeled promotional, not gameplay evidence; no game implementation files are changed.
 
 - Calm the observation library to match Claude's flat, quiet feel: neutralize the dark-era pointer-driven 3D card tilt and perspective, remove the sweeping scan line on the active card, and drop the looping model-axis pulse glow — keeping a simple soft hover/active lift. CSS-only (the effect JS is untouched; its tilt vars become inert). Cache-busting bumped to `2026-06-14-claude7`.
