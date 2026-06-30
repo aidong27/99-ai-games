@@ -35,8 +35,8 @@ Every push and pull request runs the full archive quality gate (`node scripts/ch
 | Target observation slots | 99 |
 | Playable observations | 6 |
 | Game halls | 9 |
-| Model variants | 7 |
-| Run records | 11 |
+| Model variants | 8 |
+| Run records | 12 |
 
 ## Honesty Boundary
 

@@ -74,9 +74,9 @@
         }
       ],
       "runRecords": [
-        "runs/2026-05-31-codex-gpt-5-5-xhigh-initial.json",
-        "runs/2026-06-02-codex-mobile-playability-fix.json",
-        "runs/2026-06-03-codex-signal-cartographer-deep-field-remake.json"
+        "./games/signal-cartographer/runs/2026-05-31-codex-gpt-5-5-xhigh-initial.json",
+        "./games/signal-cartographer/runs/2026-06-02-codex-mobile-playability-fix.json",
+        "./games/signal-cartographer/runs/2026-06-03-codex-signal-cartographer-deep-field-remake.json"
       ],
       "media": {
         "thumbnail": "assets/images/screenshot-title.png",
@@ -323,6 +323,10 @@
       "localPath": "./games/memory-bloom/",
       "metadataPath": "./games/memory-bloom/game.json",
       "briefPath": "./games/memory-bloom/brief.md",
+      "variantsPath": "./games/memory-bloom/variants/",
+      "runsPath": "./games/memory-bloom/runs/",
+      "canonicalVariantId": "kimi-memory-bloom-2026-06-29",
+      "sourceCompleteness": "Complete local source included",
       "description": "A PC-first clicker management game about nurturing a digital memory core. Click to spark data fragments, place collectors, purchase upgrades, and cultivate recursive abundance toward 99,999 energy.",
       "deviceSupport": {
         "desktop": "supported",
@@ -345,7 +349,7 @@
           "modelName": "Kimi",
           "agentName": "Kimi Work",
           "status": "canonical-playable",
-          "metadataPath": "./games/memory-bloom/variants/kimi-memory-bloom-canonical/variant.json"
+          "metadataPath": "./games/memory-bloom/variants/kimi-memory-bloom-2026-06-29/variant.json"
         }
       ],
       "runRecords": [
