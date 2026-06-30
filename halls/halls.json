@@ -58,7 +58,7 @@
       "name": "Clicker Management Hall",
       "capacity": 11,
       "description": "Observes AI ability in economies, automation loops, scaling, and player motivation.",
-      "assignedGameNumbers": []
+      "assignedGameNumbers": [6]
     },
     {
       "id": "physics-experiment",

@@ -13,3 +13,4 @@ The games are playable. The real exhibit is the AI that made them.
 | 003 | Neon Pulse Courier | Arcade Reaction Hall | benchmark | playable | 1 | 2 |
 | 004 | Ninefold Draft | Card Strategy Hall | benchmark | playable | 1 | 1 |
 | 005 | Gravity Atlas | Physics Experiment Hall | benchmark | playable | 1 | 1 |
+| 006 | Memory Bloom | Clicker Management Hall | benchmark | playable | 1 | 1 |

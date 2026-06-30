@@ -1,0 +1,25 @@
+{
+  "runId": "2026-06-29-kimi-memory-bloom-initial",
+  "gameNumber": 6,
+  "gameSlug": "memory-bloom",
+  "variantId": "kimi-memory-bloom-2026-06-29",
+  "title": "Memory Bloom initial implementation",
+  "modelName": "Kimi",
+  "agentName": "Kimi Work",
+  "createdDate": "2026-06-29",
+  "humanCodeEdits": false,
+  "summary": "Initial canonical implementation for Observation 006 / Game 006, a PC-first clicker management benchmark in the Clicker Management Hall.",
+  "verification": {
+    "performed": [
+      "Committed local source files for the playable static page",
+      "Recorded game metadata, device-support policy, and provenance labels",
+      "Added this run record so the observation has an auditable generation record"
+    ],
+    "pending": [
+      "Interactive browser smoke test after archive repair",
+      "Verified gameplay screenshots from a local build",
+      "Physical handset QA"
+    ]
+  },
+  "notes": "This record documents the Kimi Work generation accepted into the archive. It does not claim screenshot evidence or physical device QA."
+}
