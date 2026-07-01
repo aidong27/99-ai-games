@@ -18,6 +18,16 @@ import {
   toTitle
 } from "./archive-data.js";
 import { createSignalField } from "./archive-effects.js";
+import { createBadgeRow } from "./ui/badges.js";
+import { createActionRow } from "./ui/buttons.js";
+import {
+  createDefinitionCard,
+  createDefinitionGrid,
+  createListBlock,
+  createSection
+} from "./ui/cards.js";
+import { createText } from "./ui/dom.js";
+import { setDocumentTitle } from "./ui/meta.js";
 
 const root = document.querySelector("#record-root");
 const recordBackLink = document.querySelector("#record-back-link");
@@ -77,7 +87,7 @@ function renderRecord(game, runs) {
   );
 
   root.replaceChildren(record);
-  document.title = `${game.title} | Observation Record`;
+  setDocumentTitle(game.title, "Observation Record");
 }
 
 function createHero(game, heroImage, mobile) {
@@ -327,95 +337,6 @@ function createRunAlerts(knownIssues, pending) {
     createListBlock("Pending", Array.isArray(pending) ? pending : [String(pending)])
   );
   return block;
-}
-
-function createSection(title, extraClass = "") {
-  const section = document.createElement("section");
-  section.className = `record-section${extraClass ? ` ${extraClass}` : ""}`;
-  section.append(createText("h3", "", title));
-  return section;
-}
-
-function createDefinitionGrid(rows) {
-  const grid = document.createElement("dl");
-  grid.className = "definition-grid";
-  grid.append(...rows.map(([label, value]) => createDefinitionItem(label, value)));
-  return grid;
-}
-
-function createDefinitionCard(title, rows) {
-  const card = document.createElement("article");
-  card.className = "definition-card";
-  card.append(createText("h4", "", title), createDefinitionGrid(rows));
-  return card;
-}
-
-function createDefinitionItem(label, value) {
-  const item = document.createElement("div");
-  item.append(createText("dt", "", label), createText("dd", "", normalizeValue(value)));
-  return item;
-}
-
-function createListBlock(title, items) {
-  const block = document.createElement("div");
-  block.className = "list-block";
-  block.append(createText("h4", "", title));
-
-  const values = Array.isArray(items) ? items.filter(Boolean) : [];
-  if (!values.length) {
-    block.append(createText("p", "", "None recorded."));
-    return block;
-  }
-
-  const list = document.createElement("ul");
-  list.append(...values.map((item) => {
-    const li = document.createElement("li");
-    li.textContent = String(item);
-    return li;
-  }));
-  block.append(list);
-  return block;
-}
-
-function createBadgeRow(items) {
-  const row = document.createElement("div");
-  row.className = "compact-badges";
-  row.append(...items.map(([text, tone]) => {
-    const badge = document.createElement("span");
-    badge.className = `archive-badge ${tone}`;
-    badge.textContent = text;
-    return badge;
-  }));
-  return row;
-}
-
-function createActionRow(actions) {
-  const row = document.createElement("div");
-  row.className = "record-actions";
-  row.append(...actions.map(([label, href, tone]) => {
-    const link = document.createElement("a");
-    link.className = `archive-button ${tone}`;
-    link.href = href;
-    link.textContent = label;
-    return link;
-  }));
-  return row;
-}
-
-function createText(tagName, className, text) {
-  const element = document.createElement(tagName);
-  if (className) {
-    element.className = className;
-  }
-  element.textContent = text ?? "";
-  return element;
-}
-
-function normalizeValue(value) {
-  if (value === null || value === undefined || value === "") {
-    return "Unrecorded";
-  }
-  return String(value);
 }
 
 function renderError(message) {

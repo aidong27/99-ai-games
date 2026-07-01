@@ -15,6 +15,7 @@ import {
   toTitle
 } from "./archive-data.js";
 import { createSignalField } from "./archive-effects.js";
+import { createNode as el } from "./ui/dom.js";
 
 const statsEl = document.querySelector("#compare-stats");
 const tableEl = document.querySelector("#matrix-table");
@@ -222,17 +223,4 @@ function th(content, scope, className) {
   }
   cell.append(typeof content === "string" ? document.createTextNode(content) : content);
   return cell;
-}
-
-function el(tag, className, content) {
-  const node = document.createElement(tag);
-  if (className) {
-    node.className = className;
-  }
-  if (Array.isArray(content)) {
-    node.append(...content);
-  } else if (content != null) {
-    node.append(typeof content === "string" ? document.createTextNode(content) : content);
-  }
-  return node;
 }
