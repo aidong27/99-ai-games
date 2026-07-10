@@ -3,11 +3,13 @@ import {
   getDeviceSupport,
   getGameBySlug,
   getGameNumberLabel,
+  getGameStatusLabel,
   getLibrarySelectionHref,
   getLaunchHref,
   getManifestHref,
   getMetadataHref,
   getMobileSupportInfo,
+  getObservationHref,
   getPlayGateHref,
   getPromoHref,
   getScreenshotHref,
@@ -17,19 +19,22 @@ import {
   loadRunRecords,
   toTitle
 } from "./archive-data.js";
-import { createSignalField } from "./archive-effects.js";
+import { createBadgeRow } from "./ui/badges.js";
+import { createActionRow } from "./ui/buttons.js";
+import {
+  createDefinitionCard,
+  createDefinitionGrid,
+  createListBlock,
+  createSection
+} from "./ui/cards.js";
+import { createText } from "./ui/dom.js";
+import { setDocumentMeta } from "./ui/meta.js";
 
 const root = document.querySelector("#record-root");
 const recordBackLink = document.querySelector("#record-back-link");
-const signalCanvas = document.querySelector("#record-signal");
-const signalField = createSignalField(signalCanvas, { variant: "record", density: 18 });
 
 if (root) {
   loadRecord();
-  signalField.start();
-  window.addEventListener("pagehide", () => signalField.destroy(), { once: true });
-} else {
-  signalField.destroy();
 }
 
 async function loadRecord() {
@@ -77,7 +82,13 @@ function renderRecord(game, runs) {
   );
 
   root.replaceChildren(record);
-  document.title = `${game.title} | Observation Record`;
+  setDocumentMeta({
+    title: game.title ?? "Untitled observation",
+    section: "Observation Record",
+    description: game.description ?? "Inspect a playable AI game-making observation and its recorded provenance.",
+    canonicalPath: getObservationHref(game),
+    socialImagePath: `assets/social/games/${encodeURIComponent(game.slug)}.svg`
+  });
 }
 
 function createHero(game, heroImage, mobile) {
@@ -107,7 +118,7 @@ function createHero(game, heroImage, mobile) {
     createText("p", "record-description", game.description ?? "No description recorded."),
     createBadgeRow([
       [game.hallName ?? game.hallId ?? "Hall unrecorded", "neutral"],
-      [game.statusLabel ?? toTitle(game.status), "neutral"],
+      [getGameStatusLabel(game), "neutral"],
       [mobile.label, mobile.tone],
       [game.provenance?.modelName ?? "Model unrecorded", "mono"]
     ]),
@@ -142,7 +153,7 @@ function createCoreFactsPanel(game, mobile) {
     createDefinitionGrid([
       ["Observation", getGameNumberLabel(game)],
       ["Hall", game.hallName ?? game.hallId],
-      ["Status", game.statusLabel ?? toTitle(game.status)],
+      ["Status", getGameStatusLabel(game)],
       ["Model", game.provenance?.modelName],
       ["Agent", game.provenance?.agentName],
       ["Created", formatDate(game.provenance?.createdDate)],
@@ -327,95 +338,6 @@ function createRunAlerts(knownIssues, pending) {
     createListBlock("Pending", Array.isArray(pending) ? pending : [String(pending)])
   );
   return block;
-}
-
-function createSection(title, extraClass = "") {
-  const section = document.createElement("section");
-  section.className = `record-section${extraClass ? ` ${extraClass}` : ""}`;
-  section.append(createText("h3", "", title));
-  return section;
-}
-
-function createDefinitionGrid(rows) {
-  const grid = document.createElement("dl");
-  grid.className = "definition-grid";
-  grid.append(...rows.map(([label, value]) => createDefinitionItem(label, value)));
-  return grid;
-}
-
-function createDefinitionCard(title, rows) {
-  const card = document.createElement("article");
-  card.className = "definition-card";
-  card.append(createText("h4", "", title), createDefinitionGrid(rows));
-  return card;
-}
-
-function createDefinitionItem(label, value) {
-  const item = document.createElement("div");
-  item.append(createText("dt", "", label), createText("dd", "", normalizeValue(value)));
-  return item;
-}
-
-function createListBlock(title, items) {
-  const block = document.createElement("div");
-  block.className = "list-block";
-  block.append(createText("h4", "", title));
-
-  const values = Array.isArray(items) ? items.filter(Boolean) : [];
-  if (!values.length) {
-    block.append(createText("p", "", "None recorded."));
-    return block;
-  }
-
-  const list = document.createElement("ul");
-  list.append(...values.map((item) => {
-    const li = document.createElement("li");
-    li.textContent = String(item);
-    return li;
-  }));
-  block.append(list);
-  return block;
-}
-
-function createBadgeRow(items) {
-  const row = document.createElement("div");
-  row.className = "compact-badges";
-  row.append(...items.map(([text, tone]) => {
-    const badge = document.createElement("span");
-    badge.className = `archive-badge ${tone}`;
-    badge.textContent = text;
-    return badge;
-  }));
-  return row;
-}
-
-function createActionRow(actions) {
-  const row = document.createElement("div");
-  row.className = "record-actions";
-  row.append(...actions.map(([label, href, tone]) => {
-    const link = document.createElement("a");
-    link.className = `archive-button ${tone}`;
-    link.href = href;
-    link.textContent = label;
-    return link;
-  }));
-  return row;
-}
-
-function createText(tagName, className, text) {
-  const element = document.createElement(tagName);
-  if (className) {
-    element.className = className;
-  }
-  element.textContent = text ?? "";
-  return element;
-}
-
-function normalizeValue(value) {
-  if (value === null || value === undefined || value === "") {
-    return "Unrecorded";
-  }
-  return String(value);
 }
 
 function renderError(message) {

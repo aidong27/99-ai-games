@@ -34,3 +34,4 @@ not a claim that future roadmap work is complete.
 
 - [Automation guide](automation-guide.md)
 - [Development notes](development-notes.md)
+- [CSS selector ownership map](css-selector-map.md)
