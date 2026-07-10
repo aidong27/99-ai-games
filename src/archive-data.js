@@ -14,6 +14,7 @@ export {
   formatDate,
   getArchiveStats,
   getGameNumberLabel,
+  getGameStatusLabel,
   getModelsFromGames,
   getShortGameNumber,
   selectFeaturedGame,

@@ -69,20 +69,22 @@ Launcher CSS is split without changing class names:
 ```text
 styles/tokens.css      shared CSS variables and design tokens
 styles/base.css        reset, document defaults, focus, hidden, skip links
-styles/layout.css      archive shell, topbar, wordmark, page title, shared chrome
+styles/layout.css      archive shell, topbar, wordmark, dock, theme switcher
 styles/components.css  archive buttons, notices, badges, compact badge rows
-styles/archive.css     page-specific archive rules, theme overrides, promo compatibility
-styles/main.css        compatibility root token layer still loaded by compare.html
+styles/archive-pages.css  library, record, play, compare, editorial, log, promo rules
+styles/archive.css     generated-promo compatibility imports only
 styles/pages/home.css  launcher home page hero, featured card, stats, grid, footer
 ```
 
-Load shared CSS in this order: `tokens.css`, `base.css`, `layout.css`, `components.css`, then `archive.css`. Page-specific CSS comes after `archive.css`; the home page loads `main.css` before `styles/pages/home.css` to preserve the existing compatibility token cascade for `compare.html`.
+Launcher HTML loads `tokens.css`, `base.css`, `layout.css`, `components.css`, then `archive-pages.css`. Only the home page adds `styles/pages/home.css`.
 
-`archive.css` imports the shared CSS layers at the top because generated promo pages currently load only `archive.css`. Do not remove those imports unless the promo generator and generated pages are updated together.
+`archive.css` is a small compatibility entry that imports the same five layers because generated promo pages currently load only that file. Do not remove or reorder those imports unless the promo generator and generated pages are updated together.
 
-Large page-specific blocks remain in `archive.css` for now: library, record, play gate, compare, press/log editorial, promo pages, theme overrides, and historical cascade patches. Press/log and library styles have multiple later overrides, so move them only after checking cascade order against desktop, mobile, and generated promo output. Do not delete legacy-looking rules until usage is checked against HTML, JS-generated class names, and generated promo output.
+Theme tokens have one owner: `styles/tokens.css`. `archive-pages.css` is organized once by page family rather than by historical visual pass. Do not restore old styling by appending broad override blocks; change the owning layer and smoke-test every launcher page plus one generated promo page.
 
-Use [`css-selector-map.md`](css-selector-map.md) as the selector ownership map before moving more rules out of `archive.css`.
+The canvas signal-field pipeline was removed because the active CSS hid it while page scripts still initialized it. `src/archive-effects.js` now owns only the small, reduced-motion-aware pointer response used by library cards.
+
+Use [`css-selector-map.md`](css-selector-map.md) as the selector ownership map before moving more rules out of `archive-pages.css`.
 
 ## Generated Surfaces
 

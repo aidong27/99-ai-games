@@ -1,136 +1,139 @@
-/* Shared launcher archive layer extracted from archive.css. Keep selector names stable. */
 .archive-button {
-  position: relative;
-  min-height: 46px;
+  min-height: 44px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-md);
-  padding: 0 17px;
+  padding: 0 16px;
   color: var(--text);
-  background: rgba(40, 38, 34, 0.04);
-  font-family: var(--mono-font);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  background: var(--surface-soft);
+  font-size: 0.86rem;
+  font-weight: 650;
+  line-height: 1.2;
   text-align: center;
   text-decoration: none;
-  text-transform: uppercase;
-  transition: transform var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-/* Corner bracket: a small registration tick in the top-left of every control,
-   echoing the specimen-plate framing used across the archive. */
-.archive-button::before {
-  content: "";
-  position: absolute;
-  top: 4px;
-  left: 4px;
-  width: 7px;
-  height: 7px;
-  border-top: 1px solid currentColor;
-  border-left: 1px solid currentColor;
-  opacity: 0.45;
-  transition: opacity var(--transition-fast);
+  transition:
+    border-color var(--transition-fast),
+    background var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
 }
 
 .archive-button:hover {
-  border-color: rgba(217, 119, 87, 0.62);
-  transform: translate(-1px, -1px);
-  box-shadow: 0 8px 22px rgba(40, 38, 34, 0.1);
+  border-color: color-mix(in srgb, var(--accent) 58%, transparent);
+  color: var(--accent-strong);
+  background: var(--accent-soft);
 }
 
-.archive-button:hover::before {
-  opacity: 1;
+.archive-button:active {
+  transform: translateY(1px);
+  box-shadow: none;
 }
 
 .archive-button.primary {
   border-color: var(--accent);
-  color: var(--bg);
+  color: #ffffff;
   background: var(--accent);
-  box-shadow: 0 8px 22px rgba(40, 38, 34, 0.1);
 }
 
 .archive-button.primary:hover {
-  box-shadow: 0 8px 22px rgba(40, 38, 34, 0.1);
+  border-color: var(--accent-strong);
+  color: #ffffff;
+  background: var(--accent-strong);
 }
 
 .archive-button.secondary {
   color: var(--text);
-  background: var(--panel-soft);
+  background: var(--surface-soft);
 }
 
 .archive-button.ghost {
+  border-color: transparent;
   color: var(--muted-strong);
   background: transparent;
 }
 
 .archive-button.warning {
-  border-color: rgba(226, 184, 92, 0.62);
+  border-color: color-mix(in srgb, var(--warning) 55%, transparent);
   color: var(--warning);
   background: var(--warning-soft);
 }
 
 .archive-button.disabled {
-  opacity: 0.55;
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 .archive-button.compact {
-  min-height: 44px;
+  min-height: 38px;
   padding-inline: 12px;
+  font-size: 0.78rem;
 }
 
 .archive-notice {
-  margin-bottom: 0;
-  border: 1px solid rgba(226, 184, 92, 0.34);
-  border-radius: 6px;
-  padding: 14px;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--warning);
+  border-radius: var(--radius-md);
+  padding: 13px 14px;
   color: var(--muted-strong);
   background: var(--warning-soft);
   line-height: 1.55;
 }
 
 .archive-badge {
-  min-height: 28px;
+  min-height: 26px;
   display: inline-flex;
   align-items: center;
   border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  padding: 4px 10px;
+  border-radius: 999px;
+  padding: 4px 9px;
   color: var(--muted-strong);
-  background: rgba(40, 38, 34, 0.035);
-  font-family: var(--mono-font);
+  background: var(--surface-soft);
   font-size: 0.7rem;
-  letter-spacing: 0.1em;
+  font-weight: 600;
   line-height: 1.2;
-  text-transform: uppercase;
 }
 
 .archive-badge.accent {
-  border-color: rgba(217, 119, 87, 0.48);
-  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 38%, transparent);
+  color: var(--accent-strong);
   background: var(--accent-soft);
 }
 
 .archive-badge.warning {
-  border-color: rgba(226, 184, 92, 0.48);
+  border-color: color-mix(in srgb, var(--warning) 38%, transparent);
   color: var(--warning);
   background: var(--warning-soft);
 }
 
 .archive-badge.danger {
-  border-color: rgba(200, 106, 106, 0.48);
+  border-color: color-mix(in srgb, var(--danger) 38%, transparent);
   color: var(--danger);
   background: var(--danger-soft);
 }
 
 .archive-badge.mono {
-  color: var(--text);
+  font-family: var(--mono-font);
 }
 
 .compact-badges {
   display: flex;
   flex-wrap: wrap;
   gap: 7px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .archive-button:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+  }
+}
+
+@media (max-width: 520px) {
+  .archive-button {
+    min-height: 44px;
+  }
 }

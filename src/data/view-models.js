@@ -77,6 +77,14 @@ export function getShortGameNumber(game) {
   return `OBS ${String(game?.number ?? "?").padStart(3, "0")}`;
 }
 
+export function getGameStatusLabel(game) {
+  const status = String(game?.status ?? "").trim();
+  if (status === "playable") {
+    return "Playable";
+  }
+  return String(game?.statusLabel ?? "").trim() || toTitle(status || "unknown");
+}
+
 export function formatDate(value) {
   if (!value) {
     return "Date unrecorded";

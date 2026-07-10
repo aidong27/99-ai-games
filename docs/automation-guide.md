@@ -29,11 +29,11 @@ This updates generated per-game promo pages under `promo/<slug>/` and game socia
 
 Use `src/ui/dom.js`, `badges.js`, `buttons.js`, `cards.js`, `layout.js`, and `meta.js` for repeated mechanical UI creation only. Page scripts should still own data loading, routing, selection state, and page-specific layout decisions.
 
-Launcher CSS is split into shared static layers: `styles/tokens.css`, `styles/base.css`, `styles/layout.css`, and `styles/components.css`. Launcher pages should load them before `styles/archive.css`; page-specific CSS should load after `archive.css`.
+Launcher CSS is split into shared static layers: `styles/tokens.css`, `styles/base.css`, `styles/layout.css`, and `styles/components.css`. Launcher pages load them before `styles/archive-pages.css`; page-specific CSS follows that page-family sheet.
 
-The home launcher page uses `styles/pages/home.css` for page-specific layout and keeps `styles/main.css` as a compatibility token layer because `compare.html` still loads it. `scripts/validate-launcher.mjs` checks that these CSS files exist, launcher HTML keeps the shared CSS order, `index.html` loads `main.css` before `pages/home.css`, and `styles/archive.css` imports the shared layers for generated promo-page compatibility. Keep this validation lightweight and dependency-free.
+The home launcher page uses `styles/pages/home.css` for page-specific layout. `scripts/validate-launcher.mjs` checks that CSS files exist, each launcher page loads a stylesheet only once, shared CSS stays in order, theme tokens remain centralized, CSS blocks are balanced, canonical and Open Graph URLs identify the correct launcher page, each launcher entry loads its matching page module, and literal DOM id hooks used by that module exist without duplicate ids. The small `styles/archive.css` compatibility entry imports all maintained layers for generated promo pages. Validation also protects against restoring the retired canvas signal-field path.
 
-Use `docs/css-selector-map.md` before moving more selectors out of `styles/archive.css`. Generated promo pages should continue to load only `styles/archive.css` unless the generator and generated output are updated together.
+Use `docs/css-selector-map.md` before moving selectors out of `styles/archive-pages.css`. Generated promo pages should continue to load only `styles/archive.css` unless the generator and generated output are updated together.
 
 Do not update generated promo pages or social cards by hand. Update the generator or source metadata, then run the generator and validation.
 

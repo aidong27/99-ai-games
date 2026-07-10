@@ -3,6 +3,7 @@ import {
   formatDate,
   getArchiveStats,
   getGameNumberLabel,
+  getGameStatusLabel,
   getLibrarySelectionHref,
   getManifestHref,
   getMetadataHref,
@@ -13,10 +14,9 @@ import {
   getPromoHref,
   getScreenshotHref,
   getShortGameNumber,
-  loadArchive,
-  toTitle
+  loadArchive
 } from "./archive-data.js";
-import { bindPointerTilt, createSignalField } from "./archive-effects.js";
+import { bindPointerTilt } from "./archive-effects.js";
 import { createBadge } from "./ui/badges.js";
 import { createDefinitionItem, createNotice } from "./ui/cards.js";
 import { createText } from "./ui/dom.js";
@@ -34,10 +34,8 @@ const viewRecord = document.querySelector("#view-record");
 const viewPromo = document.querySelector("#view-promo");
 const openMetadata = document.querySelector("#open-metadata");
 const errorPanel = document.querySelector("#library-error");
-const signalCanvas = document.querySelector("#library-signal");
 const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-const signalField = createSignalField(signalCanvas, { variant: "library", density: 26 });
-const cardTilt = bindPointerTilt(track, ".observation-card[data-index]", { maxTilt: 5 });
+const cardTilt = bindPointerTilt(track, ".observation-card[data-index]", { maxTilt: 1.2 });
 
 const state = {
   manifest: null,
@@ -67,16 +65,13 @@ const hasLibraryDom = [
 
 if (hasLibraryDom) {
   loadLibrary();
-  signalField.start();
   bindLibraryEvents();
 } else {
-  signalField.destroy();
   cardTilt.destroy();
 }
 
 function bindLibraryEvents() {
   window.addEventListener("pagehide", () => {
-    signalField.destroy();
     cardTilt.destroy();
   }, { once: true });
 
@@ -254,14 +249,14 @@ function createObservationCard(game, index) {
   facts.append(
     createFact("Model", game.provenance?.modelName),
     createFact("Agent", game.provenance?.agentName),
-    createFact("Status", game.statusLabel ?? toTitle(game.status))
+    createFact("Status", getGameStatusLabel(game))
   );
 
   const badges = document.createElement("span");
   badges.className = "compact-badges";
   badges.append(
     createBadge(support.label, support.tone),
-    createBadge(game.statusLabel ?? toTitle(game.status), "neutral")
+    createBadge(getGameStatusLabel(game), "neutral")
   );
 
   card.append(imageWrap, meta, facts, badges);
@@ -350,7 +345,7 @@ function updateSelection(options = {}) {
     createDefinitionItem("Agent", selected.provenance?.agentName),
     createDefinitionItem("Created", formatDate(selected.provenance?.createdDate)),
     createDefinitionItem("Device", support.label),
-    createDefinitionItem("Status", selected.statusLabel ?? toTitle(selected.status)),
+    createDefinitionItem("Status", getGameStatusLabel(selected)),
     createDefinitionItem("Hall", selected.hallName ?? selected.hallId),
     createDefinitionItem("Source", selected.sourceCompleteness)
   );

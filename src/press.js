@@ -1,13 +1,13 @@
 import {
   getArchiveStats,
   getGameNumberLabel,
+  getGameStatusLabel,
   getMetadataHref,
   getMobileSupportInfo,
   getObservationHref,
   getPlayGateHref,
   loadArchive
 } from "./archive-data.js";
-import { createSignalField } from "./archive-effects.js";
 import { createActionRow } from "./ui/buttons.js";
 import { createDefinitionGrid, createDefinitionItem } from "./ui/cards.js";
 import { createElement, createText } from "./ui/dom.js";
@@ -16,12 +16,8 @@ import { replaceWithNotice } from "./ui/layout.js";
 const statsRoot = document.querySelector("#press-stats");
 const observationsRoot = document.querySelector("#press-observations");
 const hallsRoot = document.querySelector("#press-halls");
-const canvas = document.querySelector("#press-signal");
-const signalField = createSignalField(canvas, { variant: "page", density: 20 });
 
-signalField.start();
 loadPressData();
-window.addEventListener("pagehide", () => signalField.destroy(), { once: true });
 
 async function loadPressData() {
   try {
@@ -93,7 +89,7 @@ function createObservationCard(game) {
     createDefinitionGrid([
       ["Hall", game.hallName ?? "Unassigned"],
       ["Model", `${game.provenance?.modelName ?? "Unknown"} / ${game.provenance?.agentName ?? "Unknown"}`],
-      ["Status", game.statusLabel ?? game.status ?? "Unknown"],
+      ["Status", getGameStatusLabel(game)],
       ["Device", `Desktop ${game.deviceSupport?.desktop ?? "unknown"}; ${mobile.label}`]
     ]),
     createActionRow([

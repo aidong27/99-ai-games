@@ -5,26 +5,20 @@ import {
   getManifestHref,
   getMobileSupportInfo,
   getObservationHref,
+  getPlayGateHref,
   getPromoHref,
   getRuntimeLaunchState,
   getSlugFromSearch
 } from "./archive-data.js";
-import { createSignalField } from "./archive-effects.js";
 import { createActionGroup, createActionLink, createDisabledButton } from "./ui/buttons.js";
 import { createText } from "./ui/dom.js";
-import { setDocumentTitle } from "./ui/meta.js";
+import { setDocumentMeta } from "./ui/meta.js";
 
 const root = document.querySelector("#play-root");
-const signalCanvas = document.querySelector("#gate-signal");
-const signalField = createSignalField(signalCanvas, { variant: "gate", density: 16 });
 let currentGate = null;
 
 if (root) {
   loadGate();
-  signalField.start();
-  window.addEventListener("pagehide", () => signalField.destroy(), { once: true });
-} else {
-  signalField.destroy();
 }
 
 document.addEventListener("keydown", (event) => {
@@ -84,7 +78,13 @@ function renderGate(game) {
   );
 
   root.replaceChildren(content);
-  setDocumentTitle(game.title, "Start Observation");
+  setDocumentMeta({
+    title: game.title ?? "Untitled observation",
+    section: "Start Observation",
+    description: game.description ?? "Review device support before starting this playable AI game-making observation.",
+    canonicalPath: getPlayGateHref(game),
+    socialImagePath: `assets/social/games/${encodeURIComponent(game.slug)}.svg`
+  });
 }
 
 function createSupportNote(launchState, mobile) {
