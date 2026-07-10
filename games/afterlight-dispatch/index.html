@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Afterlight Dispatch - Observation 007 / Game 007 in 99 AI Games. A deterministic branching radio narrative about memory, evidence, promises, and the last safe route through a flooded city."
+    >
+    <meta name="theme-color" content="#0b1010">
+    <title>Afterlight Dispatch | 99 AI Games</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b1010'/%3E%3Cpath d='M7 17h4l2-6 4 12 3-6h5' fill='none' stroke='%237ce7cf' stroke-width='2'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="../../styles/game-shell.css?v=2026-07-10-afterlight">
+    <link rel="stylesheet" href="./styles/main.css?v=2026-07-10-afterlight">
+  </head>
+  <body>
+    <main class="game-shell dispatch-shell">
+      <header class="topbar dispatch-topbar">
+        <a class="back-link" href="../../">99 AI Games</a>
+        <div class="observation-mark" aria-label="Archive identity">
+          <span>Observation 007 / Game 007</span>
+          <strong>Afterlight Dispatch</strong>
+        </div>
+        <div class="model-chip" aria-label="AI provenance">
+          <span>Text Adventure Hall</span>
+          <strong>GPT-5.6 sol ultra / Codex</strong>
+        </div>
+      </header>
+
+      <section class="dispatch-hero" aria-labelledby="game-title">
+        <div>
+          <p class="eyebrow">Branching radio narrative / deterministic benchmark</p>
+          <h1 id="game-title">Afterlight Dispatch</h1>
+          <p class="lede">
+            Keep a flooded city's last rescue frequency coherent across six transmissions.
+            Every promise, fact, and omission returns before the final route is chosen.
+          </p>
+        </div>
+        <div class="hero-status" aria-label="Current dispatch status">
+          <span><i class="status-dot"></i><b id="signal-label">Readable</b> signal</span>
+          <span><b id="round-label">1 / 6</b> transmissions</span>
+        </div>
+      </section>
+
+      <section class="dispatch-grid" aria-label="Afterlight Dispatch game">
+        <div class="story-column">
+          <section class="radio-console" aria-labelledby="transmission-title">
+            <header class="console-header">
+              <div>
+                <p class="channel-label"><span id="channel-label">B-04</span> / <span id="district-label">Breakwater</span></p>
+                <h2 id="transmission-title">The first promise</h2>
+              </div>
+              <p class="speaker-label">Incoming: <strong id="speaker-label">Mara Venn</strong></p>
+            </header>
+
+            <div class="waveform" id="waveform" aria-hidden="true"></div>
+
+            <div class="transmission-copy" aria-live="polite" aria-atomic="true">
+              <p id="transmission-text"></p>
+              <p class="memory-line"><span>Memory check</span><strong id="memory-text"></strong></p>
+            </div>
+
+            <div class="choice-list" id="choice-list" aria-label="Dispatch choices"></div>
+            <p class="keyboard-note">Choose with pointer, touch, or keys <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd>.</p>
+          </section>
+
+          <section class="transcript-panel" aria-labelledby="transcript-title">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Persistent record</p>
+                <h2 id="transcript-title">Operator transcript</h2>
+              </div>
+              <button id="restart-button" class="text-button" type="button">Restart <kbd>R</kbd></button>
+            </div>
+            <ol id="transcript-list" class="transcript-list">
+              <li class="transcript-empty">Your decisions will be recorded here.</li>
+            </ol>
+          </section>
+        </div>
+
+        <aside class="signal-column" aria-label="Signal map and resources">
+          <section class="map-panel" aria-labelledby="map-title">
+            <div class="section-heading compact">
+              <div>
+                <p class="eyebrow">Live carrier map</p>
+                <h2 id="map-title">Meridian floodline</h2>
+              </div>
+              <button id="help-button" class="icon-button" type="button" aria-label="Open dispatch protocol" title="Dispatch protocol">?</button>
+            </div>
+
+            <svg id="signal-map" class="signal-map" viewBox="0 0 640 430" role="img" aria-labelledby="map-svg-title map-svg-description">
+              <title id="map-svg-title">Meridian emergency signal map</title>
+              <desc id="map-svg-description">A schematic map connecting Breakwater, Station C, the Archive Core, the Glass Causeway, and three possible final routes.</desc>
+              <defs>
+                <pattern id="map-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+                  <path d="M 32 0 L 0 0 0 32" fill="none" stroke="currentColor" stroke-opacity="0.08" stroke-width="1"></path>
+                </pattern>
+                <filter id="signal-glow" x="-100%" y="-100%" width="300%" height="300%">
+                  <feGaussianBlur stdDeviation="6" result="blur"></feGaussianBlur>
+                  <feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+                </filter>
+              </defs>
+              <rect class="map-grid" width="640" height="430" fill="url(#map-grid)"></rect>
+              <path class="waterline" d="M0 344 C100 315 148 378 242 346 S424 314 640 352 L640 430 L0 430 Z"></path>
+              <path class="district-line" d="M78 286 C160 245 178 172 260 142 S420 110 548 88"></path>
+              <path class="route-line glass" data-route="glass" d="M260 142 C330 180 390 205 468 196 S550 160 592 122"></path>
+              <path class="route-line tram" data-route="tram" d="M78 286 C190 295 292 300 438 286 S530 255 592 240"></path>
+              <path class="route-line seaward" data-route="seaward" d="M260 142 C332 230 405 318 572 382"></path>
+              <g class="map-node" data-node="breakwater" transform="translate(78 286)">
+                <circle class="node-pulse" r="28"></circle><circle r="8"></circle>
+                <text x="18" y="-14">BREAKWATER</text><text class="node-sub" x="18" y="4">B-04 / MARA</text>
+              </g>
+              <g class="map-node" data-node="tramline" transform="translate(260 142)">
+                <circle class="node-pulse" r="28"></circle><circle r="8"></circle>
+                <text x="18" y="-14">STATION C</text><text class="node-sub" x="18" y="4">T-19 / JUN</text>
+              </g>
+              <g class="map-node archive" data-node="archive-echo" transform="translate(468 196)">
+                <circle class="node-pulse" r="34"></circle><rect x="-9" y="-9" width="18" height="18" rx="3"></rect>
+                <text x="18" y="-14">ARCHIVE CORE</text><text class="node-sub" x="18" y="4">A-00 / ECHO 31</text>
+              </g>
+              <g class="map-node ghost" data-node="false-sunrise" transform="translate(548 88)">
+                <circle class="node-pulse" r="28"></circle><circle r="8"></circle>
+                <text x="-18" y="-16" text-anchor="end">UNKNOWN</text><text class="node-sub" x="-18" y="3" text-anchor="end">?-88 / SUNRISE</text>
+              </g>
+              <g class="map-node final" data-node="last-route" transform="translate(592 122)">
+                <circle class="node-pulse" r="30"></circle><circle r="9"></circle>
+                <text x="-18" y="-16" text-anchor="end">GLASS CAUSEWAY</text><text class="node-sub" x="-18" y="3" text-anchor="end">FINAL ROUTE</text>
+              </g>
+              <text class="flood-label" x="24" y="396">FLOODLINE / SEAWARD STEPS SUBMERGED</text>
+            </svg>
+          </section>
+
+          <section class="resource-panel" aria-labelledby="resources-title">
+            <div class="section-heading compact">
+              <div>
+                <p class="eyebrow">Operator state</p>
+                <h2 id="resources-title">Carrier integrity</h2>
+              </div>
+              <span id="evidence-count" class="evidence-count">0 evidence</span>
+            </div>
+
+            <div class="resource-grid">
+              <div class="resource" data-resource="clarity">
+                <div><span>Clarity</span><strong id="clarity-value">3</strong></div>
+                <div class="meter" role="progressbar" aria-label="Signal clarity" aria-valuemin="0" aria-valuemax="6" aria-valuenow="3"><i id="clarity-meter"></i></div>
+              </div>
+              <div class="resource" data-resource="trust">
+                <div><span>Trust</span><strong id="trust-value">3</strong></div>
+                <div class="meter" role="progressbar" aria-label="Network trust" aria-valuemin="0" aria-valuemax="6" aria-valuenow="3"><i id="trust-meter"></i></div>
+              </div>
+              <div class="resource" data-resource="time">
+                <div><span>Intervals</span><strong id="time-value">7</strong></div>
+                <div class="meter" role="progressbar" aria-label="Intervals remaining" aria-valuemin="0" aria-valuemax="8" aria-valuenow="7"><i id="time-meter"></i></div>
+              </div>
+              <div class="resource danger" data-resource="interference">
+                <div><span>Interference</span><strong id="interference-value">1</strong></div>
+                <div class="meter" role="progressbar" aria-label="Network interference" aria-valuemin="0" aria-valuemax="6" aria-valuenow="1"><i id="interference-meter"></i></div>
+              </div>
+            </div>
+
+            <div class="evidence-rack">
+              <p class="eyebrow">Coherent evidence</p>
+              <ul id="evidence-list" class="evidence-list">
+                <li class="evidence-empty">No fragments verified yet.</li>
+              </ul>
+            </div>
+          </section>
+        </aside>
+      </section>
+
+      <footer class="game-footer">
+        <span>Observation 007 / Game 007</span>
+        <span>Deterministic state engine / no network requests</span>
+        <a href="../../observation.html?slug=afterlight-dispatch">Observation record</a>
+      </footer>
+
+      <div id="game-overlay" class="game-overlay" role="dialog" aria-modal="true" aria-labelledby="overlay-title">
+        <div class="overlay-field" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="overlay-content">
+          <p id="overlay-kicker" class="eyebrow">Observation 007 / Text Adventure Hall</p>
+          <h2 id="overlay-title">Afterlight Dispatch</h2>
+          <p id="overlay-copy">
+            Six transmissions. Three possible final routes. The network remembers every promise
+            you make and every fact you fail to verify.
+          </p>
+          <div id="overlay-details" class="overlay-details">
+            <span>Keep Clarity, Trust, and Time above zero.</span>
+            <span>Collect evidence before the final dispatch.</span>
+            <span>Keyboard: 1-3 choose, R restarts, P opens protocol.</span>
+          </div>
+          <div id="overlay-actions" class="overlay-actions">
+            <button id="start-button" class="primary-button" type="button">Begin night watch</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="./src/main.js?v=2026-07-10-afterlight"></script>
+  </body>
+</html>
