@@ -4,6 +4,8 @@ All notable project-level changes are recorded here. This archive does not use c
 
 ## [Unreleased]
 
+- Add Observation 007 / Game 007 **Afterlight Dispatch**, the first Text Adventure Hall benchmark: a deterministic six-transmission radio narrative where promises, evidence, and network state reshape later calls and support three final routes. The browser and committed Node verifier share the same pure engine; the verifier proves the canonical success path, an adverse failure path, and invalid-choice rejection. Provenance records the maintainer-declared `GPT-5.6 sol ultra` model label with Codex and no human code edits.
+
 - Repair launcher issues found during desktop and mobile browser QA: restore the observation-record route helper import, keep playable status labels separate from observation numbering, pair comparison labels with their values, prevent the mobile comparison matrix from widening and clipping its page, move the desktop archive dock out of card content, and replace the shifting mobile theme controls with a stable compact popover. Extend launcher validation to enforce page-module, local-reference, DOM-id, and status-label contracts, and bump the launcher and generated-promo cache keys so the repaired assets deploy immediately. Promo content and social imagery are unchanged.
 
 - Give each launcher page an accurate title, description, canonical URL, and share URL; observation and play pages now update document/share metadata from the loaded game record. Align browser theme colors with the consolidated light/dark tokens.

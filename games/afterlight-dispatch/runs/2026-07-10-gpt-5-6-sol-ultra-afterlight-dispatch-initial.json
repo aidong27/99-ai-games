@@ -1,0 +1,53 @@
+{
+  "runId": "2026-07-10-gpt-5-6-sol-ultra-afterlight-dispatch-initial",
+  "gameNumber": 7,
+  "gameSlug": "afterlight-dispatch",
+  "variantId": "gpt-5-6-sol-ultra-afterlight-dispatch-2026-07-10",
+  "runType": "initial-generation",
+  "status": "accepted-playable",
+  "createdDate": "2026-07-10",
+  "modelName": "GPT-5.6 sol ultra",
+  "agentName": "Codex",
+  "humanCodeEdits": false,
+  "promptSummary": "Create and autonomously publish a new game for 99 AI Games under the maintainer-declared GPT-5.6 sol ultra model label. The resulting Observation 007 is Afterlight Dispatch, a deterministic branching radio narrative for the Text Adventure Hall with state memory, evidence-dependent routes, three endings, responsive controls, provenance, and a shared-engine verifier.",
+  "outputs": [
+    "games/afterlight-dispatch/index.html",
+    "games/afterlight-dispatch/src/engine.js",
+    "games/afterlight-dispatch/src/main.js",
+    "games/afterlight-dispatch/styles/main.css",
+    "games/afterlight-dispatch/assets/images/screenshot-gameplay.jpg",
+    "games/afterlight-dispatch/game.json",
+    "games/afterlight-dispatch/brief.md",
+    "games/afterlight-dispatch/README.md",
+    "games/afterlight-dispatch/variants/gpt-5-6-sol-ultra-afterlight-dispatch-2026-07-10/variant.json",
+    "games/afterlight-dispatch/runs/2026-07-10-gpt-5-6-sol-ultra-afterlight-dispatch-initial.json",
+    "scripts/verify-afterlight-dispatch.mjs",
+    "games/manifest.json",
+    "halls/halls.json",
+    "promo/afterlight-dispatch/index.html",
+    "assets/social/games/afterlight-dispatch.svg",
+    "docs/generated-index.md",
+    "CHANGELOG.md",
+    "README.md"
+  ],
+  "verification": {
+    "verifiedDate": "2026-07-10",
+    "performed": [
+      "node --check games/afterlight-dispatch/src/engine.js and games/afterlight-dispatch/src/main.js",
+      "node scripts/verify-afterlight-dispatch.mjs (passed): the canonical route reaches city-answers with four evidence fragments, an adverse route reaches frequency-lost, and an invalid out-of-scene choice is rejected",
+      "node scripts/check.mjs (passed): JavaScript syntax, halls, games, launcher, provenance, public surfaces, generated promo pages, generated index, and both standing game verifiers are green",
+      "Interactive browser canonical-path smoke at 1440x900: all six choices resolve, the transcript records six decisions, four evidence fragments remain coherent, the Glass Causeway is selected, and the city-answers success overlay appears with no console warnings or errors",
+      "Responsive browser smoke at 390x844, 768x1024, and 1440x900: the game renders without horizontal overflow, pointer start remains at the top of the page, keyboard Enter and numeric choices preserve the focus chain, and map, resources, transcript, controls, and overlays remain present",
+      "Launcher integration smoke: library.html#afterlight-dispatch, observation.html?slug=afterlight-dispatch, play.html?slug=afterlight-dispatch, and promo/afterlight-dispatch/ render the correct record, screenshot, links, model label, and evidence boundary without console warnings or errors",
+      "Captured games/afterlight-dispatch/assets/images/screenshot-gameplay.jpg as a real 1440x900 browser screenshot during transmission four of the canonical path"
+    ],
+    "pending": [
+      "Physical handset QA"
+    ]
+  },
+  "knownIssues": [
+    "Physical handset QA is not claimed; mobile support is conservatively marked limited.",
+    "The model name is a maintainer-declared archive label, not a claim about a publicly documented model release."
+  ],
+  "notes": "The browser and verifier import the same pure engine. There is no hidden randomness or remote state. window.__afterlightDispatchQA exposes start, restart, choose, playReferencePath, and getSnapshot for browser smoke tests."
+}

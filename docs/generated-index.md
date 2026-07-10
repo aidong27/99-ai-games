@@ -14,3 +14,4 @@ The games are playable. The real exhibit is the AI that made them.
 | 004 | Ninefold Draft | Card Strategy Hall | benchmark | playable | 1 | 1 |
 | 005 | Gravity Atlas | Physics Experiment Hall | benchmark | playable | 1 | 1 |
 | 006 | Memory Bloom | Clicker Management Hall | benchmark | playable | 1 | 1 |
+| 007 | Afterlight Dispatch | Text Adventure Hall | benchmark | playable | 1 | 1 |
