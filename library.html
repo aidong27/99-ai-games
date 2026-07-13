@@ -20,13 +20,13 @@
     <title>Observation Library | 99 AI Games</title>
     <link rel="canonical" href="https://aidong27.github.io/99-ai-games/library.html">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23030712'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-size='13' font-weight='700' fill='%23ffffff' text-anchor='middle'%3E99%3C/text%3E%3C/svg%3E">
-    <link rel="modulepreload" href="./src/archive-data.js?v=2026-07-10-ui-release">
-    <script src="./src/theme.js?v=2026-07-10-ui-release"></script>
-    <link rel="stylesheet" href="./styles/tokens.css?v=2026-07-10-ui-release">
-    <link rel="stylesheet" href="./styles/base.css?v=2026-07-10-ui-release">
-    <link rel="stylesheet" href="./styles/layout.css?v=2026-07-10-ui-release">
-    <link rel="stylesheet" href="./styles/components.css?v=2026-07-10-ui-release">
-    <link rel="stylesheet" href="./styles/archive-pages.css?v=2026-07-10-ui-release">
+    <link rel="modulepreload" href="./src/archive-data.js?v=2026-07-11-gallery">
+    <script src="./src/theme.js?v=2026-07-11-gallery"></script>
+    <link rel="stylesheet" href="./styles/tokens.css?v=2026-07-11-gallery">
+    <link rel="stylesheet" href="./styles/base.css?v=2026-07-11-gallery">
+    <link rel="stylesheet" href="./styles/layout.css?v=2026-07-11-gallery">
+    <link rel="stylesheet" href="./styles/components.css?v=2026-07-11-gallery">
+    <link rel="stylesheet" href="./styles/archive-pages.css?v=2026-07-11-gallery">
   </head>
   <body class="archive-page library-page">
     <a class="skip-link" href="#library-main">Skip to library</a>
@@ -54,7 +54,11 @@
 
         <section class="library-stage" aria-labelledby="library-stage-title">
           <div class="library-readout">
-            <div>
+            <a id="current-preview" class="library-preview" href="./library.html" aria-label="Open selected observation">
+              <img id="current-preview-image" alt="" hidden>
+              <span id="current-preview-placeholder" class="image-fallback">No verified screenshot</span>
+            </a>
+            <div class="library-current">
               <p class="archive-kicker">Current sample</p>
               <h2 id="library-stage-title">Select an observation</h2>
             </div>
@@ -82,6 +86,6 @@
       </nav>
     </div>
 
-    <script type="module" src="./src/library.js?v=2026-07-10-ui-release"></script>
+    <script type="module" src="./src/library.js?v=2026-07-11-gallery"></script>
   </body>
 </html>

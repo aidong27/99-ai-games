@@ -156,6 +156,8 @@ Launcher CSS is also layered conservatively:
 
 Launcher HTML loads CSS in this order: tokens, base, layout, components, archive-pages, then page-level CSS. Theme values must stay in `tokens.css`; do not append a second visual system to `archive-pages.css`. Generated promo pages still reference only `archive.css`, which imports all five maintained layers for compatibility without making launcher pages apply shared rules twice.
 
+The current presentation keeps responsibilities visible: the home page uses the latest verified screenshot as its featured observation stage, the Library combines a selected-sample preview with a responsive observation grid, observation records preserve the full screenshot aspect ratio, and the Play Gate uses real media when available before launch. Missing screenshots remain explicit placeholders rather than generated gameplay.
+
 Use [`docs/css-selector-map.md`](docs/css-selector-map.md) as the selector ownership map before moving page rules. The retired canvas signal fields are intentionally gone; the launcher keeps lightweight CSS reveals and a restrained pointer response on library cards.
 
 Generated surfaces are committed but should be regenerated, not hand-edited:
