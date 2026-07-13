@@ -4,6 +4,8 @@ All notable project-level changes are recorded here. This archive does not use c
 
 ## [Unreleased]
 
+- Group exact model versions under stable product families across Library and Compare: GPT-5.5 and GPT-5.6 now appear under ChatGPT / OpenAI, Claude versions under Claude / Anthropic, and Kimi under Kimi / Moonshot AI. Preserve exact model filters and provenance labels, add family-level URL filtering, fix comparison variant counts, and extend validation for model-family aggregation and undefined CSS variables. Cache-busting is updated to `2026-07-13-model-families`.
+
 - Upgrade the public archive foundation without introducing a framework: add raster social cards, generated robots/sitemap/404 surfaces, structured data, concise promo SEO descriptions, URL-restorable Library filters and poster mode, English/Chinese UI controls, current-screenshot evidence filtering, a scoped installable PWA, and a curated Pages artifact. Extend the quality gate across every new public contract and update cache-busting to `2026-07-13-upgrade`.
 
 - Add a bespoke vertical promotional cover poster for every current observation and feature it on each generated promo page. Posters live separately from real screenshots, carry exact game/observation labeling, and are explicitly marked as promotional artwork rather than gameplay evidence. Cache-busting is updated to `2026-07-13-posters`.
