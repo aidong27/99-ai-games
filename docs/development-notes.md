@@ -51,6 +51,8 @@ src/ui/    DOM, badge, action, definition-card, layout-state, and document-title
 
 `src/archive-data.js` remains the compatibility entry point for existing pages. Prefer adding small helpers under `src/ui/` or `src/data/` before duplicating DOM creation or path logic in a page script.
 
+`src/data/model-families.js` is the single registry for product-family and provider grouping. Keep exact metadata labels unchanged for provenance, then add or adjust a family rule when a newly observed model belongs beside an existing product line. `src/data/view-models.js` owns family aggregation and deduplicates games that appear under multiple exact models in the same family.
+
 Page scripts should remain the place for page orchestration:
 
 - load the data required by the page
@@ -111,7 +113,7 @@ Vertical cover artwork lives under `assets/posters/games/<slug>.jpg`. The promo 
 
 `src/i18n.js` owns the English/Chinese interface layer and `src/pwa.js` owns progressive installation. English metadata remains canonical. `service-worker.js` precaches the launcher shell and game metadata, then runtime-caches same-origin assets as they are visited.
 
-Library filter state uses query parameters (`model`, `hall`, `q`, `sort`, `view`) while the selected observation remains in the hash. Preserve both pieces when changing selection behavior.
+Library filter state uses query parameters (`model`, `hall`, `q`, `sort`, `view`) while the selected observation remains in the hash. Family values use the namespaced `family:<id>` form; exact model names remain valid for backward-compatible deep links. Preserve both pieces when changing selection behavior.
 
 ## Folder Standard
 

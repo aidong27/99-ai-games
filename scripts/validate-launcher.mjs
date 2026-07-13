@@ -1,12 +1,21 @@
 import { access, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { getGameStatusLabel } from "../src/data/view-models.js";
+import {
+  filterGamesByModel,
+  getGameStatusLabel,
+  getModelFamiliesFromModels,
+  getModelsFromGames
+} from "../src/data/view-models.js";
+import {
+  getModelFamily,
+  getModelFamilySelection
+} from "../src/data/model-families.js";
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 const errors = [];
-const requiredAssetVersion = "2026-07-13-upgrade";
-const generatedPromoAssetVersion = "2026-07-13-upgrade";
+const requiredAssetVersion = "2026-07-13-model-families";
+const generatedPromoAssetVersion = "2026-07-13-model-families";
 const siteRoot = "https://aidong27.github.io/99-ai-games";
 const expectedOgImage = "https://aidong27.github.io/99-ai-games/assets/social/og-cover.png";
 const launcherCanonicalUrls = {
@@ -67,6 +76,7 @@ const requiredFiles = [
   "src/archive-data.js",
   "src/data/device-support.js",
   "src/data/media-evidence.js",
+  "src/data/model-families.js",
   "src/data/paths.js",
   "src/data/view-models.js",
   "src/main.js",
@@ -441,6 +451,46 @@ function validateViewModelContracts() {
   if (getGameStatusLabel({ status: "in-review" }) !== "In Review") {
     fail("getGameStatusLabel should provide a readable fallback for non-playable states");
   }
+
+  const gpt55Family = getModelFamily("GPT-5.5 xhigh");
+  const gpt56Family = getModelFamily("GPT-5.6 sol ultra");
+  if (gpt55Family.id !== "chatgpt" || gpt56Family.id !== "chatgpt") {
+    fail("GPT-5.5 and GPT-5.6 should both belong to the ChatGPT model family");
+  }
+  if (gpt55Family.providerName !== "OpenAI") {
+    fail("The ChatGPT model family should identify OpenAI as its provider");
+  }
+  if (getModelFamily("Claude Opus 4.8").id !== "claude" || getModelFamily("Claude Fable 5").id !== "claude") {
+    fail("Claude models should share the Claude model family");
+  }
+  if (getModelFamily("Kimi").id !== "kimi") {
+    fail("Kimi should belong to the Kimi model family");
+  }
+
+  const fixtureGames = [
+    {
+      slug: "openai-fixture",
+      number: 1,
+      provenance: { modelName: "GPT-5.5 xhigh", agentName: "Codex" },
+      variants: [{ modelName: "GPT-5.6 sol ultra", agentName: "Codex" }]
+    },
+    {
+      slug: "anthropic-fixture",
+      number: 2,
+      provenance: { modelName: "Claude Opus 4.8", agentName: "Claude Code" },
+      variants: []
+    }
+  ];
+  const fixtureModels = getModelsFromGames(fixtureGames);
+  const fixtureFamilies = getModelFamiliesFromModels(fixtureModels);
+  const chatgptFamily = fixtureFamilies.find((family) => family.id === "chatgpt");
+  if (chatgptFamily?.models.length !== 2 || chatgptFamily.games.length !== 1) {
+    fail("Model family aggregation should keep exact models while deduplicating shared observations");
+  }
+  const chatgptGames = filterGamesByModel(fixtureGames, getModelFamilySelection(chatgptFamily));
+  if (chatgptGames.length !== 1 || chatgptGames[0].slug !== "openai-fixture") {
+    fail("Model family filtering should return every observation in the selected family once");
+  }
 }
 
 function validateLauncherCanonical(html, pagePath) {
@@ -530,8 +580,10 @@ async function validateArchiveCssImports() {
 }
 
 async function validateCssSystem() {
+  const cssSources = [];
   for (const cssPath of cssSystemFiles) {
     const css = await readText(cssPath);
+    cssSources.push(css);
     const source = css
       .replace(/\/\*[\s\S]*?\*\//g, "")
       .replace(/"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'/g, "");
@@ -561,6 +613,15 @@ async function validateCssSystem() {
     const css = await readText(cssPath);
     if (/(?:^|\n)\s*:root\b/.test(css)) {
       fail(`${cssPath} should not redefine root tokens; keep theme values in styles/tokens.css`);
+    }
+  }
+
+  const combinedCss = cssSources.join("\n");
+  const declaredVariables = new Set([...combinedCss.matchAll(/(--[\w-]+)\s*:/g)].map((match) => match[1]));
+  const referencedVariables = new Set([...combinedCss.matchAll(/var\(\s*(--[\w-]+)/g)].map((match) => match[1]));
+  for (const variable of referencedVariables) {
+    if (!declaredVariables.has(variable)) {
+      fail(`CSS references ${variable}, but the custom property is never declared in the launcher CSS system`);
     }
   }
 }
