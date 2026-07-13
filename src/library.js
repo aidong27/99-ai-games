@@ -4,13 +4,13 @@ import {
   getArchiveStats,
   getGameNumberLabel,
   getGameStatusLabel,
-  getLibrarySelectionHref,
   getManifestHref,
   getMetadataHref,
   getMobileSupportInfo,
   getModelsFromGames,
   getObservationHref,
   getPlayGateHref,
+  getPosterHref,
   getPromoHref,
   getScreenshotHref,
   getShortGameNumber,
@@ -37,6 +37,12 @@ const viewRecord = document.querySelector("#view-record");
 const viewPromo = document.querySelector("#view-promo");
 const openMetadata = document.querySelector("#open-metadata");
 const errorPanel = document.querySelector("#library-error");
+const searchInput = document.querySelector("#library-search");
+const hallFilter = document.querySelector("#library-hall-filter");
+const sortSelect = document.querySelector("#library-sort");
+const screenshotView = document.querySelector("#view-screenshots");
+const posterView = document.querySelector("#view-posters");
+const resultsSummary = document.querySelector("#library-results");
 const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 const cardTilt = bindPointerTilt(track, ".observation-card[data-index]", { maxTilt: 1.2 });
 
@@ -48,6 +54,10 @@ const state = {
   selectedModel: "all",
   selectedSlug: "",
   selectedIndex: 0,
+  selectedHall: "all",
+  searchQuery: "",
+  sortOrder: "number-desc",
+  viewMode: "evidence",
   notice: ""
 };
 
@@ -66,7 +76,13 @@ const hasLibraryDom = [
   viewRecord,
   viewPromo,
   openMetadata,
-  errorPanel
+  errorPanel,
+  searchInput,
+  hallFilter,
+  sortSelect,
+  screenshotView,
+  posterView,
+  resultsSummary
 ].every(Boolean);
 
 if (hasLibraryDom) {
@@ -98,8 +114,12 @@ function bindLibraryEvents() {
         window.location.href = getObservationHref(selected);
       }
     } else if (event.key === "Escape") {
-      if (state.selectedModel !== "all") {
-        selectModel("all");
+      if (!hasDefaultFilters()) {
+        state.selectedModel = "all";
+        state.selectedHall = "all";
+        state.searchQuery = "";
+        renderModels();
+        applyFilters();
       } else {
         window.location.href = "./";
       }
@@ -109,6 +129,24 @@ function bindLibraryEvents() {
   window.addEventListener("hashchange", () => {
     syncSelectionFromHash();
   });
+
+  const updateSearchQuery = () => {
+    state.searchQuery = searchInput.value.trim();
+    applyFilters();
+  };
+  searchInput.addEventListener("input", updateSearchQuery);
+  searchInput.addEventListener("change", updateSearchQuery);
+  searchInput.addEventListener("search", updateSearchQuery);
+  hallFilter.addEventListener("change", () => {
+    state.selectedHall = hallFilter.value;
+    applyFilters();
+  });
+  sortSelect.addEventListener("change", () => {
+    state.sortOrder = sortSelect.value;
+    applyFilters();
+  });
+  screenshotView.addEventListener("click", () => setViewMode("evidence"));
+  posterView.addEventListener("click", () => setViewMode("poster"));
 }
 
 async function loadLibrary() {
@@ -119,9 +157,12 @@ async function loadLibrary() {
     state.manifest = manifest;
     state.games = games;
     state.models = getModelsFromGames(games);
+    readFilterStateFromUrl();
+    populateHallFilter(games);
+    syncFilterControls();
     state.selectedSlug = selectInitialSlug(games);
     applyInitialHash();
-    state.filteredGames = filterGamesByModel(games, state.selectedModel);
+    state.filteredGames = getFilteredGames();
     state.selectedIndex = findSelectedIndex();
 
     libraryStatus.textContent = `${stats.playableCount} playable / ${stats.targetCount} target slots`;
@@ -182,18 +223,21 @@ function createModelButton(model, value) {
 }
 
 function renderLibrary() {
-  state.filteredGames = filterGamesByModel(state.games, state.selectedModel);
+  state.filteredGames = getFilteredGames();
   state.selectedIndex = findSelectedIndex();
   renderNotice();
+  syncFilterControls();
+  resultsSummary.textContent = `${state.filteredGames.length} ${state.filteredGames.length === 1 ? "observation" : "observations"} shown`;
 
   if (!state.filteredGames.length) {
-    currentTitle.textContent = "No observations for this model";
+    window.history.replaceState(null, "", buildLibraryUrl());
+    currentTitle.textContent = "No matching observations";
     currentReadout.replaceChildren();
     currentPreview.href = "./library.html";
     currentPreviewImage.hidden = true;
     currentPreviewImage.removeAttribute("src");
     currentPreviewPlaceholder.hidden = false;
-    track.replaceChildren(createNotice("No real observation samples match this model filter."));
+    track.replaceChildren(createNotice("No real observation samples match the current filters."));
     timeline.replaceChildren();
     playSelected.href = "./library.html";
     playSelected.textContent = "No playable sample";
@@ -205,7 +249,7 @@ function renderLibrary() {
   }
 
   const cards = state.filteredGames.map((game, index) => createObservationCard(game, index));
-  if (state.selectedModel === "all") {
+  if (hasDefaultFilters()) {
     cards.push(createReservedCard());
   }
   track.replaceChildren(...cards);
@@ -231,19 +275,22 @@ function createObservationCard(game, index) {
 
   const imageWrap = document.createElement("span");
   imageWrap.className = "card-image";
-  const screenshot = getScreenshotHref(game);
-  if (screenshot) {
+  const artwork = state.viewMode === "poster" ? getPosterHref(game) : getScreenshotHref(game);
+  card.classList.toggle("poster-art", state.viewMode === "poster");
+  if (artwork) {
     const img = document.createElement("img");
-    img.src = screenshot;
-    img.alt = `${game.title} verified screenshot`;
+    img.src = artwork;
+    img.alt = state.viewMode === "poster"
+      ? `${game.title} promotional cover poster`
+      : `${game.title} verified screenshot`;
     img.loading = "lazy";
     img.decoding = "async";
     img.addEventListener("error", () => {
-      imageWrap.replaceChildren(createText("span", "image-fallback", "No verified screenshot"));
+      imageWrap.replaceChildren(createText("span", "image-fallback", state.viewMode === "poster" ? "Poster unavailable" : "No verified screenshot"));
     }, { once: true });
     imageWrap.append(img);
   } else {
-    imageWrap.append(createText("span", "image-fallback", "No verified screenshot"));
+    imageWrap.append(createText("span", "image-fallback", state.viewMode === "poster" ? "Poster unavailable" : "No verified screenshot"));
   }
 
   const meta = document.createElement("span");
@@ -327,7 +374,7 @@ function updateSelection(options = {}) {
   }
 
   state.selectedSlug = selected.slug;
-  window.history.replaceState(null, "", getLibrarySelectionHref(selected));
+  window.history.replaceState(null, "", buildLibraryUrl(selected.slug));
 
   for (const card of track.querySelectorAll(".observation-card[data-index]")) {
     const active = Number(card.dataset.index) === state.selectedIndex;
@@ -348,7 +395,7 @@ function updateSelection(options = {}) {
   }
 
   const support = getMobileSupportInfo(selected);
-  const screenshot = getScreenshotHref(selected);
+  const artwork = state.viewMode === "poster" ? getPosterHref(selected) : getScreenshotHref(selected);
   const playHref = getPlayGateHref(selected);
   currentTitle.textContent = selected.title ?? "Untitled observation";
   currentReadout.replaceChildren(
@@ -363,10 +410,13 @@ function updateSelection(options = {}) {
   );
   currentPreview.href = playHref;
   currentPreview.setAttribute("aria-label", `Play ${selected.title ?? "selected observation"}`);
-  if (screenshot) {
+  currentPreview.classList.toggle("poster-art", state.viewMode === "poster");
+  if (artwork) {
     currentPreviewImage.hidden = false;
-    currentPreviewImage.src = screenshot;
-    currentPreviewImage.alt = `${selected.title ?? "Selected observation"} verified screenshot`;
+    currentPreviewImage.src = artwork;
+    currentPreviewImage.alt = state.viewMode === "poster"
+      ? `${selected.title ?? "Selected observation"} promotional cover poster`
+      : `${selected.title ?? "Selected observation"} verified screenshot`;
     currentPreviewPlaceholder.hidden = true;
     currentPreviewImage.onerror = () => {
       currentPreviewImage.hidden = true;
@@ -388,13 +438,124 @@ function updateSelection(options = {}) {
 
 function selectModel(modelName) {
   state.selectedModel = modelName;
-  const filtered = filterGamesByModel(state.games, state.selectedModel);
+  const filtered = getFilteredGames();
   state.notice = "";
   if (!filtered.some((game) => game.slug === state.selectedSlug)) {
     state.selectedSlug = filtered[0]?.slug ?? "";
   }
   renderModels();
   renderLibrary();
+}
+
+function applyFilters() {
+  const filtered = getFilteredGames();
+  state.notice = "";
+  if (!filtered.some((game) => game.slug === state.selectedSlug)) {
+    state.selectedSlug = filtered[0]?.slug ?? "";
+  }
+  renderLibrary();
+}
+
+function setViewMode(mode) {
+  state.viewMode = mode === "poster" ? "poster" : "evidence";
+  renderLibrary();
+}
+
+function getFilteredGames() {
+  const query = state.searchQuery.toLocaleLowerCase();
+  const filtered = filterGamesByModel(state.games, state.selectedModel)
+    .filter((game) => state.selectedHall === "all" || game.hallId === state.selectedHall)
+    .filter((game) => {
+      if (!query) {
+        return true;
+      }
+      const searchText = [
+        game.title,
+        game.description,
+        game.hallName,
+        game.hallId,
+        game.provenance?.modelName,
+        game.provenance?.agentName,
+        ...(game.tags ?? [])
+      ].filter(Boolean).join(" ").toLocaleLowerCase();
+      return searchText.includes(query);
+    });
+
+  return filtered.sort((a, b) => {
+    if (state.sortOrder === "number-asc") {
+      return (a.number ?? 0) - (b.number ?? 0);
+    }
+    if (state.sortOrder === "title-asc") {
+      return String(a.title ?? "").localeCompare(String(b.title ?? ""));
+    }
+    if (state.sortOrder === "model-asc") {
+      return String(a.provenance?.modelName ?? "").localeCompare(String(b.provenance?.modelName ?? ""));
+    }
+    return (b.number ?? 0) - (a.number ?? 0);
+  });
+}
+
+function populateHallFilter(games) {
+  const halls = [...new Map(games.map((game) => [game.hallId, game.hallName ?? game.hallId])).entries()]
+    .filter(([id]) => id)
+    .sort((a, b) => String(a[1]).localeCompare(String(b[1])));
+  const options = [new Option("All halls", "all")];
+  options.push(...halls.map(([id, name]) => new Option(name, id)));
+  hallFilter.replaceChildren(...options);
+}
+
+function readFilterStateFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const requestedModel = params.get("model") ?? "all";
+  state.selectedModel = requestedModel === "all" || state.models.some((model) => model.modelName === requestedModel)
+    ? requestedModel
+    : "all";
+  state.selectedHall = params.get("hall") ?? "all";
+  state.searchQuery = (params.get("q") ?? "").trim();
+  state.sortOrder = ["number-desc", "number-asc", "title-asc", "model-asc"].includes(params.get("sort"))
+    ? params.get("sort")
+    : "number-desc";
+  state.viewMode = params.get("view") === "poster" ? "poster" : "evidence";
+}
+
+function syncFilterControls() {
+  searchInput.value = state.searchQuery;
+  hallFilter.value = [...hallFilter.options].some((option) => option.value === state.selectedHall)
+    ? state.selectedHall
+    : "all";
+  if (hallFilter.value === "all" && state.selectedHall !== "all") {
+    state.selectedHall = "all";
+  }
+  sortSelect.value = state.sortOrder;
+  screenshotView.setAttribute("aria-pressed", state.viewMode === "evidence" ? "true" : "false");
+  posterView.setAttribute("aria-pressed", state.viewMode === "poster" ? "true" : "false");
+}
+
+function buildLibraryUrl(slug = "") {
+  const params = new URLSearchParams();
+  if (state.selectedModel !== "all") {
+    params.set("model", state.selectedModel);
+  }
+  if (state.selectedHall !== "all") {
+    params.set("hall", state.selectedHall);
+  }
+  if (state.searchQuery) {
+    params.set("q", state.searchQuery);
+  }
+  if (state.sortOrder !== "number-desc") {
+    params.set("sort", state.sortOrder);
+  }
+  if (state.viewMode === "poster") {
+    params.set("view", "poster");
+  }
+  const queryString = params.toString();
+  const query = queryString ? `?${queryString}` : "";
+  const hash = slug ? `#${encodeURIComponent(slug)}` : "";
+  return `./library.html${query}${hash}`;
+}
+
+function hasDefaultFilters() {
+  return state.selectedModel === "all" && state.selectedHall === "all" && !state.searchQuery;
 }
 
 function selectByOffset(offset) {
@@ -432,14 +593,16 @@ function syncSelectionFromHash() {
 
   state.selectedSlug = slug;
   state.notice = "";
-  if (!filterGamesByModel(state.games, state.selectedModel).some((game) => game.slug === slug)) {
+  if (!getFilteredGames().some((game) => game.slug === slug)) {
     state.selectedModel = "all";
+    state.selectedHall = "all";
+    state.searchQuery = "";
     renderModels();
     renderLibrary();
     return;
   }
 
-  state.filteredGames = filterGamesByModel(state.games, state.selectedModel);
+  state.filteredGames = getFilteredGames();
   state.selectedIndex = findSelectedIndex();
   updateSelection({ scroll: false });
 }

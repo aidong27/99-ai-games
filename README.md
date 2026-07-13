@@ -128,6 +128,9 @@ The public launcher is a static four-level archive system:
 - `observation.html?slug=<game-slug>`: archive record with screenshots, metadata, device support, provenance, variants, controls, and run records.
 - `play.html?slug=<game-slug>`: device-aware play gate before entering `games/<slug>/`.
 - `promo/<game-slug>/`: generated per-game promotional page backed by real metadata and labeled evidence boundaries.
+- `assets/posters/games/<game-slug>.jpg`: generated cover artwork used only as a promotional visual, never as gameplay evidence.
+- `sitemap.xml`, `robots.txt`, `404.html`: generated discovery and recovery surfaces.
+- `manifest.webmanifest`, `service-worker.js`: installable launcher shell and progressive offline entry.
 - `compare.html`: a cross-model capability matrix (model × hall coverage, per-model totals, hall coverage) built only from real manifest data.
 
 Launcher pages read from `games/manifest.json` and each game's `game.json`. They must not invent games, models, screenshots, popularity, or provenance. Metadata fetches are cached per session (keyed by the deployed asset version) so navigation between pages does not refetch every record.
@@ -164,9 +167,18 @@ Generated surfaces are committed but should be regenerated, not hand-edited:
 
 - `promo/<slug>/index.html`
 - `assets/social/games/<slug>.svg`
+- `assets/social/games/<slug>.png`
 - `docs/generated-index.md`
 
+Each current observation also has a curated vertical cover under `assets/posters/games/`. Promo pages place that cover in the hero and keep repository screenshots in the separate Evidence section, so the two media roles remain unmistakable.
+
+The Library stores model, hall, free-text, sort, and evidence/poster view state in the URL. English remains the indexed source language; the compact `中 / EN` control translates launcher interface terms without rewriting game descriptions or provenance records.
+
+Per-game social metadata uses committed 1200 x 630 PNG cards while retaining generated SVG sources. Promo descriptions are shortened for search snippets and publish `VideoGame` JSON-LD; the home page publishes `WebSite` and `CollectionPage` structured data.
+
 Launcher refactors should not be bundled with game implementation changes under `games/<slug>/src/`, `games/<slug>/styles/`, variants, or run records.
+
+GitHub Pages runs `node scripts/prepare-pages.mjs` and uploads only the ignored `.site/` directory. Development scripts, workflows, and repository documentation are not part of the public deployment artifact.
 
 ## Run Locally
 
@@ -204,6 +216,8 @@ node scripts/validate-launcher.mjs
 node scripts/validate-provenance.mjs
 node scripts/validate-public-surfaces.mjs
 node scripts/generate-promo-pages.mjs --check
+node scripts/render-social-cards.mjs --check
+node scripts/generate-discovery.mjs --check
 node scripts/generate-index.mjs --check
 node scripts/verify-gravity-atlas.mjs
 git diff --check

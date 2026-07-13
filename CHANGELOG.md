@@ -4,6 +4,10 @@ All notable project-level changes are recorded here. This archive does not use c
 
 ## [Unreleased]
 
+- Upgrade the public archive foundation without introducing a framework: add raster social cards, generated robots/sitemap/404 surfaces, structured data, concise promo SEO descriptions, URL-restorable Library filters and poster mode, English/Chinese UI controls, current-screenshot evidence filtering, a scoped installable PWA, and a curated Pages artifact. Extend the quality gate across every new public contract and update cache-busting to `2026-07-13-upgrade`.
+
+- Add a bespoke vertical promotional cover poster for every current observation and feature it on each generated promo page. Posters live separately from real screenshots, carry exact game/observation labeling, and are explicitly marked as promotional artwork rather than gameplay evidence. Cache-busting is updated to `2026-07-13-posters`.
+
 - Polish the launcher into a more coherent game archive gallery: enlarge the latest verified screenshot on the home stage, show all seven playable observations, add a selected-game preview and stable desktop grid to the Library, preserve full screenshot framing on observation records, turn the Play Gate into a real preview-backed launch surface, and standardize inner-page navigation as a bottom dock. Keep light/dark tokens, reduced-motion behavior, manifest-driven content, and all game implementations unchanged. Cache-busting is updated to `2026-07-11-gallery`.
 
 - Add Observation 007 / Game 007 **Afterlight Dispatch**, the first Text Adventure Hall benchmark: a deterministic six-transmission radio narrative where promises, evidence, and network state reshape later calls and support three final routes. The browser and committed Node verifier share the same pure engine; the verifier proves the canonical success path, an adverse failure path, and invalid-choice rejection. Provenance records the maintainer-declared `GPT-5.6 sol ultra` model label with Codex and no human code edits.
