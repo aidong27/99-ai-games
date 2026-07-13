@@ -1,9 +1,10 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { hasCurrentScreenshotEvidence } from "../src/data/media-evidence.js";
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
-const ASSET_VERSION = "2026-07-13-posters";
+const ASSET_VERSION = "2026-07-13-upgrade";
 const SITE_ROOT = "https://aidong27.github.io/99-ai-games";
 const checkOnly = process.argv.includes("--check");
 const failures = [];
@@ -56,8 +57,10 @@ function renderPromoPage(game) {
   const number = String(game.number ?? "?").padStart(3, "0");
   const title = escapeHtml(game.title);
   const description = escapeHtml(game.description);
+  const seoDescription = escapeHtml(createSeoDescription(game.description));
   const posterPath = `assets/posters/games/${game.slug}.jpg`;
-  const socialImage = `${SITE_ROOT}/assets/social/games/${encodeURIComponent(game.slug)}.svg`;
+  const posterUrl = `${SITE_ROOT}/${posterPath}`;
+  const socialImage = `${SITE_ROOT}/assets/social/games/${encodeURIComponent(game.slug)}.png`;
   const promoUrl = `${SITE_ROOT}/promo/${encodeURIComponent(game.slug)}/`;
   const metadataHref = rootHref(game.metadataPath);
   const gameHref = rootHref(game.localPath);
@@ -67,20 +70,25 @@ function renderPromoPage(game) {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="${description}">
+    <meta name="description" content="${seoDescription}">
     <meta property="og:title" content="${title} | 99 AI Games">
-    <meta property="og:description" content="${description}">
+    <meta property="og:description" content="${seoDescription}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="${promoUrl}">
     <meta property="og:image" content="${socialImage}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="${title} | 99 AI Games">
-    <meta name="twitter:description" content="${description}">
+    <meta name="twitter:description" content="${seoDescription}">
     <meta name="twitter:image" content="${socialImage}">
     <meta name="theme-color" content="#000000">
     <title>${title} | Promo | 99 AI Games</title>
+    <link rel="manifest" href="../../manifest.webmanifest">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23000000'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-size='13' font-weight='700' fill='%23ffffff' text-anchor='middle'%3E99%3C/text%3E%3C/svg%3E">
     <script src="../../src/theme.js?v=${ASSET_VERSION}"></script>
+    <script src="../../src/i18n.js?v=${ASSET_VERSION}"></script>
+    <script type="module" src="../../src/pwa.js?v=${ASSET_VERSION}"></script>
     <link rel="stylesheet" href="../../styles/archive.css?v=${ASSET_VERSION}">
   </head>
   <body class="archive-page promo-page">
@@ -93,7 +101,7 @@ function renderPromoPage(game) {
         </a>
         <div class="page-title">
           <p class="archive-kicker">Game promo / Observation ${number}</p>
-          <h1>${title}</h1>
+          <p class="page-heading">${title}</p>
         </div>
         <a class="archive-button secondary compact" href="../../library.html#${encodeURIComponent(game.slug)}">Library</a>
       </header>
@@ -150,9 +158,36 @@ function renderPromoPage(game) {
         <a href="../../games/manifest.json">Manifest</a>
       </nav>
     </div>
+    <script type="application/ld+json">${renderStructuredData(game, promoUrl, posterUrl)}</script>
   </body>
 </html>
 `;
+}
+
+function createSeoDescription(value, maxLength = 155) {
+  const clean = String(value ?? "").replace(/\s+/g, " ").trim();
+  if (clean.length <= maxLength) {
+    return clean;
+  }
+  const clipped = clean.slice(0, maxLength - 1);
+  const boundary = clipped.lastIndexOf(" ");
+  return `${clipped.slice(0, boundary > 96 ? boundary : clipped.length).trim()}…`;
+}
+
+function renderStructuredData(game, promoUrl, posterUrl) {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    name: game.title,
+    description: createSeoDescription(game.description),
+    url: promoUrl,
+    image: posterUrl,
+    genre: Array.isArray(game.tags) ? game.tags : [],
+    applicationCategory: "Game",
+    operatingSystem: "Web browser",
+    isAccessibleForFree: true
+  };
+  return JSON.stringify(data).replaceAll("<", "\\u003c");
 }
 
 function renderPoster(href, game) {
@@ -200,6 +235,9 @@ function renderSocialCard(game) {
 }
 
 function getScreenshots(game) {
+  if (!hasCurrentScreenshotEvidence(game)) {
+    return [];
+  }
   const paths = [
     game.media?.thumbnail,
     ...(game.media?.screenshots ?? []),

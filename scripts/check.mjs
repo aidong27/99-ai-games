@@ -51,6 +51,7 @@ function run(label, args) {
 }
 
 const jsFiles = [
+  "service-worker.js",
   ...await collectJsFiles("src"),
   ...await collectJsFiles("scripts"),
   ...await collectJsFiles("games")
@@ -74,7 +75,10 @@ run("validate-launcher", ["scripts/validate-launcher.mjs"]);
 run("validate-provenance", ["scripts/validate-provenance.mjs"]);
 run("validate-public-surfaces", ["scripts/validate-public-surfaces.mjs"]);
 run("generate-promo-pages --check", ["scripts/generate-promo-pages.mjs", "--check"]);
+run("render-social-cards --check", ["scripts/render-social-cards.mjs", "--check"]);
+run("generate-discovery --check", ["scripts/generate-discovery.mjs", "--check"]);
 run("generate-index --check", ["scripts/generate-index.mjs", "--check"]);
+run("prepare-pages", ["scripts/prepare-pages.mjs"]);
 run("verify-gravity-atlas", ["scripts/verify-gravity-atlas.mjs"]);
 run("verify-afterlight-dispatch", ["scripts/verify-afterlight-dispatch.mjs"]);
 

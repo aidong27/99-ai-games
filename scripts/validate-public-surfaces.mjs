@@ -1,6 +1,7 @@
 import { access, readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { hasCurrentScreenshotEvidence } from "../src/data/media-evidence.js";
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 const siteRoot = "https://aidong27.github.io/99-ai-games";
@@ -137,6 +138,7 @@ expectMatches("press.html", press, new RegExp(`<dt>Run records<\\/dt><dd>${runCo
 const socialReadme = await readText("assets/social/README.md");
 expectIncludes("assets/social/README.md", socialReadme, `\`${playableCount} / ${targetCount}\``, "current observation count");
 expectIncludes("assets/social/README.md", socialReadme, "`games/<slug>.svg`", "game-specific card contract");
+expectIncludes("assets/social/README.md", socialReadme, "`games/<slug>.png`", "raster game card contract");
 
 const ogCover = await readText("assets/social/og-cover.svg");
 expectIncludes("assets/social/og-cover.svg", ogCover, `>${playableCount} / ${targetCount}<`, "playable count");
@@ -167,7 +169,8 @@ for (const requiredAsset of [
   "assets/social/og-cover.svg",
   "assets/social/social-card.svg",
   "assets/social/social-card-square.svg",
-  "assets/social/games/<slug>.svg"
+  "assets/social/games/<slug>.svg",
+  "assets/social/games/<slug>.png"
 ]) {
   expectIncludes("docs/share-kit.md", shareKit, requiredAsset, `share asset ${requiredAsset}`);
 }
@@ -177,6 +180,7 @@ for (const game of games) {
   const promoUrl = `${siteRoot}/promo/${game.slug}/`;
   const promoPage = `promo/${game.slug}/index.html`;
   const promoCard = `assets/social/games/${game.slug}.svg`;
+  const promoCardPng = `assets/social/games/${game.slug}.png`;
   const metadataPath = normalizeLocalPath(game.metadataPath);
 
   expectIncludes("docs/share-kit.md", shareKit, promoUrl, `${game.slug} promo share URL`);
@@ -188,10 +192,14 @@ for (const game of games) {
   if (!(await exists(promoCard))) {
     fail(`${promoCard} is missing`);
   }
+  if (!(await exists(promoCardPng))) {
+    fail(`${promoCardPng} is missing`);
+  }
 
   const promo = await readText(promoPage);
   expectIncludes(promoPage, promo, `${game.title} | Promo | 99 AI Games`, "title");
-  expectIncludes(promoPage, promo, `${siteRoot}/assets/social/games/${game.slug}.svg`, "game social image meta");
+  expectIncludes(promoPage, promo, `${siteRoot}/assets/social/games/${game.slug}.png`, "game social image meta");
+  expectIncludes(promoPage, promo, '"@type":"VideoGame"', "VideoGame structured data");
   expectIncludes(promoPage, promo, `Observation ${number} / Game ${number}`, "observation label");
   expectIncludes(promoPage, promo, `../../play.html?slug=${game.slug}`, "play gate link");
   expectIncludes(promoPage, promo, `../../observation.html?slug=${game.slug}`, "observation record link");
@@ -199,7 +207,10 @@ for (const game of games) {
   expectIncludes(promoPage, promo, "promotional presentation surface", "evidence boundary copy");
 
   const gameJson = metadataPath ? await readJson(metadataPath) : {};
-  const screenshotPaths = [...new Set(collectScreenshots(game, gameJson).map((shot) => resolveGameMedia(game, shot)).filter(Boolean))];
+  const mergedGame = { ...game, ...gameJson };
+  const screenshotPaths = hasCurrentScreenshotEvidence(mergedGame)
+    ? [...new Set(collectScreenshots(game, gameJson).map((shot) => resolveGameMedia(game, shot)).filter(Boolean))]
+    : [];
   if (screenshotPaths.length === 0) {
     expectIncludes(promoPage, promo, "No verified screenshot", "no-screenshot marker");
     expectIncludes(promoPage, promo, "does not substitute generated art for gameplay evidence", "no fake gameplay evidence copy");
