@@ -1,7 +1,7 @@
-@import url("./tokens.css?v=2026-07-10-ui-release");
-@import url("./base.css?v=2026-07-10-ui-release");
-@import url("./layout.css?v=2026-07-10-ui-release");
-@import url("./components.css?v=2026-07-10-ui-release");
-@import url("./archive-pages.css?v=2026-07-10-ui-release");
+@import url("./tokens.css?v=2026-07-11-gallery");
+@import url("./base.css?v=2026-07-11-gallery");
+@import url("./layout.css?v=2026-07-11-gallery");
+@import url("./components.css?v=2026-07-11-gallery");
+@import url("./archive-pages.css?v=2026-07-11-gallery");
 
 /* Compatibility entry for generated promo pages. Launcher HTML loads each layer directly. */

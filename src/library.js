@@ -29,6 +29,9 @@ const track = document.querySelector("#observation-track");
 const timeline = document.querySelector("#observation-timeline");
 const currentTitle = document.querySelector("#library-stage-title");
 const currentReadout = document.querySelector("#current-readout");
+const currentPreview = document.querySelector("#current-preview");
+const currentPreviewImage = document.querySelector("#current-preview-image");
+const currentPreviewPlaceholder = document.querySelector("#current-preview-placeholder");
 const playSelected = document.querySelector("#play-selected");
 const viewRecord = document.querySelector("#view-record");
 const viewPromo = document.querySelector("#view-promo");
@@ -56,6 +59,9 @@ const hasLibraryDom = [
   timeline,
   currentTitle,
   currentReadout,
+  currentPreview,
+  currentPreviewImage,
+  currentPreviewPlaceholder,
   playSelected,
   viewRecord,
   viewPromo,
@@ -183,6 +189,10 @@ function renderLibrary() {
   if (!state.filteredGames.length) {
     currentTitle.textContent = "No observations for this model";
     currentReadout.replaceChildren();
+    currentPreview.href = "./library.html";
+    currentPreviewImage.hidden = true;
+    currentPreviewImage.removeAttribute("src");
+    currentPreviewPlaceholder.hidden = false;
     track.replaceChildren(createNotice("No real observation samples match this model filter."));
     timeline.replaceChildren();
     playSelected.href = "./library.html";
@@ -200,7 +210,7 @@ function renderLibrary() {
   }
   track.replaceChildren(...cards);
   renderTimeline();
-  updateSelection();
+  updateSelection({ scroll: false });
 }
 
 function createObservationCard(game, index) {
@@ -338,6 +348,8 @@ function updateSelection(options = {}) {
   }
 
   const support = getMobileSupportInfo(selected);
+  const screenshot = getScreenshotHref(selected);
+  const playHref = getPlayGateHref(selected);
   currentTitle.textContent = selected.title ?? "Untitled observation";
   currentReadout.replaceChildren(
     createDefinitionItem("Observation", getGameNumberLabel(selected)),
@@ -349,7 +361,24 @@ function updateSelection(options = {}) {
     createDefinitionItem("Hall", selected.hallName ?? selected.hallId),
     createDefinitionItem("Source", selected.sourceCompleteness)
   );
-  playSelected.href = getPlayGateHref(selected);
+  currentPreview.href = playHref;
+  currentPreview.setAttribute("aria-label", `Play ${selected.title ?? "selected observation"}`);
+  if (screenshot) {
+    currentPreviewImage.hidden = false;
+    currentPreviewImage.src = screenshot;
+    currentPreviewImage.alt = `${selected.title ?? "Selected observation"} verified screenshot`;
+    currentPreviewPlaceholder.hidden = true;
+    currentPreviewImage.onerror = () => {
+      currentPreviewImage.hidden = true;
+      currentPreviewImage.removeAttribute("src");
+      currentPreviewPlaceholder.hidden = false;
+    };
+  } else {
+    currentPreviewImage.hidden = true;
+    currentPreviewImage.removeAttribute("src");
+    currentPreviewPlaceholder.hidden = false;
+  }
+  playSelected.href = playHref;
   playSelected.textContent = support.ctaLabel;
   playSelected.className = `archive-button ${support.key === "unsupported" ? "warning" : "primary"}`;
   viewRecord.href = getObservationHref(selected);
@@ -412,7 +441,7 @@ function syncSelectionFromHash() {
 
   state.filteredGames = filterGamesByModel(state.games, state.selectedModel);
   state.selectedIndex = findSelectedIndex();
-  updateSelection();
+  updateSelection({ scroll: false });
 }
 
 function getSelectedGame() {

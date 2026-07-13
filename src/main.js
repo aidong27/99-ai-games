@@ -11,7 +11,7 @@ import { setupShareControls } from "./share.js";
 import { createElement, setHref, setText } from "./ui/dom.js";
 import { createEmptyState } from "./ui/layout.js";
 
-const MAX_VISIBLE_GAMES = 6;
+const MAX_VISIBLE_GAMES = 7;
 
 const refs = {
   archiveStatus: document.querySelector("#archive-status"),

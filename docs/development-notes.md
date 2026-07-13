@@ -84,6 +84,14 @@ Theme tokens have one owner: `styles/tokens.css`. `archive-pages.css` is organiz
 
 The canvas signal-field pipeline was removed because the active CSS hid it while page scripts still initialized it. `src/archive-effects.js` now owns only the small, reduced-motion-aware pointer response used by library cards.
 
+Current launcher presentation contracts:
+
+- Home owns the featured verified-screenshot stage and the complete current observation shelf.
+- Library owns the selected-game preview, model filter, responsive observation grid, and compact timeline; initial hash selection must not scroll the page away from its readout.
+- Observation records show verified media at its full aspect ratio rather than cropping evidence for decoration.
+- Play Gate may reuse a verified screenshot as launch context, but must retain an explicit missing-media state and the device-support warning.
+- Inner archive pages use the shared bottom dock; theme controls move above it on narrow screens.
+
 Use [`css-selector-map.md`](css-selector-map.md) as the selector ownership map before moving more rules out of `archive-pages.css`.
 
 ## Generated Surfaces
