@@ -4,6 +4,8 @@ All notable project-level changes are recorded here. This archive does not use c
 
 ## [Unreleased]
 
+- Add Observation 008 / Game 008 **Orbit Cadence**, the first Rhythm Audio Hall benchmark. Preserve the user-supplied Grok 4.5 / Grok Build package byte-for-byte, register Grok under the xAI product family, add launcher and release metadata, and publish an explicitly promotional cover without claiming gameplay screenshots. Cache-busting is updated to `2026-07-13-orbit-cadence`.
+
 - Group exact model versions under stable product families across Library and Compare: GPT-5.5 and GPT-5.6 now appear under ChatGPT / OpenAI, Claude versions under Claude / Anthropic, and Kimi under Kimi / Moonshot AI. Preserve exact model filters and provenance labels, add family-level URL filtering, fix comparison variant counts, and extend validation for model-family aggregation and undefined CSS variables. Cache-busting is updated to `2026-07-13-model-families`.
 
 - Upgrade the public archive foundation without introducing a framework: add raster social cards, generated robots/sitemap/404 surfaces, structured data, concise promo SEO descriptions, URL-restorable Library filters and poster mode, English/Chinese UI controls, current-screenshot evidence filtering, a scoped installable PWA, and a curated Pages artifact. Extend the quality gate across every new public contract and update cache-busting to `2026-07-13-upgrade`.

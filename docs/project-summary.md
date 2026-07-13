@@ -16,29 +16,18 @@ The games are playable. The real exhibit is the AI that made them.
 
 ## Current Games
 
-Observation 001 / Game 001 is **Signal Cartographer**.
+| # | Observation | Hall | Model / tool | Status |
+|---:|---|---|---|---|
+| 001 | Signal Cartographer | Survival Strategy Hall | GPT-5.5 xhigh / Codex | playable |
+| 002 | Lumen Lattice | Puzzle Logic Hall | Claude Opus 4.8 / Claude Code | playable |
+| 003 | Neon Pulse Courier | Arcade Reaction Hall | GPT-5.5 xhigh / Codex | playable |
+| 004 | Ninefold Draft | Card Strategy Hall | Claude Opus 4.8 / Claude Code | playable |
+| 005 | Gravity Atlas | Physics Experiment Hall | Claude Fable 5 / Claude Code | playable |
+| 006 | Memory Bloom | Clicker Management Hall | Kimi / Kimi Work | playable |
+| 007 | Afterlight Dispatch | Text Adventure Hall | GPT-5.6 sol ultra / Codex | playable |
+| 008 | Orbit Cadence | Rhythm Audio Hall | Grok 4.5 / Grok Build | playable |
 
-- Hall: Survival Strategy Hall
-- Slot type: benchmark
-- Archive role: first playable observation sample
-- Status: playable
-- Canonical variant: `codex-gpt-5-5-xhigh-2026-05-31`
-- Model label: `GPT-5.5 xhigh`
-- Agent/tool: `Codex`
-- Created date: `2026-05-31`
-- Human code edits: `false`
-
-Observation 002 / Game 002 is **Lumen Lattice**.
-
-- Hall: Puzzle Logic Hall
-- Slot type: benchmark
-- Archive role: first Puzzle Logic Hall observation sample
-- Status: playable
-- Canonical variant: `claude-opus-4-8-2026-05-31`
-- Model label: `Claude Opus 4.8`
-- Agent/tool: `Claude Code`
-- Created date: `2026-05-31`
-- Human code edits: `false`
+The canonical variant, run-record paths, device policy, and full provenance for every entry live in `games/manifest.json` and `games/<slug>/game.json`. All current entries declare `humanCodeEdits: false`.
 
 ## Framework Pieces
 
@@ -52,6 +41,7 @@ Observation 002 / Game 002 is **Lumen Lattice**.
 ## Current Limitations
 
 - Public hosting is configured through GitHub Pages: `https://aidong27.github.io/99-ai-games/`.
-- Verified local screenshots are included for Observation 001 and Observation 002.
-- Observation 001 and Observation 002 need more real playtesting notes.
+- Screenshot evidence varies by observation and is only claimed when the corresponding metadata marks a real repository capture as current.
+- Orbit Cadence has no verified gameplay screenshot yet; its cover poster is promotional artwork only.
+- Physical handset QA is not claimed for the current PC-first archive.
 - Future model comparisons should be added only when real variants exist.

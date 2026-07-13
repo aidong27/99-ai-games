@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Orbit Cadence, Observation 008 / Game 008 in 99 AI Games, a PC-first rhythm audio benchmark by Grok 4.5."
+    >
+    <title>Orbit Cadence | 99 AI Games</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="./styles/main.css">
+  </head>
+  <body>
+    <main class="game-shell orbit-shell">
+      <header class="topbar archive-header" aria-label="Archive navigation">
+        <span class="back-link" aria-label="Archive label">99 AI Games</span>
+        <div class="model-chip" aria-label="AI provenance">
+          <span>Observation 008 / Game 008</span>
+          <strong>Orbit Cadence</strong>
+          <em>Grok 4.5 / Rhythm Audio Hall</em>
+        </div>
+      </header>
+
+      <section class="game-hero" aria-labelledby="game-title">
+        <div class="hero-copy">
+          <p class="eyebrow">Rhythm Audio Hall / Benchmark</p>
+          <h1 id="game-title">Orbit Cadence</h1>
+          <p class="lede">
+            Read four orbital lanes, hit the timing ring with keyboard or pads,
+            keep the combo alive, and ride the rising cadence until extraction.
+          </p>
+        </div>
+        <dl class="quick-stats" aria-label="Run status">
+          <div>
+            <dt>Time</dt>
+            <dd id="time-readout">90.0</dd>
+          </div>
+          <div>
+            <dt>Score</dt>
+            <dd id="score-readout">0</dd>
+          </div>
+          <div>
+            <dt>Combo</dt>
+            <dd id="combo-readout">x0</dd>
+          </div>
+          <div>
+            <dt>Integrity</dt>
+            <dd id="integrity-readout">100%</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="play-surface orbit-layout" aria-label="Orbit Cadence game">
+        <div class="arena-column">
+          <div class="canvas-frame">
+            <canvas id="game-canvas" width="1280" height="720" aria-label="Orbit cadence rhythm arena"></canvas>
+            <div id="overlay" class="overlay">
+              <div class="overlay-card">
+                <p id="overlay-kicker" class="eyebrow">Observation 008 / Game 008</p>
+                <h2 id="overlay-title">Lock onto the orbital pulse</h2>
+                <p id="overlay-copy">
+                  Notes travel down four lanes. Hit D F J K (or the pads) when they
+                  reach the bright ring. Perfect and Good keep combo and integrity;
+                  Misses drain integrity.
+                </p>
+                <button id="primary-action" class="button primary" type="button">Start run</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="lane-pads" aria-label="Lane pads">
+            <button type="button" class="lane-pad" data-lane="0" aria-label="Lane 1 D">
+              <span class="lane-key">D</span>
+              <small>Lane 1</small>
+            </button>
+            <button type="button" class="lane-pad" data-lane="1" aria-label="Lane 2 F">
+              <span class="lane-key">F</span>
+              <small>Lane 2</small>
+            </button>
+            <button type="button" class="lane-pad" data-lane="2" aria-label="Lane 3 J">
+              <span class="lane-key">J</span>
+              <small>Lane 3</small>
+            </button>
+            <button type="button" class="lane-pad" data-lane="3" aria-label="Lane 4 K">
+              <span class="lane-key">K</span>
+              <small>Lane 4</small>
+            </button>
+          </div>
+
+          <div class="action-bar" aria-label="Primary actions">
+            <button id="pause-button" class="button ghost" type="button">Pause</button>
+            <button id="restart-button" class="button ghost" type="button">Restart</button>
+          </div>
+        </div>
+
+        <aside class="command-panel" aria-label="Cadence telemetry">
+          <section class="panel-block objective-block">
+            <p class="eyebrow">Current objective</p>
+            <h2 id="objective-readout">Awaiting launch</h2>
+            <p id="message-readout">Timing windows, pattern memory, and clean audio feedback.</p>
+          </section>
+
+          <section class="panel-block meters-block" aria-label="Telemetry">
+            <div class="meter">
+              <span>Integrity</span>
+              <div><i id="integrity-meter"></i></div>
+            </div>
+            <div class="meter">
+              <span>Accuracy</span>
+              <div><i id="accuracy-meter"></i></div>
+            </div>
+            <div class="meter">
+              <span>Combo hold</span>
+              <div><i id="combo-meter"></i></div>
+            </div>
+            <div class="meter">
+              <span>Track progress</span>
+              <div><i id="run-meter"></i></div>
+            </div>
+          </section>
+
+          <section class="panel-block resource-grid" aria-label="Run facts">
+            <div>
+              <span>Perfect</span>
+              <strong id="perfect-readout">0</strong>
+            </div>
+            <div>
+              <span>Good</span>
+              <strong id="good-readout">0</strong>
+            </div>
+            <div>
+              <span>Miss</span>
+              <strong id="miss-readout">0</strong>
+            </div>
+            <div>
+              <span>Best chain</span>
+              <strong id="best-combo-readout">0</strong>
+            </div>
+            <div>
+              <span>Accuracy</span>
+              <strong id="accuracy-readout">100%</strong>
+            </div>
+            <div>
+              <span>High score</span>
+              <strong id="high-score-readout">0</strong>
+            </div>
+          </section>
+
+          <section class="panel-block controls-block">
+            <p class="eyebrow">Controls</p>
+            <ul>
+              <li>Lanes: D F J K or 1 2 3 4</li>
+              <li>Pads: click or tap under the arena</li>
+              <li>Pause: P · Restart: R</li>
+              <li>Start / continue: Enter or Space</li>
+            </ul>
+          </section>
+        </aside>
+      </section>
+    </main>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
