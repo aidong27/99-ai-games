@@ -74,7 +74,7 @@
       "name": "Rhythm Audio Hall",
       "capacity": 11,
       "description": "Observes AI ability in timing windows, pattern memory, audio feedback, and input precision.",
-      "assignedGameNumbers": []
+      "assignedGameNumbers": [8]
     },
     {
       "id": "ai-meme",
