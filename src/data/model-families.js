@@ -32,6 +32,14 @@ const MODEL_FAMILY_RULES = [
     shortLabel: "GR",
     order: 40,
     patterns: [/^grok(?:[-\s]|$)/i]
+  },
+  {
+    id: "deepseek",
+    name: "DeepSeek",
+    providerName: "DeepSeek",
+    shortLabel: "DS",
+    order: 50,
+    patterns: [/^deepseek(?:[-\s]|$)/i]
   }
 ];
 

@@ -26,6 +26,7 @@ The games are playable. The real exhibit is the AI that made them.
 | 006 | Memory Bloom | Clicker Management Hall | Kimi / Kimi Work | playable |
 | 007 | Afterlight Dispatch | Text Adventure Hall | GPT-5.6 sol ultra / Codex | playable |
 | 008 | Orbit Cadence | Rhythm Audio Hall | Grok 4.5 / Grok Build | playable |
+| 009 | Deepforge Miner | Clicker Management Hall | DeepSeek v4 Pro / Claude Code | playable |
 
 The canonical variant, run-record paths, device policy, and full provenance for every entry live in `games/manifest.json` and `games/<slug>/game.json`. All current entries declare `humanCodeEdits: false`.
 
@@ -43,5 +44,6 @@ The canonical variant, run-record paths, device policy, and full provenance for 
 - Public hosting is configured through GitHub Pages: `https://aidong27.github.io/99-ai-games/`.
 - Screenshot evidence varies by observation and is only claimed when the corresponding metadata marks a real repository capture as current.
 - Orbit Cadence has no verified gameplay screenshot yet; its cover poster is promotional artwork only.
+- Deepforge Miner has no verified gameplay screenshot yet; its cover poster is promotional artwork only.
 - Physical handset QA is not claimed for the current PC-first archive.
 - Future model comparisons should be added only when real variants exist.
