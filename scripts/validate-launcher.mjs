@@ -14,8 +14,8 @@ import {
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 const errors = [];
-const requiredAssetVersion = "2026-07-13-orbit-cadence";
-const generatedPromoAssetVersion = "2026-07-13-orbit-cadence";
+const requiredAssetVersion = "2026-07-14-deepforge-miner";
+const generatedPromoAssetVersion = "2026-07-14-deepforge-miner";
 const siteRoot = "https://aidong27.github.io/99-ai-games";
 const expectedOgImage = "https://aidong27.github.io/99-ai-games/assets/social/og-cover.png";
 const launcherCanonicalUrls = {
@@ -469,6 +469,10 @@ function validateViewModelContracts() {
   const grokFamily = getModelFamily("Grok 4.5");
   if (grokFamily.id !== "grok" || grokFamily.providerName !== "xAI") {
     fail("Grok models should belong to the Grok / xAI model family");
+  }
+  const deepSeekFamily = getModelFamily("DeepSeek v4 Pro");
+  if (deepSeekFamily.id !== "deepseek" || deepSeekFamily.providerName !== "DeepSeek") {
+    fail("DeepSeek models should belong to the DeepSeek model family and provider");
   }
 
   const fixtureGames = [

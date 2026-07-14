@@ -33,10 +33,10 @@ Every push and pull request runs the full archive quality gate (`node scripts/ch
 | Metric | Current value |
 |---|---:|
 | Target observation slots | 99 |
-| Playable observations | 8 |
+| Playable observations | 9 |
 | Game halls | 9 |
-| Model variants | 10 |
-| Run records | 14 |
+| Model variants | 11 |
+| Run records | 15 |
 
 ## Honesty Boundary
 
@@ -58,6 +58,7 @@ The no-hand-edit rule protects game implementations and provenance records. The 
 | 006 | Memory Bloom | Clicker Management Hall | Kimi / Kimi Work | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=memory-bloom) | [Promo](https://aidong27.github.io/99-ai-games/promo/memory-bloom/) |
 | 007 | Afterlight Dispatch | Text Adventure Hall | GPT-5.6 sol ultra / Codex | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=afterlight-dispatch) | [Promo](https://aidong27.github.io/99-ai-games/promo/afterlight-dispatch/) |
 | 008 | Orbit Cadence | Rhythm Audio Hall | Grok 4.5 / Grok Build | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=orbit-cadence) | [Promo](https://aidong27.github.io/99-ai-games/promo/orbit-cadence/) |
+| 009 | Deepforge Miner | Clicker Management Hall | DeepSeek v4 Pro / Claude Code | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=deepforge-miner) | [Promo](https://aidong27.github.io/99-ai-games/promo/deepforge-miner/) |
 
 The canonical machine-readable source is [`games/manifest.json`](games/manifest.json). The generated markdown view is [`docs/generated-index.md`](docs/generated-index.md).
 
@@ -107,6 +108,10 @@ This is a real 1440x900 browser capture from the shipped local build during the 
 
 Real screenshots are pending. The game is playable in source, but this README does not claim screenshot evidence until verified image files exist. Its separate cover poster is labeled promotional artwork, not gameplay evidence.
 
+### Observation 009 / Game 009: Deepforge Miner
+
+Real screenshots are pending. The game is playable in source, but this README does not claim screenshot evidence until verified image files exist. Its separate cover poster is labeled promotional artwork, not gameplay evidence.
+
 ## Archive Model
 
 The project is organized around observation value, not raw output volume.
@@ -122,7 +127,7 @@ The halls are: Arcade Reaction, Puzzle Logic, Survival Strategy, Card Strategy, 
 
 Every game declares `deviceSupport` in both `games/manifest.json` and `games/<slug>/game.json`. The launcher uses this metadata to decide whether to allow direct play, warn before launch, or recommend desktop.
 
-The current archive is PC-first. All eight playable observations are marked desktop supported and mobile limited. Mobile support means a no-overflow baseline unless a game explicitly records stronger mobile QA; no physical handset QA is claimed here.
+The current archive is PC-first. All nine playable observations are marked desktop supported and mobile limited. Mobile support means a no-overflow baseline unless a game explicitly records stronger mobile QA; no physical handset QA is claimed here.
 
 ## Launcher Structure
 

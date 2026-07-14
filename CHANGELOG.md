@@ -4,6 +4,8 @@ All notable project-level changes are recorded here. This archive does not use c
 
 ## [Unreleased]
 
+- Add Observation 009 / Game 009 **Deepforge Miner**, a DeepSeek v4 Pro space-mining incremental benchmark for the Clicker Management Hall. Preserve the original June 24 economy, Canvas implementation, and `Claude Code` tool record; migrate its archive labels from the now-occupied Game 006 slot to Game 009, add DeepSeek family grouping, and publish clearly labeled promotional assets without claiming gameplay screenshots. Cache-busting is updated to `2026-07-14-deepforge-miner`.
+
 - Add Observation 008 / Game 008 **Orbit Cadence**, the first Rhythm Audio Hall benchmark. Preserve the user-supplied Grok 4.5 / Grok Build package byte-for-byte, register Grok under the xAI product family, add launcher and release metadata, and publish an explicitly promotional cover without claiming gameplay screenshots. Cache-busting is updated to `2026-07-13-orbit-cadence`.
 
 - Group exact model versions under stable product families across Library and Compare: GPT-5.5 and GPT-5.6 now appear under ChatGPT / OpenAI, Claude versions under Claude / Anthropic, and Kimi under Kimi / Moonshot AI. Preserve exact model filters and provenance labels, add family-level URL filtering, fix comparison variant counts, and extend validation for model-family aggregation and undefined CSS variables. Cache-busting is updated to `2026-07-13-model-families`.
