@@ -1,7 +1,7 @@
-@import url("./tokens.css?v=2026-07-14-deepforge-miner");
-@import url("./base.css?v=2026-07-14-deepforge-miner");
-@import url("./layout.css?v=2026-07-14-deepforge-miner");
-@import url("./components.css?v=2026-07-14-deepforge-miner");
-@import url("./archive-pages.css?v=2026-07-14-deepforge-miner");
+@import url("./tokens.css?v=2026-07-14-resonance-loom");
+@import url("./base.css?v=2026-07-14-resonance-loom");
+@import url("./layout.css?v=2026-07-14-resonance-loom");
+@import url("./components.css?v=2026-07-14-resonance-loom");
+@import url("./archive-pages.css?v=2026-07-14-resonance-loom");
 
 /* Compatibility entry for generated promo pages. Launcher HTML loads each layer directly. */

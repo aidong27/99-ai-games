@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>RESONANCE LOOM — a rhythm game by GLM-5.2</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- Ambient background -->
+<div id="bg"></div>
+
+<!-- ============================================================ -->
+<!-- TITLE SCREEN                                                 -->
+<!-- ============================================================ -->
+<section id="title-screen" class="screen">
+  <h1>RESONANCE<br>LOOM</h1>
+  <div class="tagline">a browser rhythm game</div>
+  <div class="byline">crafted by GLM-5.2 · Z.ai</div>
+
+  <div class="menu-actions">
+    <button id="btn-play">Play</button>
+    <button id="btn-howto" class="secondary">How to Play</button>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SONG SELECT SCREEN                                           -->
+<!-- ============================================================ -->
+<section id="song-select-screen" class="screen hidden">
+  <h2>SELECT A SONG</h2>
+  <div class="hint">synthesised tones · original to this game · no copyrighted audio</div>
+  <div class="song-list" id="song-list"><!-- filled by JS --></div>
+  <div class="menu-actions">
+    <button id="btn-back-title" class="secondary">Back</button>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- GAME SCREEN                                                  -->
+<!-- ============================================================ -->
+<section id="game-screen" class="screen hidden">
+  <div id="progress"></div>
+
+  <div id="topbar">
+    <div class="left">
+      <span class="label">Score</span>
+      <span id="score">0</span>
+    </div>
+    <div class="center">
+      <span id="song-now">—</span>
+      <span id="judgement">&nbsp;</span>
+    </div>
+    <div class="right">
+      <span class="label">Combo</span>
+      <span id="combo">0</span>
+    </div>
+  </div>
+
+  <div id="track">
+    <div class="lanes">
+      <div class="lane l0"></div>
+      <div class="lane l1"></div>
+      <div class="lane l2"></div>
+      <div class="lane l3"></div>
+    </div>
+    <div id="hit-zone"></div>
+    <div id="judge-pop"></div>
+    <div id="combo-big"></div>
+    <div class="keys">
+      <div class="key" data-lane="0"><span class="ring"></span>D</div>
+      <div class="key" data-lane="1"><span class="ring"></span>F</div>
+      <div class="key" data-lane="2"><span class="ring"></span>J</div>
+      <div class="key" data-lane="3"><span class="ring"></span>K</div>
+    </div>
+  </div>
+
+  <button id="pause-btn" class="secondary">Pause</button>
+</section>
+
+<!-- ============================================================ -->
+<!-- PAUSE OVERLAY                                                -->
+<!-- ============================================================ -->
+<section id="pause-overlay" class="screen hidden">
+  <h2>PAUSED</h2>
+  <div class="menu-actions">
+    <button id="btn-resume">Resume</button>
+    <button id="btn-restart" class="secondary">Restart</button>
+    <button id="btn-quit" class="secondary">Quit to Menu</button>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- RESULT SCREEN                                                -->
+<!-- ============================================================ -->
+<section id="result-screen" class="screen hidden">
+  <h2 id="result-title">CLEAR</h2>
+  <div id="result-grade" class="grade-S">S</div>
+  <div id="new-record"></div>
+  <div class="result-stats">
+    <div class="stat perfect"><span class="v" id="r-perfect">0</span><span class="l">Perfect</span></div>
+    <div class="stat great"><span class="v" id="r-great">0</span><span class="l">Great</span></div>
+    <div class="stat good"><span class="v" id="r-good">0</span><span class="l">Good</span></div>
+    <div class="stat miss"><span class="v" id="r-miss">0</span><span class="l">Miss</span></div>
+    <div class="stat"><span class="v" id="r-maxcombo">0</span><span class="l">Max Combo</span></div>
+    <div class="stat"><span class="v" id="r-acc">0%</span><span class="l">Accuracy</span></div>
+    <div class="stat"><span class="v" id="r-score">0</span><span class="l">Score</span></div>
+    <div class="stat"><span class="v" id="r-notes">0</span><span class="l">Notes</span></div>
+  </div>
+  <div class="result-actions">
+    <button id="btn-replay">Replay</button>
+    <button id="btn-result-menu" class="secondary">Song Select</button>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- HELP OVERLAY                                                 -->
+<!-- ============================================================ -->
+<section id="help-overlay" class="screen hidden">
+  <h2 style="font-size:32px;letter-spacing:4px;">HOW TO PLAY</h2>
+  <div class="help-box">
+    <h3>Controls</h3>
+    <div class="row"><kbd>D</kbd><kbd>F</kbd><kbd>J</kbd><kbd>K</kbd> &nbsp;hit the 4 lanes (or tap the lane on touch screens)</div>
+    <div class="row"><kbd>Space</kbd> &nbsp;pause / resume</div>
+    <div class="row"><kbd>Esc</kbd> &nbsp;quit to menu</div>
+
+    <h3 style="margin-top:14px;">Goal</h3>
+    <div>Notes fall down four lanes. Press the matching key the instant a note
+         crosses the glowing line near the bottom. The closer to the line, the
+         better your judgement.</div>
+
+    <h3 style="margin-top:14px;">Scoring</h3>
+    <div>
+      <span style="color:var(--cyan)">Perfect</span> · 300 pts &nbsp;
+      <span style="color:var(--violet)">Great</span> · 200 pts &nbsp;
+      <span style="color:var(--gold)">Good</span> · 100 pts &nbsp;
+      <span style="color:#ff5b5b">Miss</span> · 0, breaks combo
+    </div>
+    <div style="margin-top:6px;">Build combo for a score multiplier. Clear the song for a grade from D to S.</div>
+
+    <h3 style="margin-top:14px;">Audio</h3>
+    <div>All music is synthesised live in your browser by the Web Audio API —
+         original melodies, no copyrighted audio. Hit notes accurately to add
+         their tones to the weave.</div>
+  </div>
+  <button id="btn-help-close" class="secondary">Close</button>
+</section>
+
+<!-- Attribution (honest, visible, matches 99-ai-games conventions) -->
+<div class="footer-attribution">
+  RESONANCE LOOM · an original rhythm game · code authored entirely by <strong>GLM-5.2 (Z.ai)</strong>
+</div>
+
+<script src="audio.js"></script>
+<script src="songs.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

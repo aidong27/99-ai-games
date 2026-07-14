@@ -4,6 +4,8 @@ All notable project-level changes are recorded here. This archive does not use c
 
 ## [Unreleased]
 
+- Add Observation 010 / Game 010 **Resonance Loom**, a GLM-5.2 / Z.ai four-lane rhythm sample for the Rhythm Audio Hall. Preserve the supplied standalone runtime files byte-for-byte, retain the original source metadata as `source-game.json`, add GLM provider grouping, capture a real title-screen image, and publish clearly labeled promotional assets. Cache-busting is updated to `2026-07-14-resonance-loom`.
+
 - Add Observation 009 / Game 009 **Deepforge Miner**, a DeepSeek v4 Pro space-mining incremental benchmark for the Clicker Management Hall. Preserve the original June 24 economy, Canvas implementation, and `Claude Code` tool record; migrate its archive labels from the now-occupied Game 006 slot to Game 009, add DeepSeek family grouping, and publish clearly labeled promotional assets without claiming gameplay screenshots. Cache-busting is updated to `2026-07-14-deepforge-miner`.
 
 - Add Observation 008 / Game 008 **Orbit Cadence**, the first Rhythm Audio Hall benchmark. Preserve the user-supplied Grok 4.5 / Grok Build package byte-for-byte, register Grok under the xAI product family, add launcher and release metadata, and publish an explicitly promotional cover without claiming gameplay screenshots. Cache-busting is updated to `2026-07-13-orbit-cadence`.

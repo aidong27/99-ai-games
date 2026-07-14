@@ -1,0 +1,64 @@
+{
+  "number": 10,
+  "title": "Resonance Loom",
+  "slug": "resonance-loom",
+  "collection": "99 AI Games",
+  "slotType": "normal",
+  "hallId": "rhythm-audio",
+  "hallName": "Rhythm Audio Hall",
+  "archiveRole": "GLM-5.2 Web Audio rhythm observation sample",
+  "status": "playable",
+  "statusLabel": "Playable Observation 010 / Game 010",
+  "localPath": "./games/resonance-loom/",
+  "metadataPath": "./games/resonance-loom/game.json",
+  "briefPath": "./games/resonance-loom/brief.md",
+  "variantsPath": "./games/resonance-loom/variants/",
+  "runsPath": "./games/resonance-loom/runs/",
+  "canonicalVariantId": "glm-5-2-resonance-loom-2026-07-13",
+  "sourceCompleteness": "Complete local source included",
+  "description": "A four-lane browser rhythm game where D, F, J, and K keystrokes or lane taps weave a live-synthesized melody. Three original note charts use Web Audio oscillators with no samples or external dependencies, while timing judgements, combo scoring, grades, and local high scores reward precision.",
+  "deviceSupport": {
+    "desktop": "supported",
+    "mobile": "limited",
+    "minViewport": { "width": 390, "height": 700 },
+    "inputs": ["keyboard", "pointer", "touch"],
+    "mobileNotes": "The responsive layout and lane taps support a 390px browser viewport, but rhythm timing is designed primarily for desktop keyboard play. No physical handset QA is claimed.",
+    "launcherPolicy": "warn"
+  },
+  "provenance": {
+    "createdDate": "2026-07-13",
+    "modelName": "GLM-5.2",
+    "agentName": "GLM-5.2 coding agent",
+    "humanCodeEdits": false,
+    "notes": "The supplied package declares GLM-5.2 by Z.ai as the author of all game source. The original source metadata is preserved as source-game.json; archive metadata and generated publishing assets were added during integration without changing gameplay, charts, or audio logic."
+  },
+  "slotVariantRunPolicy": {
+    "gameSlot": "Observation 010 / Game 010 is the official Resonance Loom observation sample.",
+    "modelVariant": "Additional AI-made versions of Resonance Loom should be stored under variants/ and must not consume new game numbers.",
+    "runRecord": "Generation, revision, validation, and comparison attempts should be stored as JSON files under runs/."
+  },
+  "variants": [
+    {
+      "variantId": "glm-5-2-resonance-loom-2026-07-13",
+      "modelName": "GLM-5.2",
+      "agentName": "GLM-5.2 coding agent",
+      "status": "canonical-playable",
+      "metadataPath": "variants/glm-5-2-resonance-loom-2026-07-13/variant.json"
+    }
+  ],
+  "runRecords": [
+    "runs/2026-07-13-glm-5-2-resonance-loom-initial.json"
+  ],
+  "controls": {
+    "keyboard": ["D / F / J / K to hit the four lanes", "Space to pause or resume", "Escape to return to the menu"],
+    "pointer": ["Select a song and use the on-screen controls"],
+    "touch": ["Tap the four lane keys to play on touch screens"]
+  },
+  "screenshots": ["assets/images/screenshot-title.png"],
+  "media": {
+    "thumbnail": "assets/images/screenshot-title.png",
+    "screenshots": ["assets/images/screenshot-title.png"]
+  },
+  "tags": ["rhythm", "audio", "web-audio", "timing", "combo", "lanes", "synth", "keyboard", "touch"],
+  "repositoryNote": "Observation 010 / Game 010. Second Rhythm Audio Hall sample and the first GLM-5.2 observation in the archive. The supplied standalone source remains at the game root; source-game.json preserves its original provenance record."
+}
