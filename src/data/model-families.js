@@ -40,6 +40,14 @@ const MODEL_FAMILY_RULES = [
     shortLabel: "DS",
     order: 50,
     patterns: [/^deepseek(?:[-\s]|$)/i]
+  },
+  {
+    id: "glm",
+    name: "GLM",
+    providerName: "Z.ai",
+    shortLabel: "GLM",
+    order: 60,
+    patterns: [/^glm(?:[-\s]|$)/i]
   }
 ];
 

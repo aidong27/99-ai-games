@@ -1,0 +1,42 @@
+{
+  "runId": "2026-07-13-glm-5-2-resonance-loom-initial",
+  "gameNumber": 10,
+  "gameSlug": "resonance-loom",
+  "variantId": "glm-5-2-resonance-loom-2026-07-13",
+  "runType": "initial-generation",
+  "status": "accepted-playable",
+  "createdDate": "2026-07-13",
+  "modelName": "GLM-5.2",
+  "agentName": "GLM-5.2 coding agent",
+  "humanCodeEdits": false,
+  "promptSummary": "Review the public 99 AI Games repository and create an original game as GLM-5.2. Produce Resonance Loom as a dependency-free four-lane rhythm game with original live-synthesized music, timing judgements, combo scoring, grades, keyboard and touch controls, and honest provenance metadata.",
+  "outputs": [
+    "games/resonance-loom/index.html",
+    "games/resonance-loom/style.css",
+    "games/resonance-loom/game.js",
+    "games/resonance-loom/audio.js",
+    "games/resonance-loom/songs.js",
+    "games/resonance-loom/README.md",
+    "games/resonance-loom/source-game.json"
+  ],
+  "verification": {
+    "verifiedDate": "2026-07-13",
+    "performed": [
+      "The supplied metadata declares a dependency-free offline browser build",
+      "The supplied source includes keyboard and touch lane controls",
+      "The supplied source includes three original oscillator-based songs"
+    ],
+    "pending": [
+      "Archive integration validators",
+      "Local desktop and 390px browser smoke tests",
+      "Physical handset QA is not claimed",
+      "Full-song balance and timing-window playtesting"
+    ]
+  },
+  "knownIssues": [
+    "The original package did not include captured screenshots.",
+    "Mobile touch support is declared by the source package but precise timing remains desktop-first.",
+    "The package had not yet been integrated into the archive manifest or hall index."
+  ],
+  "notes": "The original package is preserved without gameplay source edits. This archive record distinguishes source-generation claims from later integration checks and generated promotional assets."
+}
