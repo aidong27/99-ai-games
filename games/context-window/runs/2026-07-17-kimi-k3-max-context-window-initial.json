@@ -1,0 +1,28 @@
+{
+  "runId": "2026-07-17-kimi-k3-max-context-window-initial",
+  "gameNumber": 11,
+  "gameSlug": "context-window",
+  "variantId": "kimi-k3-max-context-window-2026-07-17",
+  "title": "Context Window initial implementation",
+  "modelName": "Kimi K3 Max",
+  "agentName": "Kimi",
+  "createdDate": "2026-07-17",
+  "humanCodeEdits": false,
+  "summary": "Initial canonical implementation for Observation 011 / Game 011, the first AI Meme Hall benchmark: a self-referential memory game where an AI agent's context window is the core mechanic. Deterministic pure engine (src/engine.js) shared by the browser build and a Node completability proof.",
+  "verification": {
+    "performed": [
+      "Committed local source files for the playable static page (index.html, styles/main.css, src/engine.js, src/main.js)",
+      "node --check passed for src/engine.js, src/main.js, and scripts/verify-context-window.mjs",
+      "node scripts/verify-context-window.mjs passed: scripted navigator wins, hallucination contact collapses a run, eviction resamples details while shard counts persist, walls cannot be tunneled",
+      "Interactive browser smoke test on the local static server (desktop 1440x900 and mobile 390x844 viewports): no console errors, start/pause/restart/mute verified, movement verified, no horizontal overflow on mobile, touch direction pad renders",
+      "Browser-driven full playthrough of the shipped build reached the win screen (56 seconds, 5 evictions, 9 shards deposited, no damage taken)",
+      "Captured real 1440x900 screenshots from the local build (title, gameplay, completion)",
+      "Recorded game metadata, device-support policy, and provenance labels",
+      "Added this run record so the observation has an auditable generation record"
+    ],
+    "pending": [
+      "Physical handset QA"
+    ]
+  },
+  "notes": "This record documents the Kimi generation accepted into the archive. The Kimi K3 Max model label is declared by the requesting user. Screenshots are real captures from the local build, not mockups. No physical device QA is claimed."
+}

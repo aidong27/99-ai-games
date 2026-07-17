@@ -14,8 +14,8 @@ import {
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 const errors = [];
-const requiredAssetVersion = "2026-07-14-resonance-loom";
-const generatedPromoAssetVersion = "2026-07-14-resonance-loom";
+const requiredAssetVersion = "2026-07-17-context-window";
+const generatedPromoAssetVersion = "2026-07-17-context-window";
 const siteRoot = "https://aidong27.github.io/99-ai-games";
 const expectedOgImage = "https://aidong27.github.io/99-ai-games/assets/social/og-cover.png";
 const launcherCanonicalUrls = {
