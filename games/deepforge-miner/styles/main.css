@@ -1,0 +1,463 @@
+/* ═══════════════════════════════════════════════════
+   Deepforge Miner — Game 006 styles
+   Dark space theme for Clicker Management Hall
+   ═══════════════════════════════════════════════════ */
+
+:root {
+  --bg-deep: #020617;
+  --panel: #0a0e1a;
+  --panel-strong: #111827;
+  --text: #e8e6e3;
+  --text-muted: #94a3b8;
+  --accent: #f59e0b;
+  --accent-soft: rgba(245, 158, 11, 0.15);
+  --accent-glow: rgba(245, 158, 11, 0.4);
+  --drone: #38bdf8;
+  --drone-soft: rgba(56, 189, 248, 0.15);
+  --upgrade: #a78bfa;
+  --upgrade-soft: rgba(167, 139, 250, 0.15);
+  --prestige: #34d399;
+  --prestige-soft: rgba(52, 211, 153, 0.15);
+  --danger: #f87171;
+  --border: #1e293b;
+  --radius: 8px;
+  --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font);
+  color: var(--text);
+  background:
+    radial-gradient(circle at 18% 0%, rgba(56, 189, 248, 0.11), transparent 36rem),
+    radial-gradient(circle at 88% 12%, rgba(245, 158, 11, 0.09), transparent 32rem),
+    var(--bg-deep);
+}
+
+button {
+  font: inherit;
+}
+
+.game-shell {
+  width: min(calc(100% - 32px), 1320px);
+  min-width: 0;
+  margin: 0 auto;
+  padding-top: 22px;
+}
+
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  background: rgba(17, 24, 39, 0.72);
+  text-decoration: none;
+}
+
+.back-link:hover {
+  color: var(--text);
+  border-color: var(--drone);
+}
+
+.model-chip {
+  display: grid;
+  gap: 3px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: rgba(17, 24, 39, 0.78);
+}
+
+.model-chip span {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}
+
+.model-chip strong {
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.game-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(260px, 0.75fr);
+  gap: 24px;
+  align-items: end;
+  margin-bottom: 20px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--drone);
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.hero-copy h1 {
+  margin: 0 0 10px;
+  color: var(--text);
+  font-size: 2.75rem;
+  line-height: 1.05;
+}
+
+.lede {
+  max-width: 64ch;
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.quick-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+}
+
+.quick-stats div {
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: rgba(10, 14, 26, 0.82);
+}
+
+.quick-stats dt {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+.quick-stats dd {
+  margin: 5px 0 0;
+  color: var(--text);
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.play-surface {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 16px;
+  align-items: start;
+  min-width: 0;
+}
+
+.board-column,
+.board-frame,
+.console-panel {
+  min-width: 0;
+}
+
+/* ── Board / canvas frame ── */
+.board-frame {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg-deep);
+}
+
+#game-canvas {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  image-rendering: auto;
+}
+
+/* ── Overlay ── */
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(2, 6, 23, 0.85);
+  backdrop-filter: blur(4px);
+  z-index: 10;
+}
+
+.overlay[hidden] {
+  display: none;
+}
+
+.overlay-card {
+  width: min(440px, calc(100% - 24px));
+  background: var(--panel-strong);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem 2.5rem;
+  max-width: 440px;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(245, 158, 11, 0.08);
+}
+
+.overlay-card .eyebrow {
+  margin: 0 0 0.5rem;
+}
+
+.overlay-card h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.5rem;
+  color: var(--text);
+}
+
+.overlay-card p {
+  margin: 0 0 1.5rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.overlay-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ── Action bar ── */
+.action-bar {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--panel-strong);
+  color: var(--text);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.875rem;
+  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+
+.button:hover {
+  background: var(--panel);
+  border-color: var(--text-muted);
+}
+
+.button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.button.primary {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.button.primary:hover:not(:disabled) {
+  background: rgba(245, 158, 11, 0.25);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+.button.accent {
+  background: var(--prestige-soft);
+  border-color: var(--prestige);
+  color: var(--prestige);
+}
+
+.button.accent:hover:not(:disabled) {
+  background: rgba(52, 211, 153, 0.25);
+  box-shadow: 0 0 12px rgba(52, 211, 153, 0.4);
+}
+
+.button kbd {
+  display: inline-block;
+  padding: 0.1em 0.4em;
+  margin-left: 0.25rem;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.1);
+  font-size: 0.75rem;
+  font-family: inherit;
+  vertical-align: middle;
+}
+
+/* ── Console / panel ── */
+.console-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.panel-block {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.875rem 1rem;
+}
+
+.panel-block .eyebrow {
+  margin: 0 0 0.25rem;
+}
+
+.plate-name {
+  margin: 0 0 0.25rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.note {
+  margin: 0.25rem 0 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ── Meter ── */
+.meter {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.25rem 0;
+  font-size: 0.825rem;
+  color: var(--text-muted);
+}
+
+.meter > div {
+  flex: 1;
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.meter i {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s;
+}
+
+#upgrade-meter {
+  background: var(--upgrade);
+}
+
+/* ── Controls list ── */
+.controls-list {
+  list-style: none;
+  margin: 0.25rem 0 0;
+  padding: 0;
+  font-size: 0.825rem;
+}
+
+.controls-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.2rem 0;
+  color: var(--text-muted);
+}
+
+.controls-list span {
+  color: var(--text);
+}
+
+.controls-list kbd {
+  padding: 0.1em 0.4em;
+  border-radius: 3px;
+  background: var(--panel-strong);
+  border: 1px solid var(--border);
+  font-size: 0.75rem;
+  font-family: inherit;
+  color: var(--text-muted);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1100px) {
+  .game-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .play-surface {
+    grid-template-columns: 1fr;
+  }
+
+  .console-panel {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .game-shell {
+    width: min(calc(100% - 20px), 1320px);
+    padding-top: 12px;
+  }
+
+  .topbar {
+    align-items: stretch;
+    margin-bottom: 18px;
+  }
+
+  .model-chip {
+    width: 100%;
+  }
+
+  .hero-copy h1 {
+    font-size: 2rem;
+  }
+
+  .quick-stats,
+  .console-panel {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .overlay-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .overlay {
+    position: fixed;
+    padding: 12px;
+  }
+
+  .overlay-card {
+    max-height: calc(100vh - 24px);
+    overflow-y: auto;
+  }
+
+  .action-bar {
+    flex-direction: column;
+  }
+
+  .button {
+    width: 100%;
+  }
+
+  .overlay-card {
+    margin: 1rem;
+    padding: 1.25rem;
+    max-width: none;
+  }
+}
+
+@media (max-width: 430px) {
+  .game-hero {
+    flex-direction: column;
+  }
+
+  .quick-stats {
+    flex-wrap: wrap;
+  }
+}

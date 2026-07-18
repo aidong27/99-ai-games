@@ -1,0 +1,18 @@
+{
+  "variantId": "claude-deepforge-miner-2026-06-24",
+  "gameNumber": 9,
+  "gameSlug": "deepforge-miner",
+  "gameTitle": "Deepforge Miner",
+  "status": "canonical-playable",
+  "createdDate": "2026-06-24",
+  "modelName": "DeepSeek v4 Pro",
+  "agentName": "Claude Code",
+  "humanCodeEdits": false,
+  "implementationPath": "../../",
+  "metadataPath": "variant.json",
+  "notes": "Canonical first playable implementation, originally prepared as Observation 006 and renumbered to Observation 009 during archive integration after slot 006 was occupied. A space mining incremental clicker for the Clicker Management Hall with click-to-mine, drone automation, upgrade progression across four tiers, five resource types unlocked via prestige, and canvas-based visual feedback including particles, orbiting drones, and floating damage numbers. The model label is maintainer-declared for this project entry; gameplay and economy were not changed by the renumbering. Publishing completed missing page-shell layout CSS so the original interface renders correctly.",
+  "comparisonRole": "baseline",
+  "runRecords": [
+    "../../runs/2026-06-24-claude-deepforge-miner-initial.json"
+  ]
+}

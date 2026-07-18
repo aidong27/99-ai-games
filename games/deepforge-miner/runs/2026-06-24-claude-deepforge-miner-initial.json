@@ -1,0 +1,51 @@
+{
+  "runId": "2026-06-24-claude-deepforge-miner-initial",
+  "gameNumber": 9,
+  "gameSlug": "deepforge-miner",
+  "variantId": "claude-deepforge-miner-2026-06-24",
+  "runType": "initial-generation",
+  "status": "accepted-playable",
+  "createdDate": "2026-06-24",
+  "modelName": "DeepSeek v4 Pro",
+  "agentName": "Claude Code",
+  "humanCodeEdits": false,
+  "promptSummary": "Create Deepforge Miner as a space mining incremental clicker for the Clicker Management Hall, with click-to-mine mechanic, automated drones, four upgrade tiers, five resource types unlocked via prestige, canvas-based visual effects, and clear progression feedback. The original package targeted Observation 006; archive integration later assigned Observation 009 because slot 006 was occupied.",
+  "outputs": [
+    "games/deepforge-miner/index.html",
+    "games/deepforge-miner/src/main.js",
+    "games/deepforge-miner/styles/main.css",
+    "games/deepforge-miner/game.json",
+    "games/deepforge-miner/brief.md",
+    "games/deepforge-miner/README.md",
+    "games/deepforge-miner/variants/claude-deepforge-miner-2026-06-24/variant.json",
+    "games/manifest.json",
+    "halls/halls.json",
+    "docs/generated-index.md",
+    "CHANGELOG.md"
+  ],
+  "verification": {
+    "verifiedDate": "2026-06-24",
+    "performed": [
+      "node --check games/deepforge-miner/src/main.js (passed)",
+      "node scripts/validate-halls.mjs (to be run)",
+      "node scripts/validate-games.mjs (to be run)",
+      "node scripts/validate-launcher.mjs (to be run)",
+      "node scripts/validate-provenance.mjs (to be run)",
+      "node scripts/generate-index.mjs --check (to be run)",
+      "git diff --check (to be run)"
+    ],
+    "pending": [
+      "Interactive in-browser smoke at 1280x720, 1440x900, 1920x1080, and 390x844",
+      "Real captured browser screenshots (screenshot-title.png, screenshot-gameplay.png, screenshot-prestige.png)",
+      "Physical handset QA for the mobile baseline",
+      "Economy balance playtesting: first prestige timing, drone cost curve, upgrade pacing"
+    ]
+  },
+  "knownIssues": [
+    "Screenshots are declared in metadata but not yet captured from a browser; game.json and manifest declare them as pending maintainer QA",
+    "Interactive in-browser smoke and console-error verification were not performed in this environment",
+    "Mobile is declared limited; tap-to-mine works as a touch gesture in principle but was not verified in a browser",
+    "The economy balance (prestige thresholds, drone cost scaling, upgrade costs) was designed to produce a ~30-60 minute first prestige but has not been playtested end-to-end"
+  ],
+  "notes": "Deepforge Miner's economy was designed to produce satisfying incremental progression: drone cost scaling at 1.15x per drone creates diminishing returns, upgrade tiers provide 10x click power jumps, prestige resets with +25% cumulative permanent bonus, and resource tiers gate content behind prestige count. The canvas rendering pipeline draws a procedurally shaped asteroid with animated ore veins, orbiting drone ships, particle bursts on click, floating damage numbers, and expanding click rings — all at 60fps with no external dependencies. The archive number was changed from the original 006 target to 009 during integration; gameplay and economy were not changed. Publishing completed missing page-shell layout CSS so the original interface renders correctly."
+}

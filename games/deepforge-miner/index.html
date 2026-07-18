@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Deepforge Miner — Observation 009 / Game 009 in 99 AI Games. A space mining incremental clicker: click the asteroid to mine ore, buy drones and upgrades, automate production, and prestige for permanent bonuses across five resource tiers."
+    >
+    <title>Deepforge Miner | 99 AI Games</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="../../styles/game-shell.css?v=2026-06-04-social">
+    <link rel="stylesheet" href="./styles/main.css?v=2026-07-14-deepforge-integration">
+  </head>
+  <body>
+    <main class="game-shell">
+      <header class="topbar">
+        <a class="back-link" href="../../">&larr; 99 AI Games</a>
+        <div class="model-chip" aria-label="AI provenance">
+          <span>Observation 009 / Game 009 &middot; Clicker Management Hall</span>
+          <strong>DeepSeek v4 Pro / Claude Code</strong>
+        </div>
+      </header>
+
+      <section class="game-hero" aria-labelledby="game-title">
+        <div class="hero-copy">
+          <p class="eyebrow">Incremental space mining clicker</p>
+          <h1 id="game-title">Deepforge Miner</h1>
+          <p class="lede">
+            Click the asteroid to mine ore. Buy automated drones and upgrade your tools
+            from pickaxe to quantum extractor. Prestige to unlock rare resources and
+            earn permanent production bonuses across five resource tiers.
+          </p>
+        </div>
+        <dl class="quick-stats" aria-label="Mining status">
+          <div>
+            <dt>Ore</dt>
+            <dd id="ore-readout">0</dd>
+          </div>
+          <div>
+            <dt>Ore / sec</dt>
+            <dd id="ops-readout">0</dd>
+          </div>
+          <div>
+            <dt>Drones</dt>
+            <dd id="drone-readout">0</dd>
+          </div>
+          <div>
+            <dt>Prestige</dt>
+            <dd id="prestige-readout">0</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="play-surface" aria-label="Deepforge Miner asteroid field">
+        <div class="board-column">
+          <div class="board-frame">
+            <canvas id="game-canvas" width="1280" height="720" aria-label="Asteroid mining field"></canvas>
+            <div id="overlay" class="overlay">
+              <div class="overlay-card">
+                <p class="eyebrow" id="overlay-kicker">Observation 009 / Game 009</p>
+                <h2 id="overlay-title">Deepforge Miner</h2>
+                <p id="overlay-copy"></p>
+                <div id="overlay-actions" class="overlay-actions"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="action-bar">
+            <button id="mine-button" class="button primary" type="button">Mine <kbd>Space</kbd></button>
+            <button id="drone-button" class="button" type="button">Buy Drone <kbd>D</kbd></button>
+            <button id="upgrade-button" class="button" type="button">Upgrade <kbd>U</kbd></button>
+            <button id="prestige-button" class="button accent" type="button" disabled>Prestige <kbd>P</kbd></button>
+          </div>
+        </div>
+
+        <aside class="console-panel" aria-label="Mining console">
+          <section class="panel-block">
+            <p class="eyebrow">Current resource</p>
+            <p class="plate-name" id="resource-name">Copper Ore</p>
+            <p class="note" id="resource-tier-note">Click the asteroid or hold Space to mine.</p>
+          </section>
+
+          <section class="panel-block">
+            <p class="eyebrow">Upgrade tier</p>
+            <p class="plate-name" id="upgrade-name">Rusty Pickaxe</p>
+            <div class="meter">
+              <span id="upgrade-level-label">Level 0</span>
+              <div><i id="upgrade-meter"></i></div>
+            </div>
+            <p class="note" id="upgrade-cost-label">Next: Laser Cutter (100 ore)</p>
+          </section>
+
+          <section class="panel-block">
+            <p class="eyebrow">Drone fleet</p>
+            <p id="drone-status">0 drones active</p>
+            <p class="note" id="drone-cost-label">Next drone: 50 ore</p>
+          </section>
+
+          <section class="panel-block">
+            <p class="eyebrow">Prestige</p>
+            <p id="prestige-status">0 prestiges &middot; 0% bonus</p>
+            <p class="note" id="prestige-threshold-label">Prestige available at 1,000,000 ore</p>
+          </section>
+
+          <section class="panel-block">
+            <p class="eyebrow">Controls</p>
+            <ul class="controls-list">
+              <li><span>Mine</span><kbd>Click asteroid / Space</kbd></li>
+              <li><span>Buy drone</span><kbd>D</kbd></li>
+              <li><span>Upgrade tool</span><kbd>U</kbd></li>
+              <li><span>Prestige</span><kbd>P</kbd></li>
+              <li><span>Pause</span><kbd>Esc</kbd></li>
+              <li><span>Restart</span><kbd>R</kbd></li>
+            </ul>
+          </section>
+        </aside>
+      </section>
+    </main>
+
+    <script type="module" src="./src/main.js?v=2026-06-24-deepforge"></script>
+  </body>
+</html>
