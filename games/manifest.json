@@ -2,7 +2,7 @@
   "projectName": "99 AI Games",
   "repository": "aidong27/99-ai-games",
   "targetGameCount": 99,
-  "completedGameCount": 2,
+  "completedGameCount": 3,
   "hallCount": 9,
   "launcherTheme": "AI Observatory",
   "hallsPath": "./halls/halls.json",
@@ -156,6 +156,54 @@
       "mediaNote": "Screenshot files predate the Prism Archive remake (captured from variant claude-opus-4-8-2026-05-31) and are stale; kept as history. Real Prism Archive screenshots are pending maintainer browser QA and are not claimed to reflect the current build.",
       "tags": ["canvas", "puzzle", "logic", "parity", "solvable", "pc-first"],
       "repositoryNote": "Observation 002 / Game 002. Puzzle Logic Hall benchmark. Current canonical source is the PC-first Prism Archive remake; the original variant and its run records are preserved."
+    },
+    {
+      "number": 4,
+      "title": "Ninefold Draft",
+      "slug": "ninefold-draft",
+      "slotType": "benchmark",
+      "hallId": "card-strategy",
+      "hallName": "Card Strategy Hall",
+      "archiveRole": "First Card Strategy Hall observation sample",
+      "status": "playable",
+      "statusLabel": "Playable observation sample",
+      "description": "A PC-first card strategy benchmark. Across eight cycles you draft one protocol per cycle, build a small engine, and manage Energy, Focus, and Integrity to reach an Alignment objective against a telegraphed hazard track. The draft offers and hazard order are deterministic, so the run is decided by strategy.",
+      "localPath": "./games/ninefold-draft/",
+      "metadataPath": "./games/ninefold-draft/game.json",
+      "briefPath": "./games/ninefold-draft/brief.md",
+      "variantsPath": "./games/ninefold-draft/variants/",
+      "runsPath": "./games/ninefold-draft/runs/",
+      "canonicalVariantId": "claude-ninefold-draft-2026-06-03",
+      "sourceCompleteness": "Complete local source included",
+      "deviceSupport": {
+        "desktop": "supported",
+        "mobile": "limited",
+        "minViewport": { "width": 390, "height": 700 },
+        "inputs": ["pointer", "keyboard", "touch"],
+        "mobileNotes": "PC-first card strategy benchmark designed for mouse and keyboard at 1440x900 and 1920x1080. Mobile is a no-overflow baseline only: the layout reflows cards to fewer columns to avoid horizontal overflow and the cards stay tappable, but the multi-zone board is intended for desktop. Interactive browser smoke and physical handset QA are pending and not claimed.",
+        "launcherPolicy": "warn"
+      },
+      "provenance": {
+        "createdDate": "2026-06-03",
+        "modelName": "Claude Opus 4.8",
+        "agentName": "Claude Code",
+        "humanCodeEdits": false,
+        "notes": "Model label is maintainer-declared for this project entry. The game, its deterministic draft and hazard system, and its scoring were authored by Claude Code under the no-human-code-edits project rule."
+      },
+      "variants": [
+        {
+          "variantId": "claude-ninefold-draft-2026-06-03",
+          "modelName": "Claude Opus 4.8",
+          "agentName": "Claude Code",
+          "status": "canonical-playable",
+          "metadataPath": "./games/ninefold-draft/variants/claude-ninefold-draft-2026-06-03/variant.json"
+        }
+      ],
+      "runRecords": [
+        "./games/ninefold-draft/runs/2026-06-03-claude-ninefold-draft-initial.json"
+      ],
+      "tags": ["cards", "strategy", "draft", "engine-builder", "deterministic", "pc-first"],
+      "repositoryNote": "Observation 004 / Game 004. First Card Strategy Hall benchmark: deterministic drafting, turn structure, resource trade-offs, and readable strategy."
     }
   ]
 }

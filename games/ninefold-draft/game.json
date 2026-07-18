@@ -1,0 +1,59 @@
+{
+  "number": 4,
+  "title": "Ninefold Draft",
+  "slug": "ninefold-draft",
+  "collection": "99 AI Games",
+  "slotType": "benchmark",
+  "hallId": "card-strategy",
+  "hallName": "Card Strategy Hall",
+  "archiveRole": "First Card Strategy Hall observation sample",
+  "status": "playable",
+  "statusLabel": "Playable Observation 004 / Game 004",
+  "localPath": "./games/ninefold-draft/",
+  "metadataPath": "./games/ninefold-draft/game.json",
+  "briefPath": "./games/ninefold-draft/brief.md",
+  "variantsPath": "./games/ninefold-draft/variants/",
+  "runsPath": "./games/ninefold-draft/runs/",
+  "canonicalVariantId": "claude-ninefold-draft-2026-06-03",
+  "sourceCompleteness": "Complete local source included",
+  "description": "A PC-first card strategy benchmark. Across eight cycles you draft one protocol per cycle, build a small engine, and manage Energy, Focus, and Integrity to reach an Alignment objective against a telegraphed hazard track. The draft offers and hazard order are deterministic, so the run is decided by strategy.",
+  "deviceSupport": {
+    "desktop": "supported",
+    "mobile": "limited",
+    "minViewport": { "width": 390, "height": 700 },
+    "inputs": ["pointer", "keyboard", "touch"],
+    "mobileNotes": "PC-first card strategy benchmark designed for mouse and keyboard at 1440x900 and 1920x1080. Mobile is a no-overflow baseline only: the layout reflows cards to fewer columns to avoid horizontal overflow and the cards stay tappable, but the multi-zone board is intended for desktop. Interactive browser smoke and physical handset QA are pending and not claimed.",
+    "launcherPolicy": "warn"
+  },
+  "provenance": {
+    "createdDate": "2026-06-03",
+    "modelName": "Claude Opus 4.8",
+    "agentName": "Claude Code",
+    "humanCodeEdits": false,
+    "notes": "Model label is maintainer-declared for this project entry. The game, its deterministic draft and hazard system, and its scoring were authored by Claude Code under the no-human-code-edits project rule."
+  },
+  "slotVariantRunPolicy": {
+    "gameSlot": "Observation 004 / Game 004 is the official Ninefold Draft observation sample.",
+    "modelVariant": "Additional AI-made versions of Ninefold Draft should be stored under variants/ and must not consume new game numbers.",
+    "runRecord": "Generation, revision, validation, and comparison attempts should be stored as JSON files under runs/."
+  },
+  "variants": [
+    {
+      "variantId": "claude-ninefold-draft-2026-06-03",
+      "modelName": "Claude Opus 4.8",
+      "agentName": "Claude Code",
+      "status": "canonical-playable",
+      "metadataPath": "variants/claude-ninefold-draft-2026-06-03/variant.json"
+    }
+  ],
+  "runRecords": [
+    "runs/2026-06-03-claude-ninefold-draft-initial.json"
+  ],
+  "controls": {
+    "pointer": ["Click a draft card to add it to your hand", "Click a hand card to play it"],
+    "keyboard": ["Space to end the cycle (or confirm)", "U to undo the last action this cycle", "R to restart", "P for the help / protocol briefing"],
+    "touch": ["Tap a draft card to add it, tap a hand card to play it"]
+  },
+  "tags": ["cards", "strategy", "draft", "engine-builder", "deterministic", "pc-first"],
+  "repositoryNote": "Observation 004 / Game 004. First Card Strategy Hall benchmark, contributed as evidence of what Claude Opus 4.8 could design and implement: probabilistic-but-deterministic drafting, turn structure, resource trade-offs, and readable strategy."
+}
