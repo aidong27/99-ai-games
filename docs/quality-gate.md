@@ -23,9 +23,14 @@ local check cannot drift apart. It runs, and fails on the first problem in any o
 4. **`scripts/validate-launcher.mjs`** — launcher files, HTML asset references and
    cache-busting, manifest paths, declared media existence, and `deviceSupport`.
 5. **`scripts/validate-provenance.mjs`** — the honesty gate (see below).
-6. **`scripts/generate-index.mjs --check`** — the generated index matches the
+6. **`scripts/validate-public-surfaces.mjs`** — README stats, press fallback
+   stats, social-card counts, share-kit promo links, and generated promo pages
+   stay aligned with the real manifest.
+7. **`scripts/generate-promo-pages.mjs --check`** — generated per-game promo
+   pages and promotional cards match the current manifest and game metadata.
+8. **`scripts/generate-index.mjs --check`** — the generated index matches the
    manifest.
-7. **`scripts/verify-gravity-atlas.mjs`** — replays each Gravity Atlas plate's
+9. **`scripts/verify-gravity-atlas.mjs`** — replays each Gravity Atlas plate's
    embedded reference launch vector through the real engine to prove every plate
    is completable. Games that ship a deterministic engine should add a similar
    standing proof.

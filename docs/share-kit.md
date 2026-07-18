@@ -47,6 +47,7 @@ GitHub: https://github.com/aidong27/99-ai-games
   - https://aidong27.github.io/99-ai-games/promo/neon-pulse-courier/
   - https://aidong27.github.io/99-ai-games/promo/ninefold-draft/
   - https://aidong27.github.io/99-ai-games/promo/gravity-atlas/
+  - https://aidong27.github.io/99-ai-games/promo/memory-bloom/
 - Manifest: https://aidong27.github.io/99-ai-games/games/manifest.json
 - Press page: https://aidong27.github.io/99-ai-games/press.html
 - Log page: https://aidong27.github.io/99-ai-games/log.html

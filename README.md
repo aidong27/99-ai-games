@@ -150,14 +150,17 @@ node scripts/check.mjs
 
 It runs `node --check` across every module, the structural validators
 (`validate-halls`, `validate-games`, `validate-launcher`), the provenance/honesty
-gate (`validate-provenance`), the generated-index freshness check, and the
-Gravity Atlas completability proof. The individual checks can still be run alone:
+gate (`validate-provenance`), public-surface drift checks, generated promo-page
+freshness, the generated-index freshness check, and the Gravity Atlas
+completability proof. The individual checks can still be run alone:
 
 ```bash
 node scripts/validate-halls.mjs
 node scripts/validate-games.mjs
 node scripts/validate-launcher.mjs
 node scripts/validate-provenance.mjs
+node scripts/validate-public-surfaces.mjs
+node scripts/generate-promo-pages.mjs --check
 node scripts/generate-index.mjs --check
 node scripts/verify-gravity-atlas.mjs
 git diff --check

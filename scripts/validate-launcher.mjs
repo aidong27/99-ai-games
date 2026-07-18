@@ -29,6 +29,7 @@ const requiredFiles = [
   "src/share.js",
   "src/compare.js",
   "scripts/generate-promo-pages.mjs",
+  "scripts/validate-public-surfaces.mjs",
   "assets/social/og-cover.svg",
   "assets/social/og-cover.png",
   "assets/social/social-card.svg",
