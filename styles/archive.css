@@ -1,36 +1,36 @@
 :root {
-  color-scheme: dark;
-  --bg: #070705;
-  --bg-deep: #030302;
-  --panel: #0d0d0a;
-  --panel-strong: #14140f;
-  --panel-soft: rgba(244, 241, 232, 0.04);
-  --line: rgba(244, 241, 232, 0.14);
-  --line-strong: rgba(244, 241, 232, 0.28);
-  --text: #f6f2e4;
-  --muted: #97947f;
-  --muted-strong: #c2bda6;
-  --accent: #d8f75f;
-  --accent-soft: rgba(216, 247, 95, 0.16);
-  --accent-2: #7fe9e0;
-  --warning: #e2b85c;
-  --warning-soft: rgba(226, 184, 92, 0.15);
-  --danger: #c86a6a;
-  --danger-soft: rgba(200, 106, 106, 0.15);
+  color-scheme: light;
+  --bg: #f5f4ef;
+  --bg-deep: #ece9e0;
+  --panel: #ffffff;
+  --panel-strong: #ffffff;
+  --panel-soft: rgba(40, 38, 34, 0.035);
+  --line: rgba(40, 38, 34, 0.13);
+  --line-strong: rgba(40, 38, 34, 0.22);
+  --text: #20201e;
+  --muted: #6f6e66;
+  --muted-strong: #46453f;
+  --accent: #d97757;
+  --accent-soft: rgba(217, 119, 87, 0.14);
+  --accent-2: #5b7a99;
+  --warning: #b8823a;
+  --warning-soft: rgba(184, 130, 58, 0.14);
+  --danger: #bb5a4f;
+  --danger-soft: rgba(187, 90, 79, 0.13);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
-  --display-font: Georgia, "Times New Roman", ui-serif, serif;
-  --ui-font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --display-font: "Tiempos Text", Georgia, "Times New Roman", ui-serif, serif;
+  --ui-font: "Styrene B", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --mono-font: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
   --space-4: 16px;
   --space-5: 24px;
-  --radius-sm: 2px;
-  --radius-md: 3px;
-  --radius-lg: 6px;
-  --shadow: 0 30px 110px rgba(0, 0, 0, 0.55);
-  --focus-ring: rgba(216, 247, 95, 0.34);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --shadow: 0 18px 48px rgba(40, 38, 34, 0.1);
+  --focus-ring: rgba(217, 119, 87, 0.3);
   --transition-fast: 160ms ease;
   --transition-slow: 640ms cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -53,8 +53,8 @@ body {
   overflow-x: hidden;
   color: var(--text);
   background:
-    linear-gradient(180deg, rgba(244, 241, 232, 0.04), transparent 230px),
-    repeating-linear-gradient(90deg, rgba(244, 241, 232, 0.022) 0 1px, transparent 1px 92px),
+    linear-gradient(180deg, rgba(40, 38, 34, 0.04), transparent 230px),
+    repeating-linear-gradient(90deg, rgba(40, 38, 34, 0.022) 0 1px, transparent 1px 92px),
     var(--bg);
   font-family: var(--ui-font);
 }
@@ -68,9 +68,9 @@ body::after {
   z-index: 4;
   pointer-events: none;
   background:
-    radial-gradient(120% 90% at 50% 38%, transparent 58%, rgba(0, 0, 0, 0.34)),
-    repeating-radial-gradient(circle at 17% 29%, rgba(244, 241, 232, 0.012) 0 1px, transparent 1px 3px),
-    repeating-radial-gradient(circle at 83% 71%, rgba(244, 241, 232, 0.01) 0 1px, transparent 1px 4px);
+    radial-gradient(130% 100% at 50% 30%, transparent 72%, rgba(40, 38, 34, 0.045)),
+    repeating-radial-gradient(circle at 17% 29%, rgba(40, 38, 34, 0.01) 0 1px, transparent 1px 3px),
+    repeating-radial-gradient(circle at 83% 71%, rgba(40, 38, 34, 0.008) 0 1px, transparent 1px 4px);
   mix-blend-mode: normal;
 }
 
@@ -150,8 +150,8 @@ figure {
 .archive-page {
   position: relative;
   background:
-    radial-gradient(circle at 78% 16%, rgba(216, 247, 95, 0.07), transparent 260px),
-    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 44px),
+    radial-gradient(circle at 78% 16%, rgba(217, 119, 87, 0.07), transparent 260px),
+    repeating-linear-gradient(0deg, rgba(40, 38, 34, 0.018) 0 1px, transparent 1px 44px),
     var(--bg);
 }
 
@@ -162,10 +162,10 @@ figure {
   z-index: 0;
   pointer-events: none;
   background:
-    linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px) 0 0 / 100% 38px,
-    radial-gradient(circle at 50% 0%, rgba(216, 247, 95, 0.055), transparent 34%),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.64), transparent 28%, transparent 72%, rgba(0, 0, 0, 0.72));
-  opacity: 0.52;
+    linear-gradient(rgba(40, 38, 34, 0.02) 1px, transparent 1px) 0 0 / 100% 38px,
+    radial-gradient(circle at 50% 0%, rgba(217, 119, 87, 0.05), transparent 34%),
+    linear-gradient(90deg, rgba(40, 38, 34, 0.035), transparent 24%, transparent 76%, rgba(40, 38, 34, 0.045));
+  opacity: 0.7;
 }
 
 .archive-shell {
@@ -197,13 +197,13 @@ figure {
   background: var(--accent);
   font-family: var(--mono-font);
   font-weight: 800;
-  box-shadow: 3px 3px 0 rgba(216, 247, 95, 0.22);
+  box-shadow: 0 8px 22px rgba(40, 38, 34, 0.1);
   transition: box-shadow var(--transition-fast), transform var(--transition-fast);
 }
 
 .wordmark:hover span {
   transform: translate(-1px, -1px);
-  box-shadow: 4px 4px 0 rgba(216, 247, 95, 0.3);
+  box-shadow: 0 8px 22px rgba(40, 38, 34, 0.1);
 }
 
 .wordmark strong {
@@ -280,7 +280,7 @@ figure {
   border-radius: var(--radius-md);
   padding: 0 17px;
   color: var(--text);
-  background: rgba(244, 241, 232, 0.04);
+  background: rgba(40, 38, 34, 0.04);
   font-family: var(--mono-font);
   font-size: 0.78rem;
   font-weight: 700;
@@ -307,9 +307,9 @@ figure {
 }
 
 .archive-button:hover {
-  border-color: rgba(216, 247, 95, 0.62);
+  border-color: rgba(217, 119, 87, 0.62);
   transform: translate(-1px, -1px);
-  box-shadow: 3px 3px 0 rgba(216, 247, 95, 0.18);
+  box-shadow: 0 8px 22px rgba(40, 38, 34, 0.1);
 }
 
 .archive-button:hover::before {
@@ -320,11 +320,11 @@ figure {
   border-color: var(--accent);
   color: var(--bg);
   background: var(--accent);
-  box-shadow: 4px 4px 0 rgba(216, 247, 95, 0.2);
+  box-shadow: 0 8px 22px rgba(40, 38, 34, 0.1);
 }
 
 .archive-button.primary:hover {
-  box-shadow: 6px 6px 0 rgba(216, 247, 95, 0.26);
+  box-shadow: 0 8px 22px rgba(40, 38, 34, 0.1);
 }
 
 .archive-button.secondary {
@@ -370,7 +370,7 @@ figure {
   border-radius: var(--radius-sm);
   padding: 4px 10px;
   color: var(--muted-strong);
-  background: rgba(244, 241, 232, 0.035);
+  background: rgba(40, 38, 34, 0.035);
   font-family: var(--mono-font);
   font-size: 0.7rem;
   letter-spacing: 0.1em;
@@ -379,7 +379,7 @@ figure {
 }
 
 .archive-badge.accent {
-  border-color: rgba(216, 247, 95, 0.48);
+  border-color: rgba(217, 119, 87, 0.48);
   color: var(--accent);
   background: var(--accent-soft);
 }
@@ -422,7 +422,7 @@ figure {
 .play-gate-content {
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: rgba(11, 13, 15, 0.9);
+  background: rgba(255, 255, 255, 0.9);
   box-shadow: var(--shadow);
 }
 
@@ -493,7 +493,7 @@ figure {
 }
 
 .model-axis-item.active {
-  border-color: rgba(216, 247, 95, 0.45);
+  border-color: rgba(217, 119, 87, 0.45);
   color: var(--text);
   background: var(--accent-soft);
 }
@@ -501,7 +501,7 @@ figure {
 .model-axis-item.active::before {
   border-color: var(--accent);
   background: var(--accent);
-  box-shadow: 0 0 0 5px rgba(216, 247, 95, 0.12);
+  box-shadow: 0 0 0 5px rgba(217, 119, 87, 0.12);
 }
 
 .model-axis-item.active::after {
@@ -512,7 +512,7 @@ figure {
   width: 22px;
   height: 22px;
   transform: translate(-50%, -50%);
-  border: 1px solid rgba(216, 247, 95, 0.38);
+  border: 1px solid rgba(217, 119, 87, 0.38);
   border-radius: 999px;
   animation: nodePulse 2.8s ease-in-out infinite;
   pointer-events: none;
@@ -575,8 +575,8 @@ figure {
   top: 51%;
   height: 1px;
   background:
-    linear-gradient(90deg, transparent, rgba(216, 247, 95, 0.5), transparent),
-    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.16), transparent);
+    linear-gradient(90deg, transparent, rgba(217, 119, 87, 0.5), transparent),
+    linear-gradient(90deg, transparent, rgba(40, 38, 34, 0.16), transparent);
   opacity: 0.58;
   pointer-events: none;
 }
@@ -660,7 +660,7 @@ dd {
   border-radius: 8px;
   padding: 10px;
   color: var(--text);
-  background: rgba(255, 255, 255, 0.025);
+  background: rgba(40, 38, 34, 0.025);
   text-align: left;
   scroll-snap-align: center;
   opacity: 0.72;
@@ -671,13 +671,13 @@ dd {
 }
 
 .observation-card.active {
-  border-color: rgba(216, 247, 95, 0.6);
-  background: rgba(216, 247, 95, 0.06);
+  border-color: rgba(217, 119, 87, 0.6);
+  background: rgba(217, 119, 87, 0.06);
   opacity: 1;
   transform: translateY(var(--tilt-lift)) rotateX(var(--tilt-y)) rotateY(var(--tilt-x)) scale(1.035);
   box-shadow:
-    inset 0 0 0 1px rgba(216, 247, 95, 0.22),
-    0 28px 80px rgba(0, 0, 0, 0.42);
+    inset 0 0 0 1px rgba(217, 119, 87, 0.22),
+    0 28px 80px rgba(40, 38, 34, 0.1);
 }
 
 .observation-card.active::after {
@@ -685,7 +685,7 @@ dd {
   position: absolute;
   inset: -1px;
   border: 1px solid transparent;
-  background: linear-gradient(115deg, transparent 0 42%, rgba(216, 247, 95, 0.2) 49%, transparent 56% 100%);
+  background: linear-gradient(115deg, transparent 0 42%, rgba(217, 119, 87, 0.2) 49%, transparent 56% 100%);
   transform: translateX(-115%);
   animation: cardScan 4.8s ease-in-out infinite;
   pointer-events: none;
@@ -698,7 +698,7 @@ dd {
   border: 1px solid var(--line-strong);
   border-radius: 6px;
   aspect-ratio: 16 / 10;
-  background: #070809;
+  background: #efece4;
 }
 
 .card-image img,
@@ -718,8 +718,8 @@ dd {
   padding: 18px;
   color: var(--muted);
   background:
-    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.045) 0 1px, transparent 1px 15px),
-    #08090a;
+    repeating-linear-gradient(135deg, rgba(40, 38, 34, 0.045) 0 1px, transparent 1px 15px),
+    #efece4;
   font-family: var(--mono-font);
   text-align: center;
 }
@@ -785,8 +785,8 @@ dd {
   border-style: dashed;
   color: var(--muted);
   background:
-    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 16px),
-    rgba(255, 255, 255, 0.018);
+    repeating-linear-gradient(135deg, rgba(40, 38, 34, 0.04) 0 1px, transparent 1px 16px),
+    rgba(40, 38, 34, 0.018);
   opacity: 0.68;
   cursor: default;
   pointer-events: none;
@@ -835,16 +835,16 @@ dd {
   border-radius: 6px;
   padding: 10px;
   color: var(--muted);
-  background: rgba(255, 255, 255, 0.025);
+  background: rgba(40, 38, 34, 0.025);
   text-align: left;
   transition: border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
 }
 
 .timeline-node.active {
-  border-color: rgba(216, 247, 95, 0.55);
+  border-color: rgba(217, 119, 87, 0.55);
   color: var(--text);
   background: var(--accent-soft);
-  box-shadow: inset 0 0 0 1px rgba(216, 247, 95, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(217, 119, 87, 0.16);
 }
 
 .timeline-node strong,
@@ -884,7 +884,7 @@ dd {
   border: 1px solid var(--line);
   border-radius: 8px;
   overflow: hidden;
-  background: rgba(5, 6, 7, 0.88);
+  background: rgba(255, 255, 255, 0.88);
 }
 
 .archive-dock a {
@@ -895,7 +895,7 @@ dd {
   font-family: var(--mono-font);
   font-size: 0.72rem;
   text-decoration: none;
-  background: rgba(255, 255, 255, 0.035);
+  background: rgba(40, 38, 34, 0.035);
 }
 
 .archive-dock a[aria-current="page"] {
@@ -925,7 +925,7 @@ dd {
   border: 1px solid var(--line);
   border-radius: 8px;
   aspect-ratio: 16 / 10;
-  background: #070809;
+  background: #efece4;
 }
 
 .record-cover img {
@@ -985,13 +985,13 @@ dd {
 }
 
 .device-support {
-  border-color: rgba(216, 247, 95, 0.2);
+  border-color: rgba(217, 119, 87, 0.2);
 }
 
 .provenance-panel {
   background:
-    linear-gradient(90deg, rgba(216, 247, 95, 0.055), transparent 44%),
-    rgba(11, 13, 15, 0.9);
+    linear-gradient(90deg, rgba(217, 119, 87, 0.055), transparent 44%),
+    rgba(255, 255, 255, 0.9);
 }
 
 .record-section h3 {
@@ -1011,7 +1011,7 @@ dd {
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.025);
+  background: rgba(40, 38, 34, 0.025);
 }
 
 .media-grid img {
@@ -1130,9 +1130,9 @@ dd {
   border-radius: var(--radius-lg);
   padding: clamp(24px, 5vw, 64px);
   background:
-    radial-gradient(circle at 78% 24%, rgba(216, 247, 95, 0.1), transparent 300px),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.04), transparent 46%),
-    rgba(11, 13, 15, 0.88);
+    radial-gradient(circle at 78% 24%, rgba(217, 119, 87, 0.1), transparent 300px),
+    linear-gradient(135deg, rgba(40, 38, 34, 0.04), transparent 46%),
+    rgba(255, 255, 255, 0.88);
   box-shadow: var(--shadow);
 }
 
@@ -1183,7 +1183,7 @@ dd {
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
   padding: 14px;
-  background: rgba(255, 255, 255, 0.026);
+  background: rgba(40, 38, 34, 0.026);
 }
 
 .press-observation h3,
@@ -1277,14 +1277,14 @@ dd {
   border: 1px solid var(--accent);
   border-radius: 999px;
   background: var(--panel);
-  box-shadow: 0 0 0 5px rgba(216, 247, 95, 0.1);
+  box-shadow: 0 0 0 5px rgba(217, 119, 87, 0.1);
 }
 
 .archive-timeline div {
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
   padding: 18px;
-  background: rgba(11, 13, 15, 0.9);
+  background: rgba(255, 255, 255, 0.9);
   box-shadow: var(--shadow);
 }
 
@@ -1314,8 +1314,8 @@ dd {
   place-items: center;
   padding: 24px;
   background:
-    radial-gradient(circle at 50% 50%, rgba(216, 247, 95, 0.07), transparent 330px),
-    linear-gradient(90deg, rgba(216, 247, 95, 0.055), transparent 1px) 0 0 / 112px 112px,
+    radial-gradient(circle at 50% 50%, rgba(217, 119, 87, 0.07), transparent 330px),
+    linear-gradient(90deg, rgba(217, 119, 87, 0.055), transparent 1px) 0 0 / 112px 112px,
     var(--bg-deep);
   overflow-x: hidden;
 }
@@ -1327,11 +1327,11 @@ dd {
   width: min(74vw, 760px);
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
-  border: 1px solid rgba(216, 247, 95, 0.18);
+  border: 1px solid rgba(217, 119, 87, 0.18);
   border-radius: 999px;
   background:
-    radial-gradient(circle, transparent 0 42%, rgba(216, 247, 95, 0.04) 43% 44%, transparent 45%),
-    conic-gradient(from 90deg, transparent, rgba(216, 247, 95, 0.14), transparent 38%);
+    radial-gradient(circle, transparent 0 42%, rgba(217, 119, 87, 0.04) 43% 44%, transparent 45%),
+    conic-gradient(from 90deg, transparent, rgba(217, 119, 87, 0.14), transparent 38%);
   opacity: 0.7;
   pointer-events: none;
 }
@@ -1378,7 +1378,7 @@ dd {
   border-radius: 8px;
   padding: 12px;
   text-align: left;
-  background: rgba(255, 255, 255, 0.025);
+  background: rgba(40, 38, 34, 0.025);
 }
 
 .gate-support strong {
@@ -1425,29 +1425,29 @@ dd {
 
 @media (hover: hover) and (pointer: fine) {
   .archive-button:hover {
-    background: rgba(216, 247, 95, 0.09);
+    background: rgba(217, 119, 87, 0.09);
   }
 
   .archive-button.primary:hover {
     color: var(--bg);
     background: var(--accent);
-    box-shadow: 0 0 0 1px rgba(216, 247, 95, 0.16), 0 12px 36px rgba(216, 247, 95, 0.12);
+    box-shadow: 0 0 0 1px rgba(217, 119, 87, 0.16), 0 12px 36px rgba(217, 119, 87, 0.12);
   }
 
   .model-axis-item:hover {
-    border-color: rgba(216, 247, 95, 0.28);
+    border-color: rgba(217, 119, 87, 0.28);
     color: var(--text);
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(40, 38, 34, 0.04);
     transform: translateX(2px);
   }
 
   .observation-card:hover {
-    border-color: rgba(216, 247, 95, 0.42);
+    border-color: rgba(217, 119, 87, 0.42);
     opacity: 0.94;
   }
 
   .timeline-node:hover {
-    border-color: rgba(216, 247, 95, 0.36);
+    border-color: rgba(217, 119, 87, 0.36);
     color: var(--text);
     transform: translateY(-1px);
   }
@@ -1462,9 +1462,9 @@ dd {
   }
 
   .link-grid a:hover {
-    border-color: rgba(216, 247, 95, 0.36);
+    border-color: rgba(217, 119, 87, 0.36);
     color: var(--accent);
-    background: rgba(216, 247, 95, 0.055);
+    background: rgba(217, 119, 87, 0.055);
   }
 }
 
@@ -1544,7 +1544,7 @@ dd {
     min-height: 54px;
     border-color: var(--line);
     padding: 7px;
-    background: rgba(255, 255, 255, 0.025);
+    background: rgba(40, 38, 34, 0.025);
   }
 
   .axis-icon {
@@ -1790,7 +1790,7 @@ dd {
   border-radius: 8px;
   padding: 22px 24px;
   background: linear-gradient(180deg, var(--panel-strong), var(--panel));
-  box-shadow: var(--shadow, 0 24px 90px rgba(0, 0, 0, 0.42));
+  box-shadow: var(--shadow, 0 24px 90px rgba(40, 38, 34, 0.1));
 }
 
 .compare-section-title {
@@ -1843,7 +1843,7 @@ dd {
 }
 
 .matrix-rowhead {
-  background: var(--bg-deep, #020303);
+  background: var(--bg-deep, #e7e4da);
   white-space: nowrap;
 }
 
@@ -1882,7 +1882,7 @@ dd {
   padding: 3px 9px;
   border: 1px solid var(--accent);
   border-radius: 999px;
-  color: #14180a;
+  color: #ffffff;
   background: var(--accent);
   font-family: var(--mono-font, ui-monospace, monospace);
   font-size: 0.72rem;
@@ -1891,7 +1891,7 @@ dd {
 }
 
 .matrix-chip:hover {
-  background: #e4ff7a;
+  background: #e08a6a;
 }
 
 /* Model cards */
@@ -1909,7 +1909,7 @@ dd {
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: 18px;
-  background: var(--bg-deep, #020303);
+  background: var(--bg-deep, #e7e4da);
 }
 
 .model-card-name {
@@ -2039,9 +2039,9 @@ dd {
    ════════════════════════════════════════════════════════════════════════ */
 
 :root {
-  --tick: rgba(216, 247, 95, 0.85);
-  --hair: rgba(244, 241, 232, 0.1);
-  --offset-shadow: 5px 5px 0 rgba(216, 247, 95, 0.14);
+  --tick: rgba(217, 119, 87, 0.85);
+  --hair: rgba(40, 38, 34, 0.1);
+  --offset-shadow: 0 8px 22px rgba(40, 38, 34, 0.1);
 }
 
 /* Global viewport frame with registration ticks — every page, zero layout cost. */
@@ -2106,7 +2106,7 @@ body::before {
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-md);
   padding: 7px;
-  background: rgba(13, 13, 10, 0.92);
+  background: rgba(255, 255, 255, 0.92);
   box-shadow: var(--shadow);
   backdrop-filter: blur(8px);
 }
@@ -2140,7 +2140,7 @@ body::before {
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   background:
-    linear-gradient(180deg, rgba(244, 241, 232, 0.028), rgba(244, 241, 232, 0.01));
+    linear-gradient(180deg, rgba(40, 38, 34, 0.028), rgba(40, 38, 34, 0.01));
 }
 
 /* Corner registration tick on the major panels. */
@@ -2165,19 +2165,19 @@ body::before {
 /* Observation cards (library track) — ledger plates with hard-offset hover. */
 .observation-card {
   border-radius: var(--radius-md);
-  background: rgba(244, 241, 232, 0.022);
+  background: rgba(40, 38, 34, 0.022);
 }
 
 .observation-card:hover {
-  border-color: rgba(216, 247, 95, 0.5);
+  border-color: rgba(217, 119, 87, 0.5);
   box-shadow: var(--offset-shadow);
 }
 
 .observation-card.active {
   border-color: var(--accent);
   box-shadow:
-    inset 0 0 0 1px rgba(216, 247, 95, 0.28),
-    6px 6px 0 rgba(216, 247, 95, 0.18);
+    inset 0 0 0 1px rgba(217, 119, 87, 0.28),
+    0 8px 22px rgba(40, 38, 34, 0.1);
 }
 
 .card-meta .number,
@@ -2211,7 +2211,7 @@ body::before {
 }
 
 .definition-card:hover {
-  border-color: rgba(216, 247, 95, 0.4);
+  border-color: rgba(217, 119, 87, 0.4);
   transform: translate(-1px, -1px);
   box-shadow: var(--offset-shadow);
 }
@@ -2247,8 +2247,8 @@ body::before {
   border-radius: var(--radius-lg);
   padding: clamp(22px, 3vw, 38px);
   background:
-    linear-gradient(180deg, rgba(216, 247, 95, 0.05), transparent 46%),
-    rgba(13, 13, 10, 0.7);
+    linear-gradient(180deg, rgba(217, 119, 87, 0.05), transparent 46%),
+    rgba(255, 255, 255, 0.7);
 }
 
 .editorial-lede {
@@ -2301,4 +2301,47 @@ body::before {
   .topbar-status {
     text-align: left;
   }
+}
+
+/* ── Claude theme finish (light) ──────────────────────────────────────────
+   Final adjustments for the warm-cream / terracotta palette: white text on
+   the accent, calmer chrome, and a quieter signal field on the light ground. */
+:root {
+  --tick: rgba(217, 119, 87, 0.7);
+  --hair: rgba(40, 38, 34, 0.12);
+  --offset-shadow: 0 12px 30px rgba(40, 38, 34, 0.1);
+}
+
+.archive-button.primary,
+.wordmark span,
+.skip-link {
+  color: #ffffff;
+}
+
+.archive-button.primary {
+  border-color: var(--accent);
+  box-shadow: 0 8px 20px rgba(217, 119, 87, 0.22);
+}
+
+.archive-button.primary:hover {
+  background: #e08a6a;
+  box-shadow: 0 12px 26px rgba(217, 119, 87, 0.28);
+}
+
+/* The animated signal field reads as a faint warm texture on the light ground. */
+.archive-signal-field {
+  opacity: 0.32;
+  mix-blend-mode: multiply;
+}
+
+/* Buttons lose the dark-mode corner tick; the light theme is calmer. */
+.archive-button::before {
+  display: none;
+}
+
+/* Cards and panels: soft borders, gentle hover lift instead of hard offsets. */
+.observation-card:hover,
+.shelf-row:hover,
+.definition-card:hover {
+  box-shadow: 0 10px 26px rgba(40, 38, 34, 0.1);
 }
