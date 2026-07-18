@@ -12,6 +12,10 @@
   "localPath": "./games/memory-bloom/",
   "metadataPath": "./games/memory-bloom/game.json",
   "briefPath": "./games/memory-bloom/brief.md",
+  "variantsPath": "./games/memory-bloom/variants/",
+  "runsPath": "./games/memory-bloom/runs/",
+  "canonicalVariantId": "kimi-memory-bloom-2026-06-29",
+  "sourceCompleteness": "Complete local source included",
   "description": "A PC-first clicker management game about nurturing a digital memory core. Click to spark data fragments, place collectors, purchase upgrades, and cultivate recursive abundance toward 99,999 energy.",
   "deviceSupport": {
     "desktop": "supported",
@@ -33,5 +37,17 @@
     "pointer": ["Click the core to spark data fragments", "Click empty space to place collectors", "Use upgrade panel buttons"],
     "touch": ["Tap the core to spark", "Tap empty space to place collectors", "Tap upgrade buttons"]
   },
+  "variants": [
+    {
+      "variantId": "kimi-memory-bloom-2026-06-29",
+      "modelName": "Kimi",
+      "agentName": "Kimi Work",
+      "status": "canonical-playable",
+      "metadataPath": "./games/memory-bloom/variants/kimi-memory-bloom-2026-06-29/variant.json"
+    }
+  ],
+  "runRecords": [
+    "./games/memory-bloom/runs/2026-06-29-kimi-memory-bloom-initial.json"
+  ],
   "tags": ["canvas", "clicker", "incremental", "management", "economy", "automation", "pc-first"]
 }
