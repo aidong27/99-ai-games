@@ -87,7 +87,7 @@ function renderRecord(game, runs) {
     section: "Observation Record",
     description: game.description ?? "Inspect a playable AI game-making observation and its recorded provenance.",
     canonicalPath: getObservationHref(game),
-    socialImagePath: `assets/social/games/${encodeURIComponent(game.slug)}.svg`
+    socialImagePath: `assets/social/games/${encodeURIComponent(game.slug)}.png`
   });
 }
 

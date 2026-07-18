@@ -60,6 +60,8 @@ GitHub: https://github.com/aidong27/99-ai-games
 - `assets/social/social-card.svg`
 - `assets/social/social-card-square.svg`
 - `assets/social/games/<slug>.svg` game-specific promotional cards
+- `assets/social/games/<slug>.png` game-specific 1200 x 630 sharing cards
+- `assets/posters/games/<slug>.jpg` vertical game cover posters
 
 ## Suggested Hashtags
 
@@ -80,6 +82,7 @@ Chinese:
 - Be clear that the archive is early.
 - Say "current observations" rather than "completed platform".
 - Use the social cards as brand assets, not screenshot evidence.
+- Use cover posters as promotional artwork, not gameplay evidence.
 
 ## Maintainer Note
 

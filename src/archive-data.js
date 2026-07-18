@@ -1,6 +1,7 @@
 import { ASSET_VERSION } from "./app/constants.js";
 import { ROUTES, librarySelectionRoute, observationRoute, playGateRoute, promoRoute } from "./app/routes.js";
 import { ensureTrailingSlash, fileStem, isExternalOrRootPath, normalizeRootPath } from "./data/paths.js";
+import { hasCurrentScreenshotEvidence } from "./data/media-evidence.js";
 
 export {
   getDeviceSupport,
@@ -90,6 +91,10 @@ export function getPromoHref(game) {
   return promoRoute(game?.slug);
 }
 
+export function getPosterHref(game) {
+  return game?.slug ? `./assets/posters/games/${encodeURIComponent(game.slug)}.jpg` : "";
+}
+
 export function getLibrarySelectionHref(gameOrSlug) {
   const slug = typeof gameOrSlug === "string" ? gameOrSlug : gameOrSlug?.slug;
   return librarySelectionRoute(slug);
@@ -140,6 +145,9 @@ export function getVariantHref(game, variantPath) {
 }
 
 export function getScreenshotHref(game, preferredPath) {
+  if (!hasCurrentScreenshotEvidence(game)) {
+    return "";
+  }
   const path = preferredPath
     ?? game?.media?.thumbnail
     ?? game?.media?.screenshots?.[0]
@@ -148,6 +156,9 @@ export function getScreenshotHref(game, preferredPath) {
 }
 
 export function getScreenshotList(game) {
+  if (!hasCurrentScreenshotEvidence(game)) {
+    return [];
+  }
   const screenshots = game?.media?.screenshots ?? game?.screenshots ?? [];
   return screenshots.map((path) => ({
     path,
@@ -241,7 +252,7 @@ function fetchJson(href, label) {
     return resolved;
   }
 
-  const request = fetch(href, { cache: "no-store" })
+  const request = fetch(href)
     .then((response) => {
       if (!response.ok) {
         throw new Error(`${label} failed with HTTP ${response.status}`);

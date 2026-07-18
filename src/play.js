@@ -89,7 +89,7 @@ function renderGate(game) {
     section: "Start Observation",
     description: game.description ?? "Review device support before starting this playable AI game-making observation.",
     canonicalPath: getPlayGateHref(game),
-    socialImagePath: `assets/social/games/${encodeURIComponent(game.slug)}.svg`
+    socialImagePath: `assets/social/games/${encodeURIComponent(game.slug)}.png`
   });
 }
 

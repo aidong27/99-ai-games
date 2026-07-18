@@ -88,13 +88,18 @@
   min-width: 0;
 }
 
-.page-title h1 {
+.page-title h1,
+.page-title .page-heading {
   margin: 0;
   color: var(--text);
   font-family: var(--display-font);
   font-size: 1.7rem;
   font-weight: 700;
   line-height: 1.05;
+}
+
+.page-title .page-heading {
+  margin: 0;
 }
 
 .archive-kicker {
@@ -228,7 +233,8 @@
 }
 
 .theme-trigger,
-.theme-choice {
+.theme-choice,
+.language-toggle {
   width: 34px;
   height: 34px;
   place-items: center;
@@ -237,6 +243,18 @@
   color: var(--muted);
   background: transparent;
   transition: color var(--transition-fast), background var(--transition-fast);
+}
+
+.language-toggle {
+  display: grid;
+  color: var(--muted-strong);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.language-toggle:hover {
+  color: var(--text);
+  background: var(--surface-soft);
 }
 
 .theme-trigger {
@@ -363,7 +381,8 @@
     min-height: 60px;
   }
 
-  .page-title h1 {
+  .page-title h1,
+  .page-title .page-heading {
     font-size: 1.48rem;
   }
 
