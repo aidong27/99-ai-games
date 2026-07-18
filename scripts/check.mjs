@@ -72,6 +72,7 @@ run("validate-halls", ["scripts/validate-halls.mjs"]);
 run("validate-games", ["scripts/validate-games.mjs"]);
 run("validate-launcher", ["scripts/validate-launcher.mjs"]);
 run("validate-provenance", ["scripts/validate-provenance.mjs"]);
+run("generate-promo-pages --check", ["scripts/generate-promo-pages.mjs", "--check"]);
 run("generate-index --check", ["scripts/generate-index.mjs", "--check"]);
 run("verify-gravity-atlas", ["scripts/verify-gravity-atlas.mjs"]);
 

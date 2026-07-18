@@ -1409,3 +1409,96 @@
     font-size: 2.65rem;
   }
 }
+
+/* Adaptive launcher theme layer. Tokens are defined in archive.css; this file
+   only resolves launcher-specific hard-coded HIG surfaces. */
+html[data-theme] .launcher-screen {
+  color: var(--text);
+  background:
+    linear-gradient(180deg, var(--page-glow), transparent 240px),
+    var(--bg);
+}
+
+html[data-theme] .launcher-header {
+  background: var(--chrome);
+  border-color: var(--line);
+}
+
+html[data-theme] .launcher-mark-number {
+  color: var(--text);
+  background: var(--panel-soft);
+  border-color: var(--line-strong);
+}
+
+html[data-theme] .hero-readout div,
+html[data-theme] .featured-observation,
+html[data-theme] .launcher-stats,
+html[data-theme] .launcher-systems article,
+html[data-theme] .game-card {
+  background: var(--panel);
+  border-color: var(--line);
+}
+
+html[data-theme] .featured-media,
+html[data-theme] .game-card-media,
+html[data-theme] .featured-placeholder,
+html[data-theme] .game-card-placeholder {
+  background: var(--media-bg);
+}
+
+html[data-theme] .game-card:hover {
+  background: var(--hover-panel);
+  border-color: rgba(10, 132, 255, 0.36);
+}
+
+html[data-theme="light"] .launcher-screen .archive-button:hover {
+  color: var(--link);
+  background: rgba(0, 113, 227, 0.11);
+}
+
+html[data-theme="light"] .launcher-screen .archive-button.primary {
+  color: #ffffff;
+  background: var(--accent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .launcher-copy,
+  .featured-observation,
+  .launcher-stats,
+  .launcher-systems article,
+  .launcher-library {
+    animation: surfaceIn 560ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .featured-observation {
+    animation-delay: 80ms;
+  }
+
+  .launcher-stats {
+    animation-delay: 120ms;
+  }
+
+  .launcher-systems article:nth-child(2) {
+    animation-delay: 80ms;
+  }
+
+  .launcher-systems article:nth-child(3) {
+    animation-delay: 140ms;
+  }
+
+  .game-card {
+    animation: surfaceIn 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .game-card:nth-child(2) {
+    animation-delay: 60ms;
+  }
+
+  .game-card:nth-child(3) {
+    animation-delay: 120ms;
+  }
+
+  .game-card:nth-child(4) {
+    animation-delay: 180ms;
+  }
+}

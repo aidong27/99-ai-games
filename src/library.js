@@ -10,6 +10,7 @@ import {
   getModelsFromGames,
   getObservationHref,
   getPlayGateHref,
+  getPromoHref,
   getScreenshotHref,
   getShortGameNumber,
   loadArchive,
@@ -26,6 +27,7 @@ const currentTitle = document.querySelector("#library-stage-title");
 const currentReadout = document.querySelector("#current-readout");
 const playSelected = document.querySelector("#play-selected");
 const viewRecord = document.querySelector("#view-record");
+const viewPromo = document.querySelector("#view-promo");
 const openMetadata = document.querySelector("#open-metadata");
 const errorPanel = document.querySelector("#library-error");
 const signalCanvas = document.querySelector("#library-signal");
@@ -54,6 +56,7 @@ const hasLibraryDom = [
   currentReadout,
   playSelected,
   viewRecord,
+  viewPromo,
   openMetadata,
   errorPanel
 ].every(Boolean);
@@ -187,6 +190,7 @@ function renderLibrary() {
     playSelected.textContent = "No playable sample";
     playSelected.className = "archive-button secondary";
     viewRecord.href = "./library.html";
+    viewPromo.href = "./library.html";
     openMetadata.href = getManifestHref();
     return;
   }
@@ -350,6 +354,7 @@ function updateSelection(options = {}) {
   playSelected.textContent = support.ctaLabel;
   playSelected.className = `archive-button ${support.key === "unsupported" ? "warning" : "primary"}`;
   viewRecord.href = getObservationHref(selected);
+  viewPromo.href = getPromoHref(selected);
   openMetadata.href = getMetadataHref(selected);
 }
 
@@ -499,5 +504,6 @@ function showError(message) {
   currentTitle.textContent = "Archive unavailable";
   playSelected.href = "./library.html";
   viewRecord.href = "./library.html";
+  viewPromo.href = "./library.html";
   openMetadata.href = getManifestHref();
 }
