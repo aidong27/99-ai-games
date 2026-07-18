@@ -1,0 +1,50 @@
+{
+  "runId": "2026-06-03-claude-ninefold-draft-initial",
+  "gameNumber": 4,
+  "gameSlug": "ninefold-draft",
+  "variantId": "claude-ninefold-draft-2026-06-03",
+  "runType": "initial-generation",
+  "status": "accepted-playable",
+  "createdDate": "2026-06-03",
+  "modelName": "Claude Opus 4.8",
+  "agentName": "Claude Code",
+  "humanCodeEdits": false,
+  "promptSummary": "Create Observation 004 / Game 004, Ninefold Draft: a PC-first card strategy benchmark for the Card Strategy Hall with drafting, a small engine, resource trade-offs, a telegraphed hazard track, and clear win/loss. Wire it into the launcher, halls, manifest, changelog, and generated index.",
+  "outputs": [
+    "games/ninefold-draft/index.html",
+    "games/ninefold-draft/src/main.js",
+    "games/ninefold-draft/styles/main.css",
+    "games/ninefold-draft/game.json",
+    "games/ninefold-draft/brief.md",
+    "games/ninefold-draft/README.md",
+    "games/ninefold-draft/variants/claude-ninefold-draft-2026-06-03/variant.json",
+    "games/manifest.json",
+    "halls/halls.json",
+    "docs/generated-index.md",
+    "CHANGELOG.md"
+  ],
+  "verification": {
+    "verifiedDate": "2026-06-03",
+    "performed": [
+      "node --check games/ninefold-draft/src/main.js",
+      "node scripts/validate-halls.mjs (passed)",
+      "node scripts/validate-games.mjs (passed)",
+      "node scripts/validate-launcher.mjs (passed)",
+      "node scripts/generate-index.mjs --check (passed)",
+      "git diff --check (no whitespace errors)",
+      "Standalone rules simulation replicating the deterministic offers, engine production, and hazard track: a sensible engine-building strategy wins on cycle 8 (Alignment 73/60, Integrity 14) with a real ramp, while passive play loses with 0 Alignment — confirming win and loss are both reachable and the outcome is decided by strategy, not luck",
+      "Static HTTP serve via python3 -m http.server 4173: HTTP 200 for the game page, its module script and stylesheet, styles/game-shell.css, library.html, observation.html?slug=ninefold-draft, play.html?slug=ninefold-draft, games/manifest.json, game.json, and the new variant.json"
+    ],
+    "pending": [
+      "Interactive in-browser smoke (title render, start, draft, play card, resource changes, cycle advance, win and loss overlays, console-error check) at 1280x800, 1440x900, 1920x1080, and 390x844 — not run in this authoring environment because no browser is available",
+      "Real captured browser screenshots (screenshot-title.png, screenshot-board.png, screenshot-result.png)",
+      "Physical handset QA for the mobile baseline"
+    ]
+  },
+  "knownIssues": [
+    "No screenshots are captured or claimed. game.json and the manifest intentionally declare no media so the launcher shows an explicit no-screenshot state rather than a fabricated image.",
+    "Interactive in-browser smoke and console-error verification were not performed in this environment; only node-level checks, an algorithmic rules/balance simulation, and static HTTP serving were performed.",
+    "Mobile is declared 'limited'; the layout is built to avoid horizontal overflow, but mobile rendering and touch play were not verified in a browser and no physical handset QA is claimed."
+  ],
+  "notes": "Ninefold Draft is deterministic: draft offers (seeded) and the hazard order are fixed, and the current and next hazard are always shown, so risk is readable and the run is decided by strategy. The engine produces Alignment each cycle (generators, amplifiers scaling generators), Focus fuels the Converter, and Shield/Purge blunt hazards. window.__ninefoldDraftQA exposes start, restart, getSnapshot, draftCard, playCard, endTurn, forceWin, and forceLose."
+}

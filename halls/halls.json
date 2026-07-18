@@ -42,7 +42,7 @@
       "name": "Card Strategy Hall",
       "capacity": 11,
       "description": "Observes AI ability in probabilistic decisions, drafting, turn structure, and readable strategy.",
-      "assignedGameNumbers": []
+      "assignedGameNumbers": [4]
     },
     {
       "id": "text-adventure",
