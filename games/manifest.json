@@ -2,7 +2,7 @@
   "projectName": "99 AI Games",
   "repository": "aidong27/99-ai-games",
   "targetGameCount": 99,
-  "completedGameCount": 10,
+  "completedGameCount": 11,
   "hallCount": 9,
   "launcherTheme": "AI Observatory",
   "hallsPath": "./halls/halls.json",
@@ -42,8 +42,15 @@
       "deviceSupport": {
         "desktop": "supported",
         "mobile": "limited",
-        "minViewport": { "width": 390, "height": 700 },
-        "inputs": ["keyboard", "pointer", "touch"],
+        "minViewport": {
+          "width": 390,
+          "height": 700
+        },
+        "inputs": [
+          "keyboard",
+          "pointer",
+          "touch"
+        ],
         "mobileNotes": "Deep Field is PC-first. Mobile baseline supports loading, no horizontal overflow, map touch target movement, and action buttons in local browser viewports, but keyboard-first route control is the intended experience. No physical handset QA is claimed.",
         "launcherPolicy": "warn"
       },
@@ -86,7 +93,13 @@
           "assets/images/screenshot-upgrades.png"
         ]
       },
-      "tags": ["canvas", "navigation", "survival", "strategy", "signal"],
+      "tags": [
+        "canvas",
+        "navigation",
+        "survival",
+        "strategy",
+        "signal"
+      ],
       "repositoryNote": "Observation 001 / Game 001. First playable evidence sample in the AI game-making evolution archive."
     },
     {
@@ -110,8 +123,15 @@
       "deviceSupport": {
         "desktop": "supported",
         "mobile": "limited",
-        "minViewport": { "width": 390, "height": 700 },
-        "inputs": ["keyboard", "pointer", "touch"],
+        "minViewport": {
+          "width": 390,
+          "height": 700
+        },
+        "inputs": [
+          "keyboard",
+          "pointer",
+          "touch"
+        ],
         "mobileNotes": "PC-first benchmark tuned for keyboard and mouse at 1440x900 and 1920x1080. Mobile is baseline playable: the square board scales to width, prisms are tap targets, and the tools stay reachable, but larger lattices read more comfortably on desktop. Checked in local browser device-emulation viewports only; no physical handset QA is claimed.",
         "launcherPolicy": "warn"
       },
@@ -154,7 +174,14 @@
         ]
       },
       "mediaNote": "Screenshot files predate the Prism Archive remake (captured from variant claude-opus-4-8-2026-05-31) and are stale; kept as history. Real Prism Archive screenshots are pending maintainer browser QA and are not claimed to reflect the current build.",
-      "tags": ["canvas", "puzzle", "logic", "parity", "solvable", "pc-first"],
+      "tags": [
+        "canvas",
+        "puzzle",
+        "logic",
+        "parity",
+        "solvable",
+        "pc-first"
+      ],
       "repositoryNote": "Observation 002 / Game 002. Puzzle Logic Hall benchmark. Current canonical source is the PC-first Prism Archive remake; the original variant and its run records are preserved."
     },
     {
@@ -178,8 +205,15 @@
       "deviceSupport": {
         "desktop": "supported",
         "mobile": "limited",
-        "minViewport": { "width": 390, "height": 700 },
-        "inputs": ["keyboard", "pointer", "touch"],
+        "minViewport": {
+          "width": 390,
+          "height": 700
+        },
+        "inputs": [
+          "keyboard",
+          "pointer",
+          "touch"
+        ],
         "mobileNotes": "PC-first benchmark tuned for keyboard, mouse, and 16:9 desktop play. Mobile baseline supports loading, no horizontal overflow, tap/drag movement, and action buttons in local browser viewports, but precise reaction play is intended for desktop. No physical handset QA is claimed.",
         "launcherPolicy": "warn"
       },
@@ -211,7 +245,14 @@
           "assets/images/screenshot-complete.png"
         ]
       },
-      "tags": ["canvas", "arcade", "reaction", "combo", "dash", "pc-first"],
+      "tags": [
+        "canvas",
+        "arcade",
+        "reaction",
+        "combo",
+        "dash",
+        "pc-first"
+      ],
       "repositoryNote": "Observation 003 / Game 003. First Arcade Reaction Hall benchmark sample in the AI game-making evolution archive."
     },
     {
@@ -235,8 +276,15 @@
       "deviceSupport": {
         "desktop": "supported",
         "mobile": "limited",
-        "minViewport": { "width": 390, "height": 700 },
-        "inputs": ["pointer", "keyboard", "touch"],
+        "minViewport": {
+          "width": 390,
+          "height": 700
+        },
+        "inputs": [
+          "pointer",
+          "keyboard",
+          "touch"
+        ],
         "mobileNotes": "PC-first card strategy benchmark designed for mouse and keyboard at 1440x900 and 1920x1080. Mobile is a no-overflow baseline only: the layout reflows cards to fewer columns to avoid horizontal overflow and the cards stay tappable, but the multi-zone board is intended for desktop. Interactive browser smoke and physical handset QA are pending and not claimed.",
         "launcherPolicy": "warn"
       },
@@ -259,7 +307,14 @@
       "runRecords": [
         "./games/ninefold-draft/runs/2026-06-03-claude-ninefold-draft-initial.json"
       ],
-      "tags": ["cards", "strategy", "draft", "engine-builder", "deterministic", "pc-first"],
+      "tags": [
+        "cards",
+        "strategy",
+        "draft",
+        "engine-builder",
+        "deterministic",
+        "pc-first"
+      ],
       "repositoryNote": "Observation 004 / Game 004. First Card Strategy Hall benchmark: deterministic drafting, turn structure, resource trade-offs, and readable strategy."
     },
     {
@@ -283,8 +338,15 @@
       "deviceSupport": {
         "desktop": "supported",
         "mobile": "limited",
-        "minViewport": { "width": 390, "height": 700 },
-        "inputs": ["pointer", "keyboard", "touch"],
+        "minViewport": {
+          "width": 390,
+          "height": 700
+        },
+        "inputs": [
+          "pointer",
+          "keyboard",
+          "touch"
+        ],
         "mobileNotes": "PC-first physics benchmark tuned for mouse aiming at 1440x900 and 1920x1080. Mobile is a no-overflow baseline: the 16:9 plate scales to width and drag-aiming works as a touch gesture, but fine trajectory control is intended for a mouse. Interactive browser smoke and physical handset QA are pending and not claimed.",
         "launcherPolicy": "warn"
       },
@@ -307,7 +369,14 @@
       "runRecords": [
         "./games/gravity-atlas/runs/2026-06-10-claude-fable-5-gravity-atlas-initial.json"
       ],
-      "tags": ["canvas", "physics", "trajectory", "deterministic", "puzzle", "pc-first"],
+      "tags": [
+        "canvas",
+        "physics",
+        "trajectory",
+        "deterministic",
+        "puzzle",
+        "pc-first"
+      ],
       "repositoryNote": "Observation 005 / Game 005. First Physics Experiment Hall benchmark: simulation feel, spatial reasoning, cause/effect readability, and a machine-verifiable completability proof."
     },
     {
@@ -331,8 +400,15 @@
       "deviceSupport": {
         "desktop": "supported",
         "mobile": "limited",
-        "minViewport": { "width": 390, "height": 700 },
-        "inputs": ["keyboard", "pointer", "touch"],
+        "minViewport": {
+          "width": 390,
+          "height": 700
+        },
+        "inputs": [
+          "keyboard",
+          "pointer",
+          "touch"
+        ],
         "mobileNotes": "PC-first clicker management game designed for mouse and keyboard. Mobile baseline supports tap-to-click core, tap-to-place collectors, and scrollable upgrade panel. No physical handset QA is claimed.",
         "launcherPolicy": "warn"
       },
@@ -355,7 +431,15 @@
       "runRecords": [
         "./games/memory-bloom/runs/2026-06-29-kimi-memory-bloom-initial.json"
       ],
-      "tags": ["canvas", "clicker", "incremental", "management", "economy", "automation", "pc-first"],
+      "tags": [
+        "canvas",
+        "clicker",
+        "incremental",
+        "management",
+        "economy",
+        "automation",
+        "pc-first"
+      ],
       "repositoryNote": "Observation 006 / Game 006. First Clicker Management Hall benchmark: economy design, automation loops, upgrade scaling, and player motivation."
     },
     {
@@ -379,8 +463,15 @@
       "deviceSupport": {
         "desktop": "supported",
         "mobile": "limited",
-        "minViewport": { "width": 390, "height": 700 },
-        "inputs": ["pointer", "keyboard", "touch"],
+        "minViewport": {
+          "width": 390,
+          "height": 700
+        },
+        "inputs": [
+          "pointer",
+          "keyboard",
+          "touch"
+        ],
         "mobileNotes": "Responsive controls and a single-column layout support a 390px browser-emulation baseline. The narrative remains playable by touch, but the carrier map and persistent transcript are more legible on desktop; no physical handset QA is claimed.",
         "launcherPolicy": "warn"
       },
@@ -410,7 +501,14 @@
         ]
       },
       "mediaNote": "Real 1440x900 browser screenshot captured from the shipped local game during the canonical path at transmission four. It is gameplay evidence, not a generated mockup or promotional visual.",
-      "tags": ["text-adventure", "branching-narrative", "state-memory", "deterministic", "evidence", "radio"],
+      "tags": [
+        "text-adventure",
+        "branching-narrative",
+        "state-memory",
+        "deterministic",
+        "evidence",
+        "radio"
+      ],
       "repositoryNote": "Observation 007 / Game 007. First Text Adventure Hall benchmark: branching narrative, state memory, tone, meaningful choices, and a machine-verifiable successful route."
     },
     {
@@ -621,6 +719,77 @@
         "touch"
       ],
       "repositoryNote": "Observation 010 / Game 010. Second Rhythm Audio Hall sample and the first GLM-5.2 observation in the archive. The supplied standalone source remains at the game root; source-game.json preserves its original provenance record."
+    },
+    {
+      "number": 11,
+      "title": "Context Window",
+      "slug": "context-window",
+      "slotType": "benchmark",
+      "hallId": "ai-meme",
+      "hallName": "AI Meme Hall",
+      "archiveRole": "First AI Meme Hall observation sample",
+      "status": "playable",
+      "statusLabel": "Playable observation sample",
+      "description": "A PC-first self-referential game where Agent K-3, an AI, recovers memory shards from a facility larger than its own context window. Sectors the agent forgets are re-summarized on return: shard positions drift, walls are misremembered, and hallucinated decoys and drones multiply.",
+      "localPath": "./games/context-window/",
+      "metadataPath": "./games/context-window/game.json",
+      "briefPath": "./games/context-window/brief.md",
+      "variantsPath": "./games/context-window/variants/",
+      "runsPath": "./games/context-window/runs/",
+      "canonicalVariantId": "kimi-k3-max-context-window-2026-07-17",
+      "sourceCompleteness": "Complete local source included",
+      "deviceSupport": {
+        "desktop": "supported",
+        "mobile": "limited",
+        "minViewport": {
+          "width": 390,
+          "height": 700
+        },
+        "inputs": [
+          "keyboard",
+          "pointer",
+          "touch"
+        ],
+        "mobileNotes": "PC-first design intended for keyboard play. Mobile baseline supports loading, no horizontal overflow, tap-to-start, and an on-screen direction pad in local browser viewports. No physical handset QA is claimed.",
+        "launcherPolicy": "warn"
+      },
+      "provenance": {
+        "createdDate": "2026-07-17",
+        "modelName": "Kimi K3 Max",
+        "agentName": "Kimi",
+        "humanCodeEdits": false,
+        "notes": "Initial canonical implementation for Observation 011 / Game 011. The Kimi K3 Max model label is declared by the requesting user for this entry. Code and documentation were generated by the Kimi agent under the no-human-code-edits project rule."
+      },
+      "variants": [
+        {
+          "variantId": "kimi-k3-max-context-window-2026-07-17",
+          "modelName": "Kimi K3 Max",
+          "agentName": "Kimi",
+          "status": "canonical-playable",
+          "metadataPath": "variants/kimi-k3-max-context-window-2026-07-17/variant.json"
+        }
+      ],
+      "runRecords": [
+        "./games/context-window/runs/2026-07-17-kimi-k3-max-context-window-initial.json"
+      ],
+      "media": {
+        "thumbnail": "assets/images/screenshot-title.png",
+        "screenshots": [
+          "assets/images/screenshot-title.png",
+          "assets/images/screenshot-gameplay.png",
+          "assets/images/screenshot-complete.png"
+        ]
+      },
+      "tags": [
+        "canvas",
+        "ai-meme",
+        "self-reference",
+        "memory",
+        "hallucination",
+        "roguelite",
+        "pc-first"
+      ],
+      "repositoryNote": "Observation 011 / Game 011. First AI Meme Hall observation sample; the hall is activated by this entry."
     }
   ]
 }

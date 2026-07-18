@@ -33,10 +33,10 @@ Every push and pull request runs the full archive quality gate (`node scripts/ch
 | Metric | Current value |
 |---|---:|
 | Target observation slots | 99 |
-| Playable observations | 10 |
+| Playable observations | 11 |
 | Game halls | 9 |
-| Model variants | 12 |
-| Run records | 16 |
+| Model variants | 13 |
+| Run records | 17 |
 
 ## Honesty Boundary
 
@@ -60,6 +60,7 @@ The no-hand-edit rule protects game implementations and provenance records. The 
 | 008 | Orbit Cadence | Rhythm Audio Hall | Grok 4.5 / Grok Build | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=orbit-cadence) | [Promo](https://aidong27.github.io/99-ai-games/promo/orbit-cadence/) |
 | 009 | Deepforge Miner | Clicker Management Hall | DeepSeek v4 Pro / Claude Code | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=deepforge-miner) | [Promo](https://aidong27.github.io/99-ai-games/promo/deepforge-miner/) |
 | 010 | Resonance Loom | Rhythm Audio Hall | GLM-5.2 / GLM-5.2 coding agent | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=resonance-loom) | [Promo](https://aidong27.github.io/99-ai-games/promo/resonance-loom/) |
+| 011 | Context Window | AI Meme Hall | Kimi K3 Max / Kimi | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=context-window) | [Promo](https://aidong27.github.io/99-ai-games/promo/context-window/) |
 
 The canonical machine-readable source is [`games/manifest.json`](games/manifest.json). The generated markdown view is [`docs/generated-index.md`](docs/generated-index.md).
 
@@ -118,6 +119,14 @@ Real screenshots are pending. The game is playable in source, but this README do
 ![Resonance Loom title screen](games/resonance-loom/assets/images/screenshot-title.png)
 
 This is a real 1440x900 browser capture from the supplied local build. The separate cover poster is promotional artwork, not gameplay evidence.
+
+### Observation 011 / Game 011: Context Window
+
+![Context Window title screen](games/context-window/assets/images/screenshot-title.png)
+![Context Window gameplay during a sector eviction](games/context-window/assets/images/screenshot-gameplay.png)
+![Context Window completion screen](games/context-window/assets/images/screenshot-complete.png)
+
+These are real 1440x900 browser captures from the local build, including a scripted full playthrough that reached the completion screen in the shipped game.
 
 ## Archive Model
 

@@ -37,6 +37,11 @@ local check cannot drift apart. It runs, and fails on the first problem in any o
 10. **`scripts/verify-afterlight-dispatch.mjs`** — imports the shipped narrative
     engine, proves the six-choice canonical route reaches the success ending,
     proves an adverse route reaches failure, and rejects out-of-scene choices.
+11. **`scripts/verify-context-window.mjs`** — imports the shipped Context
+    Window engine and proves a scripted navigator can deposit enough shards to
+    win, that hallucination contact can collapse a run, that eviction resamples
+    sector details while shard counts persist, and that solid tiles cannot be
+    tunneled.
 
 ## The provenance / honesty gate
 
