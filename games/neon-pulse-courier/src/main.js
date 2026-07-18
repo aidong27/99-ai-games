@@ -52,9 +52,6 @@ const random = {
   },
   range(min, max) {
     return min + (max - min) * this.next();
-  },
-  pick(items) {
-    return items[Math.floor(this.next() * items.length)];
   }
 };
 
@@ -326,9 +323,9 @@ function triggerDash() {
     dy = pointerState.target.y - player.y;
   }
 
-  const length = Math.hypot(dx, dy) || 1;
-  player.dashDx = dx / length;
-  player.dashDy = dy / length;
+  const dashVector = normalizeVector(dx, dy, player.dashDx, player.dashDy);
+  player.dashDx = dashVector.x;
+  player.dashDy = dashVector.y;
   player.dashTimer = DASH_TIME;
   player.dashCooldown = DASH_COOLDOWN;
   state.message = "Dash window committed.";
@@ -378,10 +375,10 @@ function updatePlayer(dt) {
   } else {
     player.vx += (moveX * BASE_SPEED - player.vx) * Math.min(1, dt * 12);
     player.vy += (moveY * BASE_SPEED - player.vy) * Math.min(1, dt * 12);
-    if (Math.hypot(moveX, moveY) > 0.01) {
-      const length = Math.hypot(moveX, moveY);
-      player.dashDx = moveX / length;
-      player.dashDy = moveY / length;
+    const movementVector = normalizeVector(moveX, moveY, 0, 0);
+    if (movementVector.length > 0.01) {
+      player.dashDx = movementVector.x;
+      player.dashDy = movementVector.y;
     }
   }
 
@@ -397,12 +394,7 @@ function getMovementInput() {
   if (keyState.has("w") || keyState.has("arrowup")) y -= 1;
   if (keyState.has("s") || keyState.has("arrowdown")) y += 1;
 
-  const length = Math.hypot(x, y);
-  if (length > 0) {
-    x /= length;
-    y /= length;
-  }
-  return { x, y };
+  return normalizeVector(x, y, 0, 0);
 }
 
 function updateParcels(dt, difficulty) {
@@ -784,7 +776,7 @@ function drawParticles() {
 
 function drawPlayer(time) {
   const player = state.player;
-  const angle = Math.atan2(player.dashDy || player.vy, player.dashDx || player.vx);
+  const angle = getPlayerHeading(player);
   const dashAlpha = isPlayerInvulnerable() ? 0.75 : 0.18;
 
   ctx.save();
@@ -842,14 +834,15 @@ function burst(x, y, kind, count) {
   for (let i = 0; i < count; i += 1) {
     const angle = random.range(0, Math.PI * 2);
     const speed = random.range(60, kind === "dash" ? 260 : 190);
+    const life = random.range(0.35, 0.85);
     state.particles.push({
       x,
       y,
       vx: Math.cos(angle) * speed,
       vy: Math.sin(angle) * speed,
       size: random.range(2.5, 7),
-      life: random.range(0.35, 0.85),
-      maxLife: 0.85,
+      life,
+      maxLife: life,
       color
     });
   }
@@ -953,6 +946,7 @@ function screenToWorld(event) {
 
 function clearPointerState() {
   pointerState.active = false;
+  pointerState.target = null;
 }
 
 function readHighScore() {
@@ -973,6 +967,21 @@ function writeHighScore(value) {
 
 function formatNumber(value) {
   return Math.round(value).toLocaleString("en-US");
+}
+
+function normalizeVector(x, y, fallbackX = 0, fallbackY = 0) {
+  const length = Math.hypot(x, y);
+  if (length > 0) {
+    return { x: x / length, y: y / length, length };
+  }
+  return { x: fallbackX, y: fallbackY, length: 0 };
+}
+
+function getPlayerHeading(player) {
+  if (Math.hypot(player.vx, player.vy) > 5) {
+    return Math.atan2(player.vy, player.vx);
+  }
+  return Math.atan2(player.dashDy, player.dashDx);
 }
 
 function clamp(value, min, max) {

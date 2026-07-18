@@ -6,7 +6,7 @@
   "runType": "initial",
   "status": "accepted-canonical",
   "createdDate": "2026-06-03",
-  "modelName": "GPT-5 (Codex session)",
+  "modelName": "GPT-5.5 xhigh",
   "agentName": "Codex",
   "humanCodeEdits": false,
   "promptSummary": "Create Observation 003 / Game 003, Neon Pulse Courier, as a PC-first Arcade Reaction Hall benchmark with movement, dash, pulse barriers, parcels, combo, scoring, pause/restart, failure/completion states, QA hooks, real local screenshots, and honest metadata.",

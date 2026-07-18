@@ -6,7 +6,7 @@
   "runType": "revision",
   "status": "accepted-maintenance-fix",
   "createdDate": "2026-06-02",
-  "modelName": "GPT-5 (Codex session)",
+  "modelName": "GPT-5.5 xhigh",
   "agentName": "Codex",
   "humanCodeEdits": false,
   "promptSummary": "Repair mobile playability and launcher device gating for Lumen Lattice without changing the row-and-column toggle puzzle rules or fabricating screenshots, popularity, validation, or provenance.",

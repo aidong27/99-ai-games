@@ -5,7 +5,7 @@
   "gameTitle": "Signal Cartographer",
   "status": "canonical-playable",
   "createdDate": "2026-06-03",
-  "modelName": "GPT-5 (Codex session)",
+  "modelName": "GPT-5.5 xhigh",
   "agentName": "Codex",
   "humanCodeEdits": false,
   "implementationPath": "../../",
