@@ -33,7 +33,7 @@ Every push and pull request runs the full archive quality gate (`node scripts/ch
 | Metric | Current value |
 |---|---:|
 | Target observation slots | 99 |
-| Playable observations | 5 |
+| Playable observations | 6 |
 | Game halls | 9 |
 | Model variants | 7 |
 | Run records | 11 |
@@ -55,6 +55,7 @@ The no-hand-edit rule protects game implementations and provenance records. The 
 | 003 | Neon Pulse Courier | Arcade Reaction Hall | GPT-5.5 xhigh / Codex | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=neon-pulse-courier) | [Promo](https://aidong27.github.io/99-ai-games/promo/neon-pulse-courier/) |
 | 004 | Ninefold Draft | Card Strategy Hall | Claude Opus 4.8 / Claude Code | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=ninefold-draft) | [Promo](https://aidong27.github.io/99-ai-games/promo/ninefold-draft/) |
 | 005 | Gravity Atlas | Physics Experiment Hall | Claude Fable 5 / Claude Code | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=gravity-atlas) | [Promo](https://aidong27.github.io/99-ai-games/promo/gravity-atlas/) |
+| 006 | Memory Bloom | Clicker Management Hall | Kimi / Kimi Work | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=memory-bloom) | [Promo](https://aidong27.github.io/99-ai-games/promo/memory-bloom/) |
 
 The canonical machine-readable source is [`games/manifest.json`](games/manifest.json). The generated markdown view is [`docs/generated-index.md`](docs/generated-index.md).
 
@@ -90,6 +91,10 @@ Real screenshots are pending. The game is playable in source, but this README do
 
 Real screenshots are pending. The game is playable in source and its completability is machine-verified (`node scripts/verify-gravity-atlas.mjs`), but this README does not claim screenshot evidence until verified image files exist.
 
+### Observation 006 / Game 006: Memory Bloom
+
+Real screenshots are pending. The game is playable in source, but this README does not claim screenshot evidence until verified image files exist.
+
 ## Archive Model
 
 The project is organized around observation value, not raw output volume.
@@ -105,7 +110,7 @@ The halls are: Arcade Reaction, Puzzle Logic, Survival Strategy, Card Strategy, 
 
 Every game declares `deviceSupport` in both `games/manifest.json` and `games/<slug>/game.json`. The launcher uses this metadata to decide whether to allow direct play, warn before launch, or recommend desktop.
 
-The current archive is PC-first. All five playable observations are marked desktop supported and mobile limited. Mobile support means a no-overflow baseline unless a game explicitly records stronger mobile QA; no physical handset QA is claimed here.
+The current archive is PC-first. All six playable observations are marked desktop supported and mobile limited. Mobile support means a no-overflow baseline unless a game explicitly records stronger mobile QA; no physical handset QA is claimed here.
 
 ## Launcher Structure
 
@@ -175,6 +180,7 @@ node --check games/signal-cartographer/src/main.js
 node --check games/lumen-lattice/src/main.js
 node --check games/neon-pulse-courier/src/main.js
 node --check games/ninefold-draft/src/main.js
+node --check games/memory-bloom/src/main.js
 ```
 
 ## Documentation
