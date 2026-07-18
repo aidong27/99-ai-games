@@ -2,7 +2,7 @@
 
 Signal Cartographer is Observation 001 / Game 001 in 99 AI Games.
 
-It is a Canvas survival-navigation game where the player maps a hostile signal field, collects fragments, drops beacons, and reaches an exit before signal integrity fails. As an archive entry, its role is to serve as the first playable observation sample of AI game-making capability.
+The current canonical version is **Signal Cartographer: Deep Field**, a PC-first tactical map survival game where the player scans hostile lanes, collects fragments, drops limited beacons, and reaches an exit before signal integrity fails. As an archive entry, its role is to serve as the first playable observation sample of AI game-making capability.
 
 ## Metadata
 
@@ -10,11 +10,13 @@ It is a Canvas survival-navigation game where the player maps a hostile signal f
 - Slot type: benchmark
 - Archive role: first playable observation sample
 - Status: playable
-- Canonical variant: `codex-gpt-5-5-xhigh-2026-05-31`
-- Model label: `GPT-5.5 xhigh`
+- Canonical variant: `codex-signal-cartographer-deep-field-2026-06-03`
+- Model label: `GPT-5 (Codex session)`
 - Agent/tool: `Codex`
-- Created date: `2026-05-31`
+- Created date: `2026-06-03`
 - Human code edits: `false`
+
+The earlier `codex-gpt-5-5-xhigh-2026-05-31` implementation remains archived as the historical baseline variant and was not deleted.
 
 ## Local Play
 
@@ -33,7 +35,8 @@ http://localhost:4173/games/signal-cartographer/
 ## Controls
 
 - Move: WASD or Arrow keys
-- Steer: drag or press on the chart
+- Set route target: click or drag on the chart
+- Scan: E or Scan button
 - Beacon: Space or Beacon button
 - Restart: R
 - Pause: P
