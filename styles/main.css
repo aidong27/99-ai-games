@@ -10,9 +10,9 @@
   flex-direction: column;
   padding: 22px 34px 18px;
   background:
-    radial-gradient(circle at 72% 18%, rgba(216, 247, 95, 0.06), transparent 420px),
-    radial-gradient(circle at 10% 64%, rgba(127, 233, 224, 0.04), transparent 360px),
-    linear-gradient(180deg, rgba(244, 241, 232, 0.04), transparent 230px),
+    radial-gradient(circle at 72% 18%, rgba(217, 119, 87, 0.06), transparent 420px),
+    radial-gradient(circle at 10% 64%, rgba(91, 122, 153, 0.04), transparent 360px),
+    linear-gradient(180deg, rgba(40, 38, 34, 0.04), transparent 230px),
     var(--bg-deep);
   overflow-x: hidden;
 }
@@ -60,7 +60,7 @@
   border-radius: var(--radius-md);
   padding: 0 13px;
   color: var(--muted-strong);
-  background: rgba(244, 241, 232, 0.035);
+  background: rgba(40, 38, 34, 0.035);
   font-family: var(--mono-font);
   font-size: 0.72rem;
   letter-spacing: 0.14em;
@@ -121,12 +121,12 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: -0.012em;
-  text-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 24px 80px rgba(40, 38, 34, 0.12);
 }
 
 .title-mark span {
   width: fit-content;
-  background: linear-gradient(180deg, var(--text), rgba(244, 241, 232, 0.72));
+  background: linear-gradient(180deg, var(--text), rgba(40, 38, 34, 0.72));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -135,14 +135,14 @@
 .title-mark span:nth-child(2) {
   background: none;
   color: transparent;
-  -webkit-text-stroke: 2px rgba(216, 247, 95, 0.85);
+  -webkit-text-stroke: 2px rgba(217, 119, 87, 0.85);
   text-shadow: none;
   margin-left: 0.08em;
 }
 
 @supports not (-webkit-text-stroke: 2px black) {
   .title-mark span:nth-child(2) {
-    background: linear-gradient(180deg, var(--accent), rgba(216, 247, 95, 0.6));
+    background: linear-gradient(180deg, var(--accent), rgba(217, 119, 87, 0.6));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -201,7 +201,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(5, 6, 7, 0.18), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
   transform: translateX(-120%);
   transition: transform var(--transition-slow);
 }
@@ -224,13 +224,13 @@
   height: 9px;
   border-radius: 999px;
   background: var(--accent);
-  box-shadow: 0 0 0 5px rgba(216, 247, 95, 0.12);
+  box-shadow: 0 0 0 5px rgba(217, 119, 87, 0.12);
   animation: statusPulse 2.6s ease-in-out infinite;
 }
 
 @keyframes statusPulse {
-  0%, 100% { box-shadow: 0 0 0 4px rgba(216, 247, 95, 0.1); }
-  50% { box-shadow: 0 0 0 7px rgba(216, 247, 95, 0.18); }
+  0%, 100% { box-shadow: 0 0 0 4px rgba(217, 119, 87, 0.1); }
+  50% { box-shadow: 0 0 0 7px rgba(217, 119, 87, 0.18); }
 }
 
 .title-status {
@@ -240,8 +240,8 @@
   border-radius: var(--radius-lg);
   padding: 20px;
   background:
-    linear-gradient(180deg, rgba(216, 247, 95, 0.06), transparent 42%),
-    rgba(13, 13, 10, 0.86);
+    linear-gradient(180deg, rgba(217, 119, 87, 0.06), transparent 42%),
+    rgba(255, 255, 255, 0.86);
   box-shadow: var(--shadow);
 }
 
@@ -340,7 +340,7 @@
   border-radius: var(--radius-md);
   padding: 10px;
   color: var(--text);
-  background: rgba(244, 241, 232, 0.035);
+  background: rgba(40, 38, 34, 0.035);
   resize: vertical;
 }
 
@@ -395,14 +395,14 @@
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   padding: 18px 20px;
-  background: linear-gradient(180deg, rgba(244, 241, 232, 0.03), rgba(244, 241, 232, 0.012));
+  background: linear-gradient(180deg, rgba(40, 38, 34, 0.03), rgba(40, 38, 34, 0.012));
   transition: border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .shelf-row:hover {
-  border-color: rgba(216, 247, 95, 0.45);
+  border-color: rgba(217, 119, 87, 0.45);
   transform: translate(-1px, -1px);
-  box-shadow: 4px 4px 0 rgba(216, 247, 95, 0.12);
+  box-shadow: 0 8px 22px rgba(40, 38, 34, 0.1);
 }
 
 .shelf-plate {
@@ -493,12 +493,12 @@
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   padding: 18px;
-  background: rgba(244, 241, 232, 0.018);
+  background: rgba(40, 38, 34, 0.018);
 }
 
 .hall-cell.covered {
-  border-color: rgba(216, 247, 95, 0.4);
-  background: linear-gradient(180deg, rgba(216, 247, 95, 0.05), transparent 60%);
+  border-color: rgba(217, 119, 87, 0.4);
+  background: linear-gradient(180deg, rgba(217, 119, 87, 0.05), transparent 60%);
 }
 
 .hall-cell-number {
@@ -541,7 +541,7 @@
 .hall-cell-link {
   display: inline-flex;
   align-items: center;
-  border: 1px solid rgba(216, 247, 95, 0.5);
+  border: 1px solid rgba(217, 119, 87, 0.5);
   padding: 4px 9px;
   color: var(--accent);
   font-family: var(--mono-font);
@@ -585,7 +585,7 @@
   border-left: 3px solid var(--accent);
   border-radius: var(--radius-md);
   padding: 16px 18px;
-  background: rgba(244, 241, 232, 0.02);
+  background: rgba(40, 38, 34, 0.02);
 }
 
 .model-node-name {
@@ -635,9 +635,9 @@
 
 @media (hover: hover) and (pointer: fine) {
   .title-header nav a:hover {
-    border-color: rgba(216, 247, 95, 0.4);
+    border-color: rgba(217, 119, 87, 0.4);
     color: var(--text);
-    background: rgba(216, 247, 95, 0.06);
+    background: rgba(217, 119, 87, 0.06);
   }
 
   .title-actions .archive-button.primary:hover::after {
