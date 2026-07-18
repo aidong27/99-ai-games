@@ -1,0 +1,339 @@
+import {
+  filterGamesByModel,
+  formatDate,
+  getArchiveStats,
+  getGameNumberLabel,
+  getMetadataHref,
+  getMobileSupportInfo,
+  getModelsFromGames,
+  getObservationHref,
+  getPlayGateHref,
+  getScreenshotHref,
+  getShortGameNumber,
+  loadArchive,
+  toTitle
+} from "./archive-data.js";
+
+const modelAxis = document.querySelector("#model-axis");
+const modelCount = document.querySelector("#model-count");
+const libraryStatus = document.querySelector("#library-status");
+const track = document.querySelector("#observation-track");
+const timeline = document.querySelector("#observation-timeline");
+const currentTitle = document.querySelector("#library-stage-title");
+const currentReadout = document.querySelector("#current-readout");
+const playSelected = document.querySelector("#play-selected");
+const viewRecord = document.querySelector("#view-record");
+const openMetadata = document.querySelector("#open-metadata");
+const errorPanel = document.querySelector("#library-error");
+
+const state = {
+  manifest: null,
+  games: [],
+  filteredGames: [],
+  models: [],
+  selectedModel: "all",
+  selectedSlug: "",
+  selectedIndex: 0
+};
+
+loadLibrary();
+
+document.addEventListener("keydown", (event) => {
+  if (event.metaKey || event.ctrlKey || event.altKey || isTypingTarget(event.target)) {
+    return;
+  }
+
+  if (event.key === "ArrowRight") {
+    event.preventDefault();
+    selectByOffset(1);
+  } else if (event.key === "ArrowLeft") {
+    event.preventDefault();
+    selectByOffset(-1);
+  } else if (event.key === "Enter") {
+    const selected = getSelectedGame();
+    if (selected) {
+      window.location.href = getObservationHref(selected);
+    }
+  } else if (event.key === "Escape") {
+    if (state.selectedModel !== "all") {
+      selectModel("all");
+    } else {
+      window.location.href = "./";
+    }
+  }
+});
+
+async function loadLibrary() {
+  try {
+    const { manifest, games } = await loadArchive();
+    const stats = getArchiveStats(manifest, games);
+
+    state.manifest = manifest;
+    state.games = games;
+    state.models = getModelsFromGames(games);
+    state.selectedSlug = readSlugFromHash() || selectInitialSlug(games);
+    state.filteredGames = filterGamesByModel(games, state.selectedModel);
+    state.selectedIndex = findSelectedIndex();
+
+    libraryStatus.textContent = `${stats.playableCount} playable / ${stats.targetCount} target slots`;
+    modelCount.textContent = `${state.models.length} ${state.models.length === 1 ? "model" : "models"}`;
+    renderModels();
+    renderLibrary();
+  } catch (error) {
+    showError(`The observation library could not load games/manifest.json. ${error.message}`);
+  }
+}
+
+function renderModels() {
+  const allButton = createModelButton({
+    modelName: "All Models",
+    games: state.games,
+    agents: new Set(state.models.flatMap((model) => [...model.agents]))
+  }, "all");
+
+  const buttons = [
+    allButton,
+    ...state.models.map((model) => createModelButton(model, model.modelName))
+  ];
+
+  modelAxis.replaceChildren(...buttons);
+}
+
+function createModelButton(model, value) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = `model-axis-item${state.selectedModel === value ? " active" : ""}`;
+  button.dataset.model = value;
+  button.setAttribute("role", "listitem");
+  button.addEventListener("click", () => selectModel(value));
+
+  const icon = document.createElement("span");
+  icon.className = "axis-icon";
+  icon.textContent = value === "all" ? "99" : "AI";
+
+  const copy = document.createElement("span");
+  copy.className = "axis-copy";
+  copy.append(
+    createText("strong", "", model.modelName),
+    createText("small", "", `${model.games.length} ${model.games.length === 1 ? "observation" : "observations"} / ${model.agents.size} ${model.agents.size === 1 ? "agent" : "agents"}`)
+  );
+
+  button.append(icon, copy);
+  return button;
+}
+
+function renderLibrary() {
+  state.filteredGames = filterGamesByModel(state.games, state.selectedModel);
+  state.selectedIndex = findSelectedIndex();
+
+  if (!state.filteredGames.length) {
+    currentTitle.textContent = "No observations for this model";
+    currentReadout.replaceChildren();
+    track.replaceChildren(createNotice("No real observation samples match this model filter."));
+    timeline.replaceChildren();
+    playSelected.href = "./library.html";
+    playSelected.textContent = "No playable sample";
+    playSelected.className = "archive-button secondary";
+    viewRecord.href = "./library.html";
+    openMetadata.href = "./games/manifest.json";
+    return;
+  }
+
+  track.replaceChildren(...state.filteredGames.map((game, index) => createObservationCard(game, index)));
+  renderTimeline();
+  updateSelection();
+}
+
+function createObservationCard(game, index) {
+  const support = getMobileSupportInfo(game);
+  const card = document.createElement("button");
+  card.type = "button";
+  card.className = "observation-card";
+  card.dataset.index = String(index);
+  card.addEventListener("click", () => {
+    window.location.href = getObservationHref(game);
+  });
+
+  const imageWrap = document.createElement("span");
+  imageWrap.className = "card-image";
+  const screenshot = getScreenshotHref(game);
+  if (screenshot) {
+    const img = document.createElement("img");
+    img.src = screenshot;
+    img.alt = `${game.title} verified screenshot`;
+    img.loading = "lazy";
+    img.addEventListener("error", () => {
+      imageWrap.replaceChildren(createText("span", "image-fallback", "No verified screenshot"));
+    }, { once: true });
+    imageWrap.append(img);
+  } else {
+    imageWrap.append(createText("span", "image-fallback", "No verified screenshot"));
+  }
+
+  const meta = document.createElement("span");
+  meta.className = "card-meta";
+  meta.append(
+    createText("span", "number", getShortGameNumber(game)),
+    createText("strong", "", game.title ?? "Untitled observation"),
+    createText("small", "", game.hallName ?? game.hallId ?? "Hall unrecorded")
+  );
+
+  const badges = document.createElement("span");
+  badges.className = "compact-badges";
+  badges.append(
+    createBadge(game.statusLabel ?? toTitle(game.status), "neutral"),
+    createBadge(support.label, support.tone),
+    createBadge(game.provenance?.modelName ?? "Model unrecorded", "mono")
+  );
+
+  card.append(imageWrap, meta, badges);
+  return card;
+}
+
+function renderTimeline() {
+  const nodes = state.filteredGames.map((game, index) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "timeline-node";
+    button.dataset.index = String(index);
+    button.addEventListener("click", () => selectIndex(index));
+    button.append(
+      createText("strong", "", getShortGameNumber(game)),
+      createText("span", "", formatDate(game.provenance?.createdDate)),
+      createText("small", "", game.hallName ?? game.hallId ?? "Hall unrecorded")
+    );
+    return button;
+  });
+
+  const reserved = document.createElement("div");
+  reserved.className = "timeline-node reserved-slot";
+  reserved.append(
+    createText("strong", "", `${String((state.manifest?.targetGameCount ?? 99) - state.games.length).padStart(2, "0")} reserved`),
+    createText("span", "", "Future observation slots"),
+    createText("small", "", "Empty / not playable")
+  );
+
+  timeline.replaceChildren(...nodes, reserved);
+}
+
+function updateSelection() {
+  const selected = getSelectedGame();
+  if (!selected) {
+    return;
+  }
+
+  state.selectedSlug = selected.slug;
+  window.history.replaceState(null, "", `#${selected.slug}`);
+
+  for (const card of track.querySelectorAll(".observation-card")) {
+    const active = Number(card.dataset.index) === state.selectedIndex;
+    card.classList.toggle("active", active);
+    card.setAttribute("aria-current", active ? "true" : "false");
+    if (active) {
+      card.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    }
+  }
+
+  for (const node of timeline.querySelectorAll(".timeline-node")) {
+    const active = Number(node.dataset.index) === state.selectedIndex;
+    node.classList.toggle("active", active);
+  }
+
+  const support = getMobileSupportInfo(selected);
+  currentTitle.textContent = selected.title ?? "Untitled observation";
+  currentReadout.replaceChildren(
+    createReadout("Observation", getGameNumberLabel(selected)),
+    createReadout("Model", selected.provenance?.modelName),
+    createReadout("Agent", selected.provenance?.agentName),
+    createReadout("Created", formatDate(selected.provenance?.createdDate)),
+    createReadout("Device", support.label),
+    createReadout("Hall", selected.hallName ?? selected.hallId)
+  );
+  playSelected.href = getPlayGateHref(selected);
+  playSelected.textContent = support.ctaLabel;
+  playSelected.className = `archive-button ${support.key === "unsupported" ? "warning" : "primary"}`;
+  viewRecord.href = getObservationHref(selected);
+  openMetadata.href = getMetadataHref(selected);
+}
+
+function selectModel(modelName) {
+  state.selectedModel = modelName;
+  const filtered = filterGamesByModel(state.games, state.selectedModel);
+  state.selectedSlug = filtered[0]?.slug ?? "";
+  renderModels();
+  renderLibrary();
+}
+
+function selectByOffset(offset) {
+  if (!state.filteredGames.length) {
+    return;
+  }
+
+  const next = Math.max(0, Math.min(state.filteredGames.length - 1, state.selectedIndex + offset));
+  selectIndex(next);
+}
+
+function selectIndex(index) {
+  state.selectedIndex = index;
+  updateSelection();
+}
+
+function getSelectedGame() {
+  return state.filteredGames[state.selectedIndex] ?? state.filteredGames[0] ?? null;
+}
+
+function findSelectedIndex() {
+  const index = state.filteredGames.findIndex((game) => game.slug === state.selectedSlug);
+  return index >= 0 ? index : 0;
+}
+
+function selectInitialSlug(games) {
+  const playable = games
+    .filter((game) => game.status === "playable")
+    .sort((a, b) => (b.number ?? 0) - (a.number ?? 0));
+  return playable[0]?.slug ?? games[0]?.slug ?? "";
+}
+
+function readSlugFromHash() {
+  return window.location.hash.replace(/^#/, "");
+}
+
+function createReadout(label, value) {
+  const item = document.createElement("div");
+  item.append(createText("dt", "", label), createText("dd", "", value ?? "Unrecorded"));
+  return item;
+}
+
+function createBadge(text, tone) {
+  const badge = document.createElement("span");
+  badge.className = `archive-badge ${tone}`;
+  badge.textContent = text ?? "Unrecorded";
+  return badge;
+}
+
+function createNotice(message) {
+  const notice = document.createElement("p");
+  notice.className = "archive-notice";
+  notice.textContent = message;
+  return notice;
+}
+
+function createText(tagName, className, text) {
+  const element = document.createElement(tagName);
+  if (className) {
+    element.className = className;
+  }
+  element.textContent = text ?? "";
+  return element;
+}
+
+function isTypingTarget(target) {
+  return ["INPUT", "TEXTAREA", "SELECT"].includes(target?.tagName);
+}
+
+function showError(message) {
+  errorPanel.textContent = message;
+  errorPanel.classList.remove("hidden");
+  libraryStatus.textContent = "Archive unavailable";
+  track.replaceChildren(createNotice("No observation cards can be rendered until the manifest loads."));
+}

@@ -7,7 +7,11 @@ Review Game 000 / <variant-id> for 99 AI Games.
 
 Check:
 - Does it load from a local static server?
-- Does the launcher still work?
+- Does the four-level launcher still work?
+  - `index.html`
+  - `library.html`
+  - `observation.html?slug=<game-slug>`
+  - `play.html?slug=<game-slug>`
 - Is the canvas or main play surface nonblank?
 - Do documented controls work?
 - Is there horizontal overflow at desktop or 390px mobile width?

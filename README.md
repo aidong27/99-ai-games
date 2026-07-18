@@ -47,6 +47,17 @@ Every game entry declares `deviceSupport` in both `games/manifest.json` and `gam
 
 Do not mark mobile as `supported` unless mobile behavior has been implemented and checked. If support is uncertain, mark it `limited` or `unsupported` and document the pending work in `mobileNotes`.
 
+## Launcher Structure
+
+The public launcher is a four-level static archive system:
+
+- `index.html`: title screen and project entry point.
+- `library.html`: model-axis observation library with real manifest-backed game cards.
+- `observation.html?slug=<game-slug>`: archive record with screenshots, metadata, device support, provenance, variants, and run records.
+- `play.html?slug=<game-slug>`: minimalist play gate before entering `games/<slug>/`.
+
+Launcher pages read from `games/manifest.json` and each game's `game.json`. They must not invent games, models, screenshots, popularity, or provenance.
+
 ## Current Status
 
 - Archive status: independent open-source project.
@@ -143,6 +154,9 @@ These screenshots were captured from the local build served at `http://localhost
 ```text
 .
 ├── index.html
+├── library.html
+├── observation.html
+├── play.html
 ├── src/
 ├── styles/
 ├── games/
