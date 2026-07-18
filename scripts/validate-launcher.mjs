@@ -7,6 +7,16 @@ const errors = [];
 const requiredAssetVersion = "2026-06-21-theme-promo";
 const siteRoot = "https://aidong27.github.io/99-ai-games";
 const expectedOgImage = "https://aidong27.github.io/99-ai-games/assets/social/og-cover.png";
+const sharedStylesheets = [
+  "styles/tokens.css",
+  "styles/base.css",
+  "styles/layout.css",
+  "styles/components.css",
+  "styles/archive.css"
+];
+const pageStylesheets = {
+  "index.html": ["styles/main.css", "styles/pages/home.css"]
+};
 
 const requiredFiles = [
   "index.html",
@@ -16,11 +26,21 @@ const requiredFiles = [
   "press.html",
   "log.html",
   "compare.html",
+  "styles/tokens.css",
+  "styles/base.css",
+  "styles/layout.css",
+  "styles/components.css",
   "styles/archive.css",
   "styles/main.css",
+  "styles/pages/home.css",
+  "src/app/constants.js",
+  "src/app/routes.js",
   "src/theme.js",
   "src/archive-effects.js",
   "src/archive-data.js",
+  "src/data/device-support.js",
+  "src/data/paths.js",
+  "src/data/view-models.js",
   "src/main.js",
   "src/library.js",
   "src/observation.js",
@@ -28,12 +48,19 @@ const requiredFiles = [
   "src/press.js",
   "src/share.js",
   "src/compare.js",
+  "src/ui/badges.js",
+  "src/ui/buttons.js",
+  "src/ui/cards.js",
+  "src/ui/dom.js",
+  "src/ui/layout.js",
+  "src/ui/meta.js",
   "scripts/generate-promo-pages.mjs",
   "scripts/validate-public-surfaces.mjs",
   "assets/social/og-cover.svg",
   "assets/social/og-cover.png",
   "assets/social/social-card.svg",
   "assets/social/social-card-square.svg",
+  "docs/css-selector-map.md",
   "docs/index.md",
   "docs/share-kit.md",
   "games/manifest.json"
@@ -149,6 +176,7 @@ function parseTags(html, tagName) {
 async function validateHtmlReferences(pagePath) {
   const html = await readText(pagePath);
   let hasThemeScript = false;
+  const stylesheetPaths = [];
 
   for (const match of html.matchAll(/\b(?:href|src)\s*=\s*["']([^"']+)["']/gi)) {
     if (!isExternalRef(match[1])) {
@@ -164,6 +192,9 @@ async function validateHtmlReferences(pagePath) {
     const href = getAttribute(tag, "href");
     validateVersionedRef(href, `${pagePath} stylesheet`);
     const localPath = normalizeLocalRef(href, `${pagePath} stylesheet`, pagePath);
+    if (localPath) {
+      stylesheetPaths.push(localPath);
+    }
     if (localPath && !(await exists(localPath))) {
       fail(`${pagePath} stylesheet does not exist: ${href}`);
     }
@@ -188,7 +219,79 @@ async function validateHtmlReferences(pagePath) {
     fail(`${pagePath} should load src/theme.js before rendering themed UI`);
   }
 
+  if (launcherPages.includes(pagePath)) {
+    validateLauncherStylesheetStack(pagePath, stylesheetPaths);
+  }
+
+  validatePromoStylesheetStack(pagePath, stylesheetPaths);
   validateSocialMeta(html, pagePath);
+}
+
+function validateLauncherStylesheetStack(pagePath, stylesheetPaths) {
+  let lastIndex = -1;
+  for (const expected of sharedStylesheets) {
+    const index = stylesheetPaths.indexOf(expected);
+    if (index === -1) {
+      fail(`${pagePath} should load ${expected}`);
+      continue;
+    }
+    if (index < lastIndex) {
+      fail(`${pagePath} should load shared CSS in tokens -> base -> layout -> components -> archive order`);
+    }
+    lastIndex = index;
+  }
+
+  const mainIndex = stylesheetPaths.indexOf("styles/main.css");
+  const archiveIndex = stylesheetPaths.indexOf("styles/archive.css");
+  if ((pagePath === "index.html" || pagePath === "compare.html") && mainIndex !== -1 && mainIndex < archiveIndex) {
+    fail(`${pagePath} should load styles/main.css after styles/archive.css`);
+  }
+
+  const expectedPageStyles = pageStylesheets[pagePath] ?? [];
+  let previousPageIndex = archiveIndex;
+  for (const expected of expectedPageStyles) {
+    const index = stylesheetPaths.indexOf(expected);
+    if (index === -1) {
+      fail(`${pagePath} should load ${expected}`);
+      continue;
+    }
+    if (index < previousPageIndex) {
+      fail(`${pagePath} should load page CSS after shared archive CSS in the documented order`);
+    }
+    previousPageIndex = index;
+  }
+}
+
+function validatePromoStylesheetStack(pagePath, stylesheetPaths) {
+  if (!/^promo\/[^/]+\/index\.html$/.test(pagePath)) {
+    return;
+  }
+
+  const expectedStylesheet = "styles/archive.css";
+  if (stylesheetPaths.length !== 1 || stylesheetPaths[0] !== expectedStylesheet) {
+    fail(`${pagePath} should load only ${expectedStylesheet}; archive.css imports shared CSS for generated promo compatibility`);
+  }
+}
+
+async function validateArchiveCssImports() {
+  const css = await readText("styles/archive.css");
+  const imports = [];
+  for (const match of css.matchAll(/@import\s+url\(["']?([^"')]+)["']?\);/g)) {
+    validateVersionedRef(match[1], "styles/archive.css import");
+    const localPath = normalizeLocalRef(match[1], "styles/archive.css import", "styles/archive.css");
+    if (localPath) {
+      imports.push(localPath);
+      if (!(await exists(localPath))) {
+        fail(`styles/archive.css import does not exist: ${match[1]}`);
+      }
+    }
+  }
+
+  const firstImports = imports.slice(0, sharedStylesheets.length - 1);
+  const expectedImports = sharedStylesheets.slice(0, -1);
+  if (firstImports.join("|") !== expectedImports.join("|")) {
+    fail("styles/archive.css should import tokens, base, layout, and components first for generated promo compatibility");
+  }
 }
 
 function validateSocialMeta(html, pagePath) {
@@ -333,6 +436,7 @@ for (const pagePath of launcherPages) {
   await validateHtmlReferences(pagePath);
 }
 
+await validateArchiveCssImports();
 await validateReadmeAssets();
 await validateShareKitAssets();
 await validateNoFalseClaims();

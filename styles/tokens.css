@@ -1,0 +1,37 @@
+/* Shared launcher archive layer extracted from archive.css. Keep selector names stable. */
+:root {
+  color-scheme: dark;
+  --bg: #000000;
+  --bg-deep: #000000;
+  --panel: rgba(28, 28, 30, 0.72);
+  --panel-strong: rgba(28, 28, 30, 0.92);
+  --panel-soft: rgba(255, 255, 255, 0.055);
+  --line: rgba(255, 255, 255, 0.11);
+  --line-strong: rgba(255, 255, 255, 0.18);
+  --text: #f5f5f7;
+  --muted: #8e8e93;
+  --muted-strong: #c7c7cc;
+  --accent: #0a84ff;
+  --accent-soft: rgba(10, 132, 255, 0.16);
+  --accent-2: #64d2ff;
+  --warning: #ffd60a;
+  --warning-soft: rgba(255, 214, 10, 0.14);
+  --danger: #ff453a;
+  --danger-soft: rgba(255, 69, 58, 0.12);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --display-font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  --ui-font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+  --mono-font: "SF Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 8px;
+  --shadow: none;
+  --focus-ring: rgba(10, 132, 255, 0.28);
+  --transition-fast: 160ms ease;
+  --transition-slow: 640ms cubic-bezier(0.16, 1, 0.3, 1);
+}

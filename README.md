@@ -125,18 +125,52 @@ The public launcher is a static four-level archive system:
 
 Launcher pages read from `games/manifest.json` and each game's `game.json`. They must not invent games, models, screenshots, popularity, or provenance. Metadata fetches are cached per session (keyed by the deployed asset version) so navigation between pages does not refetch every record.
 
+## Launcher Code Structure
+
+The launcher stays framework-free, but shared logic is split by responsibility:
+
+- `src/app/`: small constants and route helpers.
+- `src/data/`: path helpers, view-model helpers, and device-support policy.
+- `src/ui/`: lightweight DOM, badge, action, definition-card, layout-state, and document-title helpers.
+- `src/archive-data.js`: compatibility entry point used by existing pages.
+- `src/<page>.js`: page-specific render and interaction code.
+
+Page scripts should own page-specific orchestration: loading data, choosing page state, wiring page events, and assembling page-specific sections. Shared helpers should stay small and mechanical; they should not hide page behavior or introduce a framework.
+
+Launcher CSS is also layered conservatively:
+
+- `styles/tokens.css`: shared custom properties and base design tokens.
+- `styles/base.css`: reset, document defaults, focus, hidden, and skip-link rules.
+- `styles/layout.css`: archive shell, topbar, wordmark, page title, and shared page chrome.
+- `styles/components.css`: shared archive buttons, notices, badges, and compact badge rows.
+- `styles/archive.css`: page-specific archive rules, legacy cascade, theme overrides, promo-page compatibility imports.
+- `styles/main.css`: compatibility token layer still loaded by `compare.html`.
+- `styles/pages/home.css`: launcher home hero, featured observation, stats, card grid, and footer styles.
+
+Launcher HTML loads CSS in this order: tokens, base, layout, components, archive, then page-level CSS. The home page keeps `main.css` before `styles/pages/home.css` because `main.css` still preserves root token compatibility for `compare.html`. `archive.css` also imports the shared layers so generated promo pages that still reference only `archive.css` remain stable.
+
+For future archive CSS splitting, use [`docs/css-selector-map.md`](docs/css-selector-map.md) as the selector ownership map before moving more rules out of `archive.css`.
+
+Generated surfaces are committed but should be regenerated, not hand-edited:
+
+- `promo/<slug>/index.html`
+- `assets/social/games/<slug>.svg`
+- `docs/generated-index.md`
+
+Launcher refactors should not be bundled with game implementation changes under `games/<slug>/src/`, `games/<slug>/styles/`, variants, or run records.
+
 ## Run Locally
 
 No package manager, framework, or build step is required.
 
 ```bash
-python3 -m http.server 4173
+python3 -m http.server 4173 --bind 127.0.0.1
 ```
 
 Then open:
 
 ```text
-http://localhost:4173
+http://127.0.0.1:4173
 ```
 
 ## Validate

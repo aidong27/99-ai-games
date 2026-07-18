@@ -9,6 +9,8 @@ import {
 } from "./archive-data.js";
 import { createSignalField } from "./archive-effects.js";
 import { setupShareControls } from "./share.js";
+import { createElement, setHref, setText } from "./ui/dom.js";
+import { createEmptyState } from "./ui/layout.js";
 
 const MAX_VISIBLE_GAMES = 6;
 
@@ -181,51 +183,11 @@ function createGameCard(game) {
 }
 
 function renderEmptyState(message) {
-  refs.gameGrid?.replaceChildren(createElement("p", { className: "launcher-empty" }, message));
+  refs.gameGrid?.replaceChildren(createEmptyState(message, "launcher-empty"));
 }
 
 function selectFeaturedWithPreview(games) {
   return [...games]
     .sort((a, b) => (b.number ?? 0) - (a.number ?? 0))
     .find((game) => Boolean(getScreenshotHref(game)));
-}
-
-function createElement(tagName, options = {}, text = "") {
-  const element = document.createElement(tagName);
-
-  if (options.className) {
-    element.className = options.className;
-  }
-  if (options.href) {
-    element.href = options.href;
-  }
-  if (options.src) {
-    element.src = options.src;
-  }
-  if (options.alt !== undefined) {
-    element.alt = options.alt;
-  }
-  if (options.loading) {
-    element.loading = options.loading;
-  }
-  if (options.ariaLabel) {
-    element.setAttribute("aria-label", options.ariaLabel);
-  }
-  if (text) {
-    element.textContent = text;
-  }
-
-  return element;
-}
-
-function setText(element, value) {
-  if (element) {
-    element.textContent = String(value);
-  }
-}
-
-function setHref(element, href) {
-  if (element && href) {
-    element.href = href;
-  }
 }

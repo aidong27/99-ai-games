@@ -17,6 +17,10 @@ import {
   toTitle
 } from "./archive-data.js";
 import { bindPointerTilt, createSignalField } from "./archive-effects.js";
+import { createBadge } from "./ui/badges.js";
+import { createDefinitionItem, createNotice } from "./ui/cards.js";
+import { createText } from "./ui/dom.js";
+import { clearPanelMessage, showPanelMessage } from "./ui/layout.js";
 
 const modelAxis = document.querySelector("#model-axis");
 const modelCount = document.querySelector("#model-count");
@@ -341,14 +345,14 @@ function updateSelection(options = {}) {
   const support = getMobileSupportInfo(selected);
   currentTitle.textContent = selected.title ?? "Untitled observation";
   currentReadout.replaceChildren(
-    createReadout("Observation", getGameNumberLabel(selected)),
-    createReadout("Model", selected.provenance?.modelName),
-    createReadout("Agent", selected.provenance?.agentName),
-    createReadout("Created", formatDate(selected.provenance?.createdDate)),
-    createReadout("Device", support.label),
-    createReadout("Status", selected.statusLabel ?? toTitle(selected.status)),
-    createReadout("Hall", selected.hallName ?? selected.hallId),
-    createReadout("Source", selected.sourceCompleteness)
+    createDefinitionItem("Observation", getGameNumberLabel(selected)),
+    createDefinitionItem("Model", selected.provenance?.modelName),
+    createDefinitionItem("Agent", selected.provenance?.agentName),
+    createDefinitionItem("Created", formatDate(selected.provenance?.createdDate)),
+    createDefinitionItem("Device", support.label),
+    createDefinitionItem("Status", selected.statusLabel ?? toTitle(selected.status)),
+    createDefinitionItem("Hall", selected.hallName ?? selected.hallId),
+    createDefinitionItem("Source", selected.sourceCompleteness)
   );
   playSelected.href = getPlayGateHref(selected);
   playSelected.textContent = support.ctaLabel;
@@ -450,44 +454,13 @@ function readSlugFromHash() {
   return window.location.hash.replace(/^#/, "");
 }
 
-function createReadout(label, value) {
-  const item = document.createElement("div");
-  item.append(createText("dt", "", label), createText("dd", "", value ?? "Unrecorded"));
-  return item;
-}
-
-function createBadge(text, tone) {
-  const badge = document.createElement("span");
-  badge.className = `archive-badge ${tone}`;
-  badge.textContent = text ?? "Unrecorded";
-  return badge;
-}
-
-function createNotice(message) {
-  const notice = document.createElement("p");
-  notice.className = "archive-notice";
-  notice.textContent = message;
-  return notice;
-}
-
 function renderNotice() {
   if (!state.notice) {
-    errorPanel.textContent = "";
-    errorPanel.classList.add("hidden");
+    clearPanelMessage(errorPanel);
     return;
   }
 
-  errorPanel.textContent = state.notice;
-  errorPanel.classList.remove("hidden");
-}
-
-function createText(tagName, className, text) {
-  const element = document.createElement(tagName);
-  if (className) {
-    element.className = className;
-  }
-  element.textContent = text ?? "";
-  return element;
+  showPanelMessage(errorPanel, state.notice);
 }
 
 function isTypingTarget(target) {
@@ -495,8 +468,7 @@ function isTypingTarget(target) {
 }
 
 function showError(message) {
-  errorPanel.textContent = message;
-  errorPanel.classList.remove("hidden");
+  showPanelMessage(errorPanel, message);
   libraryStatus.textContent = "Archive unavailable";
   track.replaceChildren(createNotice("No observation cards can be rendered until the manifest loads."));
   timeline.replaceChildren();

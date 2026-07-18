@@ -8,6 +8,10 @@ import {
   loadArchive
 } from "./archive-data.js";
 import { createSignalField } from "./archive-effects.js";
+import { createActionRow } from "./ui/buttons.js";
+import { createDefinitionGrid, createDefinitionItem } from "./ui/cards.js";
+import { createElement, createText } from "./ui/dom.js";
+import { replaceWithNotice } from "./ui/layout.js";
 
 const statsRoot = document.querySelector("#press-stats");
 const observationsRoot = document.querySelector("#press-observations");
@@ -49,12 +53,12 @@ function renderStats(stats, manifest) {
     return;
   }
 
-  statsRoot.innerHTML = [
-    stat("Observations", `${stats.observationCount} / ${stats.targetCount}`),
-    stat("Playable", stats.playableCount),
-    stat("Halls", manifest.hallCount ?? "9"),
-    stat("Run records", stats.runCount)
-  ].join("");
+  statsRoot.replaceChildren(
+    createDefinitionItem("Observations", `${stats.observationCount} / ${stats.targetCount}`),
+    createDefinitionItem("Playable", stats.playableCount),
+    createDefinitionItem("Halls", manifest.hallCount ?? "9"),
+    createDefinitionItem("Run records", stats.runCount)
+  );
 }
 
 function renderObservations(games) {
@@ -62,28 +66,9 @@ function renderObservations(games) {
     return;
   }
 
-  observationsRoot.innerHTML = games
+  observationsRoot.replaceChildren(...games
     .sort((a, b) => (a.number ?? 999) - (b.number ?? 999))
-    .map((game) => {
-      const mobile = getMobileSupportInfo(game);
-      return `
-        <article class="press-observation">
-          <p class="archive-kicker">${escapeHtml(getGameNumberLabel(game))}</p>
-          <h3>${escapeHtml(game.title ?? "Untitled observation")}</h3>
-          <dl class="definition-grid">
-            ${stat("Hall", game.hallName ?? "Unassigned")}
-            ${stat("Model", `${game.provenance?.modelName ?? "Unknown"} / ${game.provenance?.agentName ?? "Unknown"}`)}
-            ${stat("Status", game.statusLabel ?? game.status ?? "Unknown")}
-            ${stat("Device", `Desktop ${game.deviceSupport?.desktop ?? "unknown"}; ${mobile.label}`)}
-          </dl>
-          <div class="record-actions">
-            <a class="archive-button secondary compact" href="${getPlayGateHref(game)}">Play gate</a>
-            <a class="archive-button secondary compact" href="${getObservationHref(game)}">Record</a>
-            <a class="archive-button ghost compact" href="${getMetadataHref(game)}">Metadata</a>
-          </div>
-        </article>
-      `;
-    }).join("");
+    .map((game) => createObservationCard(game)));
 }
 
 function renderHalls(halls) {
@@ -91,30 +76,43 @@ function renderHalls(halls) {
     return;
   }
 
-  hallsRoot.innerHTML = halls.map((hall) => `
-    <article class="hall-card">
-      <span>${String(hall.number ?? "?").padStart(2, "0")}</span>
-      <h3>${escapeHtml(hall.name ?? "Unnamed Hall")}</h3>
-      <p>${escapeHtml(hall.description ?? "Observation category.")}</p>
-      <small>${Array.isArray(hall.assignedGameNumbers) ? hall.assignedGameNumbers.length : 0} assigned / ${hall.capacity ?? 11} capacity</small>
-    </article>
-  `).join("");
+  hallsRoot.replaceChildren(...halls.map((hall) => createHallCard(hall)));
 }
 
 function renderError(node, message) {
-  if (node) {
-    node.innerHTML = `<p class="archive-notice">${escapeHtml(message)}</p>`;
-  }
+  replaceWithNotice(node, message);
 }
 
-function stat(label, value) {
-  return `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(String(value))}</dd></div>`;
+function createObservationCard(game) {
+  const mobile = getMobileSupportInfo(game);
+  const article = createElement("article", { className: "press-observation" });
+
+  article.append(
+    createText("p", "archive-kicker", getGameNumberLabel(game)),
+    createText("h3", "", game.title ?? "Untitled observation"),
+    createDefinitionGrid([
+      ["Hall", game.hallName ?? "Unassigned"],
+      ["Model", `${game.provenance?.modelName ?? "Unknown"} / ${game.provenance?.agentName ?? "Unknown"}`],
+      ["Status", game.statusLabel ?? game.status ?? "Unknown"],
+      ["Device", `Desktop ${game.deviceSupport?.desktop ?? "unknown"}; ${mobile.label}`]
+    ]),
+    createActionRow([
+      ["Play gate", getPlayGateHref(game), "secondary compact"],
+      ["Record", getObservationHref(game), "secondary compact"],
+      ["Metadata", getMetadataHref(game), "ghost compact"]
+    ])
+  );
+  return article;
 }
 
-function escapeHtml(value) {
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+function createHallCard(hall) {
+  const assignedCount = Array.isArray(hall.assignedGameNumbers) ? hall.assignedGameNumbers.length : 0;
+  const article = createElement("article", { className: "hall-card" });
+  article.append(
+    createText("span", "", String(hall.number ?? "?").padStart(2, "0")),
+    createText("h3", "", hall.name ?? "Unnamed Hall"),
+    createText("p", "", hall.description ?? "Observation category."),
+    createText("small", "", `${assignedCount} assigned / ${hall.capacity ?? 11} capacity`)
+  );
+  return article;
 }
