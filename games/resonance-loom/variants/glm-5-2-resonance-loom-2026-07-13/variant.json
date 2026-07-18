@@ -1,0 +1,18 @@
+{
+  "variantId": "glm-5-2-resonance-loom-2026-07-13",
+  "gameNumber": 10,
+  "gameSlug": "resonance-loom",
+  "gameTitle": "Resonance Loom",
+  "status": "canonical-playable",
+  "createdDate": "2026-07-13",
+  "modelName": "GLM-5.2",
+  "agentName": "GLM-5.2 coding agent",
+  "humanCodeEdits": false,
+  "implementationPath": "../../",
+  "metadataPath": "variant.json",
+  "notes": "Canonical standalone implementation supplied by the user. The package declares GLM-5.2 by Z.ai as author of the HTML, CSS, gameplay, charts, and Web Audio synthesis. Archive integration preserves those runtime files without source edits.",
+  "comparisonRole": "initial canonical rhythm sample",
+  "runRecords": [
+    "../../runs/2026-07-13-glm-5-2-resonance-loom-initial.json"
+  ]
+}

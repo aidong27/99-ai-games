@@ -14,8 +14,8 @@ import {
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 const errors = [];
-const requiredAssetVersion = "2026-07-14-deepforge-miner";
-const generatedPromoAssetVersion = "2026-07-14-deepforge-miner";
+const requiredAssetVersion = "2026-07-14-resonance-loom";
+const generatedPromoAssetVersion = "2026-07-14-resonance-loom";
 const siteRoot = "https://aidong27.github.io/99-ai-games";
 const expectedOgImage = "https://aidong27.github.io/99-ai-games/assets/social/og-cover.png";
 const launcherCanonicalUrls = {
@@ -473,6 +473,10 @@ function validateViewModelContracts() {
   const deepSeekFamily = getModelFamily("DeepSeek v4 Pro");
   if (deepSeekFamily.id !== "deepseek" || deepSeekFamily.providerName !== "DeepSeek") {
     fail("DeepSeek models should belong to the DeepSeek model family and provider");
+  }
+  const glmFamily = getModelFamily("GLM-5.2");
+  if (glmFamily.id !== "glm" || glmFamily.providerName !== "Z.ai") {
+    fail("GLM models should belong to the GLM / Z.ai model family");
   }
 
   const fixtureGames = [
