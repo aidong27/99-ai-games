@@ -7,8 +7,9 @@ import {
   getScreenshotHref,
   loadArchive
 } from "./archive-data.js";
-import { createSignalField } from "./archive-effects.js";
 import { setupShareControls } from "./share.js";
+import { createElement, setHref, setText } from "./ui/dom.js";
+import { createEmptyState } from "./ui/layout.js";
 
 const MAX_VISIBLE_GAMES = 6;
 
@@ -31,17 +32,12 @@ const refs = {
   observationCount: document.querySelector("#observation-count"),
   playableCount: document.querySelector("#playable-count"),
   runCount: document.querySelector("#run-count"),
-  signalCanvas: document.querySelector("#launcher-signal"),
   targetCount: document.querySelector("#target-count"),
   variantCount: document.querySelector("#variant-count")
 };
 
-const signalField = createSignalField(refs.signalCanvas, { variant: "title", density: 18 });
-
 setupShareControls();
 loadLauncherData();
-signalField.start();
-window.addEventListener("pagehide", () => signalField.destroy(), { once: true });
 
 async function loadLauncherData() {
   try {
@@ -181,51 +177,11 @@ function createGameCard(game) {
 }
 
 function renderEmptyState(message) {
-  refs.gameGrid?.replaceChildren(createElement("p", { className: "launcher-empty" }, message));
+  refs.gameGrid?.replaceChildren(createEmptyState(message, "launcher-empty"));
 }
 
 function selectFeaturedWithPreview(games) {
   return [...games]
     .sort((a, b) => (b.number ?? 0) - (a.number ?? 0))
     .find((game) => Boolean(getScreenshotHref(game)));
-}
-
-function createElement(tagName, options = {}, text = "") {
-  const element = document.createElement(tagName);
-
-  if (options.className) {
-    element.className = options.className;
-  }
-  if (options.href) {
-    element.href = options.href;
-  }
-  if (options.src) {
-    element.src = options.src;
-  }
-  if (options.alt !== undefined) {
-    element.alt = options.alt;
-  }
-  if (options.loading) {
-    element.loading = options.loading;
-  }
-  if (options.ariaLabel) {
-    element.setAttribute("aria-label", options.ariaLabel);
-  }
-  if (text) {
-    element.textContent = text;
-  }
-
-  return element;
-}
-
-function setText(element, value) {
-  if (element) {
-    element.textContent = String(value);
-  }
-}
-
-function setHref(element, href) {
-  if (element && href) {
-    element.href = href;
-  }
 }

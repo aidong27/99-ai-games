@@ -4,6 +4,12 @@ All notable project-level changes are recorded here. This archive does not use c
 
 ## [Unreleased]
 
+- Repair launcher issues found during desktop and mobile browser QA: restore the observation-record route helper import, keep playable status labels separate from observation numbering, pair comparison labels with their values, prevent the mobile comparison matrix from widening and clipping its page, move the desktop archive dock out of card content, and replace the shifting mobile theme controls with a stable compact popover. Extend launcher validation to enforce page-module, local-reference, DOM-id, and status-label contracts, and bump the launcher and generated-promo cache keys so the repaired assets deploy immediately. Promo content and social imagery are unchanged.
+
+- Give each launcher page an accurate title, description, canonical URL, and share URL; observation and play pages now update document/share metadata from the loaded game record. Align browser theme colors with the consolidated light/dark tokens.
+
+- Consolidate the launcher into one maintained visual system: centralize dark/light tokens, replace the accumulated archive/home override eras with page-owned styles, remove the redundant launcher `main.css`, split launcher page rules into `archive-pages.css` while retaining `archive.css` as the generated-promo compatibility entry, retire hidden canvas signal fields and their runtime work, keep restrained CSS reveals and library-card pointer feedback, and add validator guards against duplicated stylesheets, scattered root tokens, unbalanced CSS, and retired effect references. No game implementation or generated promo/social output is changed.
+
 - Add public-surface validation so README stats, press fallback stats, social card counts, share kit promo URLs, generated promo pages, and per-game promo cards stay aligned with the real manifest.
 
 - Add adaptive Apple-style light/dark theming for launcher/editorial pages, generated per-game promo pages under `promo/<slug>/`, and a clearer GitHub README/docs entry surface. Generated promo assets are labeled promotional, not gameplay evidence; no game implementation files are changed.

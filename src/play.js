@@ -5,23 +5,20 @@ import {
   getManifestHref,
   getMobileSupportInfo,
   getObservationHref,
+  getPlayGateHref,
   getPromoHref,
   getRuntimeLaunchState,
   getSlugFromSearch
 } from "./archive-data.js";
-import { createSignalField } from "./archive-effects.js";
+import { createActionGroup, createActionLink, createDisabledButton } from "./ui/buttons.js";
+import { createText } from "./ui/dom.js";
+import { setDocumentMeta } from "./ui/meta.js";
 
 const root = document.querySelector("#play-root");
-const signalCanvas = document.querySelector("#gate-signal");
-const signalField = createSignalField(signalCanvas, { variant: "gate", density: 16 });
 let currentGate = null;
 
 if (root) {
   loadGate();
-  signalField.start();
-  window.addEventListener("pagehide", () => signalField.destroy(), { once: true });
-} else {
-  signalField.destroy();
 }
 
 document.addEventListener("keydown", (event) => {
@@ -81,7 +78,13 @@ function renderGate(game) {
   );
 
   root.replaceChildren(content);
-  document.title = `${game.title} | Start Observation`;
+  setDocumentMeta({
+    title: game.title ?? "Untitled observation",
+    section: "Start Observation",
+    description: game.description ?? "Review device support before starting this playable AI game-making observation.",
+    canonicalPath: getPlayGateHref(game),
+    socialImagePath: `assets/social/games/${encodeURIComponent(game.slug)}.svg`
+  });
 }
 
 function createSupportNote(launchState, mobile) {
@@ -104,40 +107,18 @@ function createGateActions(game, launchState) {
   actions.className = "gate-actions";
 
   if (launchState.canStart) {
-    actions.append(createLink("Start Observation", getLaunchHref(game), "archive-button primary"));
+    actions.append(createActionLink("Start Observation", getLaunchHref(game), "primary"));
   } else {
-    const blocked = document.createElement("button");
-    blocked.type = "button";
-    blocked.className = "archive-button primary disabled";
-    blocked.disabled = true;
-    blocked.textContent = "Desktop recommended";
-    actions.append(blocked);
+    actions.append(createDisabledButton("Desktop recommended"));
   }
 
   if (launchState.needsExplicitOpen) {
-    actions.append(createLink("Open anyway", getLaunchHref(game), "archive-button warning"));
+    actions.append(createActionLink("Open anyway", getLaunchHref(game), "warning"));
   }
 
-  actions.append(createLink("Back to Record", getObservationHref(game), "archive-button secondary"));
-  actions.append(createLink("Promo Page", getPromoHref(game), "archive-button secondary"));
+  actions.append(createActionLink("Back to Record", getObservationHref(game), "secondary"));
+  actions.append(createActionLink("Promo Page", getPromoHref(game), "secondary"));
   return actions;
-}
-
-function createLink(label, href, className) {
-  const link = document.createElement("a");
-  link.className = className;
-  link.href = href;
-  link.textContent = label;
-  return link;
-}
-
-function createText(tagName, className, text) {
-  const element = document.createElement(tagName);
-  if (className) {
-    element.className = className;
-  }
-  element.textContent = text ?? "";
-  return element;
 }
 
 function renderError(message) {
@@ -147,15 +128,8 @@ function renderError(message) {
     createText("h1", "", "Record missing"),
     createText("p", "archive-notice", message),
     createActionGroup([
-      createLink("Back to Library", "./library.html", "archive-button primary"),
-      createLink("Open Manifest", getManifestHref(), "archive-button secondary")
-    ])
+      createActionLink("Back to Library", "./library.html", "primary"),
+      createActionLink("Open Manifest", getManifestHref(), "secondary")
+    ], "gate-actions")
   );
-}
-
-function createActionGroup(actions) {
-  const group = document.createElement("div");
-  group.className = "gate-actions";
-  group.append(...actions);
-  return group;
 }

@@ -4,8 +4,8 @@
   const LIGHT_START_HOUR = 6;
   const DARK_START_HOUR = 19;
   const THEME_COLORS = {
-    dark: "#000000",
-    light: "#f5f5f7"
+    dark: "#0b0c0e",
+    light: "#f5f6f8"
   };
 
   let mode = readStoredMode();
@@ -98,6 +98,7 @@
 
   function setupThemeControls() {
     if (document.querySelector("[data-theme-switcher]")) {
+      document.body.classList.add("has-theme-switcher");
       updateControls();
       return;
     }
@@ -108,14 +109,54 @@
       switcher.classList.add("with-dock");
     }
     switcher.dataset.themeSwitcher = "";
+    switcher.setAttribute("role", "group");
     switcher.setAttribute("aria-label", "Theme mode");
-    switcher.append(
+
+    const options = document.createElement("div");
+    options.id = "theme-mode-options";
+    options.className = "theme-options";
+    options.append(
       createThemeButton("auto", "Automatic light and dark mode"),
       createThemeButton("light", "Light mode"),
       createThemeButton("dark", "Dark mode")
     );
+
+    const trigger = createThemeTrigger(options.id);
+    trigger.addEventListener("click", () => {
+      setThemeOptionsOpen(switcher, !switcher.classList.contains("open"));
+    });
+    switcher.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && switcher.classList.contains("open")) {
+        event.preventDefault();
+        setThemeOptionsOpen(switcher, false);
+        trigger.focus();
+      }
+    });
+    document.addEventListener("pointerdown", (event) => {
+      if (!switcher.contains(event.target)) {
+        setThemeOptionsOpen(switcher, false);
+      }
+    });
+
+    switcher.append(trigger, options);
     document.body.append(switcher);
+    document.body.classList.add("has-theme-switcher");
     updateControls();
+  }
+
+  function createThemeTrigger(optionsId) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "theme-trigger";
+    button.dataset.themeTrigger = "";
+    button.setAttribute("aria-controls", optionsId);
+    button.setAttribute("aria-expanded", "false");
+
+    const glyph = document.createElement("span");
+    glyph.className = `theme-glyph ${mode}`;
+    glyph.setAttribute("aria-hidden", "true");
+    button.append(glyph);
+    return button;
   }
 
   function createThemeButton(value, label) {
@@ -125,7 +166,14 @@
     button.dataset.themeChoice = value;
     button.setAttribute("aria-label", label);
     button.title = label;
-    button.addEventListener("click", () => setMode(value));
+    button.addEventListener("click", () => {
+      setMode(value);
+      const switcher = button.closest("[data-theme-switcher]");
+      if (switcher?.classList.contains("open")) {
+        setThemeOptionsOpen(switcher, false);
+        switcher.querySelector("[data-theme-trigger]")?.focus();
+      }
+    });
 
     const glyph = document.createElement("span");
     glyph.className = `theme-glyph ${value}`;
@@ -140,5 +188,20 @@
       button.classList.toggle("active", active);
       button.setAttribute("aria-pressed", active ? "true" : "false");
     }
+
+    const trigger = document.querySelector("[data-theme-trigger]");
+    const triggerGlyph = trigger?.querySelector(".theme-glyph");
+    if (trigger && triggerGlyph) {
+      const modeLabel = mode === "auto" ? `Automatic, currently ${resolvedTheme}` : mode;
+      const label = `Theme mode: ${modeLabel}. Open theme choices`;
+      trigger.setAttribute("aria-label", label);
+      trigger.title = label;
+      triggerGlyph.className = `theme-glyph ${mode}`;
+    }
+  }
+
+  function setThemeOptionsOpen(switcher, open) {
+    switcher.classList.toggle("open", open);
+    switcher.querySelector("[data-theme-trigger]")?.setAttribute("aria-expanded", open ? "true" : "false");
   }
 })();
