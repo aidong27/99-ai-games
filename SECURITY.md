@@ -1,32 +1,38 @@
 # Security Policy
 
-99 AI Games is intended to be a static HTML/CSS/JavaScript browser-game collection. It should not require a backend service, user accounts, payments, or private user data.
+99 AI Games is a static browser-game archive. The expected project surface is HTML, CSS, JavaScript, metadata, images, documentation, and GitHub Pages deployment. It should not require accounts, private user data, payments, analytics tracking, login flows, or a remote backend by default.
 
-Even for static games, security reports are welcome.
+## Sensitive Material
+
+Do not commit:
+
+- Private tokens or API keys.
+- Private prompts or unreleased prompt context.
+- Account information, session data, cookies, or personal credentials.
+- Secrets copied from local development tools.
+- Links to private services that are not intended for public use.
+
+If sensitive data is accidentally committed, rotate or revoke the exposed secret first, then open a maintenance issue or pull request to remove it from the public project state.
 
 ## What To Report
 
-Please report issues such as:
+Please open a GitHub issue if you find:
 
-- Cross-site scripting (XSS).
-- Unsafe use of user-controlled input.
-- Malicious or unexpected external resource loading.
-- Supply-chain risks from added dependencies.
-- Insecure build, release, or deployment scripts.
-- Asset files with unclear or unsafe origins.
-- Metadata or launcher behavior that could mislead users into unsafe links.
+- Malicious or unexpected scripts.
+- Unsafe external links or third-party resource loading.
+- Supply-chain risk from a new dependency or workflow.
+- Browser behavior that collects user data unexpectedly.
+- Obfuscated code or assets with unclear origin.
+- Metadata that points users toward unsafe files or URLs.
 
-## How To Report
+Keep the report short and reproducible. Include the affected file, game, URL, or workflow when possible.
 
-If the issue is sensitive, please do not open a public GitHub issue. Contact the maintainer privately through GitHub if possible, or open a minimal issue asking for a private security contact.
+## Project Defaults
 
-Please include:
+New games and launcher features should remain static and inspectable. Avoid adding tracking, login, account sync, remote storage, or backend calls unless there is a specific issue and pull request explaining why the project needs them.
 
-- A clear description of the problem.
-- Steps to reproduce it.
-- Browser and operating system, if relevant.
-- Whether the issue affects the collection launcher, a specific game, repository tooling, or a future deployment.
+External dependencies should be rare. If one is introduced, document the reason and keep the dependency visible in review.
 
 ## Scope
 
-The main supported surface is the static browser-game source in this repository. Third-party hosting providers are outside this repository's direct control, but reports that affect project files, links, assets, or deployment steps are still useful.
+Supported surfaces include the repository source, static game pages, metadata, GitHub workflows, and public demo deployment. Third-party hosting behavior outside this repository is not directly maintained here, but unsafe links or deployment instructions in this repository are in scope.

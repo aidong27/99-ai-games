@@ -1,62 +1,103 @@
 # Contributing to 99 AI Games
 
-Thanks for your interest in 99 AI Games. This project is a long-term experiment in AI-made browser games, so the contribution model is intentionally different from a normal open-source game repository.
+99 AI Games is a public archive for observing AI coding-agent progress through playable browser-game experiments. The games are playable samples, but the project goal is the long-term record of what AI agents could design, implement, test, and document at specific points in time.
 
-## Contribution Policy
+This repository is intentionally provenance-first. Do not add fake screenshots, fake popularity claims, fake verification records, fake model sources, or placeholder game slots that do not contain real work.
 
-The maintainer does not hand-edit game code. Game code should be produced by Codex or another AI agent, then reviewed, tested, documented, and published by the maintainer.
+## Maintainer Role
 
-The 99 game slots represent 99 observation samples, not 99 AI generations. If you are proposing a different model's attempt at an existing sample, use a model variant issue instead of asking for a new game number.
+The maintainer can plan prompts, write briefs, run tests, publish releases, document provenance, open issues, and maintain repository metadata. The maintainer must not hand-write or hand-edit AI-generated game code.
 
-For now, this repository accepts:
+Human-written changes are acceptable for documentation, metadata, validation scripts, repository structure, and review notes. Changes to game source code should come from an AI coding agent unless the change is a narrow bug fix. Any exception must be documented in the relevant run record or changelog entry.
 
-- Bug reports.
-- Feature ideas.
-- Accessibility feedback.
-- Game concept suggestions.
-- Model variant suggestions for existing game slots.
-- Documentation corrections.
-- Reports about broken links, missing provenance, or incorrect metadata.
+## Adding a Game Slot
 
-This repository does not accept ordinary human-written code pull requests by default. That policy keeps the project aligned with its main goal: observing AI agent growth across 99 games.
+A game slot is one official observation sample in the archive. It is not just an idea and it is not a blank placeholder.
 
-## Issues
+To add a game slot:
 
-When opening an issue, please include:
+1. Create or update a brief under `games/<slug>/brief.md`.
+2. Generate the playable implementation with an AI coding agent.
+3. Add the game folder under `games/<slug>/`.
+4. Add `games/<slug>/game.json` with provenance, slot type, hall, variant, and run paths.
+5. Add at least one variant under `games/<slug>/variants/<variant-id>/`.
+6. Add at least one run record under `games/<slug>/runs/`.
+7. Update `games/manifest.json`.
+8. Regenerate `docs/generated-index.md`.
+9. Run the local validation commands before opening a PR.
 
-- The game number or title, if relevant.
-- What you expected to happen.
-- What actually happened.
-- Browser and operating system.
-- Screenshots or console errors if available.
+Do not fill future slots with empty folders or metadata-only stubs.
 
-For new game ideas, include the core mechanic, mood, and what would make the game distinct.
+## Adding a Variant
 
-## Pull Requests
+A variant is another AI-generated version of an existing game concept. It belongs under the same game slot and does not consume a new game number.
 
-Pull requests are only expected for maintainer-controlled AI-generated changes or small documentation corrections. A PR that changes game code should clearly state:
+To add a variant:
 
-- Which AI model created the change.
-- Which agent or tool was used.
-- Whether any human code edits were made.
-- How the game was tested locally.
+1. Create `games/<slug>/variants/<variant-id>/`.
+2. Add `variant.json` with model, agent/tool, date, status, source path, and human edit status.
+3. Add or reference the variant source according to the local game structure.
+4. Add a run record explaining the generation or comparison context.
+5. Update `games/<slug>/game.json` and `games/manifest.json`.
+6. Regenerate the index and run validation.
 
-Spam PRs, unrelated rewrites, and unverified AI code dumps will not be accepted.
+## Adding a Run Record
 
-## Code Style
+A run record documents one generation, revision, validation, comparison, or review attempt. Use run records to preserve what happened, not to make the project look more complete than it is.
 
-- Use plain HTML, CSS, and JavaScript unless a dependency is clearly justified.
-- Keep each game self-contained in `games/<slug>/`.
-- Keep variants under `games/<slug>/variants/<variant-id>/`.
-- Keep run records under `games/<slug>/runs/`.
-- Keep asset paths relative.
-- Keep metadata current in both `games/manifest.json` and each game's `game.json`.
-- Test through a local static server instead of relying on `file://`.
+Run records should include:
+
+- Date.
+- Game and variant.
+- Model and agent/tool.
+- Prompt or brief reference, when public.
+- What was generated or changed.
+- Validation commands run.
+- Known issues.
+- Whether any human code edits occurred.
+
+Private prompts, account details, tokens, and non-public credentials must not be included.
+
+## Local Validation
+
+Run these checks before a PR:
+
+```bash
+node scripts/validate-halls.mjs
+node scripts/validate-games.mjs
+node scripts/generate-index.mjs --check
+node --check src/main.js
+node --check games/signal-cartographer/src/main.js
+node --check games/lumen-lattice/src/main.js
+git diff --check
+```
+
+Use a local static server for browser checks:
+
+```bash
+python3 -m http.server 4173
+```
+
+Then open `http://localhost:4173`.
+
+## Pull Request Requirements
+
+PRs that add or update a playable observation sample must include:
+
+- Updated `games/manifest.json`.
+- Updated `games/<slug>/game.json`.
+- Updated variant metadata when variants change.
+- Updated run records for generation, validation, or comparison work.
+- Updated `docs/generated-index.md` after running `node scripts/generate-index.mjs --write`.
+- Validation results in the PR body.
+- Clear statement of whether game source code changed.
+
+PRs should be small enough to review. Do not bundle unrelated formatting churn, unrelated game changes, or mass placeholder slot creation with a real archive update.
 
 ## Good Issue Ideas
 
-- Suggest a new game concept for a future slot.
-- Report a browser compatibility issue.
-- Suggest accessibility improvements.
-- Point out unclear game metadata.
-- Compare one AI-made game with an earlier one in the collection.
+- Report a broken game or launcher link.
+- Suggest a future game concept or benchmark brief.
+- Request a model variant comparison for an existing game.
+- Point out missing provenance, unclear metadata, or stale documentation.
+- Report accessibility or mobile usability problems.

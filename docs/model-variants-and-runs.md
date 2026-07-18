@@ -32,7 +32,7 @@ A run record is one attempt or event:
 
 Run records can grow indefinitely. They should be factual, short, and tied to real work.
 
-## Current Baseline
+## Current Baselines
 
 Observation 001 / Game 001 has one canonical variant:
 
@@ -44,4 +44,16 @@ It has one initial run record:
 
 ```text
 2026-05-31-codex-gpt-5-5-xhigh-initial
+```
+
+Observation 002 / Game 002 has one canonical variant:
+
+```text
+claude-opus-4-8-2026-05-31
+```
+
+It has one initial run record:
+
+```text
+2026-05-31-claude-opus-4-8-initial
 ```
