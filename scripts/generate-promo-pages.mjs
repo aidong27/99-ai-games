@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import { hasCurrentScreenshotEvidence } from "../src/data/media-evidence.js";
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
-const ASSET_VERSION = "2026-07-13-model-families";
+const ASSET_VERSION = "2026-07-13-orbit-cadence";
 const SITE_ROOT = "https://aidong27.github.io/99-ai-games";
 const checkOnly = process.argv.includes("--check");
 const failures = [];

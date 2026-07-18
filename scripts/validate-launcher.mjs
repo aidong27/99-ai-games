@@ -14,8 +14,8 @@ import {
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 const errors = [];
-const requiredAssetVersion = "2026-07-13-model-families";
-const generatedPromoAssetVersion = "2026-07-13-model-families";
+const requiredAssetVersion = "2026-07-13-orbit-cadence";
+const generatedPromoAssetVersion = "2026-07-13-orbit-cadence";
 const siteRoot = "https://aidong27.github.io/99-ai-games";
 const expectedOgImage = "https://aidong27.github.io/99-ai-games/assets/social/og-cover.png";
 const launcherCanonicalUrls = {
@@ -465,6 +465,10 @@ function validateViewModelContracts() {
   }
   if (getModelFamily("Kimi").id !== "kimi") {
     fail("Kimi should belong to the Kimi model family");
+  }
+  const grokFamily = getModelFamily("Grok 4.5");
+  if (grokFamily.id !== "grok" || grokFamily.providerName !== "xAI") {
+    fail("Grok models should belong to the Grok / xAI model family");
   }
 
   const fixtureGames = [
