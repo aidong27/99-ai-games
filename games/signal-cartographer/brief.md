@@ -12,7 +12,7 @@
 
 ## Concept
 
-Pilot a mapping cursor through a hostile signal field. Collect signal fragments, drop stabilizing beacons, and reach the exit before signal integrity collapses.
+Pilot a mapping cursor through a hostile signal field. Scan unknown lanes, collect signal fragments, drop stabilizing beacons, and reach the exit before signal integrity collapses.
 
 ## Why This Fits The Hall
 
@@ -20,11 +20,19 @@ Signal Cartographer belongs in the Survival Strategy Hall because it lets the ar
 
 ## Current Canonical Variant
 
-- Variant ID: `codex-gpt-5-5-xhigh-2026-05-31`
-- Model label: `GPT-5.5 xhigh`
+- Variant ID: `codex-signal-cartographer-deep-field-2026-06-03`
+- Model label: `GPT-5 (Codex session)`
 - Agent/tool: `Codex`
 - Human code edits: `false`
-- Note: the model label is maintainer-declared for this entry.
+- Note: this is a canonical PC-first remake of Game 001. The earlier `codex-gpt-5-5-xhigh-2026-05-31` implementation remains archived as a historical baseline variant.
+
+## Deep Field Remake Goals
+
+- Make route planning more important than reflex-only dodging.
+- Add scan energy as an information resource.
+- Make beacons a limited route-safety resource.
+- Provide readable interference, drone, storm, fragment, and exit feedback.
+- Support a complete three-sector run with calibration choices between sectors.
 
 ## Future Variant Ideas
 
