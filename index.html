@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta
       name="description"
-      content="99 AI Games is an AI game-making evolution archive built from playable browser-game observation samples."
+      content="Enter the 99 AI Games observatory, a provenance-first archive of playable AI-made game observation samples."
     >
     <title>99 AI Games | Observatory Title Screen</title>
     <link rel="icon" href="data:,">
-    <link rel="stylesheet" href="./styles/archive.css?v=2026-06-02-multilevel">
-    <link rel="stylesheet" href="./styles/main.css?v=2026-06-02-multilevel">
+    <link rel="stylesheet" href="./styles/archive.css?v=2026-06-03-polish">
+    <link rel="stylesheet" href="./styles/main.css?v=2026-06-03-polish">
   </head>
   <body class="title-screen">
     <canvas id="title-signal" width="1200" height="720" aria-hidden="true"></canvas>
@@ -44,7 +44,10 @@
       </section>
 
       <aside class="title-status" aria-label="Current archive status" aria-live="polite">
-        <p class="archive-kicker">Current signal</p>
+        <div class="signal-heading">
+          <span class="status-dot" aria-hidden="true"></span>
+          <p class="archive-kicker">Archive seed</p>
+        </div>
         <dl>
           <div>
             <dt>Observations</dt>
@@ -58,6 +61,10 @@
             <dt>Mobile ready</dt>
             <dd id="mobile-count">0</dd>
           </div>
+          <div>
+            <dt>Run records</dt>
+            <dd id="run-count">0</dd>
+          </div>
         </dl>
         <p id="title-featured" class="status-note">Loading archive manifest...</p>
       </aside>
@@ -67,6 +74,6 @@
       <p>The games are playable. The real exhibit is the AI that made them.</p>
     </footer>
 
-    <script type="module" src="./src/main.js?v=2026-06-02-multilevel"></script>
+    <script type="module" src="./src/main.js?v=2026-06-03-polish"></script>
   </body>
 </html>
