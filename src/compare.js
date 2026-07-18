@@ -23,7 +23,7 @@ const modelGridEl = document.querySelector("#model-grid");
 const hallCoverageEl = document.querySelector("#hall-coverage");
 const statusEl = document.querySelector("#compare-status");
 const signalCanvas = document.querySelector("#compare-signal");
-const signalField = createSignalField(signalCanvas, { variant: "compare", density: 30 });
+const signalField = createSignalField(signalCanvas, { variant: "compare", density: 16 });
 
 signalField.start();
 init();

@@ -29,9 +29,9 @@ export function createSignalField(canvas, options = {}) {
   const config = {
     density: options.density ?? 34,
     variant: options.variant ?? "archive",
-    accent: options.accent ?? "83, 255, 218",
-    secondary: options.secondary ?? "125, 170, 255",
-    background: options.background ?? "3, 7, 18"
+    accent: options.accent ?? "200, 244, 223",
+    secondary: options.secondary ?? "216, 231, 255",
+    background: options.background ?? "8, 9, 9"
   };
 
   function resize() {
@@ -90,17 +90,17 @@ export function createSignalField(canvas, options = {}) {
     ctx.clearRect(0, 0, width, height);
     const gradient = ctx.createLinearGradient(0, 0, width, height);
     gradient.addColorStop(0, `rgb(${config.background})`);
-    gradient.addColorStop(0.46, "rgb(7, 15, 30)");
-    gradient.addColorStop(1, "rgb(1, 4, 12)");
+    gradient.addColorStop(0.46, "rgb(13, 15, 15)");
+    gradient.addColorStop(1, "rgb(3, 4, 4)");
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, width, height);
   }
 
   function drawVignette(width, height) {
     const gradient = ctx.createRadialGradient(width * 0.52, height * 0.38, 0, width * 0.52, height * 0.38, Math.max(width, height) * 0.72);
-    gradient.addColorStop(0, `rgba(${config.accent}, 0.08)`);
-    gradient.addColorStop(0.42, "rgba(3, 7, 18, 0.12)");
-    gradient.addColorStop(1, "rgba(0, 0, 0, 0.82)");
+    gradient.addColorStop(0, `rgba(${config.accent}, 0.032)`);
+    gradient.addColorStop(0.42, "rgba(8, 9, 9, 0.08)");
+    gradient.addColorStop(1, "rgba(0, 0, 0, 0.72)");
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, width, height);
   }
@@ -109,14 +109,14 @@ export function createSignalField(canvas, options = {}) {
     const grid = 76 * ratio;
     const offset = reduceMotionQuery.matches ? 0 : (time * 11 * ratio) % grid;
     ctx.lineWidth = Math.max(1, ratio * 0.8);
-    ctx.strokeStyle = `rgba(${config.secondary}, 0.055)`;
+    ctx.strokeStyle = `rgba(${config.secondary}, 0.028)`;
     for (let x = -grid + offset; x < width + grid; x += grid) {
       ctx.beginPath();
       ctx.moveTo(x, 0);
       ctx.lineTo(x - height * 0.18, height);
       ctx.stroke();
     }
-    ctx.strokeStyle = `rgba(${config.accent}, 0.035)`;
+    ctx.strokeStyle = `rgba(${config.accent}, 0.022)`;
     for (let y = -grid; y < height + grid; y += grid) {
       ctx.beginPath();
       ctx.moveTo(0, y + offset * 0.34);
@@ -130,7 +130,7 @@ export function createSignalField(canvas, options = {}) {
     const originX = width * (isTitle ? 0.67 : 0.52) + state.parallaxX;
     const originY = height * (isTitle ? 0.43 : 0.48) + state.parallaxY;
     const radius = Math.min(width, height) * (isTitle ? 0.18 : 0.14);
-    const lineAlpha = reduceMotionQuery.matches ? 0.14 : 0.12 + Math.sin(time * 0.65) * 0.035;
+    const lineAlpha = reduceMotionQuery.matches ? 0.08 : 0.064 + Math.sin(time * 0.65) * 0.016;
 
     ctx.lineWidth = Math.max(1, ratio);
     ctx.strokeStyle = `rgba(${config.accent}, ${lineAlpha})`;
@@ -140,7 +140,7 @@ export function createSignalField(canvas, options = {}) {
       ctx.stroke();
     }
 
-    ctx.strokeStyle = `rgba(${config.secondary}, 0.07)`;
+    ctx.strokeStyle = `rgba(${config.secondary}, 0.036)`;
     for (let x = -width * 0.2; x < width * 1.15; x += 94 * ratio) {
       ctx.beginPath();
       ctx.moveTo(x + state.parallaxX * 0.18, 0);
@@ -149,7 +149,7 @@ export function createSignalField(canvas, options = {}) {
     }
 
     const sweep = reduceMotionQuery.matches ? -0.72 : time * 0.32;
-    ctx.strokeStyle = `rgba(${config.accent}, 0.26)`;
+    ctx.strokeStyle = `rgba(${config.accent}, 0.095)`;
     ctx.lineWidth = Math.max(1, 2 * ratio);
     ctx.beginPath();
     ctx.moveTo(originX, originY);
@@ -159,14 +159,14 @@ export function createSignalField(canvas, options = {}) {
     const scanY = reduceMotionQuery.matches ? height * 0.44 : ((time * 46 * ratio) % (height * 1.35)) - height * 0.18;
     const scan = ctx.createLinearGradient(0, scanY - 46 * ratio, 0, scanY + 46 * ratio);
     scan.addColorStop(0, "rgba(255, 255, 255, 0)");
-    scan.addColorStop(0.5, `rgba(${config.accent}, 0.075)`);
+    scan.addColorStop(0.5, `rgba(${config.accent}, 0.026)`);
     scan.addColorStop(1, "rgba(255, 255, 255, 0)");
     ctx.fillStyle = scan;
     ctx.fillRect(0, scanY - 46 * ratio, width, 92 * ratio);
   }
 
   function drawParticles(width, height, ratio, time) {
-    ctx.fillStyle = `rgba(${config.accent}, 0.48)`;
+    ctx.fillStyle = `rgba(${config.accent}, 0.24)`;
     for (const particle of state.particles) {
       const drift = reduceMotionQuery.matches ? 0 : time * particle.speed;
       const x = ((particle.x + drift * particle.orbit) % 1) * width + state.parallaxX * 0.1;
@@ -189,7 +189,7 @@ export function createSignalField(canvas, options = {}) {
       if (distance > 270 * ratio) {
         continue;
       }
-      ctx.strokeStyle = `rgba(${index % 2 ? config.secondary : config.accent}, ${Math.max(0.025, 0.12 - distance / (3000 * ratio))})`;
+      ctx.strokeStyle = `rgba(${index % 2 ? config.secondary : config.accent}, ${Math.max(0.012, 0.052 - distance / (4200 * ratio))})`;
       ctx.beginPath();
       ctx.moveTo(first.x, first.y);
       ctx.lineTo(second.x, second.y);
@@ -198,7 +198,7 @@ export function createSignalField(canvas, options = {}) {
   }
 
   function drawVariantMark(width, height, ratio) {
-    ctx.fillStyle = `rgba(${config.accent}, 0.62)`;
+    ctx.fillStyle = `rgba(${config.accent}, 0.36)`;
     ctx.font = `${11 * ratio}px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace`;
     const label = config.variant === "gate"
       ? "START OBSERVATION GATE"
