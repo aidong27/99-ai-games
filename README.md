@@ -33,10 +33,10 @@ Every push and pull request runs the full archive quality gate (`node scripts/ch
 | Metric | Current value |
 |---|---:|
 | Target observation slots | 99 |
-| Playable observations | 6 |
+| Playable observations | 7 |
 | Game halls | 9 |
-| Model variants | 8 |
-| Run records | 12 |
+| Model variants | 9 |
+| Run records | 13 |
 
 ## Honesty Boundary
 
@@ -56,6 +56,7 @@ The no-hand-edit rule protects game implementations and provenance records. The 
 | 004 | Ninefold Draft | Card Strategy Hall | Claude Opus 4.8 / Claude Code | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=ninefold-draft) | [Promo](https://aidong27.github.io/99-ai-games/promo/ninefold-draft/) |
 | 005 | Gravity Atlas | Physics Experiment Hall | Claude Fable 5 / Claude Code | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=gravity-atlas) | [Promo](https://aidong27.github.io/99-ai-games/promo/gravity-atlas/) |
 | 006 | Memory Bloom | Clicker Management Hall | Kimi / Kimi Work | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=memory-bloom) | [Promo](https://aidong27.github.io/99-ai-games/promo/memory-bloom/) |
+| 007 | Afterlight Dispatch | Text Adventure Hall | GPT-5.6 sol ultra / Codex | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=afterlight-dispatch) | [Promo](https://aidong27.github.io/99-ai-games/promo/afterlight-dispatch/) |
 
 The canonical machine-readable source is [`games/manifest.json`](games/manifest.json). The generated markdown view is [`docs/generated-index.md`](docs/generated-index.md).
 
@@ -95,6 +96,12 @@ Real screenshots are pending. The game is playable in source and its completabil
 
 Real screenshots are pending. The game is playable in source, but this README does not claim screenshot evidence until verified image files exist.
 
+### Observation 007 / Game 007: Afterlight Dispatch
+
+![Afterlight Dispatch gameplay at the counterfeit Sunrise Control transmission](games/afterlight-dispatch/assets/images/screenshot-gameplay.jpg)
+
+This is a real 1440x900 browser capture from the shipped local build during the canonical path, not a generated mockup or promotional visual.
+
 ## Archive Model
 
 The project is organized around observation value, not raw output volume.
@@ -110,7 +117,7 @@ The halls are: Arcade Reaction, Puzzle Logic, Survival Strategy, Card Strategy, 
 
 Every game declares `deviceSupport` in both `games/manifest.json` and `games/<slug>/game.json`. The launcher uses this metadata to decide whether to allow direct play, warn before launch, or recommend desktop.
 
-The current archive is PC-first. All six playable observations are marked desktop supported and mobile limited. Mobile support means a no-overflow baseline unless a game explicitly records stronger mobile QA; no physical handset QA is claimed here.
+The current archive is PC-first. All seven playable observations are marked desktop supported and mobile limited. Mobile support means a no-overflow baseline unless a game explicitly records stronger mobile QA; no physical handset QA is claimed here.
 
 ## Launcher Structure
 

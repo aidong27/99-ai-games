@@ -50,7 +50,7 @@
       "name": "Text Adventure Hall",
       "capacity": 11,
       "description": "Observes AI ability in branching narrative, state memory, tone, and meaningful choices.",
-      "assignedGameNumbers": []
+      "assignedGameNumbers": [7]
     },
     {
       "id": "clicker-management",

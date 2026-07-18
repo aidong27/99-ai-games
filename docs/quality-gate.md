@@ -34,6 +34,9 @@ local check cannot drift apart. It runs, and fails on the first problem in any o
    embedded reference launch vector through the real engine to prove every plate
    is completable. Games that ship a deterministic engine should add a similar
    standing proof.
+10. **`scripts/verify-afterlight-dispatch.mjs`** — imports the shipped narrative
+    engine, proves the six-choice canonical route reaches the success ending,
+    proves an adverse route reaches failure, and rejects out-of-scene choices.
 
 ## The provenance / honesty gate
 
