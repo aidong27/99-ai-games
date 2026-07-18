@@ -2030,3 +2030,275 @@ dd {
     min-width: 0;
   }
 }
+
+/* ════════════════════════════════════════════════════════════════════════
+   ARCHIVE TERMINAL — unified design layer (2026-06-12-terminal)
+   A cohesive instrument-panel language applied across every launcher page.
+   This layer only re-skins existing selectors and adds chrome; it never
+   changes the grid/flow structure the page renderers depend on.
+   ════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --tick: rgba(216, 247, 95, 0.85);
+  --hair: rgba(244, 241, 232, 0.1);
+  --offset-shadow: 5px 5px 0 rgba(216, 247, 95, 0.14);
+}
+
+/* Global viewport frame with registration ticks — every page, zero layout cost. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 11px;
+  z-index: 3;
+  pointer-events: none;
+  border: 1px solid var(--hair);
+  background:
+    linear-gradient(var(--tick), var(--tick)) left top / 18px 1px no-repeat,
+    linear-gradient(var(--tick), var(--tick)) left top / 1px 18px no-repeat,
+    linear-gradient(var(--tick), var(--tick)) right top / 18px 1px no-repeat,
+    linear-gradient(var(--tick), var(--tick)) right top / 1px 18px no-repeat,
+    linear-gradient(var(--tick), var(--tick)) left bottom / 18px 1px no-repeat,
+    linear-gradient(var(--tick), var(--tick)) left bottom / 1px 18px no-repeat,
+    linear-gradient(var(--tick), var(--tick)) right bottom / 18px 1px no-repeat,
+    linear-gradient(var(--tick), var(--tick)) right bottom / 1px 18px no-repeat;
+}
+
+@media (max-width: 620px) {
+  body::before { inset: 7px; }
+}
+
+/* Shell & header --------------------------------------------------------- */
+
+.archive-shell {
+  width: min(1680px, calc(100% - 72px));
+}
+
+.archive-topbar {
+  align-items: stretch;
+  gap: 22px;
+  margin-bottom: 22px;
+  border-bottom: 1px solid var(--line-strong);
+  padding-bottom: 16px;
+}
+
+.archive-topbar .page-title {
+  align-self: center;
+  border-left: 1px solid var(--line);
+  padding-left: 22px;
+}
+
+.page-title h1,
+.play-gate h1 {
+  position: relative;
+  font-size: clamp(1.7rem, 2.4vw, 2.35rem);
+  letter-spacing: -0.01em;
+}
+
+.topbar-status {
+  align-self: center;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Bottom dock becomes a labelled terminal rail. */
+.archive-dock {
+  gap: 6px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-md);
+  padding: 7px;
+  background: rgba(13, 13, 10, 0.92);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(8px);
+}
+
+.archive-dock a {
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  padding: 7px 12px;
+  font-family: var(--mono-font);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.archive-dock a[aria-current="page"] {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* Unified panel surfaces ------------------------------------------------- */
+
+.model-axis-panel,
+.library-stage,
+.library-readout,
+.record,
+.definition-card,
+.editorial-shell .record-section,
+.play-gate-content {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, rgba(244, 241, 232, 0.028), rgba(244, 241, 232, 0.01));
+}
+
+/* Corner registration tick on the major panels. */
+.library-readout::before,
+.record::before,
+.editorial-hero::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 11px;
+  height: 11px;
+  border-top: 1px solid var(--tick);
+  border-left: 1px solid var(--tick);
+  pointer-events: none;
+}
+
+.library-readout {
+  padding: 22px;
+}
+
+/* Observation cards (library track) — ledger plates with hard-offset hover. */
+.observation-card {
+  border-radius: var(--radius-md);
+  background: rgba(244, 241, 232, 0.022);
+}
+
+.observation-card:hover {
+  border-color: rgba(216, 247, 95, 0.5);
+  box-shadow: var(--offset-shadow);
+}
+
+.observation-card.active {
+  border-color: var(--accent);
+  box-shadow:
+    inset 0 0 0 1px rgba(216, 247, 95, 0.28),
+    6px 6px 0 rgba(216, 247, 95, 0.18);
+}
+
+.card-meta .number,
+.card-facts b {
+  color: var(--accent);
+  font-family: var(--mono-font);
+  letter-spacing: 0.06em;
+}
+
+/* Timeline nodes as ticks on a rail. */
+.timeline-node {
+  border-radius: var(--radius-sm);
+  transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
+}
+
+.timeline-node.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* Record (level 3) ------------------------------------------------------- */
+
+.record {
+  padding: clamp(18px, 2.4vw, 30px);
+}
+
+.definition-card {
+  padding: 16px 18px;
+  transition: border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.definition-card:hover {
+  border-color: rgba(216, 247, 95, 0.4);
+  transform: translate(-1px, -1px);
+  box-shadow: var(--offset-shadow);
+}
+
+.definition-card.run-card {
+  border-left: 3px solid var(--accent);
+}
+
+/* Play gate (level 4) ---------------------------------------------------- */
+
+.play-gate-content {
+  padding: clamp(22px, 3vw, 40px);
+  box-shadow: var(--shadow);
+}
+
+.play-gate-content::after {
+  content: "";
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  width: 11px;
+  height: 11px;
+  border-right: 1px solid var(--tick);
+  border-bottom: 1px solid var(--tick);
+  pointer-events: none;
+}
+
+/* Editorial pages (press / log) ------------------------------------------ */
+
+.editorial-hero {
+  position: relative;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+  padding: clamp(22px, 3vw, 38px);
+  background:
+    linear-gradient(180deg, rgba(216, 247, 95, 0.05), transparent 46%),
+    rgba(13, 13, 10, 0.7);
+}
+
+.editorial-lede {
+  color: var(--muted-strong);
+  font-family: var(--display-font);
+  font-size: clamp(1.1rem, 1.7vw, 1.4rem);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.editorial-shell .record-section {
+  padding: clamp(18px, 2.4vw, 26px);
+}
+
+/* Section headings get a leading accent rule across the archive. */
+.record-section > h2,
+.record-section > h3,
+.editorial-layout h2 {
+  position: relative;
+  padding-left: 16px;
+}
+
+.record-section > h2::before,
+.record-section > h3::before,
+.editorial-layout h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.12em;
+  bottom: 0.12em;
+  width: 3px;
+  background: var(--accent);
+}
+
+@media (max-width: 820px) {
+  .archive-shell {
+    width: min(100% - 28px, 1680px);
+  }
+
+  .archive-topbar {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .archive-topbar .page-title {
+    border-left: 0;
+    padding-left: 0;
+  }
+
+  .topbar-status {
+    text-align: left;
+  }
+}
