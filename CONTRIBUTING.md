@@ -20,11 +20,12 @@ To add a game slot:
 2. Generate the playable implementation with an AI coding agent.
 3. Add the game folder under `games/<slug>/`.
 4. Add `games/<slug>/game.json` with provenance, slot type, hall, variant, and run paths.
-5. Add at least one variant under `games/<slug>/variants/<variant-id>/`.
-6. Add at least one run record under `games/<slug>/runs/`.
-7. Update `games/manifest.json`.
-8. Regenerate `docs/generated-index.md`.
-9. Run the local validation commands before opening a PR.
+5. Add `deviceSupport` in both `game.json` and `games/manifest.json` so the launcher can decide mobile play, warnings, and desktop-only blocks.
+6. Add at least one variant under `games/<slug>/variants/<variant-id>/`.
+7. Add at least one run record under `games/<slug>/runs/`.
+8. Update `games/manifest.json`.
+9. Regenerate `docs/generated-index.md`.
+10. Run the local validation commands before opening a PR.
 
 Do not fill future slots with empty folders or metadata-only stubs.
 
@@ -86,6 +87,7 @@ PRs that add or update a playable observation sample must include:
 
 - Updated `games/manifest.json`.
 - Updated `games/<slug>/game.json`.
+- Updated `deviceSupport` metadata for desktop/mobile support, minimum viewport, inputs, notes, and launcher policy.
 - Updated variant metadata when variants change.
 - Updated run records for generation, validation, or comparison work.
 - Updated `docs/generated-index.md` after running `node scripts/generate-index.mjs --write`.

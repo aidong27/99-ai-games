@@ -9,7 +9,8 @@
     >
     <title>Lumen Lattice | 99 AI Games</title>
     <link rel="icon" href="data:,">
-    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="../../styles/game-shell.css?v=2026-06-02-mobile3">
+    <link rel="stylesheet" href="./styles/main.css?v=2026-06-02-mobile3">
   </head>
   <body>
     <main class="game-shell">
@@ -51,18 +52,27 @@
       </section>
 
       <section class="play-surface" aria-label="Lumen Lattice game">
-        <div class="canvas-frame">
-          <canvas id="lattice-canvas" width="720" height="720" aria-label="Lumen lattice grid"></canvas>
-          <div id="overlay" class="overlay">
-            <div class="overlay-card">
-              <p class="eyebrow" id="overlay-kicker">Observation 002 / Game 002</p>
-              <h2 id="overlay-title">Light the lattice</h2>
-              <p id="overlay-copy">
-                Press any node to fire light down its row and column. Light every node to win.
-              </p>
-              <button id="primary-action" class="button primary" type="button">Start lattice 1</button>
+        <div class="play-column">
+          <div class="canvas-frame">
+            <canvas id="lattice-canvas" width="720" height="720" aria-label="Lumen lattice grid"></canvas>
+            <div id="lattice-hit-grid" class="lattice-hit-grid" aria-label="Tap lattice nodes" hidden></div>
+            <div id="overlay" class="overlay">
+              <div class="overlay-card">
+                <p class="eyebrow" id="overlay-kicker">Observation 002 / Game 002</p>
+                <h2 id="overlay-title">Light the lattice</h2>
+                <p id="overlay-copy">
+                  Press any node to fire light down its row and column. Light every node to win.
+                </p>
+                <button id="primary-action" class="button primary" type="button">Start lattice 1</button>
+              </div>
             </div>
           </div>
+
+          <section class="lattice-tools" aria-label="Lumen Lattice tools">
+            <button id="hint-button" class="button" type="button">Hint</button>
+            <button id="undo-button" class="button" type="button">Undo</button>
+            <button id="reset-button" class="button" type="button">Reset</button>
+          </section>
         </div>
 
         <aside class="mission-panel">
@@ -86,11 +96,7 @@
           </section>
           <section>
             <p class="eyebrow">Tools</p>
-            <div class="tool-row">
-              <button id="hint-button" class="button" type="button">Hint</button>
-              <button id="undo-button" class="button" type="button">Undo</button>
-              <button id="reset-button" class="button" type="button">Reset</button>
-            </div>
+            <p class="note">Hint, Undo, and Reset stay directly below the lattice on touch screens.</p>
           </section>
           <section>
             <p class="eyebrow">Telemetry</p>
@@ -107,6 +113,6 @@
       </section>
     </main>
 
-    <script type="module" src="./src/main.js"></script>
+    <script type="module" src="./src/main.js?v=2026-06-02-mobile3"></script>
   </body>
 </html>

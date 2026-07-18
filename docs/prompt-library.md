@@ -16,5 +16,6 @@ Every prompt should remind the agent:
 - variants do not consume new numbers
 - run records describe attempts
 - provenance must be honest
+- device support and mobile readiness must be machine-readable and evidence-based
 - `humanCodeEdits` should remain false unless an exception is documented
 - no fake screenshots or fake verification

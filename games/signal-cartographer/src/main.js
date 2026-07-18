@@ -12,13 +12,20 @@ const ui = {
   overlayKicker: document.querySelector("#overlay-kicker"),
   overlayTitle: document.querySelector("#overlay-title"),
   overlayCopy: document.querySelector("#overlay-copy"),
-  primaryAction: document.querySelector("#primary-action")
+  primaryAction: document.querySelector("#primary-action"),
+  pauseButton: document.querySelector("#pause-button"),
+  restartButton: document.querySelector("#restart-button"),
+  beaconButton: document.querySelector("#beacon-button"),
+  beaconButtonCount: document.querySelector("#beacon-button-count"),
+  moveStick: document.querySelector("#move-stick"),
+  joystickThumb: document.querySelector("#joystick-thumb")
 };
 
 const WORLD = { width: 960, height: 600 };
 const keys = new Set();
 const touchDirs = new Set();
-const pointer = { active: false, x: 0, y: 0 };
+const pointer = { active: false, id: null, x: 0, y: 0 };
+const stick = { active: false, id: null, x: 0, y: 0 };
 
 const upgrades = [
   {
@@ -158,8 +165,8 @@ function getInputVector() {
   const up = keys.has("arrowup") || keys.has("w") || touchDirs.has("up");
   const down = keys.has("arrowdown") || keys.has("s") || touchDirs.has("down");
   return {
-    x: Number(right) - Number(left),
-    y: Number(down) - Number(up)
+    x: Number(right) - Number(left) + stick.x,
+    y: Number(down) - Number(up) + stick.y
   };
 }
 
@@ -281,6 +288,8 @@ function chooseUpgrades() {
 }
 
 function showUpgradeOverlay() {
+  clearTouchInput();
+  clearPointerInput();
   ui.overlay.classList.remove("hidden");
   ui.overlayKicker.textContent = `Sector ${state.sector} mapped`;
   ui.overlayTitle.textContent = "Choose a calibration";
@@ -521,6 +530,10 @@ function updateUi() {
   ui.beacons.textContent = `${state.beacons}`;
   ui.integrityMeter.style.width = `${clamp(state.integrity, 0, 100)}%`;
   ui.mappingMeter.style.width = `${Math.round(collected / total * 100)}%`;
+  ui.beaconButton.disabled = state.mode !== "running" || state.beacons <= 0;
+  ui.beaconButtonCount.textContent = state.beacons === 1 ? "1 left" : `${state.beacons} left`;
+  ui.pauseButton.disabled = !["running", "paused"].includes(state.mode);
+  ui.pauseButton.textContent = state.mode === "paused" ? "Resume" : "Pause";
   canvas.dataset.mode = state.mode;
   canvas.dataset.playerX = state.player.x.toFixed(1);
   canvas.dataset.playerY = state.player.y.toFixed(1);
@@ -538,6 +551,8 @@ function loop(now) {
 }
 
 function showOverlay(title, copy, actionText, action) {
+  clearTouchInput();
+  clearPointerInput();
   ui.overlay.classList.remove("hidden");
   ui.overlayKicker.textContent = "Observation 001 / Game 001";
   ui.overlayTitle.textContent = title;
@@ -554,12 +569,16 @@ function hideOverlay() {
 }
 
 function restart() {
+  clearTouchInput();
+  clearPointerInput();
   state = createInitialState();
   buildSector(false);
 }
 
 function togglePause() {
   if (state.mode === "running") {
+    clearTouchInput();
+    clearPointerInput();
     state.mode = "paused";
     showOverlay("Chart paused", "The signal field is frozen. Resume when ready.", "Resume", () => {
       state.mode = "running";
@@ -568,6 +587,58 @@ function togglePause() {
   } else if (state.mode === "paused") {
     state.mode = "running";
     hideOverlay();
+  }
+}
+
+function clearPointerInput() {
+  pointer.active = false;
+  pointer.id = null;
+}
+
+function clearTouchInput() {
+  touchDirs.clear();
+  stick.active = false;
+  stick.id = null;
+  stick.x = 0;
+  stick.y = 0;
+  updateJoystickThumb(0, 0);
+}
+
+function clearAllInput() {
+  keys.clear();
+  clearTouchInput();
+  clearPointerInput();
+}
+
+function updateStickFromPointer(event) {
+  const rect = ui.moveStick.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+  const maxDistance = Math.max(24, Math.min(rect.width, rect.height) / 2 - 22);
+  const dx = event.clientX - centerX;
+  const dy = event.clientY - centerY;
+  const distanceFromCenter = Math.hypot(dx, dy);
+  const scale = distanceFromCenter > maxDistance ? maxDistance / distanceFromCenter : 1;
+  const x = dx * scale;
+  const y = dy * scale;
+
+  stick.x = clamp(x / maxDistance, -1, 1);
+  stick.y = clamp(y / maxDistance, -1, 1);
+  updateJoystickThumb(x, y);
+}
+
+function updateJoystickThumb(x, y) {
+  if (!ui.joystickThumb) {
+    return;
+  }
+  ui.joystickThumb.style.transform = `translate(${x}px, ${y}px)`;
+}
+
+function releasePointer(target, pointerId) {
+  try {
+    target.releasePointerCapture(pointerId);
+  } catch {
+    // The pointer may already be released by the browser.
   }
 }
 
@@ -623,37 +694,101 @@ window.addEventListener("keyup", (event) => {
 });
 
 canvas.addEventListener("pointerdown", (event) => {
+  event.preventDefault();
   pointer.active = true;
+  pointer.id = event.pointerId;
   pointer.x = event.clientX;
   pointer.y = event.clientY;
   canvas.setPointerCapture(event.pointerId);
 });
 
 canvas.addEventListener("pointermove", (event) => {
-  if (!pointer.active) {
+  if (!pointer.active || pointer.id !== event.pointerId) {
     return;
   }
+  event.preventDefault();
   pointer.x = event.clientX;
   pointer.y = event.clientY;
 });
 
 canvas.addEventListener("pointerup", (event) => {
-  pointer.active = false;
-  canvas.releasePointerCapture(event.pointerId);
+  if (pointer.id === event.pointerId) {
+    event.preventDefault();
+    clearPointerInput();
+  }
+  releasePointer(canvas, event.pointerId);
 });
 
-for (const button of document.querySelectorAll(".pad-button")) {
+canvas.addEventListener("pointercancel", (event) => {
+  if (pointer.id === event.pointerId) {
+    clearPointerInput();
+  }
+  releasePointer(canvas, event.pointerId);
+});
+
+canvas.addEventListener("lostpointercapture", (event) => {
+  if (pointer.id === event.pointerId) {
+    clearPointerInput();
+  }
+});
+
+for (const button of document.querySelectorAll("[data-dir]")) {
   const direction = button.dataset.dir;
-  if (direction) {
-    button.addEventListener("pointerdown", () => touchDirs.add(direction));
-    button.addEventListener("pointerup", () => touchDirs.delete(direction));
-    button.addEventListener("pointercancel", () => touchDirs.delete(direction));
-    button.addEventListener("pointerleave", () => touchDirs.delete(direction));
-  }
-  if (button.dataset.action === "beacon") {
-    button.addEventListener("click", deployBeacon);
-  }
+  button.addEventListener("pointerdown", (event) => {
+    event.preventDefault();
+    touchDirs.add(direction);
+  });
+  button.addEventListener("pointerup", () => touchDirs.delete(direction));
+  button.addEventListener("pointercancel", () => touchDirs.delete(direction));
+  button.addEventListener("pointerleave", () => touchDirs.delete(direction));
 }
+
+ui.moveStick.addEventListener("pointerdown", (event) => {
+  event.preventDefault();
+  stick.active = true;
+  stick.id = event.pointerId;
+  ui.moveStick.setPointerCapture(event.pointerId);
+  updateStickFromPointer(event);
+});
+
+ui.moveStick.addEventListener("pointermove", (event) => {
+  if (!stick.active || stick.id !== event.pointerId) {
+    return;
+  }
+  event.preventDefault();
+  updateStickFromPointer(event);
+});
+
+ui.moveStick.addEventListener("pointerup", (event) => {
+  if (stick.id === event.pointerId) {
+    event.preventDefault();
+    clearTouchInput();
+  }
+  releasePointer(ui.moveStick, event.pointerId);
+});
+
+ui.moveStick.addEventListener("pointercancel", (event) => {
+  if (stick.id === event.pointerId) {
+    clearTouchInput();
+  }
+  releasePointer(ui.moveStick, event.pointerId);
+});
+
+ui.moveStick.addEventListener("lostpointercapture", (event) => {
+  if (stick.id === event.pointerId) {
+    clearTouchInput();
+  }
+});
+
+ui.beaconButton.addEventListener("click", deployBeacon);
+ui.pauseButton.addEventListener("click", togglePause);
+ui.restartButton.addEventListener("click", restart);
+window.addEventListener("blur", clearAllInput);
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    clearAllInput();
+  }
+});
 
 ui.primaryAction.addEventListener("click", restart);
 window.__signalCartographerQA = {
