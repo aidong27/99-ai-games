@@ -42,6 +42,17 @@ Game quality matters, but the archive subject is AI progress. A flawed game can 
 - Agent/tool: `Codex`.
 - Human code edits: `false`.
 
+Observation 002 / Game 002: **Lumen Lattice**.
+
+- Hall: Puzzle Logic Hall.
+- Slot type: benchmark.
+- Archive role: First Puzzle Logic Hall observation sample.
+- Status: playable local source included.
+- Canonical variant: `claude-opus-4-8-2026-05-31`.
+- Model label: `Claude Opus 4.8` as declared by the maintainer for this entry.
+- Agent/tool: `Claude Code`.
+- Human code edits: `false`.
+
 There is no external platform dependency or missing outside source history in the current project state.
 
 ## Game Halls
@@ -87,6 +98,7 @@ games/signal-cartographer/
 | # | Observation sample | Hall | Slot type | Status | Variants | Runs |
 |---|---|---|---|---|---:|---:|
 | 001 | Signal Cartographer | Survival Strategy Hall | benchmark | Playable | 1 | 1 |
+| 002 | Lumen Lattice | Puzzle Logic Hall | benchmark | Playable | 1 | 1 |
 
 The canonical machine-readable index is [`games/manifest.json`](games/manifest.json). A generated markdown view is in [`docs/generated-index.md`](docs/generated-index.md).
 
