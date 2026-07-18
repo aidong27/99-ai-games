@@ -4,6 +4,8 @@ All notable project-level changes are recorded here. This archive does not use c
 
 ## [Unreleased]
 
+- Bring the press kit and project log pages to the editorial Claude standard: larger serif lede at a readable measure, refined timeline entry typography (mono dates, serif headings, calm body), accent text links, and soft pill link tiles. The existing timeline rail is preserved. Override-only; cache-busting bumped to `2026-06-14-claude5`. This completes the Claude.ai theme across all seven launcher pages.
+
 - Bring the observation record and play gate pages up to the same calm Claude standard as the front hall: rounded soft cover/cards, larger editorial headings with tighter tracking, more readable description type, soft-rounded screenshot frames, and a generous centered play gate. Override-only; cache-busting bumped to `2026-06-14-claude4`.
 
 - Add a real brand favicon (inline SVG terracotta rounded-square "99") across all launcher pages, replacing the blank icon. Refine the Claude front-hall typography: a lighter, more editorial hero wordmark and position line, roomier section spacing, and an observation shelf with soft accent-chip number plates, sans metadata, and calmer cards. Override-only; cache-busting bumped to `2026-06-14-claude3`.
