@@ -7,6 +7,9 @@ import {
   getManifestHref,
   getMetadataHref,
   getMobileSupportInfo,
+  getModelFamiliesFromModels,
+  getModelFamily,
+  getModelFamilySelection,
   getModelsFromGames,
   getObservationHref,
   getPlayGateHref,
@@ -51,6 +54,7 @@ const state = {
   games: [],
   filteredGames: [],
   models: [],
+  modelFamilies: [],
   selectedModel: "all",
   selectedSlug: "",
   selectedIndex: 0,
@@ -157,6 +161,7 @@ async function loadLibrary() {
     state.manifest = manifest;
     state.games = games;
     state.models = getModelsFromGames(games);
+    state.modelFamilies = getModelFamiliesFromModels(state.models);
     readFilterStateFromUrl();
     populateHallFilter(games);
     syncFilterControls();
@@ -166,7 +171,7 @@ async function loadLibrary() {
     state.selectedIndex = findSelectedIndex();
 
     libraryStatus.textContent = `${stats.playableCount} playable / ${stats.targetCount} target slots`;
-    modelCount.textContent = `${state.models.length} ${state.models.length === 1 ? "model" : "models"} / ${stats.observationCount} observations`;
+    modelCount.textContent = `${state.modelFamilies.length} ${state.modelFamilies.length === 1 ? "family" : "families"} / ${state.models.length} ${state.models.length === 1 ? "model" : "models"}`;
     renderModels();
     renderLibrary();
   } catch (error) {
@@ -181,23 +186,54 @@ function renderModels() {
     games: state.games,
     agents,
     agentSummary: agents.size ? "All recorded agents" : "Agent unrecorded",
-    countSummary: `${state.games.length} ${state.games.length === 1 ? "observation" : "observations"} / ${state.models.length} ${state.models.length === 1 ? "model" : "models"} / ${agents.size} ${agents.size === 1 ? "agent" : "agents"}`
-  }, "all");
+    countSummary: `${state.modelFamilies.length} ${state.modelFamilies.length === 1 ? "family" : "families"} / ${state.models.length} ${state.models.length === 1 ? "model" : "models"} / ${state.games.length} ${state.games.length === 1 ? "observation" : "observations"}`
+  }, "all", { icon: "99", listItem: true });
 
-  const buttons = [
+  const entries = [
     allButton,
-    ...state.models.map((model) => createModelButton(model, model.modelName))
+    ...state.modelFamilies.map((family) => createModelFamilyGroup(family))
   ];
 
-  modelAxis.replaceChildren(...buttons);
+  modelAxis.replaceChildren(...entries);
 }
 
-function createModelButton(model, value) {
+function createModelFamilyGroup(family) {
+  const selection = getModelFamilySelection(family);
+  const group = document.createElement("div");
+  group.className = "model-family-group";
+  group.setAttribute("role", "listitem");
+  group.classList.toggle("contains-active", state.selectedModel === selection
+    || family.models.some((model) => state.selectedModel === model.modelName));
+
+  const familyButton = createModelButton({
+    modelName: family.name,
+    games: family.games,
+    agents: family.agents,
+    agentSummary: family.providerName,
+    countSummary: `${family.models.length} ${family.models.length === 1 ? "model" : "models"} / ${family.games.length} ${family.games.length === 1 ? "observation" : "observations"}`
+  }, selection, { icon: family.shortLabel, className: "model-family-button" });
+
+  const models = document.createElement("div");
+  models.className = "model-family-models";
+  models.setAttribute("role", "group");
+  models.setAttribute("aria-label", `${family.name} models by ${family.providerName}`);
+  models.append(...family.models.map((model) => createModelButton(model, model.modelName, {
+    icon: "AI",
+    className: "model-axis-model"
+  })));
+
+  group.append(familyButton, models);
+  return group;
+}
+
+function createModelButton(model, value, options = {}) {
   const button = document.createElement("button");
   button.type = "button";
-  button.className = `model-axis-item${state.selectedModel === value ? " active" : ""}`;
+  button.className = `model-axis-item${options.className ? ` ${options.className}` : ""}${state.selectedModel === value ? " active" : ""}`;
   button.dataset.model = value;
-  button.setAttribute("role", "listitem");
+  if (options.listItem) {
+    button.setAttribute("role", "listitem");
+  }
   button.setAttribute("aria-pressed", state.selectedModel === value ? "true" : "false");
   if (state.selectedModel === value) {
     button.setAttribute("aria-current", "true");
@@ -207,7 +243,7 @@ function createModelButton(model, value) {
 
   const icon = document.createElement("span");
   icon.className = "axis-icon";
-  icon.textContent = value === "all" ? "99" : "AI";
+  icon.textContent = options.icon ?? "AI";
 
   const copy = document.createElement("span");
   copy.className = "axis-copy";
@@ -474,8 +510,7 @@ function getFilteredGames() {
         game.description,
         game.hallName,
         game.hallId,
-        game.provenance?.modelName,
-        game.provenance?.agentName,
+        ...getGameModelSearchTerms(game),
         ...(game.tags ?? [])
       ].filter(Boolean).join(" ").toLocaleLowerCase();
       return searchText.includes(query);
@@ -507,7 +542,8 @@ function populateHallFilter(games) {
 function readFilterStateFromUrl() {
   const params = new URLSearchParams(window.location.search);
   const requestedModel = params.get("model") ?? "all";
-  state.selectedModel = requestedModel === "all" || state.models.some((model) => model.modelName === requestedModel)
+  const validFamilySelection = state.modelFamilies.some((family) => getModelFamilySelection(family) === requestedModel);
+  state.selectedModel = requestedModel === "all" || validFamilySelection || state.models.some((model) => model.modelName === requestedModel)
     ? requestedModel
     : "all";
   state.selectedHall = params.get("hall") ?? "all";
@@ -516,6 +552,18 @@ function readFilterStateFromUrl() {
     ? params.get("sort")
     : "number-desc";
   state.viewMode = params.get("view") === "poster" ? "poster" : "evidence";
+}
+
+function getGameModelSearchTerms(game) {
+  const entries = [
+    [game.provenance?.modelName, game.provenance?.agentName],
+    ...(game.variants ?? []).map((variant) => [variant.modelName, variant.agentName])
+  ];
+
+  return entries.flatMap(([modelName, agentName]) => {
+    const family = getModelFamily(modelName);
+    return [modelName, agentName, family.name, family.providerName];
+  });
 }
 
 function syncFilterControls() {

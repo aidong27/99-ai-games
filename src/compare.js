@@ -9,6 +9,7 @@ import {
   loadArchive,
   loadHalls,
   getArchiveStats,
+  getModelFamiliesFromModels,
   getModelsFromGames,
   getObservationHref,
   getShortGameNumber,
@@ -37,26 +38,24 @@ async function init() {
 }
 
 function render(manifest, games, halls) {
-  const playable = games.filter((game) => game.status === "playable");
   const models = getModelsFromGames(games);
+  const modelFamilies = getModelFamiliesFromModels(models);
   const hallList = halls.length ? halls : hallsFromGames(games);
   const filledHalls = new Set(games.map((game) => game.hallId));
 
-  renderStats(manifest, games, models, hallList, filledHalls);
-  renderMatrix(models, hallList, games);
-  renderModels(models, games);
+  renderStats(manifest, games, modelFamilies, models, hallList, filledHalls);
+  renderMatrix(modelFamilies, hallList);
+  renderModels(modelFamilies);
   renderHallCoverage(hallList, games);
-
-  void playable;
 }
 
-function renderStats(manifest, games, models, hallList, filledHalls) {
+function renderStats(manifest, games, modelFamilies, models, hallList, filledHalls) {
   const stats = getArchiveStats(manifest, games);
   const entries = [
     ["Observations", `${stats.playableCount} playable`],
+    ["Model families", String(modelFamilies.length)],
     ["Models observed", String(models.length)],
     ["Halls covered", `${filledHalls.size} / ${hallList.length}`],
-    ["Model variants", String(stats.variantCount)],
     ["Run records", String(stats.runCount)],
     ["Target slots", String(stats.targetCount)]
   ];
@@ -67,8 +66,8 @@ function renderStats(manifest, games, models, hallList, filledHalls) {
   }));
 }
 
-function renderMatrix(models, hallList, games) {
-  if (models.length === 0) {
+function renderMatrix(modelFamilies, hallList) {
+  if (modelFamilies.length === 0) {
     matrixEmptyEl.hidden = false;
     matrixEmptyEl.textContent = "No models are recorded yet.";
     tableEl.replaceChildren();
@@ -78,7 +77,7 @@ function renderMatrix(models, hallList, games) {
 
   const thead = document.createElement("thead");
   const headRow = document.createElement("tr");
-  headRow.append(th("Model / tool", "col", "matrix-corner"));
+  headRow.append(th("Family / model", "col", "matrix-corner"));
   for (const hall of hallList) {
     const cell = th(hallShortName(hall), "col");
     cell.title = hall.name ?? hall.id;
@@ -86,63 +85,94 @@ function renderMatrix(models, hallList, games) {
   }
   thead.append(headRow);
 
-  const tbody = document.createElement("tbody");
-  for (const model of models) {
-    const row = document.createElement("tr");
-    const rowHead = th(model.modelName, "row", "matrix-rowhead");
-    rowHead.append(el("span", "matrix-agent", [...model.agents].join(", ")));
-    row.append(rowHead);
+  const groups = modelFamilies.map((family) => {
+    const tbody = document.createElement("tbody");
+    tbody.className = "matrix-family-group";
 
-    for (const hall of hallList) {
-      const cell = document.createElement("td");
-      const hits = model.games
-        .filter((game) => game.hallId === hall.id)
-        .sort((a, b) => (a.number ?? 0) - (b.number ?? 0));
-      if (hits.length === 0) {
-        cell.className = "matrix-cell empty";
-        cell.setAttribute("aria-label", `${model.modelName}, ${hall.name ?? hall.id}: none`);
-        cell.textContent = "·";
-      } else {
-        cell.className = "matrix-cell filled";
-        cell.append(...hits.map((game) => {
-          const link = document.createElement("a");
-          link.className = "matrix-chip";
-          link.href = getObservationHref(game);
-          link.textContent = getShortGameNumber(game);
-          link.title = `${game.title} — ${hall.name ?? hall.id}`;
-          return link;
-        }));
+    const familyRow = document.createElement("tr");
+    familyRow.className = "matrix-family-row";
+    const familyHead = th(family.name, "rowgroup", "matrix-family-head");
+    familyHead.colSpan = hallList.length + 1;
+    familyHead.append(el("span", "matrix-family-provider", `${family.providerName} · ${family.models.length} ${family.models.length === 1 ? "model" : "models"}`));
+    familyRow.append(familyHead);
+    tbody.append(familyRow);
+
+    for (const model of family.models) {
+      const row = document.createElement("tr");
+      const rowHead = th(model.modelName, "row", "matrix-rowhead");
+      rowHead.append(el("span", "matrix-agent", [...model.agents].join(", ")));
+      row.append(rowHead);
+
+      for (const hall of hallList) {
+        const cell = document.createElement("td");
+        const hits = model.games.filter((game) => game.hallId === hall.id);
+        if (hits.length === 0) {
+          cell.className = "matrix-cell empty";
+          cell.setAttribute("aria-label", `${family.name}, ${model.modelName}, ${hall.name ?? hall.id}: none`);
+          cell.textContent = "·";
+        } else {
+          cell.className = "matrix-cell filled";
+          cell.append(...hits.map((game) => {
+            const link = document.createElement("a");
+            link.className = "matrix-chip";
+            link.href = getObservationHref(game);
+            link.textContent = getShortGameNumber(game);
+            link.title = `${game.title} — ${hall.name ?? hall.id}`;
+            return link;
+          }));
+        }
+        row.append(cell);
       }
-      row.append(cell);
+      tbody.append(row);
     }
-    tbody.append(row);
-  }
 
-  tableEl.replaceChildren(thead, tbody);
+    return tbody;
+  });
+
+  tableEl.replaceChildren(thead, ...groups);
 }
 
-function renderModels(models, games) {
-  if (models.length === 0) {
+function renderModels(modelFamilies) {
+  if (modelFamilies.length === 0) {
     modelGridEl.replaceChildren(el("p", "compare-note", "No models recorded yet."));
     return;
   }
 
-  modelGridEl.replaceChildren(...models.map((model) => {
+  modelGridEl.replaceChildren(...modelFamilies.map((family) => createModelFamilySection(family)));
+}
+
+function createModelFamilySection(family) {
+  const section = document.createElement("section");
+  section.className = "model-family-section";
+  const headingId = `model-family-${family.id}`;
+  section.setAttribute("aria-labelledby", headingId);
+
+  const header = document.createElement("header");
+  header.className = "model-family-header";
+  const heading = el("h3", "model-family-name", family.name);
+  heading.id = headingId;
+  header.append(
+    el("p", "archive-kicker", family.providerName),
+    heading,
+    el("p", "model-family-summary", `${family.models.length} ${family.models.length === 1 ? "model" : "models"} · ${family.games.length} ${family.games.length === 1 ? "observation" : "observations"}`)
+  );
+
+  const grid = document.createElement("div");
+  grid.className = "model-family-grid";
+  grid.append(...family.models.map((model) => {
     const card = document.createElement("article");
     card.className = "model-card";
 
-    const modelGames = games
-      .filter((game) => game.provenance?.modelName === model.modelName
-        || (game.variants ?? []).some((variant) => variant.modelName === model.modelName))
-      .sort((a, b) => (a.number ?? 0) - (b.number ?? 0));
+    const modelGames = model.games;
 
     const halls = new Set(modelGames.map((game) => game.hallId));
-    const variantCount = modelGames.reduce((total, game) => total + (game.variants?.length ?? 0), 0);
+    const variantCount = modelGames.reduce((total, game) => total + (game.variants ?? [])
+      .filter((variant) => variant.modelName === model.modelName).length, 0);
     const runCount = modelGames.reduce((total, game) => total + (game.runRecords?.length ?? 0), 0);
 
     card.append(
       el("p", "archive-kicker", [...model.agents].join(", ") || "Tool unrecorded"),
-      el("h3", "model-card-name", model.modelName),
+      el("h4", "model-card-name", model.modelName),
       el("p", "model-card-meta", `${modelGames.length} observation${modelGames.length === 1 ? "" : "s"} · ${halls.size} hall${halls.size === 1 ? "" : "s"} · ${variantCount} variant${variantCount === 1 ? "" : "s"} · ${runCount} run${runCount === 1 ? "" : "s"}`)
     );
 
@@ -159,6 +189,9 @@ function renderModels(models, games) {
     card.append(list);
     return card;
   }));
+
+  section.append(header, grid);
+  return section;
 }
 
 function renderHallCoverage(hallList, games) {
