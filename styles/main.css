@@ -1,12 +1,18 @@
+/* Title screen — "specimen ledger" art direction.
+   The wordmark is set as three stacked museum-plate lines (solid / hollow /
+   solid), the status panel reads as a ledger card with corner registration
+   ticks, and a vertical meta rail anchors the right edge on wide screens. */
+
 .title-screen {
   position: relative;
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
-  padding: 22px 32px 18px;
+  padding: 22px 34px 18px;
   background:
-    radial-gradient(circle at 70% 42%, rgba(216, 247, 95, 0.07), transparent 350px),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 220px),
+    radial-gradient(circle at 72% 40%, rgba(216, 247, 95, 0.065), transparent 380px),
+    radial-gradient(circle at 12% 86%, rgba(127, 233, 224, 0.04), transparent 320px),
+    linear-gradient(180deg, rgba(244, 241, 232, 0.04), transparent 230px),
     var(--bg-deep);
   overflow-x: hidden;
 }
@@ -49,12 +55,14 @@
   display: inline-flex;
   align-items: center;
   border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: 0 12px;
+  border-radius: var(--radius-md);
+  padding: 0 13px;
   color: var(--muted-strong);
-  background: rgba(255, 255, 255, 0.035);
+  background: rgba(244, 241, 232, 0.035);
   font-family: var(--mono-font);
-  font-size: 0.76rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   text-decoration: none;
   transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
 }
@@ -62,43 +70,77 @@
 .title-stage {
   width: min(1540px, 100%);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 360px;
+  grid-template-columns: minmax(0, 1fr) 370px;
   gap: clamp(48px, 8vw, 128px);
   align-items: end;
   margin: 0 auto;
-  padding: clamp(72px, 11vh, 138px) 0 clamp(44px, 7vh, 88px);
+  padding: clamp(64px, 10vh, 128px) 0 clamp(44px, 7vh, 88px);
 }
 
 .title-copy {
   min-width: 0;
 }
 
+/* The three-line plate: 99 (solid) / AI (hollow stroke) / GAMES (solid). */
 .title-mark {
   display: grid;
-  margin: 0 0 24px;
+  margin: 0 0 26px;
   font-family: var(--display-font);
   font-size: clamp(8.4rem, 12.4vw, 15.5rem);
-  line-height: 0.76;
+  line-height: 0.78;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0;
-  text-shadow: 0 20px 70px rgba(0, 0, 0, 0.58);
+  letter-spacing: -0.012em;
+  text-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
 }
 
 .title-mark span {
   width: fit-content;
-  background: linear-gradient(180deg, var(--text), rgba(244, 241, 232, 0.76));
+  background: linear-gradient(180deg, var(--text), rgba(244, 241, 232, 0.72));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
+.title-mark span:nth-child(2) {
+  background: none;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(216, 247, 95, 0.85);
+  text-shadow: none;
+  margin-left: 0.08em;
+}
+
+@supports not (-webkit-text-stroke: 2px black) {
+  .title-mark span:nth-child(2) {
+    background: linear-gradient(180deg, var(--accent), rgba(216, 247, 95, 0.6));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+.title-mark span:nth-child(3) {
+  position: relative;
+  padding-right: 0.32em;
+}
+
+.title-mark span:nth-child(3)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0.1em;
+  width: 0.16em;
+  height: 0.16em;
+  background: var(--accent);
+}
+
 .title-position {
   max-width: 680px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   color: var(--text);
   font-family: var(--display-font);
-  font-size: clamp(2rem, 3vw, 3.3rem);
+  font-size: clamp(1.9rem, 3vw, 3.1rem);
+  font-style: italic;
   line-height: 1.12;
 }
 
@@ -107,21 +149,47 @@
   margin-bottom: 0;
   color: var(--muted-strong);
   font-family: var(--mono-font);
-  font-size: 0.92rem;
-  line-height: 1.65;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  line-height: 1.7;
+}
+
+.title-meta-rule {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 26px 0 0;
+  color: var(--muted);
+  font-family: var(--mono-font);
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.title-meta-rule::before,
+.title-meta-rule::after {
+  content: "";
+  height: 1px;
+  flex: 0 1 70px;
+  background: var(--line-strong);
+}
+
+.title-meta-rule::after {
+  flex: 1 1 auto;
+  background: linear-gradient(90deg, var(--line-strong), transparent);
 }
 
 .title-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 28px;
+  gap: 12px;
+  margin-top: 26px;
 }
 
 .title-actions .archive-button.primary {
   position: relative;
   overflow: hidden;
-  min-width: 210px;
+  min-width: 230px;
 }
 
 .title-actions .archive-button.primary::after {
@@ -132,6 +200,8 @@
   transform: translateX(-120%);
   transition: transform var(--transition-slow);
 }
+
+/* Ledger status card. */
 
 .signal-heading {
   display: flex;
@@ -150,17 +220,48 @@
   border-radius: 999px;
   background: var(--accent);
   box-shadow: 0 0 0 5px rgba(216, 247, 95, 0.12);
+  animation: statusPulse 2.6s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(216, 247, 95, 0.1); }
+  50% { box-shadow: 0 0 0 7px rgba(216, 247, 95, 0.18); }
 }
 
 .title-status {
+  position: relative;
   min-width: 0;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+  padding: 20px;
   background:
     linear-gradient(180deg, rgba(216, 247, 95, 0.06), transparent 42%),
-    rgba(11, 13, 15, 0.82);
+    rgba(13, 13, 10, 0.86);
   box-shadow: var(--shadow);
+}
+
+/* Corner registration ticks on the ledger card. */
+.title-status::before,
+.title-status::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+}
+
+.title-status::before {
+  top: 6px;
+  left: 6px;
+  border-top: 1px solid var(--accent);
+  border-left: 1px solid var(--accent);
+}
+
+.title-status::after {
+  right: 6px;
+  bottom: 6px;
+  border-right: 1px solid var(--accent);
+  border-bottom: 1px solid var(--accent);
 }
 
 .title-status dl {
@@ -181,14 +282,17 @@
 .title-status dt {
   color: var(--muted);
   font-family: var(--mono-font);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
 .title-status dd {
+  margin: 0;
   color: var(--accent);
-  font-family: var(--mono-font);
-  font-size: 1.08rem;
+  font-family: var(--display-font);
+  font-size: 1.35rem;
+  font-weight: 600;
 }
 
 .status-note {
@@ -229,10 +333,10 @@
   width: 100%;
   min-height: 96px;
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   padding: 10px;
   color: var(--text);
-  background: rgba(255, 255, 255, 0.035);
+  background: rgba(244, 241, 232, 0.035);
   resize: vertical;
 }
 
@@ -245,7 +349,8 @@
   margin-bottom: 0;
   color: var(--muted);
   font-family: var(--mono-font);
-  font-size: 0.74rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
 }
 
 .title-footer a {
@@ -265,9 +370,15 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .status-dot {
+    animation: none;
+  }
+}
+
 @media (max-width: 1180px) {
   .title-stage {
-    grid-template-columns: minmax(0, 1fr) 320px;
+    grid-template-columns: minmax(0, 1fr) 330px;
     gap: 44px;
   }
 }
@@ -303,8 +414,16 @@
     font-size: 5.4rem;
   }
 
+  .title-mark span:nth-child(2) {
+    -webkit-text-stroke-width: 1.5px;
+  }
+
   .title-position {
     font-size: 1.55rem;
+  }
+
+  .title-meta-rule {
+    letter-spacing: 0.16em;
   }
 
   .title-actions {
@@ -332,5 +451,9 @@
 
   .title-protocol {
     font-size: 0.82rem;
+  }
+
+  .title-meta-rule {
+    font-size: 0.6rem;
   }
 }
