@@ -2551,3 +2551,82 @@ body::before,
   font-size: 1rem;
   line-height: 1.6;
 }
+
+/* ── Claude inner-page polish: record + play gate (2026-06-14-claude4) ──────
+   Bring the observation record and play gate to the same calm, soft, editorial
+   Claude standard as the front hall. Override-only; no structure change. */
+
+/* Observation record (level 3) */
+.record-cover {
+  border-radius: var(--radius-lg);
+  background: var(--bg-deep);
+}
+
+.record-copy h2 {
+  font-size: clamp(1.65rem, 2.6vw, 2.25rem);
+  letter-spacing: -0.015em;
+  line-height: 1.06;
+}
+
+.record-description,
+.record-device-note,
+.gate-description,
+.gate-philosophy {
+  font-size: 1.02rem;
+  line-height: 1.62;
+}
+
+.definition-grid {
+  gap: 12px 18px;
+}
+
+.definition-card {
+  padding: 18px 20px;
+}
+
+.run-card {
+  padding: 18px 20px;
+  border-left-width: 3px;
+}
+
+.run-list {
+  gap: 14px;
+}
+
+/* Screenshot gallery: soft rounded frames. */
+.media-grid {
+  gap: 14px;
+}
+
+.media-grid figure {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+}
+
+/* Play gate (level 4): a generous, centered, calm card. */
+.play-gate {
+  width: min(720px, 100%);
+}
+
+.play-gate-content {
+  border-radius: var(--radius-lg);
+  padding: clamp(28px, 4vw, 48px);
+  background: var(--panel);
+  box-shadow: 0 24px 60px rgba(40, 38, 34, 0.1);
+}
+
+.play-gate h1 {
+  font-size: clamp(1.9rem, 3vw, 2.6rem);
+  letter-spacing: -0.02em;
+}
+
+.gate-actions {
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.gate-actions .archive-button.primary {
+  min-width: 200px;
+}
