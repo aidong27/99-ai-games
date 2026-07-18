@@ -1,0 +1,44 @@
+{
+  "runId": "2026-06-03-codex-gpt55-style-alignment",
+  "gameNumber": 1,
+  "gameSlug": "signal-cartographer",
+  "variantId": "codex-gpt-5-5-xhigh-2026-05-31",
+  "runType": "revision",
+  "status": "accepted-style-alignment",
+  "createdDate": "2026-06-03",
+  "modelName": "GPT-5 (Codex session)",
+  "agentName": "Codex",
+  "humanCodeEdits": false,
+  "promptSummary": "Align only the GPT-5.5 / Codex Signal Cartographer game page to the provided dark mobile archive style without changing other games or gameplay.",
+  "outputs": [
+    "games/signal-cartographer/index.html",
+    "games/signal-cartographer/styles/main.css",
+    "games/signal-cartographer/game.json",
+    "games/manifest.json",
+    "docs/generated-index.md"
+  ],
+  "verification": {
+    "verifiedDate": "2026-06-03",
+    "performed": [
+      "node scripts/validate-halls.mjs",
+      "node scripts/validate-games.mjs",
+      "node scripts/validate-launcher.mjs",
+      "node scripts/generate-index.mjs --check",
+      "node --check games/signal-cartographer/src/main.js",
+      "git diff --check",
+      "Started local static server with python3 -m http.server 4173",
+      "Browser smoke checked Signal Cartographer at 390x844, 430x932, and 1440x900 with no page-level horizontal overflow and no console/runtime errors",
+      "Browser interaction checked Signal Cartographer at 390x844: Start run button hid the overlay and the Beacon button remained visible with a remaining-count label"
+    ],
+    "pending": [
+      "No physical handset QA was performed",
+      "No new screenshots were captured or claimed"
+    ]
+  },
+  "knownIssues": [
+    "This run intentionally changes only the GPT-5.5 / Codex Signal Cartographer page style.",
+    "The Lumen Lattice game page was not modified.",
+    "Physical handset QA is not claimed; validation is limited to local browser viewport smoke."
+  ],
+  "notes": "This revision keeps the existing Signal Cartographer rules, sectors, hazards, fragments, beacon behavior, mobile joystick, and pause/restart controls. It only tightens the visual presentation around the provided dark archive-style reference."
+}
