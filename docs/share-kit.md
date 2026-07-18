@@ -52,6 +52,7 @@ GitHub: https://github.com/aidong27/99-ai-games
   - https://aidong27.github.io/99-ai-games/promo/orbit-cadence/
   - https://aidong27.github.io/99-ai-games/promo/deepforge-miner/
   - https://aidong27.github.io/99-ai-games/promo/resonance-loom/
+  - https://aidong27.github.io/99-ai-games/promo/context-window/
 - Manifest: https://aidong27.github.io/99-ai-games/games/manifest.json
 - Press page: https://aidong27.github.io/99-ai-games/press.html
 - Log page: https://aidong27.github.io/99-ai-games/log.html

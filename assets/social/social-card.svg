@@ -8,11 +8,11 @@
   <text x="168" y="130" fill="#f5f5f7" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="700">AI Games</text>
   <text x="96" y="270" fill="#f5f5f7" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-size="86" font-weight="760">Playable archive.</text>
   <text x="96" y="340" fill="#f5f5f7" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-size="86" font-weight="760">Real provenance.</text>
-  <text x="102" y="414" fill="#c7c7cc" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="28">10 playable observations / 99 target slots</text>
+  <text x="102" y="414" fill="#c7c7cc" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="28">11 playable observations / 99 target slots</text>
   <rect x="96" y="466" width="352" height="48" rx="8" fill="#242426" stroke="#38383a"/>
   <text x="120" y="498" fill="#2997ff" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="700">Browser games made by AI coding agents</text>
   <rect x="880" y="186" width="176" height="176" rx="8" fill="#242426" stroke="#38383a"/>
-  <text x="968" y="258" fill="#0a84ff" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-size="56" font-weight="780" text-anchor="middle">10</text>
+  <text x="968" y="258" fill="#0a84ff" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-size="56" font-weight="780" text-anchor="middle">11</text>
   <text x="968" y="302" fill="#f5f5f7" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="650" text-anchor="middle">playable</text>
   <text x="968" y="330" fill="#8e8e93" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="18" text-anchor="middle">observations</text>
 </svg>

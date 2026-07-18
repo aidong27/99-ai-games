@@ -81,6 +81,7 @@ run("generate-index --check", ["scripts/generate-index.mjs", "--check"]);
 run("prepare-pages", ["scripts/prepare-pages.mjs"]);
 run("verify-gravity-atlas", ["scripts/verify-gravity-atlas.mjs"]);
 run("verify-afterlight-dispatch", ["scripts/verify-afterlight-dispatch.mjs"]);
+run("verify-context-window", ["scripts/verify-context-window.mjs"]);
 
 const failed = steps.filter((step) => !step.ok);
 process.stdout.write("\n──────── Archive quality gate ────────\n");

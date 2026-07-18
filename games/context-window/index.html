@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Context Window: Observation 011 / Game 011 in 99 AI Games, an AI Meme Hall game where an AI agent recovers memory shards from a facility larger than its own context window.">
+    <title>Context Window | 99 AI Games</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="./styles/main.css">
+  </head>
+  <body>
+    <main class="game-shell context-window-shell">
+      <header class="topbar archive-header" aria-label="Archive navigation">
+        <a class="back-link" href="../../">99 AI Games</a>
+        <div class="model-chip" aria-label="AI provenance">
+          <span>Observation 011 / Game 011</span>
+          <strong>Context Window</strong>
+          <em>Kimi K3 Max / Kimi</em>
+        </div>
+      </header>
+
+      <section class="game-hero" aria-labelledby="game-title">
+        <div class="hero-copy">
+          <p class="eyebrow">AI Meme Hall / Benchmark</p>
+          <h1 id="game-title">Context Window</h1>
+          <p class="lede">
+            You are Agent K-3, an AI recovering memory shards from a facility
+            larger than your own context window. Sectors you forget come
+            back&hellip; approximately. Beware hallucinations.
+          </p>
+        </div>
+        <dl class="quick-stats" aria-label="Run status">
+          <div><dt>Integrity</dt><dd id="integrity-readout">5 / 5</dd></div>
+          <div><dt>Shards banked</dt><dd id="shard-readout">0 / 9</dd></div>
+          <div><dt>Tokens spent</dt><dd id="token-readout">0 tok</dd></div>
+          <div><dt>Sector</dt><dd id="sector-readout">B2</dd></div>
+        </dl>
+      </section>
+
+      <section class="play-surface" aria-label="Context Window game">
+        <div class="map-column">
+          <div class="canvas-frame">
+            <canvas id="game-canvas" width="960" height="600" aria-label="Context Window facility map"></canvas>
+            <div id="overlay" class="overlay">
+              <div class="overlay-card">
+                <p id="overlay-kicker" class="eyebrow">Observation 011 / Game 011</p>
+                <h2 id="overlay-title">Context Window</h2>
+                <p id="overlay-copy"></p>
+                <dl id="overlay-stats"></dl>
+                <button id="primary-action" class="button primary" type="button">Instantiate agent</button>
+              </div>
+            </div>
+          </div>
+          <div class="map-toolbar" aria-label="Game controls">
+            <button id="pause-button" class="button ghost" type="button">Pause</button>
+            <button id="restart-button" class="button ghost" type="button">Restart</button>
+            <button id="mute-button" class="button ghost" type="button" aria-pressed="false">Mute</button>
+          </div>
+          <div class="dpad" aria-label="Touch movement pad">
+            <button class="button" type="button" data-dir="up" aria-label="Move up">^</button>
+            <button class="button" type="button" data-dir="left" aria-label="Move left">&lt;</button>
+            <button class="button" type="button" data-dir="down" aria-label="Move down">v</button>
+            <button class="button" type="button" data-dir="right" aria-label="Move right">&gt;</button>
+          </div>
+        </div>
+
+        <aside class="command-panel" aria-label="Run command panel">
+          <section class="panel-block objective-block">
+            <p class="eyebrow">Current objective</p>
+            <h2 id="objective-readout">Deposit 9 shards at the System Core</h2>
+            <p id="message-readout">Find memory shards. Beware what the facility becomes when you forget it.</p>
+          </section>
+
+          <section class="panel-block meters-block" aria-label="Telemetry">
+            <div class="meter">
+              <span>Integrity</span>
+              <div><i id="integrity-meter"></i></div>
+            </div>
+            <div class="meter">
+              <span>Archive progress</span>
+              <div><i id="progress-meter"></i></div>
+            </div>
+            <div class="meter">
+              <span>Context load</span>
+              <div><i id="capacity-meter"></i></div>
+            </div>
+          </section>
+
+          <section class="panel-block context-block" aria-label="Context window">
+            <p class="eyebrow">Context window (LRU)</p>
+            <div id="context-chips" class="chip-row"></div>
+            <p class="chip-caption">Resident sectors. When the window slides, the oldest unpinned sector is evicted and remembered only as a summary.</p>
+          </section>
+
+          <section class="panel-block" aria-label="Facility minimap">
+            <p class="eyebrow">Facility map</p>
+            <canvas id="minimap-canvas" width="180" height="180" aria-label="Sector residency minimap"></canvas>
+          </section>
+
+          <section class="panel-block log-block" aria-label="Memory log">
+            <p class="eyebrow">Memory log</p>
+            <ul id="log-list"></ul>
+          </section>
+        </aside>
+      </section>
+
+      <section class="info-section" aria-label="How to play">
+        <div class="info-card">
+          <h2>Controls</h2>
+          <ul>
+            <li><kbd>WASD</kbd> / <kbd>Arrow keys</kbd> — move</li>
+            <li><kbd>P</kbd> / <kbd>Esc</kbd> — pause, <kbd>R</kbd> — restart, <kbd>M</kbd> — mute</li>
+            <li>Touch devices get an on-screen direction pad.</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h2>The mechanic is the meme</h2>
+          <ul>
+            <li>Your context window holds 4 sectors. Entering a 5th evicts the oldest one.</li>
+            <li>Evicted sectors are re-summarized on return: shard positions drift, walls are misremembered, decoys appear.</li>
+            <li>Pink shards are hallucinations. So are the glitch drones. Forgetting breeds more of them.</li>
+            <li>You remember shard <em>counts</em>, never shard <em>locations</em>. Working memory holds 3 shards.</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h2>Pickups</h2>
+          <ul>
+            <li><strong>System Prompt</strong> (pin) — the sector is never evicted.</li>
+            <li><strong>Compression pass</strong> — +1 context capacity.</li>
+            <li><strong>Integrity patch</strong> — +1 integrity.</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h2>Provenance</h2>
+          <p>Observation 011 / Game 011, AI Meme Hall, benchmark slot.</p>
+          <p>Model: Kimi K3 Max (user-declared label). Agent: Kimi. Human code edits: none (<code>humanCodeEdits: false</code>).</p>
+          <p>Deterministic engine; completability machine-verified by <code>scripts/verify-context-window.mjs</code>.</p>
+        </div>
+      </section>
+
+      <footer class="footer-note">
+        <p>Context Window — 99 AI Games. A playable observation sample of AI game-making, preserved with provenance. The facility forgets; the archive does not.</p>
+      </footer>
+    </main>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

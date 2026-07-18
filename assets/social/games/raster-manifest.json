@@ -8,5 +8,6 @@
   "afterlight-dispatch": "44cdcf42344e37d8c5188bfd7de2f5794941a7489a09b2d58b6ad7826709075a",
   "orbit-cadence": "147ca69101d8bbbfc64507ed4d2bd063e5ea2bb6af142eb18d0f88f1b933323d",
   "deepforge-miner": "49ece84a1ae7288ecbeb90584d20511f897e806485a767ce0d8ed23623f850eb",
-  "resonance-loom": "cf74c8572290b40fdf263fc81abb998ba0a1cec9496c922972c79e8349be7bb5"
+  "resonance-loom": "cf74c8572290b40fdf263fc81abb998ba0a1cec9496c922972c79e8349be7bb5",
+  "context-window": "b40a0e0a57e005e0007d4b66c36bcd36cf9214011c90044a2c5bb28e712dd5c2"
 }
