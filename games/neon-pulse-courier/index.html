@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Neon Pulse Courier, Observation 003 / Game 003 in 99 AI Games, a PC-first arcade reaction benchmark by Codex."
+    >
+    <title>Neon Pulse Courier | 99 AI Games</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="../../styles/game-shell.css?v=2026-06-02-mobile3">
+    <link rel="stylesheet" href="./styles/main.css?v=2026-06-03-neon-pulse">
+  </head>
+  <body>
+    <main class="game-shell pulse-shell">
+      <header class="topbar archive-header" aria-label="Archive navigation">
+        <a class="back-link" href="../../">99 AI Games</a>
+        <div class="model-chip" aria-label="AI provenance">
+          <span>Observation 003 / Game 003</span>
+          <strong>Neon Pulse Courier</strong>
+          <em>Codex / Arcade Reaction Hall</em>
+        </div>
+      </header>
+
+      <section class="game-hero" aria-labelledby="game-title">
+        <div class="hero-copy">
+          <p class="eyebrow">Arcade Reaction Hall / Benchmark</p>
+          <h1 id="game-title">Neon Pulse Courier</h1>
+          <p class="lede">
+            Thread a courier signal ship through rhythmic pulse barriers, collect data parcels,
+            protect the combo chain, and survive until the extraction window opens.
+          </p>
+        </div>
+        <dl class="quick-stats" aria-label="Run status">
+          <div>
+            <dt>Time</dt>
+            <dd id="time-readout">75.0</dd>
+          </div>
+          <div>
+            <dt>Score</dt>
+            <dd id="score-readout">0</dd>
+          </div>
+          <div>
+            <dt>Combo</dt>
+            <dd id="combo-readout">x1</dd>
+          </div>
+          <div>
+            <dt>Integrity</dt>
+            <dd id="integrity-readout">100%</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="play-surface pulse-layout" aria-label="Neon Pulse Courier game">
+        <div class="arena-column">
+          <div class="canvas-frame">
+            <canvas id="game-canvas" width="1280" height="720" aria-label="Neon pulse courier arena"></canvas>
+            <div id="overlay" class="overlay">
+              <div class="overlay-card">
+                <p id="overlay-kicker" class="eyebrow">Observation 003 / Game 003</p>
+                <h2 id="overlay-title">Deliver through the pulse field</h2>
+                <p id="overlay-copy">
+                  Collect parcels for score and combo. Pulse barriers warn before firing.
+                  Dash through tight windows, then reach extraction.
+                </p>
+                <button id="primary-action" class="button primary" type="button">Start run</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="action-bar" aria-label="Primary actions">
+            <button id="dash-button" class="button action" type="button">
+              <span>Dash</span>
+              <small id="dash-readout">Space</small>
+            </button>
+            <button id="pause-button" class="button ghost" type="button">Pause</button>
+            <button id="restart-button" class="button ghost" type="button">Restart</button>
+          </div>
+        </div>
+
+        <aside class="command-panel" aria-label="Courier telemetry">
+          <section class="panel-block objective-block">
+            <p class="eyebrow">Current objective</p>
+            <h2 id="objective-readout">Awaiting launch</h2>
+            <p id="message-readout">Short loops, sharp warnings, and clean recovery windows.</p>
+          </section>
+
+          <section class="panel-block meters-block" aria-label="Telemetry">
+            <div class="meter">
+              <span>Integrity</span>
+              <div><i id="integrity-meter"></i></div>
+            </div>
+            <div class="meter">
+              <span>Dash charge</span>
+              <div><i id="dash-meter"></i></div>
+            </div>
+            <div class="meter">
+              <span>Combo hold</span>
+              <div><i id="combo-meter"></i></div>
+            </div>
+            <div class="meter">
+              <span>Extraction</span>
+              <div><i id="run-meter"></i></div>
+            </div>
+          </section>
+
+          <section class="panel-block resource-grid" aria-label="Run facts">
+            <div>
+              <span>Parcels</span>
+              <strong id="parcel-readout">0</strong>
+            </div>
+            <div>
+              <span>Threat</span>
+              <strong id="threat-readout">Low</strong>
+            </div>
+            <div>
+              <span>Best chain</span>
+              <strong id="best-combo-readout">0</strong>
+            </div>
+            <div>
+              <span>High score</span>
+              <strong id="high-score-readout">0</strong>
+            </div>
+          </section>
+
+          <section class="panel-block controls-block">
+            <p class="eyebrow">Controls</p>
+            <ul>
+              <li>Move: WASD / Arrow keys</li>
+              <li>Mouse: click or drag to set a flight target</li>
+              <li>Dash: Space or Dash button</li>
+              <li>Pause: P. Restart: R.</li>
+            </ul>
+          </section>
+        </aside>
+      </section>
+    </main>
+
+    <script type="module" src="./src/main.js?v=2026-06-03-neon-pulse"></script>
+  </body>
+</html>

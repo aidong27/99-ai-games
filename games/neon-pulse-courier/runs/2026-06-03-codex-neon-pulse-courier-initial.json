@@ -1,0 +1,58 @@
+{
+  "runId": "2026-06-03-codex-neon-pulse-courier-initial",
+  "gameNumber": 3,
+  "gameSlug": "neon-pulse-courier",
+  "variantId": "codex-neon-pulse-courier-2026-06-03",
+  "runType": "initial",
+  "status": "accepted-canonical",
+  "createdDate": "2026-06-03",
+  "modelName": "GPT-5 (Codex session)",
+  "agentName": "Codex",
+  "humanCodeEdits": false,
+  "promptSummary": "Create Observation 003 / Game 003, Neon Pulse Courier, as a PC-first Arcade Reaction Hall benchmark with movement, dash, pulse barriers, parcels, combo, scoring, pause/restart, failure/completion states, QA hooks, real local screenshots, and honest metadata.",
+  "outputs": [
+    "games/neon-pulse-courier/index.html",
+    "games/neon-pulse-courier/src/main.js",
+    "games/neon-pulse-courier/styles/main.css",
+    "games/neon-pulse-courier/game.json",
+    "games/neon-pulse-courier/README.md",
+    "games/neon-pulse-courier/brief.md",
+    "games/neon-pulse-courier/variants/codex-neon-pulse-courier-2026-06-03/variant.json",
+    "games/neon-pulse-courier/assets/images/screenshot-title.png",
+    "games/neon-pulse-courier/assets/images/screenshot-gameplay.png",
+    "games/neon-pulse-courier/assets/images/screenshot-complete.png",
+    "games/manifest.json",
+    "halls/halls.json",
+    "docs/generated-index.md",
+    "CHANGELOG.md"
+  ],
+  "verification": {
+    "verifiedDate": "2026-06-03",
+    "performed": [
+      "node --check games/neon-pulse-courier/src/main.js",
+      "node scripts/validate-halls.mjs",
+      "node scripts/validate-games.mjs",
+      "node scripts/validate-launcher.mjs",
+      "node scripts/generate-index.mjs --check",
+      "node --check src/main.js",
+      "node --check src/archive-data.js",
+      "node --check src/library.js",
+      "node --check src/observation.js",
+      "node --check src/play.js",
+      "git diff --check",
+      "Started local static server with python3 -m http.server 4173",
+      "Captured real local browser screenshots for title, gameplay, and extraction completion states",
+      "Browser smoke checked root launcher, library deep link, observation record, play gate, and game page at 1440x900, 1920x1080, and 390x844",
+      "Browser game smoke checked start, keyboard movement, pointer target movement, dash cooldown, score change, combo/best-chain change, pause, restart, failure state, and completion state",
+      "Post-screenshot page check confirmed screenshot assets return HTTP 200 and library, record, and play gate load without 4xx assets or page-level horizontal overflow"
+    ],
+    "pending": [
+      "No physical handset QA is claimed."
+    ]
+  },
+  "knownIssues": [
+    "Mobile is marked limited because the intended benchmark input mode is PC keyboard and mouse.",
+    "Physical phone QA is not claimed."
+  ],
+  "notes": "This run creates Game 003 as a real playable observation sample, not a placeholder. It does not modify Game 001 or Game 002 source files."
+}
