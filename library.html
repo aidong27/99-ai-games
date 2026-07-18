@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Browse 99 AI Games observation samples by model, archive record, timeline, and device support."
+    >
+    <title>Observation Library | 99 AI Games</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="./styles/archive.css?v=2026-06-02-multilevel">
+  </head>
+  <body class="archive-page library-page">
+    <a class="skip-link" href="#library-main">Skip to library</a>
+    <div class="archive-shell">
+      <header class="archive-topbar" aria-label="Library navigation">
+        <a class="wordmark" href="./">
+          <span>99</span>
+          <strong>AI Games</strong>
+        </a>
+        <div class="page-title">
+          <p class="archive-kicker">Level 2</p>
+          <h1>Observation Library</h1>
+        </div>
+        <p id="library-status" class="topbar-status">Loading archive...</p>
+      </header>
+
+      <main id="library-main" class="library-layout">
+        <aside class="model-axis-panel" aria-label="Model timeline">
+          <div class="axis-heading">
+            <p class="archive-kicker">Model axis</p>
+            <span id="model-count">0 models</span>
+          </div>
+          <div id="model-axis" class="model-axis" role="list"></div>
+        </aside>
+
+        <section class="library-stage" aria-labelledby="library-stage-title">
+          <div class="library-readout">
+            <div>
+              <p class="archive-kicker">Current sample</p>
+              <h2 id="library-stage-title">Select an observation</h2>
+            </div>
+            <dl id="current-readout" class="readout-grid"></dl>
+            <div class="readout-actions">
+              <a id="play-selected" class="archive-button primary" href="./library.html">Play</a>
+              <a id="view-record" class="archive-button secondary" href="./library.html">View Record</a>
+              <a id="open-metadata" class="archive-button secondary" href="./games/manifest.json">Open Metadata</a>
+            </div>
+          </div>
+
+          <div id="library-error" class="archive-notice hidden" role="status"></div>
+          <div id="observation-track" class="observation-track" aria-live="polite"></div>
+          <div id="observation-timeline" class="observation-timeline" aria-label="Observation timeline"></div>
+        </section>
+      </main>
+
+      <nav class="archive-dock" aria-label="Archive sections">
+        <a aria-current="page" href="./library.html">Library</a>
+        <a href="./README.md#game-halls">Halls</a>
+        <a href="./README.md#device-support-contract">Protocol</a>
+        <a href="./games/manifest.json">Manifest</a>
+      </nav>
+    </div>
+
+    <script type="module" src="./src/library.js?v=2026-06-02-multilevel"></script>
+  </body>
+</html>
