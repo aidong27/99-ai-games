@@ -131,7 +131,7 @@ The public launcher is a static four-level archive system:
 - `assets/posters/games/<game-slug>.jpg`: generated cover artwork used only as a promotional visual, never as gameplay evidence.
 - `sitemap.xml`, `robots.txt`, `404.html`: generated discovery and recovery surfaces.
 - `manifest.webmanifest`, `service-worker.js`: installable launcher shell and progressive offline entry.
-- `compare.html`: a cross-model capability matrix (model × hall coverage, per-model totals, hall coverage) built only from real manifest data.
+- `compare.html`: a product-family-grouped capability matrix (exact model × hall coverage, per-model totals, hall coverage) built only from real manifest data.
 
 Launcher pages read from `games/manifest.json` and each game's `game.json`. They must not invent games, models, screenshots, popularity, or provenance. Metadata fetches are cached per session (keyed by the deployed asset version) so navigation between pages does not refetch every record.
 
@@ -140,7 +140,7 @@ Launcher pages read from `games/manifest.json` and each game's `game.json`. They
 The launcher stays framework-free, but shared logic is split by responsibility:
 
 - `src/app/`: small constants and route helpers.
-- `src/data/`: path helpers, view-model helpers, and device-support policy.
+- `src/data/`: path helpers, view-model helpers, model-family/provider mapping, and device-support policy.
 - `src/ui/`: lightweight DOM, badge, action, definition-card, layout-state, and document-title helpers.
 - `src/archive-data.js`: compatibility entry point used by existing pages.
 - `src/<page>.js`: page-specific render and interaction code.
@@ -172,7 +172,7 @@ Generated surfaces are committed but should be regenerated, not hand-edited:
 
 Each current observation also has a curated vertical cover under `assets/posters/games/`. Promo pages place that cover in the hero and keep repository screenshots in the separate Evidence section, so the two media roles remain unmistakable.
 
-The Library stores model, hall, free-text, sort, and evidence/poster view state in the URL. English remains the indexed source language; the compact `中 / EN` control translates launcher interface terms without rewriting game descriptions or provenance records.
+The Library stores model, hall, free-text, sort, and evidence/poster view state in the URL. Family filters use `model=family:<id>` while legacy and exact-model links keep the recorded model name. English remains the indexed source language; the compact `中 / EN` control translates launcher interface terms without rewriting game descriptions or provenance records.
 
 Per-game social metadata uses committed 1200 x 630 PNG cards while retaining generated SVG sources. Promo descriptions are shortened for search snippets and publish `VideoGame` JSON-LD; the home page publishes `WebSite` and `CollectionPage` structured data.
 

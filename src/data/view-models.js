@@ -1,5 +1,9 @@
 import { DEFAULT_TARGET_COUNT } from "../app/constants.js";
 import { getMobileSupportInfo, isMobileRuntime } from "./device-support.js";
+import {
+  getModelFamily,
+  getModelFamilyIdFromSelection
+} from "./model-families.js";
 
 export function getArchiveStats(manifest, games) {
   const playableCount = games.filter((game) => game.status === "playable").length;
@@ -30,11 +34,42 @@ export function getModelsFromGames(games) {
     }
   }
 
-  return [...models.values()].sort((a, b) => {
-    const firstNumber = Math.min(...a.games.map((game) => game.number ?? 999));
-    const secondNumber = Math.min(...b.games.map((game) => game.number ?? 999));
-    return firstNumber - secondNumber || a.modelName.localeCompare(b.modelName);
-  });
+  return [...models.values()].sort(compareModels);
+}
+
+export function getModelFamiliesFromModels(models) {
+  const families = new Map();
+
+  for (const model of models) {
+    const familyInfo = getModelFamily(model.modelName);
+    if (!families.has(familyInfo.id)) {
+      families.set(familyInfo.id, {
+        ...familyInfo,
+        models: [],
+        agents: new Set(),
+        games: []
+      });
+    }
+
+    const family = families.get(familyInfo.id);
+    family.models.push(model);
+    for (const agent of model.agents) {
+      family.agents.add(agent);
+    }
+    for (const game of model.games) {
+      if (!family.games.some((entry) => entry.slug === game.slug)) {
+        family.games.push(game);
+      }
+    }
+  }
+
+  return [...families.values()]
+    .map((family) => ({
+      ...family,
+      models: [...family.models].sort(compareModels),
+      games: [...family.games].sort(compareGames)
+    }))
+    .sort((a, b) => a.order - b.order || a.name.localeCompare(b.name));
 }
 
 export function filterGamesByModel(games, modelName) {
@@ -42,7 +77,12 @@ export function filterGamesByModel(games, modelName) {
     return games;
   }
 
+  const familyId = getModelFamilyIdFromSelection(modelName);
+
   return games.filter((game) => {
+    if (familyId) {
+      return getGameModelNames(game).some((name) => getModelFamily(name).id === familyId);
+    }
     if (game.provenance?.modelName === modelName) {
       return true;
     }
@@ -120,4 +160,21 @@ function registerModel(models, modelName, agentName, game) {
   if (!model.games.some((entry) => entry.slug === game.slug)) {
     model.games.push(game);
   }
+}
+
+function getGameModelNames(game) {
+  return [
+    game.provenance?.modelName,
+    ...(game.variants ?? []).map((variant) => variant.modelName)
+  ].filter(Boolean);
+}
+
+function compareModels(a, b) {
+  const firstNumber = Math.min(...a.games.map((game) => game.number ?? 999));
+  const secondNumber = Math.min(...b.games.map((game) => game.number ?? 999));
+  return firstNumber - secondNumber || a.modelName.localeCompare(b.modelName);
+}
+
+function compareGames(a, b) {
+  return (a.number ?? 999) - (b.number ?? 999) || String(a.title ?? "").localeCompare(String(b.title ?? ""));
 }

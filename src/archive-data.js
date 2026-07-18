@@ -16,11 +16,17 @@ export {
   getArchiveStats,
   getGameNumberLabel,
   getGameStatusLabel,
+  getModelFamiliesFromModels,
   getModelsFromGames,
   getShortGameNumber,
   selectFeaturedGame,
   toTitle
 } from "./data/view-models.js";
+
+export {
+  getModelFamily,
+  getModelFamilySelection
+} from "./data/model-families.js";
 
 export async function loadArchive() {
   const manifest = await fetchJson(ROUTES.manifest, "games/manifest.json");

@@ -77,6 +77,24 @@ dd {
   gap: 8px;
 }
 
+.model-family-group {
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+  border-top: 1px solid var(--line);
+  padding-top: 8px;
+}
+
+.model-family-group.contains-active {
+  border-top-color: color-mix(in srgb, var(--accent) 46%, var(--line));
+}
+
+.model-family-models {
+  display: grid;
+  gap: 3px;
+  padding-left: 15px;
+}
+
 .model-axis-item {
   min-width: 0;
   min-height: 64px;
@@ -122,6 +140,27 @@ dd {
   border-color: var(--accent);
   color: #ffffff;
   background: var(--accent);
+}
+
+.model-axis-model {
+  min-height: 48px;
+  grid-template-columns: 28px minmax(0, 1fr);
+  padding: 7px 8px;
+}
+
+.model-axis-model .axis-icon {
+  width: 28px;
+  height: 28px;
+  font-size: 0.62rem;
+}
+
+.model-axis-model .axis-copy strong {
+  font-size: 0.78rem;
+}
+
+.model-axis-model .axis-agent,
+.model-axis-model .axis-copy small {
+  font-size: 0.64rem;
 }
 
 .axis-copy {
@@ -1204,6 +1243,26 @@ dd {
   white-space: nowrap;
 }
 
+.matrix-family-head {
+  color: var(--text);
+  background: var(--surface-soft);
+  font-family: var(--display-font);
+  font-size: 1rem;
+  font-weight: 720;
+}
+
+.matrix-family-provider {
+  margin-left: 10px;
+  color: var(--muted);
+  font-family: var(--ui-font);
+  font-size: 0.7rem;
+  font-weight: 550;
+}
+
+.matrix-family-group + .matrix-family-group .matrix-family-head {
+  border-top: 4px solid var(--bg);
+}
+
 .matrix-agent {
   display: block;
   margin-top: 3px;
@@ -1239,6 +1298,46 @@ dd {
 }
 
 .model-grid {
+  display: grid;
+  gap: 28px;
+}
+
+.model-family-section {
+  min-width: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.model-family-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 2px 16px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 12px;
+}
+
+.model-family-header .archive-kicker {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+.model-family-name {
+  margin: 0;
+  color: var(--text);
+  font-family: var(--display-font);
+  font-size: 1.75rem;
+  font-weight: 720;
+}
+
+.model-family-summary {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  text-align: right;
+}
+
+.model-family-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 12px;
@@ -1656,6 +1755,14 @@ dd {
     padding-bottom: 4px;
   }
 
+  .model-family-group {
+    align-content: start;
+  }
+
+  .model-family-models {
+    padding-left: 8px;
+  }
+
   .library-readout h2 {
     font-size: 2rem;
   }
@@ -1730,6 +1837,14 @@ dd {
 @media (max-width: 620px) {
   .library-toolbar {
     grid-template-columns: 1fr;
+  }
+
+  .model-family-header {
+    grid-template-columns: 1fr;
+  }
+
+  .model-family-summary {
+    text-align: left;
   }
 
   .library-results {
