@@ -1,53 +1,135 @@
 :root {
-  color-scheme: light;
-  --bg: #f7f8f7;
-  --bg-deep: #eef2f0;
-  --panel: #ffffff;
-  --panel-strong: #f1f4f3;
-  --panel-soft: rgba(20, 24, 23, 0.04);
-  --line: #d9dfdc;
-  --line-strong: #aeb9b5;
-  --text: #141817;
-  --muted: #68716d;
-  --muted-strong: #36413d;
-  --accent: #235c4a;
-  --accent-soft: rgba(35, 92, 74, 0.11);
-  --link: #2f57b8;
-  --warning: #8f6117;
-  --warning-soft: rgba(143, 97, 23, 0.1);
-  --danger: #9d3737;
-  --danger-soft: rgba(157, 55, 55, 0.1);
+  color-scheme: dark;
+  --bg: #030712;
+  --bg-deep: #01030a;
+  --panel: rgba(9, 17, 31, 0.78);
+  --panel-strong: rgba(13, 25, 43, 0.92);
+  --panel-soft: rgba(255, 255, 255, 0.055);
+  --line: rgba(153, 213, 255, 0.16);
+  --line-strong: rgba(166, 235, 255, 0.34);
+  --text: #edf7ff;
+  --muted: #8fa4b8;
+  --muted-strong: #bed2e4;
+  --accent: #53ffda;
+  --accent-soft: rgba(83, 255, 218, 0.15);
+  --accent-2: #7daaff;
+  --link: #9be8ff;
+  --warning: #ffd37a;
+  --warning-soft: rgba(255, 211, 122, 0.14);
+  --danger: #ff8e8e;
+  --danger-soft: rgba(255, 142, 142, 0.12);
   --display-font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --ui-font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --mono-font: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
-  --shadow: none;
-  --focus-ring: rgba(47, 87, 184, 0.18);
+  --shadow: 0 28px 90px rgba(0, 0, 0, 0.38);
+  --focus-ring: rgba(83, 255, 218, 0.22);
 }
 
 .launcher-screen {
+  position: relative;
   min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
+  overflow-x: hidden;
   color: var(--text);
   background:
-    linear-gradient(180deg, #ffffff 0, var(--bg) 360px),
-    var(--bg);
+    radial-gradient(circle at 72% 18%, rgba(83, 255, 218, 0.11), transparent 360px),
+    radial-gradient(circle at 18% 70%, rgba(125, 170, 255, 0.09), transparent 420px),
+    linear-gradient(180deg, #07101f 0, var(--bg) 54%, var(--bg-deep));
+}
+
+.launcher-screen::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(153, 213, 255, 0.045) 1px, transparent 1px) 0 0 / 100% 54px,
+    linear-gradient(90deg, rgba(153, 213, 255, 0.04) 1px, transparent 1px) 0 0 / 70px 100%,
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.08), transparent 42%);
+  mask-image: linear-gradient(180deg, black, transparent 86%);
+}
+
+.launcher-screen::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.028) 0 1px, transparent 1px 4px);
+  opacity: 0.28;
+  mix-blend-mode: screen;
+}
+
+.launcher-signal {
+  opacity: 0.78;
+}
+
+.precision-backdrop,
+.launcher-header,
+.launcher-main,
+.launcher-footer {
+  position: relative;
+  z-index: 1;
+}
+
+.precision-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.precision-orbit {
+  position: absolute;
+  border: 1px solid rgba(83, 255, 218, 0.16);
+  border-radius: 50%;
+  filter: drop-shadow(0 0 24px rgba(83, 255, 218, 0.16));
+  animation: precision-drift 18s linear infinite;
+}
+
+.orbit-a {
+  width: 44vw;
+  height: 44vw;
+  right: -12vw;
+  top: 8vh;
+}
+
+.orbit-b {
+  width: 30vw;
+  height: 30vw;
+  left: -9vw;
+  bottom: 5vh;
+  animation-duration: 24s;
+  animation-direction: reverse;
+  border-color: rgba(125, 170, 255, 0.16);
+}
+
+.precision-scan {
+  position: absolute;
+  inset: -18% -10%;
+  transform: rotate(-11deg);
+  background: linear-gradient(90deg, transparent, rgba(83, 255, 218, 0.08), transparent);
+  animation: precision-scan 9s ease-in-out infinite;
 }
 
 .launcher-header,
 .launcher-main,
 .launcher-footer {
-  width: min(1180px, calc(100% - 40px));
+  width: min(1240px, calc(100% - 44px));
   margin-inline: auto;
 }
 
 .launcher-header {
-  min-height: 76px;
+  min-height: 78px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  gap: 22px;
   border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(16px);
 }
 
 .launcher-mark {
@@ -60,19 +142,22 @@
 }
 
 .launcher-mark-number {
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   display: grid;
   place-items: center;
-  border: 1px solid var(--text);
-  border-radius: 6px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  color: var(--accent);
+  background: linear-gradient(145deg, rgba(83, 255, 218, 0.12), rgba(125, 170, 255, 0.08));
   font-family: var(--mono-font);
-  font-size: 0.9rem;
-  font-weight: 760;
+  font-size: 0.88rem;
+  font-weight: 780;
+  box-shadow: inset 0 0 24px rgba(83, 255, 218, 0.09), 0 0 28px rgba(83, 255, 218, 0.09);
 }
 
 .launcher-mark-name {
-  font-size: 1.02rem;
+  font-size: 1rem;
   font-weight: 760;
 }
 
@@ -80,7 +165,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  gap: 6px 16px;
+  gap: 7px 18px;
 }
 
 .launcher-header nav a,
@@ -88,114 +173,187 @@
 .featured-links a,
 .game-card-links a {
   color: var(--link);
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   font-weight: 680;
   text-decoration: none;
-  text-underline-offset: 4px;
+  text-underline-offset: 5px;
 }
 
 .launcher-header nav a:hover,
 .launcher-section-heading a:hover,
 .featured-links a:hover,
 .game-card-links a:hover {
+  color: var(--accent);
   text-decoration: underline;
 }
 
 .launcher-main {
-  padding: 58px 0 36px;
+  padding: clamp(46px, 7vw, 92px) 0 42px;
 }
 
 .launcher-hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(340px, 0.82fr);
-  gap: 48px;
-  align-items: stretch;
+  grid-template-columns: minmax(0, 1fr) minmax(390px, 0.78fr);
+  gap: clamp(30px, 6vw, 76px);
+  align-items: center;
 }
 
 .launcher-copy {
   min-width: 0;
-  align-self: center;
 }
 
 .launcher-kicker,
 .game-card-label {
-  margin-bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
   color: var(--accent);
   font-family: var(--mono-font);
-  font-size: 0.76rem;
+  font-size: 0.74rem;
   line-height: 1.35;
   text-transform: uppercase;
 }
 
+.launcher-kicker::before,
+.game-card-label::before {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.8;
+}
+
 .launcher-copy h1 {
-  margin: 0 0 22px;
-  max-width: 760px;
-  font-size: 5.75rem;
-  line-height: 0.96;
-  font-weight: 780;
+  margin: 0 0 24px;
+  max-width: 780px;
+  font-size: 8.4rem;
+  line-height: 0.88;
+  font-weight: 820;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
 }
 
 .launcher-lede {
-  max-width: 660px;
-  margin-bottom: 12px;
+  max-width: 760px;
+  margin-bottom: 14px;
   color: var(--text);
-  font-size: 1.55rem;
-  line-height: 1.28;
-  font-weight: 650;
+  font-size: 1.8rem;
+  line-height: 1.2;
+  font-weight: 680;
+  overflow-wrap: anywhere;
 }
 
 .launcher-note {
-  max-width: 620px;
+  max-width: 660px;
   margin-bottom: 0;
-  color: var(--muted);
+  color: var(--muted-strong);
   font-size: 1rem;
-  line-height: 1.7;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
 }
 
 .launcher-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 30px;
+  margin-top: 32px;
 }
 
 .launcher-screen .archive-button {
-  min-height: 44px;
-  border-color: var(--line-strong);
-  border-radius: 6px;
-  padding: 0 16px;
+  min-height: 46px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  padding: 0 17px;
   color: var(--text);
-  background: var(--panel);
+  background: rgba(255, 255, 255, 0.055);
   font-family: var(--ui-font);
   font-size: 0.92rem;
-  font-weight: 720;
-  transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
+  font-weight: 730;
+  box-shadow: none;
+  transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .launcher-screen .archive-button:hover {
-  border-color: var(--text);
-  transform: none;
+  border-color: rgba(83, 255, 218, 0.72);
+  background: rgba(83, 255, 218, 0.1);
+  transform: translateY(-1px);
+  box-shadow: 0 0 28px rgba(83, 255, 218, 0.12);
 }
 
 .launcher-screen .archive-button.primary {
-  border-color: var(--text);
-  color: #ffffff;
-  background: var(--text);
+  border-color: rgba(83, 255, 218, 0.72);
+  color: #02110e;
+  background: linear-gradient(135deg, #53ffda, #9be8ff);
 }
 
-.launcher-screen .archive-button.secondary,
-.launcher-screen .archive-button.compact {
-  background: var(--panel);
+.launcher-screen .archive-button.ghost {
+  color: var(--muted-strong);
+  background: transparent;
+}
+
+.hero-readout {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  max-width: 760px;
+  margin: 32px 0 0;
+}
+
+.hero-readout div,
+.featured-observation,
+.launcher-stats,
+.launcher-systems article,
+.game-card {
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03)),
+    rgba(3, 7, 18, 0.58);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+}
+
+.hero-readout div {
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.hero-readout dt,
+.featured-meta dt,
+.launcher-stats dt {
+  color: var(--muted);
+  font-family: var(--mono-font);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+}
+
+.hero-readout dd,
+.featured-meta dd,
+.launcher-stats dd {
+  margin: 4px 0 0;
+  color: var(--text);
+  font-weight: 760;
 }
 
 .featured-observation {
+  position: relative;
   min-width: 0;
   display: grid;
   grid-template-rows: auto 1fr;
-  border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
-  background: var(--panel);
+}
+
+.featured-observation::before,
+.game-card::before,
+.launcher-systems article::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(83, 255, 218, 0.16), transparent 34%, rgba(125, 170, 255, 0.1));
+  opacity: 0.5;
 }
 
 .featured-media {
@@ -204,8 +362,19 @@
   aspect-ratio: 16 / 10;
   overflow: hidden;
   color: var(--muted);
-  background: var(--panel-strong);
+  background: rgba(255, 255, 255, 0.045);
   text-decoration: none;
+}
+
+.featured-media::after,
+.game-card-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, transparent 62%, rgba(3, 7, 18, 0.7)),
+    repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 5px);
+  pointer-events: none;
 }
 
 .featured-media img,
@@ -214,6 +383,8 @@
   height: 100%;
   display: block;
   object-fit: cover;
+  filter: saturate(0.92) contrast(1.08);
+  transform: scale(1.01);
 }
 
 .featured-placeholder,
@@ -234,6 +405,7 @@
 }
 
 .featured-body {
+  position: relative;
   display: grid;
   align-content: start;
   gap: 14px;
@@ -242,8 +414,8 @@
 
 .featured-body h2 {
   margin: 0;
-  font-size: 1.65rem;
-  line-height: 1.15;
+  font-size: 1.8rem;
+  line-height: 1.08;
 }
 
 .featured-body p {
@@ -263,25 +435,6 @@
   padding-top: 14px;
 }
 
-.featured-meta div {
-  min-width: 0;
-}
-
-.featured-meta dt,
-.launcher-stats dt {
-  color: var(--muted);
-  font-family: var(--mono-font);
-  font-size: 0.72rem;
-  text-transform: uppercase;
-}
-
-.featured-meta dd,
-.launcher-stats dd {
-  margin: 4px 0 0;
-  color: var(--text);
-  font-weight: 720;
-}
-
 .featured-links,
 .game-card-links {
   display: flex;
@@ -294,34 +447,67 @@
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 22px;
   align-items: center;
-  margin-top: 52px;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  padding: 22px 0;
+  margin-top: 48px;
+  border-radius: 10px;
+  padding: 18px;
 }
 
 .launcher-stats dl {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
+  gap: 14px;
   margin: 0;
 }
 
 .launcher-stats p {
-  max-width: 320px;
+  max-width: 340px;
   margin-bottom: 0;
-  color: var(--muted);
+  color: var(--muted-strong);
   font-size: 0.92rem;
   line-height: 1.55;
   text-align: right;
 }
 
 .launcher-stats dd {
-  font-size: 1.45rem;
+  font-size: 1.55rem;
+}
+
+.launcher-systems {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.launcher-systems article {
+  position: relative;
+  min-width: 0;
+  border-radius: 10px;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.launcher-systems span {
+  color: var(--accent);
+  font-family: var(--mono-font);
+  font-size: 0.78rem;
+}
+
+.launcher-systems h2 {
+  position: relative;
+  margin: 10px 0 8px;
+  font-size: 1.16rem;
+}
+
+.launcher-systems p {
+  position: relative;
+  margin-bottom: 0;
+  color: var(--muted-strong);
+  line-height: 1.62;
 }
 
 .launcher-library {
-  margin-top: 48px;
+  margin-top: 52px;
 }
 
 .launcher-section-heading {
@@ -334,8 +520,8 @@
 
 .launcher-section-heading h2 {
   margin: 0;
-  font-size: 2rem;
-  line-height: 1.1;
+  font-size: 2.35rem;
+  line-height: 1.05;
 }
 
 .game-grid {
@@ -345,13 +531,12 @@
 }
 
 .game-card {
+  position: relative;
   min-width: 0;
   display: grid;
   grid-template-rows: auto 1fr;
-  border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
-  background: var(--panel);
 }
 
 .game-card-media {
@@ -360,10 +545,11 @@
   aspect-ratio: 16 / 9;
   overflow: hidden;
   color: var(--muted);
-  background: var(--panel-strong);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .game-card-body {
+  position: relative;
   min-width: 0;
   display: grid;
   align-content: start;
@@ -373,12 +559,12 @@
 
 .game-card-label {
   margin-bottom: 0;
-  font-size: 0.7rem;
+  font-size: 0.68rem;
 }
 
 .game-card h3 {
   margin: 0;
-  font-size: 1.15rem;
+  font-size: 1.17rem;
   line-height: 1.25;
 }
 
@@ -388,8 +574,7 @@
 }
 
 .game-card h3 a:hover {
-  text-decoration: underline;
-  text-underline-offset: 4px;
+  color: var(--accent);
 }
 
 .game-card-description {
@@ -416,8 +601,8 @@
   border-radius: 999px;
   padding: 5px 8px;
   overflow: hidden;
-  color: var(--muted);
-  background: var(--panel-soft);
+  color: var(--muted-strong);
+  background: rgba(255, 255, 255, 0.055);
   font-size: 0.76rem;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -427,7 +612,7 @@
   grid-column: 1 / -1;
   margin: 0;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 24px;
   color: var(--muted);
   background: var(--panel);
@@ -465,16 +650,55 @@
   width: 100%;
   min-height: 92px;
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 10px;
   color: var(--text);
   background: var(--panel);
   resize: vertical;
 }
 
-@media (max-width: 960px) {
+@keyframes precision-drift {
+  from {
+    transform: rotate(0deg) scale(1);
+  }
+
+  50% {
+    transform: rotate(180deg) scale(1.04);
+  }
+
+  to {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes precision-scan {
+  0%,
+  18% {
+    transform: translateX(-70%) rotate(-11deg);
+    opacity: 0;
+  }
+
+  42% {
+    opacity: 1;
+  }
+
+  72%,
+  100% {
+    transform: translateX(70%) rotate(-11deg);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .precision-orbit,
+  .precision-scan {
+    animation: none;
+  }
+}
+
+@media (max-width: 1020px) {
   .launcher-main {
-    padding-top: 38px;
+    padding-top: 40px;
   }
 
   .launcher-hero,
@@ -483,7 +707,11 @@
   }
 
   .launcher-copy h1 {
-    font-size: 4.35rem;
+    font-size: 5.7rem;
+  }
+
+  .launcher-lede {
+    font-size: 1.45rem;
   }
 
   .launcher-stats p {
@@ -491,7 +719,8 @@
     text-align: left;
   }
 
-  .game-grid {
+  .game-grid,
+  .launcher-systems {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -500,7 +729,7 @@
   .launcher-header,
   .launcher-main,
   .launcher-footer {
-    width: min(100% - 28px, 1180px);
+    width: min(100% - 28px, 1240px);
   }
 
   .launcher-header,
@@ -515,11 +744,20 @@
   }
 
   .launcher-copy h1 {
-    font-size: 3.3rem;
+    max-width: 100%;
+    font-size: 3.55rem;
+    line-height: 0.94;
   }
 
   .launcher-lede {
-    font-size: 1.22rem;
+    max-width: 100%;
+    font-size: 1.12rem;
+    line-height: 1.34;
+  }
+
+  .launcher-note {
+    max-width: 100%;
+    line-height: 1.62;
   }
 
   .launcher-actions,
@@ -529,9 +767,11 @@
     width: 100%;
   }
 
+  .hero-readout,
   .launcher-stats dl,
   .featured-meta,
-  .game-grid {
+  .game-grid,
+  .launcher-systems {
     grid-template-columns: 1fr;
   }
 
@@ -544,11 +784,11 @@
   .launcher-header,
   .launcher-main,
   .launcher-footer {
-    width: min(100% - 22px, 1180px);
+    width: min(100% - 22px, 1240px);
   }
 
   .launcher-copy h1 {
-    font-size: 2.75rem;
+    font-size: 3rem;
   }
 
   .launcher-note,
