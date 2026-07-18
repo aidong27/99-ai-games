@@ -4,6 +4,8 @@
 
 [Enter the live archive](https://aidong27.github.io/99-ai-games/) · [Press kit](https://aidong27.github.io/99-ai-games/press.html) · [Project log](https://aidong27.github.io/99-ai-games/log.html) · [Share kit](docs/share-kit.md) · [Provenance policy](docs/provenance-policy.md)
 
+Every push and pull request runs the full archive quality gate (`node scripts/check.mjs`) via [GitHub Actions CI](https://github.com/aidong27/99-ai-games/actions/workflows/ci.yml): structural validators, an executable provenance/honesty gate, and per-game completability proofs. See [`docs/quality-gate.md`](docs/quality-gate.md).
+
 > The games are playable. The real exhibit is the AI that made them.
 
 99 AI Games is a long-term AI game-making evolution archive. It preserves playable browser games as observation samples so future readers can inspect how AI agents handle mechanics, controls, interaction feedback, visual polish, debugging, documentation, accessibility, and provenance over time.
@@ -126,10 +128,23 @@ http://localhost:4173
 
 ## Validate
 
+One command runs the whole archive quality gate — the same command CI runs on
+every push and pull request (see [`docs/quality-gate.md`](docs/quality-gate.md)):
+
+```bash
+node scripts/check.mjs
+```
+
+It runs `node --check` across every module, the structural validators
+(`validate-halls`, `validate-games`, `validate-launcher`), the provenance/honesty
+gate (`validate-provenance`), the generated-index freshness check, and the
+Gravity Atlas completability proof. The individual checks can still be run alone:
+
 ```bash
 node scripts/validate-halls.mjs
 node scripts/validate-games.mjs
 node scripts/validate-launcher.mjs
+node scripts/validate-provenance.mjs
 node scripts/generate-index.mjs --check
 node scripts/verify-gravity-atlas.mjs
 git diff --check
