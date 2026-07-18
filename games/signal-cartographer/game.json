@@ -27,7 +27,7 @@
   },
   "provenance": {
     "createdDate": "2026-06-03",
-    "modelName": "GPT-5 (Codex session)",
+    "modelName": "GPT-5.5 xhigh",
     "agentName": "Codex",
     "humanCodeEdits": false,
     "originalSlotCreatedDate": "2026-05-31",
@@ -50,7 +50,7 @@
     },
     {
       "variantId": "codex-signal-cartographer-deep-field-2026-06-03",
-      "modelName": "GPT-5 (Codex session)",
+      "modelName": "GPT-5.5 xhigh",
       "agentName": "Codex",
       "status": "canonical-playable",
       "metadataPath": "variants/codex-signal-cartographer-deep-field-2026-06-03/variant.json"

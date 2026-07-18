@@ -4,6 +4,8 @@ All notable project-level changes are recorded here. This archive does not use c
 
 ## [Unreleased]
 
+- Normalize Codex-authored provenance labels to the single maintainer-declared model `GPT-5.5 xhigh` with `Codex` as the tool/agent.
+- Clean up Neon Pulse Courier source internals without changing gameplay: remove unused helpers, clarify vector/heading logic, and fix particle lifetime fading.
 - Add Observation 004 / Game 004 **Ninefold Draft**, the first Card Strategy Hall benchmark: a PC-first card strategy game with deterministic drafting, an engine-builder, Energy/Focus/Integrity trade-offs, and a telegraphed hazard track. Logic and balance were verified by a standalone rules simulation (win and loss both reachable); interactive browser smoke and real screenshots are pending and not claimed.
 - Add Observation 003 / Game 003: Neon Pulse Courier, the first Arcade Reaction Hall benchmark sample.
 - Add a PC-first arcade reaction loop with pulse barriers, data parcels, combo scoring, dash timing, failure/completion states, QA hooks, and real local screenshot slots.

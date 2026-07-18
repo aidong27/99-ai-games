@@ -11,7 +11,7 @@ The current canonical version is **Signal Cartographer: Deep Field**, a PC-first
 - Archive role: first playable observation sample
 - Status: playable
 - Canonical variant: `codex-signal-cartographer-deep-field-2026-06-03`
-- Model label: `GPT-5 (Codex session)`
+- Model label: `GPT-5.5 xhigh`
 - Agent/tool: `Codex`
 - Created date: `2026-06-03`
 - Human code edits: `false`
