@@ -1,0 +1,38 @@
+{
+  "runId": "2026-05-31-claude-opus-4-8-initial",
+  "gameNumber": 2,
+  "gameSlug": "lumen-lattice",
+  "variantId": "claude-opus-4-8-2026-05-31",
+  "runType": "initial-generation",
+  "status": "accepted-playable",
+  "createdDate": "2026-05-31",
+  "modelName": "Claude Opus 4.8",
+  "agentName": "Claude Code",
+  "humanCodeEdits": false,
+  "promptSummary": "Add a second original game to 99 AI Games as a Claude Opus 4.8 observation sample. Build a self-contained, guaranteed-solvable logic puzzle for the Puzzle Logic Hall, wire it into the manifest and halls, and optimize the launcher without modifying any other AI-made game.",
+  "outputs": [
+    "games/lumen-lattice/index.html",
+    "games/lumen-lattice/src/main.js",
+    "games/lumen-lattice/styles/main.css",
+    "games/lumen-lattice/game.json",
+    "games/lumen-lattice/brief.md",
+    "games/lumen-lattice/README.md",
+    "games/lumen-lattice/variants/claude-opus-4-8-2026-05-31/variant.json"
+  ],
+  "verification": {
+    "verifiedDate": "2026-05-31",
+    "performed": [
+      "node --check games/lumen-lattice/src/main.js passed",
+      "node scripts/validate-halls.mjs passed",
+      "node scripts/validate-games.mjs passed",
+      "node scripts/generate-index.mjs --check passed",
+      "JSON parse check for games/manifest.json, game.json, variant.json, and this run record",
+      "Standalone solvability check: all 5 shipped lattices solved by the tracked parity, plus 5000 randomized fuzz scrambles (sizes 3x3 to 7x7) solved with zero failures"
+    ],
+    "pending": [
+      "Interactive browser playtest by the maintainer (input feel, rendering, mobile layout)",
+      "Verified gameplay screenshots captured from a real local build"
+    ]
+  },
+  "notes": "This run record describes work performed in this repository, not a benchmark score. The solvability claim was verified algorithmically; in-browser playtesting and screenshots are still pending and must not be faked."
+}
