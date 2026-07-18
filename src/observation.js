@@ -3,11 +3,13 @@ import {
   getDeviceSupport,
   getGameBySlug,
   getGameNumberLabel,
+  getGameStatusLabel,
   getLibrarySelectionHref,
   getLaunchHref,
   getManifestHref,
   getMetadataHref,
   getMobileSupportInfo,
+  getObservationHref,
   getPlayGateHref,
   getPromoHref,
   getScreenshotHref,
@@ -17,7 +19,6 @@ import {
   loadRunRecords,
   toTitle
 } from "./archive-data.js";
-import { createSignalField } from "./archive-effects.js";
 import { createBadgeRow } from "./ui/badges.js";
 import { createActionRow } from "./ui/buttons.js";
 import {
@@ -27,19 +28,13 @@ import {
   createSection
 } from "./ui/cards.js";
 import { createText } from "./ui/dom.js";
-import { setDocumentTitle } from "./ui/meta.js";
+import { setDocumentMeta } from "./ui/meta.js";
 
 const root = document.querySelector("#record-root");
 const recordBackLink = document.querySelector("#record-back-link");
-const signalCanvas = document.querySelector("#record-signal");
-const signalField = createSignalField(signalCanvas, { variant: "record", density: 18 });
 
 if (root) {
   loadRecord();
-  signalField.start();
-  window.addEventListener("pagehide", () => signalField.destroy(), { once: true });
-} else {
-  signalField.destroy();
 }
 
 async function loadRecord() {
@@ -87,7 +82,13 @@ function renderRecord(game, runs) {
   );
 
   root.replaceChildren(record);
-  setDocumentTitle(game.title, "Observation Record");
+  setDocumentMeta({
+    title: game.title ?? "Untitled observation",
+    section: "Observation Record",
+    description: game.description ?? "Inspect a playable AI game-making observation and its recorded provenance.",
+    canonicalPath: getObservationHref(game),
+    socialImagePath: `assets/social/games/${encodeURIComponent(game.slug)}.svg`
+  });
 }
 
 function createHero(game, heroImage, mobile) {
@@ -117,7 +118,7 @@ function createHero(game, heroImage, mobile) {
     createText("p", "record-description", game.description ?? "No description recorded."),
     createBadgeRow([
       [game.hallName ?? game.hallId ?? "Hall unrecorded", "neutral"],
-      [game.statusLabel ?? toTitle(game.status), "neutral"],
+      [getGameStatusLabel(game), "neutral"],
       [mobile.label, mobile.tone],
       [game.provenance?.modelName ?? "Model unrecorded", "mono"]
     ]),
@@ -152,7 +153,7 @@ function createCoreFactsPanel(game, mobile) {
     createDefinitionGrid([
       ["Observation", getGameNumberLabel(game)],
       ["Hall", game.hallName ?? game.hallId],
-      ["Status", game.statusLabel ?? toTitle(game.status)],
+      ["Status", getGameStatusLabel(game)],
       ["Model", game.provenance?.modelName],
       ["Agent", game.provenance?.agentName],
       ["Created", formatDate(game.provenance?.createdDate)],

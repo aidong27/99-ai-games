@@ -7,7 +7,6 @@ import {
   getScreenshotHref,
   loadArchive
 } from "./archive-data.js";
-import { createSignalField } from "./archive-effects.js";
 import { setupShareControls } from "./share.js";
 import { createElement, setHref, setText } from "./ui/dom.js";
 import { createEmptyState } from "./ui/layout.js";
@@ -33,17 +32,12 @@ const refs = {
   observationCount: document.querySelector("#observation-count"),
   playableCount: document.querySelector("#playable-count"),
   runCount: document.querySelector("#run-count"),
-  signalCanvas: document.querySelector("#launcher-signal"),
   targetCount: document.querySelector("#target-count"),
   variantCount: document.querySelector("#variant-count")
 };
 
-const signalField = createSignalField(refs.signalCanvas, { variant: "title", density: 18 });
-
 setupShareControls();
 loadLauncherData();
-signalField.start();
-window.addEventListener("pagehide", () => signalField.destroy(), { once: true });
 
 async function loadLauncherData() {
   try {

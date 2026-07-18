@@ -1,21 +1,46 @@
 import { access, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { getGameStatusLabel } from "../src/data/view-models.js";
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 const errors = [];
-const requiredAssetVersion = "2026-06-21-theme-promo";
+const requiredAssetVersion = "2026-07-10-ui-release";
+const generatedPromoAssetVersion = "2026-07-10-ui-release";
 const siteRoot = "https://aidong27.github.io/99-ai-games";
 const expectedOgImage = "https://aidong27.github.io/99-ai-games/assets/social/og-cover.png";
-const sharedStylesheets = [
+const launcherCanonicalUrls = {
+  "index.html": `${siteRoot}/`,
+  "library.html": `${siteRoot}/library.html`,
+  "observation.html": `${siteRoot}/observation.html`,
+  "play.html": `${siteRoot}/play.html`,
+  "compare.html": `${siteRoot}/compare.html`,
+  "press.html": `${siteRoot}/press.html`,
+  "log.html": `${siteRoot}/log.html`
+};
+const launcherStylesheets = [
   "styles/tokens.css",
   "styles/base.css",
   "styles/layout.css",
   "styles/components.css",
-  "styles/archive.css"
+  "styles/archive-pages.css"
+];
+const cssSystemFiles = [
+  ...launcherStylesheets,
+  "styles/archive.css",
+  "styles/pages/home.css"
 ];
 const pageStylesheets = {
-  "index.html": ["styles/main.css", "styles/pages/home.css"]
+  "index.html": ["styles/pages/home.css"]
+};
+const launcherPageModules = {
+  "index.html": "src/main.js",
+  "library.html": "src/library.js",
+  "observation.html": "src/observation.js",
+  "play.html": "src/play.js",
+  "compare.html": "src/compare.js",
+  "press.html": "src/press.js",
+  "log.html": "src/log.js"
 };
 
 const requiredFiles = [
@@ -31,7 +56,7 @@ const requiredFiles = [
   "styles/layout.css",
   "styles/components.css",
   "styles/archive.css",
-  "styles/main.css",
+  "styles/archive-pages.css",
   "styles/pages/home.css",
   "src/app/constants.js",
   "src/app/routes.js",
@@ -46,6 +71,7 @@ const requiredFiles = [
   "src/observation.js",
   "src/play.js",
   "src/press.js",
+  "src/log.js",
   "src/share.js",
   "src/compare.js",
   "src/ui/badges.js",
@@ -147,7 +173,7 @@ function normalizeLocalRef(value, context, fromPath = ".") {
   return path.posix.normalize(path.posix.join(path.posix.dirname(fromPath), clean)).replace(/^\.\//, "");
 }
 
-function validateVersionedRef(value, context) {
+function validateVersionedRef(value, context, expectedVersion = requiredAssetVersion) {
   if (!/[?&]v=/.test(value)) {
     fail(`${context} should include a cache-busting ?v= query`);
     return;
@@ -156,8 +182,8 @@ function validateVersionedRef(value, context) {
   try {
     const parsed = new URL(value, "https://local.invalid/");
     const version = parsed.searchParams.get("v");
-    if (version !== requiredAssetVersion) {
-      fail(`${context} has stale cache-busting version ${version ?? "missing"}, expected ${requiredAssetVersion}`);
+    if (version !== expectedVersion) {
+      fail(`${context} has stale cache-busting version ${version ?? "missing"}, expected ${expectedVersion}`);
     }
   } catch {
     fail(`${context} could not parse cache-busting URL ${value}`);
@@ -175,12 +201,19 @@ function parseTags(html, tagName) {
 
 async function validateHtmlReferences(pagePath) {
   const html = await readText(pagePath);
+  const expectedAssetVersion = /^promo\/[^/]+\/index\.html$/.test(pagePath)
+    ? generatedPromoAssetVersion
+    : requiredAssetVersion;
   let hasThemeScript = false;
   const stylesheetPaths = [];
+  const scriptPaths = [];
 
   for (const match of html.matchAll(/\b(?:href|src)\s*=\s*["']([^"']+)["']/gi)) {
     if (!isExternalRef(match[1])) {
-      normalizeLocalRef(match[1], `${pagePath} reference`, pagePath);
+      const localPath = normalizeLocalRef(match[1], `${pagePath} reference`, pagePath);
+      if (localPath && !(await exists(localPath))) {
+        fail(`${pagePath} local reference does not exist: ${match[1]}`);
+      }
     }
   }
 
@@ -190,7 +223,7 @@ async function validateHtmlReferences(pagePath) {
       continue;
     }
     const href = getAttribute(tag, "href");
-    validateVersionedRef(href, `${pagePath} stylesheet`);
+    validateVersionedRef(href, `${pagePath} stylesheet`, expectedAssetVersion);
     const localPath = normalizeLocalRef(href, `${pagePath} stylesheet`, pagePath);
     if (localPath) {
       stylesheetPaths.push(localPath);
@@ -205,8 +238,11 @@ async function validateHtmlReferences(pagePath) {
     if (!src) {
       continue;
     }
-    validateVersionedRef(src, `${pagePath} script`);
+    validateVersionedRef(src, `${pagePath} script`, expectedAssetVersion);
     const localPath = normalizeLocalRef(src, `${pagePath} script`, pagePath);
+    if (localPath) {
+      scriptPaths.push(localPath);
+    }
     if (localPath === "src/theme.js") {
       hasThemeScript = true;
     }
@@ -219,36 +255,111 @@ async function validateHtmlReferences(pagePath) {
     fail(`${pagePath} should load src/theme.js before rendering themed UI`);
   }
 
+  if (new Set(stylesheetPaths).size !== stylesheetPaths.length) {
+    fail(`${pagePath} should not load the same stylesheet more than once`);
+  }
+
   if (launcherPages.includes(pagePath)) {
     validateLauncherStylesheetStack(pagePath, stylesheetPaths);
+    validateLauncherPageModule(pagePath, scriptPaths);
+    validateLauncherCanonical(html, pagePath);
   }
 
   validatePromoStylesheetStack(pagePath, stylesheetPaths);
   validateSocialMeta(html, pagePath);
 }
 
+function validateLauncherPageModule(pagePath, scriptPaths) {
+  const expectedModule = launcherPageModules[pagePath];
+  if (!scriptPaths.includes(expectedModule)) {
+    fail(`${pagePath} should load its page module ${expectedModule}`);
+  }
+}
+
+async function validateLauncherDomContracts() {
+  for (const [pagePath, modulePath] of Object.entries(launcherPageModules)) {
+    const html = await readText(pagePath);
+    const source = await readText(modulePath);
+    const ids = [...html.matchAll(/\bid\s*=\s*["']([^"']+)["']/gi)].map((match) => match[1]);
+    const idSet = new Set(ids);
+
+    for (const id of idSet) {
+      if (ids.filter((entry) => entry === id).length > 1) {
+        fail(`${pagePath} contains duplicate id="${id}"`);
+      }
+    }
+
+    const requiredIds = new Set();
+    for (const match of source.matchAll(/document\.querySelector\(\s*["']#([\w:-]+)["']\s*\)/g)) {
+      requiredIds.add(match[1]);
+    }
+    for (const match of source.matchAll(/document\.getElementById\(\s*["']([\w:-]+)["']\s*\)/g)) {
+      requiredIds.add(match[1]);
+    }
+
+    for (const id of requiredIds) {
+      if (!idSet.has(id)) {
+        fail(`${modulePath} expects #${id}, but ${pagePath} does not define it`);
+      }
+    }
+  }
+}
+
+function validateViewModelContracts() {
+  const overloadedPlayable = getGameStatusLabel({
+    status: "playable",
+    statusLabel: "Playable Observation 006 / Game 006"
+  });
+  if (overloadedPlayable !== "Playable") {
+    fail("getGameStatusLabel should keep playable status separate from observation numbering");
+  }
+
+  if (getGameStatusLabel({ status: "in-review" }) !== "In Review") {
+    fail("getGameStatusLabel should provide a readable fallback for non-playable states");
+  }
+}
+
+function validateLauncherCanonical(html, pagePath) {
+  const canonicalTags = parseTags(html, "link").filter((tag) => {
+    const rel = getAttribute(tag, "rel").toLowerCase().split(/\s+/);
+    return rel.includes("canonical");
+  });
+  const expectedUrl = launcherCanonicalUrls[pagePath];
+
+  if (canonicalTags.length !== 1) {
+    fail(`${pagePath} should contain exactly one canonical link`);
+    return;
+  }
+
+  const canonicalUrl = getAttribute(canonicalTags[0], "href");
+  if (canonicalUrl !== expectedUrl) {
+    fail(`${pagePath} canonical URL should be ${expectedUrl}`);
+  }
+
+  const ogUrl = getMetaContent(html, "property", "og:url");
+  if (ogUrl !== expectedUrl) {
+    fail(`${pagePath} og:url should match its canonical URL ${expectedUrl}`);
+  }
+}
+
 function validateLauncherStylesheetStack(pagePath, stylesheetPaths) {
   let lastIndex = -1;
-  for (const expected of sharedStylesheets) {
+  for (const expected of launcherStylesheets) {
     const index = stylesheetPaths.indexOf(expected);
     if (index === -1) {
       fail(`${pagePath} should load ${expected}`);
       continue;
     }
     if (index < lastIndex) {
-      fail(`${pagePath} should load shared CSS in tokens -> base -> layout -> components -> archive order`);
+      fail(`${pagePath} should load shared CSS in tokens -> base -> layout -> components -> archive-pages order`);
     }
     lastIndex = index;
   }
 
-  const mainIndex = stylesheetPaths.indexOf("styles/main.css");
-  const archiveIndex = stylesheetPaths.indexOf("styles/archive.css");
-  if ((pagePath === "index.html" || pagePath === "compare.html") && mainIndex !== -1 && mainIndex < archiveIndex) {
-    fail(`${pagePath} should load styles/main.css after styles/archive.css`);
-  }
+  const archivePagesIndex = stylesheetPaths.indexOf("styles/archive-pages.css");
 
   const expectedPageStyles = pageStylesheets[pagePath] ?? [];
-  let previousPageIndex = archiveIndex;
+  let previousPageIndex = archivePagesIndex;
   for (const expected of expectedPageStyles) {
     const index = stylesheetPaths.indexOf(expected);
     if (index === -1) {
@@ -256,7 +367,7 @@ function validateLauncherStylesheetStack(pagePath, stylesheetPaths) {
       continue;
     }
     if (index < previousPageIndex) {
-      fail(`${pagePath} should load page CSS after shared archive CSS in the documented order`);
+      fail(`${pagePath} should load page CSS after styles/archive-pages.css in the documented order`);
     }
     previousPageIndex = index;
   }
@@ -287,10 +398,73 @@ async function validateArchiveCssImports() {
     }
   }
 
-  const firstImports = imports.slice(0, sharedStylesheets.length - 1);
-  const expectedImports = sharedStylesheets.slice(0, -1);
+  const firstImports = imports.slice(0, launcherStylesheets.length);
+  const expectedImports = launcherStylesheets;
   if (firstImports.join("|") !== expectedImports.join("|")) {
-    fail("styles/archive.css should import tokens, base, layout, and components first for generated promo compatibility");
+    fail("styles/archive.css should import tokens, base, layout, components, and archive-pages in order for generated promo compatibility");
+  }
+}
+
+async function validateCssSystem() {
+  for (const cssPath of cssSystemFiles) {
+    const css = await readText(cssPath);
+    const source = css
+      .replace(/\/\*[\s\S]*?\*\//g, "")
+      .replace(/"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'/g, "");
+    let depth = 0;
+    for (const character of source) {
+      if (character === "{") {
+        depth += 1;
+      } else if (character === "}") {
+        depth -= 1;
+        if (depth < 0) {
+          fail(`${cssPath} contains an unmatched closing brace`);
+          break;
+        }
+      }
+    }
+    if (depth > 0) {
+      fail(`${cssPath} contains ${depth} unclosed CSS block${depth === 1 ? "" : "s"}`);
+    }
+  }
+
+  const tokens = await readText("styles/tokens.css");
+  if (!tokens.includes('html[data-theme="dark"]') || !tokens.includes('html[data-theme="light"]')) {
+    fail("styles/tokens.css should define both dark and light theme tokens");
+  }
+
+  for (const cssPath of cssSystemFiles.filter((entry) => entry !== "styles/tokens.css")) {
+    const css = await readText(cssPath);
+    if (/(?:^|\n)\s*:root\b/.test(css)) {
+      fail(`${cssPath} should not redefine root tokens; keep theme values in styles/tokens.css`);
+    }
+  }
+}
+
+async function validateNoRetiredLauncherEffects() {
+  const files = [
+    ...launcherPages,
+    "src/main.js",
+    "src/library.js",
+    "src/observation.js",
+    "src/play.js",
+    "src/press.js",
+    "src/compare.js",
+    "src/log.js"
+  ];
+  const retiredPatterns = [
+    ["archive-signal-field", "retired launcher canvas"],
+    ["createSignalField", "retired signal-field initializer"],
+    ["precision-backdrop", "retired precision backdrop"]
+  ];
+
+  for (const file of files) {
+    const source = await readText(file);
+    for (const [pattern, label] of retiredPatterns) {
+      if (source.includes(pattern)) {
+        fail(`${file} still references the ${label}`);
+      }
+    }
   }
 }
 
@@ -437,6 +611,10 @@ for (const pagePath of launcherPages) {
 }
 
 await validateArchiveCssImports();
+await validateCssSystem();
+await validateLauncherDomContracts();
+validateViewModelContracts();
+await validateNoRetiredLauncherEffects();
 await validateReadmeAssets();
 await validateShareKitAssets();
 await validateNoFalseClaims();

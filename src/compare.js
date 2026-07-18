@@ -14,7 +14,6 @@ import {
   getShortGameNumber,
   toTitle
 } from "./archive-data.js";
-import { createSignalField } from "./archive-effects.js";
 import { createNode as el } from "./ui/dom.js";
 
 const statsEl = document.querySelector("#compare-stats");
@@ -23,12 +22,8 @@ const matrixEmptyEl = document.querySelector("#matrix-empty");
 const modelGridEl = document.querySelector("#model-grid");
 const hallCoverageEl = document.querySelector("#hall-coverage");
 const statusEl = document.querySelector("#compare-status");
-const signalCanvas = document.querySelector("#compare-signal");
-const signalField = createSignalField(signalCanvas, { variant: "compare", density: 16 });
 
-signalField.start();
 init();
-window.addEventListener("pagehide", () => signalField.destroy(), { once: true });
 
 async function init() {
   try {
@@ -65,10 +60,10 @@ function renderStats(manifest, games, models, hallList, filledHalls) {
     ["Run records", String(stats.runCount)],
     ["Target slots", String(stats.targetCount)]
   ];
-  statsEl.replaceChildren(...entries.flatMap(([term, value]) => {
-    const dt = el("dt", "", term);
-    const dd = el("dd", "", value);
-    return [dt, dd];
+  statsEl.replaceChildren(...entries.map(([term, value]) => {
+    const item = el("div", "compare-stat");
+    item.append(el("dt", "", term), el("dd", "", value));
+    return item;
   }));
 }
 

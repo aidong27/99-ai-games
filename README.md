@@ -139,17 +139,17 @@ Page scripts should own page-specific orchestration: loading data, choosing page
 
 Launcher CSS is also layered conservatively:
 
-- `styles/tokens.css`: shared custom properties and base design tokens.
-- `styles/base.css`: reset, document defaults, focus, hidden, and skip-link rules.
-- `styles/layout.css`: archive shell, topbar, wordmark, page title, and shared page chrome.
-- `styles/components.css`: shared archive buttons, notices, badges, and compact badge rows.
-- `styles/archive.css`: page-specific archive rules, legacy cascade, theme overrides, promo-page compatibility imports.
-- `styles/main.css`: compatibility token layer still loaded by `compare.html`.
-- `styles/pages/home.css`: launcher home hero, featured observation, stats, card grid, and footer styles.
+- `styles/tokens.css`: the single source for dark/light colors, spacing, type, radii, shadows, and motion values.
+- `styles/base.css`: reset, document defaults, focus, hidden, and accessibility utilities.
+- `styles/layout.css`: archive shell, topbar, wordmark, dock, theme switcher, and shared page chrome.
+- `styles/components.css`: shared buttons, notices, badges, and compact badge rows.
+- `styles/archive-pages.css`: library, record, play, compare, editorial, log, and promo page rules.
+- `styles/archive.css`: generated-promo compatibility entry that imports the maintained CSS layers.
+- `styles/pages/home.css`: launcher home hero, featured observation, stats, systems, game grid, and footer.
 
-Launcher HTML loads CSS in this order: tokens, base, layout, components, archive, then page-level CSS. The home page keeps `main.css` before `styles/pages/home.css` because `main.css` still preserves root token compatibility for `compare.html`. `archive.css` also imports the shared layers so generated promo pages that still reference only `archive.css` remain stable.
+Launcher HTML loads CSS in this order: tokens, base, layout, components, archive-pages, then page-level CSS. Theme values must stay in `tokens.css`; do not append a second visual system to `archive-pages.css`. Generated promo pages still reference only `archive.css`, which imports all five maintained layers for compatibility without making launcher pages apply shared rules twice.
 
-For future archive CSS splitting, use [`docs/css-selector-map.md`](docs/css-selector-map.md) as the selector ownership map before moving more rules out of `archive.css`.
+Use [`docs/css-selector-map.md`](docs/css-selector-map.md) as the selector ownership map before moving page rules. The retired canvas signal fields are intentionally gone; the launcher keeps lightweight CSS reveals and a restrained pointer response on library cards.
 
 Generated surfaces are committed but should be regenerated, not hand-edited:
 
