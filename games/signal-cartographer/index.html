@@ -9,7 +9,8 @@
     >
     <title>Signal Cartographer | 99 AI Games</title>
     <link rel="icon" href="data:,">
-    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="../../styles/game-shell.css?v=2026-06-02-mobile3">
+    <link rel="stylesheet" href="./styles/main.css?v=2026-06-02-mobile3">
   </head>
   <body>
     <main class="game-shell">
@@ -51,18 +52,37 @@
       </section>
 
       <section class="play-surface" aria-label="Signal Cartographer game">
-        <div class="canvas-frame">
-          <canvas id="game-canvas" width="960" height="600" aria-label="Signal map canvas"></canvas>
-          <div id="overlay" class="overlay">
-            <div class="overlay-card">
-              <p class="eyebrow" id="overlay-kicker">Observation 001 / Game 001</p>
-              <h2 id="overlay-title">Map the dark signal</h2>
-              <p id="overlay-copy">
-                Collect every fragment, avoid interference, then cross the open exit gate.
-              </p>
-              <button id="primary-action" class="button primary" type="button">Start run</button>
+        <div class="play-column">
+          <div class="canvas-frame">
+            <canvas id="game-canvas" width="960" height="600" aria-label="Signal map canvas"></canvas>
+            <div id="overlay" class="overlay">
+              <div class="overlay-card">
+                <p class="eyebrow" id="overlay-kicker">Observation 001 / Game 001</p>
+                <h2 id="overlay-title">Map the dark signal</h2>
+                <p id="overlay-copy">
+                  Collect every fragment, avoid interference, then cross the open exit gate.
+                </p>
+                <button id="primary-action" class="button primary" type="button">Start run</button>
+              </div>
             </div>
           </div>
+
+          <section class="mobile-controls" aria-label="Mobile play controls">
+            <div class="mobile-actions">
+              <button id="pause-button" class="pad-button" type="button">Pause</button>
+              <button id="restart-button" class="pad-button" type="button">Restart</button>
+            </div>
+            <div class="control-deck">
+              <div id="move-stick" class="joystick" role="group" aria-label="Virtual joystick for movement">
+                <span>Move</span>
+                <i id="joystick-thumb" aria-hidden="true"></i>
+              </div>
+              <button id="beacon-button" class="pad-button beacon" data-action="beacon" type="button">
+                <span>Beacon</span>
+                <small id="beacon-button-count">4 left</small>
+              </button>
+            </div>
+          </section>
         </div>
 
         <aside class="mission-panel">
@@ -97,18 +117,8 @@
           </section>
         </aside>
       </section>
-
-      <section class="touch-controls" aria-label="Touch controls">
-        <button class="pad-button" data-dir="up" type="button">Up</button>
-        <div class="pad-row">
-          <button class="pad-button" data-dir="left" type="button">Left</button>
-          <button class="pad-button beacon" data-action="beacon" type="button">Beacon</button>
-          <button class="pad-button" data-dir="right" type="button">Right</button>
-        </div>
-        <button class="pad-button" data-dir="down" type="button">Down</button>
-      </section>
     </main>
 
-    <script type="module" src="./src/main.js"></script>
+    <script type="module" src="./src/main.js?v=2026-06-02-mobile3"></script>
   </body>
 </html>

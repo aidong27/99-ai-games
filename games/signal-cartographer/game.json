@@ -17,6 +17,14 @@
   "canonicalVariantId": "codex-gpt-5-5-xhigh-2026-05-31",
   "sourceCompleteness": "Complete local source included",
   "description": "A tactical canvas survival game about mapping a hostile signal field before interference erases your route.",
+  "deviceSupport": {
+    "desktop": "supported",
+    "mobile": "supported",
+    "minViewport": { "width": 390, "height": 700 },
+    "inputs": ["keyboard", "pointer", "touch"],
+    "mobileNotes": "Mobile play mode includes a virtual joystick, beacon, pause, and restart controls near the canvas. Verified in local browser mobile viewports; no physical handset claim is made.",
+    "launcherPolicy": "allow"
+  },
   "provenance": {
     "createdDate": "2026-05-31",
     "modelName": "GPT-5.5 xhigh",
@@ -39,7 +47,8 @@
     }
   ],
   "runRecords": [
-    "runs/2026-05-31-codex-gpt-5-5-xhigh-initial.json"
+    "runs/2026-05-31-codex-gpt-5-5-xhigh-initial.json",
+    "runs/2026-06-02-codex-mobile-playability-fix.json"
   ],
   "controls": {
     "keyboard": ["WASD or Arrow keys to move", "Space to deploy a beacon", "R to restart", "P to pause"],
@@ -51,6 +60,14 @@
     "assets/images/screenshot-gameplay.png",
     "assets/images/screenshot-upgrades.png"
   ],
+  "media": {
+    "thumbnail": "assets/images/screenshot-title.png",
+    "screenshots": [
+      "assets/images/screenshot-title.png",
+      "assets/images/screenshot-gameplay.png",
+      "assets/images/screenshot-upgrades.png"
+    ]
+  },
   "tags": ["canvas", "navigation", "survival", "strategy", "signal"],
   "repositoryNote": "Observation 001 / Game 001. This is the first playable evidence sample in the AI game-making evolution archive."
 }
