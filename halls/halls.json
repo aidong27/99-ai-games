@@ -66,7 +66,7 @@
       "name": "Physics Experiment Hall",
       "capacity": 11,
       "description": "Observes AI ability in simulation feel, spatial reasoning, cause/effect, and sandbox tuning.",
-      "assignedGameNumbers": []
+      "assignedGameNumbers": [5]
     },
     {
       "id": "rhythm-audio",

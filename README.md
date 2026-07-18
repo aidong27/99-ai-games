@@ -19,10 +19,10 @@ The image above is a brand/social preview asset, not a screenshot and not eviden
 | Metric | Current value |
 |---|---:|
 | Target observation slots | 99 |
-| Playable observations | 4 |
+| Playable observations | 5 |
 | Game halls | 9 |
-| Model variants | 6 |
-| Run records | 10 |
+| Model variants | 7 |
+| Run records | 11 |
 
 The maintainer curates prompts, tests builds, publishes releases, and records provenance. The maintainer does not hand-write or hand-edit game code. Game code provenance uses `humanCodeEdits: false` unless a future exception is explicitly documented.
 
@@ -46,6 +46,7 @@ No fake screenshots, fake users, fake downloads, fake ratings, fake popularity, 
 | 002 | Lumen Lattice | Puzzle Logic Hall | Claude Opus 4.8 / Claude Code | First Puzzle Logic Hall benchmark; current canonical Prism Archive remake | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=lumen-lattice) |
 | 003 | Neon Pulse Courier | Arcade Reaction Hall | GPT-5.5 xhigh / Codex | First Arcade Reaction Hall benchmark | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=neon-pulse-courier) |
 | 004 | Ninefold Draft | Card Strategy Hall | Claude Opus 4.8 / Claude Code | First Card Strategy Hall benchmark | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=ninefold-draft) |
+| 005 | Gravity Atlas | Physics Experiment Hall | Claude Fable 5 / Claude Code | First Physics Experiment Hall benchmark | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=gravity-atlas) |
 
 The canonical machine-readable source is [`games/manifest.json`](games/manifest.json). The generated markdown view is [`docs/generated-index.md`](docs/generated-index.md).
 
@@ -77,6 +78,10 @@ These screenshots are historical. They predate the current Prism Archive remake 
 
 Real screenshots are pending. The game is playable in source, but this README does not claim screenshot evidence until verified image files exist.
 
+### Observation 005 / Game 005: Gravity Atlas
+
+Real screenshots are pending. The game is playable in source and its completability is machine-verified (`node scripts/verify-gravity-atlas.mjs`), but this README does not claim screenshot evidence until verified image files exist.
+
 ## Archive Model
 
 The project is organized around observation value, not raw output volume.
@@ -92,7 +97,7 @@ The halls are: Arcade Reaction, Puzzle Logic, Survival Strategy, Card Strategy, 
 
 Every game declares `deviceSupport` in both `games/manifest.json` and `games/<slug>/game.json`. The launcher uses this metadata to decide whether to allow direct play, warn before launch, or recommend desktop.
 
-The current archive is PC-first. All four playable observations are marked desktop supported and mobile limited. Mobile support means a no-overflow baseline unless a game explicitly records stronger mobile QA; no physical handset QA is claimed here.
+The current archive is PC-first. All five playable observations are marked desktop supported and mobile limited. Mobile support means a no-overflow baseline unless a game explicitly records stronger mobile QA; no physical handset QA is claimed here.
 
 ## Launcher Structure
 
@@ -126,6 +131,7 @@ node scripts/validate-halls.mjs
 node scripts/validate-games.mjs
 node scripts/validate-launcher.mjs
 node scripts/generate-index.mjs --check
+node scripts/verify-gravity-atlas.mjs
 git diff --check
 ```
 

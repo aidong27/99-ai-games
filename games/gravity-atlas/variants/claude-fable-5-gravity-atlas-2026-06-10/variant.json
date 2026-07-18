@@ -1,0 +1,18 @@
+{
+  "variantId": "claude-fable-5-gravity-atlas-2026-06-10",
+  "gameNumber": 5,
+  "gameSlug": "gravity-atlas",
+  "gameTitle": "Gravity Atlas",
+  "status": "canonical-playable",
+  "createdDate": "2026-06-10",
+  "modelName": "Claude Fable 5",
+  "agentName": "Claude Code",
+  "humanCodeEdits": false,
+  "implementationPath": "../../",
+  "metadataPath": "variant.json",
+  "notes": "Canonical first playable implementation for Observation 005 / Game 005. A PC-first deterministic physics puzzle whose engine is a pure shared module; embedded reference launch vectors are replayed by scripts/verify-gravity-atlas.mjs as a standing completability proof. The playable source lives at the game root. The model label is maintainer-declared for this project entry.",
+  "comparisonRole": "baseline",
+  "runRecords": [
+    "../../runs/2026-06-10-claude-fable-5-gravity-atlas-initial.json"
+  ]
+}
