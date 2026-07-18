@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 const errors = [];
-const requiredAssetVersion = "2026-06-13-claude2";
+const requiredAssetVersion = "2026-06-14-claude3";
 const expectedOgImage = "https://aidong27.github.io/99-ai-games/assets/social/og-cover.png";
 
 const requiredFiles = [

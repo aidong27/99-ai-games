@@ -770,3 +770,115 @@
     padding: 14px;
   }
 }
+
+/* ── Claude hero + shelf polish (2026-06-14-claude3) ──────────────────────
+   Refine the front-hall typography and the observation shelf for a calmer,
+   more editorial Claude feel. Override-only; no structural change. */
+
+/* Hero wordmark: lighter, more elegant, less monumental. */
+.title-mark {
+  font-size: clamp(4.6rem, 7.4vw, 8.6rem);
+  font-weight: 600;
+  line-height: 0.84;
+  letter-spacing: -0.02em;
+}
+
+.title-mark span:nth-child(2) {
+  -webkit-text-stroke-width: 1.6px;
+}
+
+.title-position {
+  margin-top: 4px;
+  font-size: clamp(1.55rem, 2.3vw, 2.3rem);
+  line-height: 1.18;
+  color: var(--text);
+}
+
+.title-protocol {
+  max-width: 52ch;
+  color: var(--muted);
+}
+
+.hero-band {
+  gap: clamp(40px, 6vw, 96px);
+}
+
+/* Section heads: a touch more space, lighter rule. */
+.hall-section {
+  padding-top: 32px;
+}
+
+.hall-section-head {
+  margin-bottom: 26px;
+}
+
+.hall-section-head h2 {
+  font-weight: 600;
+}
+
+.hall-section-note {
+  color: var(--muted);
+}
+
+/* Observation shelf: roomier editorial rows; the plate becomes a soft chip. */
+.observation-shelf {
+  gap: 14px;
+}
+
+.shelf-row {
+  gap: 22px;
+  padding: 20px 22px;
+  background: var(--panel);
+  border-color: var(--line);
+}
+
+.shelf-plate {
+  border: 0;
+  border-radius: 999px;
+  padding: 7px 13px;
+  color: var(--accent);
+  background: var(--accent-soft);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.shelf-title {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.shelf-meta {
+  font-family: var(--ui-font);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.shelf-description {
+  color: var(--muted-strong);
+}
+
+/* Hall cells + model nodes: gentle, consistent with the soft card language. */
+.hall-cell {
+  background: var(--panel);
+}
+
+.hall-cell-number {
+  font-family: var(--mono-font);
+}
+
+.hall-cell-link,
+.matrix-chip,
+.model-node-link {
+  border-radius: 999px;
+}
+
+.model-node {
+  background: var(--panel);
+  border-left-width: 3px;
+}
+
+.model-node-name {
+  font-weight: 600;
+}

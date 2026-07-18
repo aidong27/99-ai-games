@@ -4,6 +4,8 @@ All notable project-level changes are recorded here. This archive does not use c
 
 ## [Unreleased]
 
+- Add a real brand favicon (inline SVG terracotta rounded-square "99") across all launcher pages, replacing the blank icon. Refine the Claude front-hall typography: a lighter, more editorial hero wordmark and position line, roomier section spacing, and an observation shelf with soft accent-chip number plates, sans metadata, and calmer cards. Override-only; cache-busting bumped to `2026-06-14-claude3`.
+
 - Polish the Claude.ai light theme into a native feel: replace the inverted-dark "specimen terminal" decorations with calm Claude conventions — fully rounded pill buttons in humanist sans (no uppercase/mono), plain-text top navigation, soft sans labels at readable warm-ink contrast (instead of low-contrast spaced terracotta), softer cards with gentle hover lift, a floating pill dock, removal of the global registration frame and card corner ticks, a quieter ambient signal field, and antialiased body type. Override-only in `styles/archive.css`; no DOM contract or structure change. Cache-busting bumped to `2026-06-13-claude2`.
 
 - Reskin the entire launcher to a **Claude.ai-style light theme**: warm cream ground (`#f5f4ef`), white surfaces, dark warm-ink text, and the signature Anthropic terracotta (`#d97757`) as the accent, with softer rounded radii, calm soft shadows in place of hard offsets, white text on the accent, a quieted signal field (multiply blend), and neutralized dark-mode vignettes. Implemented as a palette/token inversion in the shared `styles/archive.css` (+ `styles/main.css`) so all seven launcher pages flip together; no renderer DOM contract changed and no game file touched. Cache-busting bumped to `2026-06-13-claude`.
