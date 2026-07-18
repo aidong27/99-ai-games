@@ -8,6 +8,7 @@ import {
   getPlayGateHref,
   getPromoHref,
   getRuntimeLaunchState,
+  getScreenshotHref,
   getSlugFromSearch
 } from "./archive-data.js";
 import { createActionGroup, createActionLink, createDisabledButton } from "./ui/buttons.js";
@@ -68,7 +69,10 @@ function renderGate(game) {
   const content = document.createElement("section");
   content.className = "play-gate-content";
 
-  content.append(
+  const copy = document.createElement("div");
+  copy.className = "gate-copy";
+
+  copy.append(
     createText("p", "archive-kicker", getGameNumberLabel(game)),
     createText("h1", "", game.title ?? "Untitled observation"),
     createText("p", "gate-description", game.description ?? "No description recorded."),
@@ -76,6 +80,8 @@ function renderGate(game) {
     createSupportNote(launchState, mobile),
     createGateActions(game, launchState)
   );
+
+  content.append(createGateMedia(game, launchState), copy);
 
   root.replaceChildren(content);
   setDocumentMeta({
@@ -85,6 +91,32 @@ function renderGate(game) {
     canonicalPath: getPlayGateHref(game),
     socialImagePath: `assets/social/games/${encodeURIComponent(game.slug)}.svg`
   });
+}
+
+function createGateMedia(game, launchState) {
+  const canOpen = launchState.canStart || launchState.needsExplicitOpen;
+  const media = document.createElement(canOpen ? "a" : "div");
+  media.className = "gate-media";
+  if (canOpen) {
+    media.href = getLaunchHref(game);
+    media.setAttribute("aria-label", `Start ${game.title ?? "observation"}`);
+  }
+
+  const screenshot = getScreenshotHref(game);
+  if (!screenshot) {
+    media.append(createText("span", "image-fallback", "No verified screenshot"));
+    return media;
+  }
+
+  const image = document.createElement("img");
+  image.src = screenshot;
+  image.alt = `${game.title ?? "Observation"} verified screenshot`;
+  image.decoding = "async";
+  image.addEventListener("error", () => {
+    media.replaceChildren(createText("span", "image-fallback", "No verified screenshot"));
+  }, { once: true });
+  media.append(image);
+  return media;
 }
 
 function createSupportNote(launchState, mobile) {
