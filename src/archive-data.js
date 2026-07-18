@@ -132,6 +132,19 @@ export function getObservationHref(game) {
   return `./observation.html?slug=${encodeURIComponent(game?.slug ?? "")}`;
 }
 
+export function getLibrarySelectionHref(gameOrSlug) {
+  const slug = typeof gameOrSlug === "string" ? gameOrSlug : gameOrSlug?.slug;
+  return slug ? `./library.html#${encodeURIComponent(slug)}` : "./library.html";
+}
+
+export function getManifestHref() {
+  return MANIFEST_HREF;
+}
+
+export function getSlugFromSearch(search = globalThis.window?.location?.search ?? "") {
+  return new URLSearchParams(search).get("slug") ?? "";
+}
+
 export function getMetadataHref(game) {
   return normalizeRootPath(game?.metadataPath ?? `${getLaunchHref(game)}game.json`);
 }
