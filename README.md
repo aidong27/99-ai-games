@@ -128,6 +128,7 @@ The public launcher is a static four-level archive system:
 - `observation.html?slug=<game-slug>`: archive record with screenshots, metadata, device support, provenance, variants, controls, and run records.
 - `play.html?slug=<game-slug>`: device-aware play gate before entering `games/<slug>/`.
 - `promo/<game-slug>/`: generated per-game promotional page backed by real metadata and labeled evidence boundaries.
+- `assets/posters/games/<game-slug>.jpg`: generated cover artwork used only as a promotional visual, never as gameplay evidence.
 - `compare.html`: a cross-model capability matrix (model × hall coverage, per-model totals, hall coverage) built only from real manifest data.
 
 Launcher pages read from `games/manifest.json` and each game's `game.json`. They must not invent games, models, screenshots, popularity, or provenance. Metadata fetches are cached per session (keyed by the deployed asset version) so navigation between pages does not refetch every record.
@@ -165,6 +166,8 @@ Generated surfaces are committed but should be regenerated, not hand-edited:
 - `promo/<slug>/index.html`
 - `assets/social/games/<slug>.svg`
 - `docs/generated-index.md`
+
+Each current observation also has a curated vertical cover under `assets/posters/games/`. Promo pages place that cover in the hero and keep repository screenshots in the separate Evidence section, so the two media roles remain unmistakable.
 
 Launcher refactors should not be bundled with game implementation changes under `games/<slug>/src/`, `games/<slug>/styles/`, variants, or run records.
 

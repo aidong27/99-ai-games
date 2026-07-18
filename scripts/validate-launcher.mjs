@@ -5,8 +5,8 @@ import { getGameStatusLabel } from "../src/data/view-models.js";
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 const errors = [];
-const requiredAssetVersion = "2026-07-11-gallery";
-const generatedPromoAssetVersion = "2026-07-11-gallery";
+const requiredAssetVersion = "2026-07-13-posters";
+const generatedPromoAssetVersion = "2026-07-13-posters";
 const siteRoot = "https://aidong27.github.io/99-ai-games";
 const expectedOgImage = "https://aidong27.github.io/99-ai-games/assets/social/og-cover.png";
 const launcherCanonicalUrls = {
@@ -134,6 +134,75 @@ async function readText(relativePath) {
     fail(`${relativePath} could not be read: ${error.message}`);
     return "";
   }
+}
+
+async function validatePromoPoster(relativePath, label) {
+  let bytes;
+  try {
+    bytes = await readFile(repoPath(relativePath));
+  } catch (error) {
+    fail(`${label} promo poster could not be read: ${error.message}`);
+    return;
+  }
+
+  const dimensions = readJpegDimensions(bytes);
+  if (!dimensions) {
+    fail(`${label} promo poster must be a readable JPEG: ${relativePath}`);
+    return;
+  }
+  if (dimensions.width !== 1024 || dimensions.height !== 1536) {
+    fail(`${label} promo poster must be 1024x1536, found ${dimensions.width}x${dimensions.height}`);
+  }
+  if (bytes.byteLength > 800_000) {
+    fail(`${label} promo poster exceeds the 800 KB delivery budget: ${relativePath}`);
+  }
+}
+
+function readJpegDimensions(bytes) {
+  if (bytes.length < 4 || bytes[0] !== 0xff || bytes[1] !== 0xd8) {
+    return null;
+  }
+
+  const startOfFrameMarkers = new Set([
+    0xc0, 0xc1, 0xc2, 0xc3, 0xc5, 0xc6, 0xc7,
+    0xc9, 0xca, 0xcb, 0xcd, 0xce, 0xcf
+  ]);
+  let offset = 2;
+
+  while (offset + 4 <= bytes.length) {
+    if (bytes[offset] !== 0xff) {
+      offset += 1;
+      continue;
+    }
+    while (offset < bytes.length && bytes[offset] === 0xff) {
+      offset += 1;
+    }
+    const marker = bytes[offset];
+    offset += 1;
+    if (marker === 0xd8 || marker === 0xd9) {
+      continue;
+    }
+    if (offset + 2 > bytes.length) {
+      return null;
+    }
+
+    const segmentLength = bytes.readUInt16BE(offset);
+    if (segmentLength < 2 || offset + segmentLength > bytes.length) {
+      return null;
+    }
+    if (startOfFrameMarkers.has(marker)) {
+      if (segmentLength < 7) {
+        return null;
+      }
+      return {
+        height: bytes.readUInt16BE(offset + 3),
+        width: bytes.readUInt16BE(offset + 5)
+      };
+    }
+    offset += segmentLength;
+  }
+
+  return null;
 }
 
 async function readJson(relativePath) {
@@ -664,6 +733,7 @@ for (const game of games) {
   }
   const promoPage = `promo/${game.slug}/index.html`;
   const promoSocialImage = `assets/social/games/${game.slug}.svg`;
+  const promoPoster = `assets/posters/games/${game.slug}.jpg`;
   const promoHref = `./promo/${encodeURIComponent(game.slug)}/`;
   if (!(await exists(promoPage))) {
     fail(`${label} promo page does not exist: ${promoPage}`);
@@ -672,6 +742,11 @@ for (const game of games) {
   }
   if (!(await exists(promoSocialImage))) {
     fail(`${label} promo social image does not exist: ${promoSocialImage}`);
+  }
+  if (!(await exists(promoPoster))) {
+    fail(`${label} promo poster does not exist: ${promoPoster}`);
+  } else {
+    await validatePromoPoster(promoPoster, label);
   }
   if (!promoHref.startsWith("./promo/") || !promoHref.endsWith("/")) {
     fail(`${label} promo URL could not be generated safely`);

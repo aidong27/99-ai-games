@@ -106,6 +106,8 @@ docs/generated-index.md
 
 Do not hand-edit generated files without updating the generator and running the relevant `--check`.
 
+Vertical cover artwork lives under `assets/posters/games/<slug>.jpg`. The promo generator uses it in the hero and keeps real repository screenshots in the Evidence section. Posters are presentation assets and must never be labeled as screenshots or gameplay evidence.
+
 ## Folder Standard
 
 Each official game slot should live in:

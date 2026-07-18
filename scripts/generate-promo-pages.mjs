@@ -3,7 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
-const ASSET_VERSION = "2026-07-11-gallery";
+const ASSET_VERSION = "2026-07-13-posters";
 const SITE_ROOT = "https://aidong27.github.io/99-ai-games";
 const checkOnly = process.argv.includes("--check");
 const failures = [];
@@ -53,10 +53,10 @@ async function loadGame(entry) {
 
 function renderPromoPage(game) {
   const screenshots = getScreenshots(game);
-  const hero = screenshots[0] ?? "";
   const number = String(game.number ?? "?").padStart(3, "0");
   const title = escapeHtml(game.title);
   const description = escapeHtml(game.description);
+  const posterPath = `assets/posters/games/${game.slug}.jpg`;
   const socialImage = `${SITE_ROOT}/assets/social/games/${encodeURIComponent(game.slug)}.svg`;
   const promoUrl = `${SITE_ROOT}/promo/${encodeURIComponent(game.slug)}/`;
   const metadataHref = rootHref(game.metadataPath);
@@ -110,7 +110,7 @@ function renderPromoPage(game) {
               <a class="archive-button ghost" href="${metadataHref}">Metadata JSON</a>
             </div>
           </div>
-          ${hero ? renderHeroImage(hero, game) : renderPlaceholder()}
+          ${renderPoster(posterPath, game)}
         </section>
 
         <section class="promo-grid" aria-label="Game facts and evidence">
@@ -155,18 +155,11 @@ function renderPromoPage(game) {
 `;
 }
 
-function renderHeroImage(href, game) {
-  return `<figure class="promo-media">
-            <img src="${rootHref(href)}" alt="${escapeHtml(game.title)} verified screenshot" decoding="async">
+function renderPoster(href, game) {
+  return `<figure class="promo-poster">
+            <img src="${rootHref(href)}" alt="${escapeHtml(game.title)} promotional cover poster" width="1024" height="1536" decoding="async" fetchpriority="high">
+            <figcaption>Promotional cover artwork · Not gameplay evidence</figcaption>
           </figure>`;
-}
-
-function renderPlaceholder() {
-  return `<div class="promo-media">
-            <div class="promo-visual-placeholder">
-              <p>No verified screenshot is listed for this observation yet.</p>
-            </div>
-          </div>`;
 }
 
 function renderGallery(screenshots, game) {

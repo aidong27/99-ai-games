@@ -24,6 +24,7 @@ node scripts/generate-promo-pages.mjs
 ```
 
 This updates generated per-game promo pages under `promo/<slug>/` and game social cards under `assets/social/games/`.
+Each manifest entry must also have a vertical promotional cover at `assets/posters/games/<slug>.jpg`; the launcher validator checks that one exists before a release can pass.
 
 ## Launcher Helper Boundaries
 
