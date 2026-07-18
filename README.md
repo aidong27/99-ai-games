@@ -189,6 +189,7 @@ No package manager or build step is required. Validation uses plain Node.js scri
 ```bash
 node scripts/validate-halls.mjs
 node scripts/validate-games.mjs
+node scripts/validate-launcher.mjs
 node scripts/generate-index.mjs --check
 ```
 
