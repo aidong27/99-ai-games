@@ -5,9 +5,9 @@ All notable project-level changes are recorded here. This archive does not use c
 ## [Unreleased]
 
 - Add standard open-source maintenance files for contribution, security, roadmap, changelog, and application drafting.
-- Keep screenshot and public demo work tracked as follow-up maintenance tasks until verified.
 - Add verified local gameplay screenshots for Observation 001 and Observation 002.
 - Fix a Lumen Lattice menu-state render-loop bug discovered during screenshot capture.
+- Add GitHub Pages deployment workflow and verified public demo link.
 
 ## [0.2.0] - 2026-06-01
 
