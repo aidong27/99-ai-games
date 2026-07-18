@@ -24,6 +24,14 @@ const MODEL_FAMILY_RULES = [
     shortLabel: "KI",
     order: 30,
     patterns: [/^kimi(?:[-\s]|$)/i]
+  },
+  {
+    id: "grok",
+    name: "Grok",
+    providerName: "xAI",
+    shortLabel: "GR",
+    order: 40,
+    patterns: [/^grok(?:[-\s]|$)/i]
   }
 ];
 

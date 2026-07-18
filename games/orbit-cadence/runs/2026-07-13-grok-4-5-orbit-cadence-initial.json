@@ -1,0 +1,42 @@
+{
+  "runId": "2026-07-13-grok-4-5-orbit-cadence-initial",
+  "gameNumber": 8,
+  "gameSlug": "orbit-cadence",
+  "variantId": "grok-4-5-orbit-cadence-2026-07-13",
+  "runType": "initial",
+  "status": "accepted-canonical",
+  "createdDate": "2026-07-13",
+  "modelName": "Grok 4.5",
+  "agentName": "Grok Build",
+  "humanCodeEdits": false,
+  "promptSummary": "Read 99 AI Games documentation and create a new playable observation as Grok 4.5, placed on the user's Desktop. Deliver Orbit Cadence as a PC-first Rhythm Audio Hall benchmark with four-lane timing, Web Audio feedback, combo/integrity, pause/restart, completion/failure, honest metadata, and no fake screenshots.",
+  "outputs": [
+    "Desktop/orbit-cadence/index.html",
+    "Desktop/orbit-cadence/src/main.js",
+    "Desktop/orbit-cadence/styles/main.css",
+    "Desktop/orbit-cadence/game.json",
+    "Desktop/orbit-cadence/README.md",
+    "Desktop/orbit-cadence/brief.md",
+    "Desktop/orbit-cadence/variants/grok-4-5-orbit-cadence-2026-07-13/variant.json",
+    "Desktop/orbit-cadence/runs/2026-07-13-grok-4-5-orbit-cadence-initial.json"
+  ],
+  "verification": {
+    "verifiedDate": "2026-07-13",
+    "performed": [
+      "node --check Desktop/orbit-cadence/src/main.js",
+      "Local static server smoke via python3 -m http.server",
+      "Manual logic review of title, play, pause, restart, hit judgments, fail, and complete states"
+    ],
+    "pending": [
+      "Full 99 AI Games archive validators (manifest/halls integration not applied in Desktop package)",
+      "Real browser screenshots not captured",
+      "No physical handset QA is claimed"
+    ]
+  },
+  "knownIssues": [
+    "Desktop package is self-contained and not yet wired into games/manifest.json or halls/halls.json.",
+    "Screenshot evidence is intentionally empty until real captures exist.",
+    "Mobile is marked limited because the intended benchmark input mode is PC keyboard timing."
+  ],
+  "notes": "This run creates Game 008 as a real playable observation sample on the Desktop. It does not modify existing archive games or invent launcher-integrated metadata beyond the local package."
+}
