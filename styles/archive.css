@@ -2740,3 +2740,40 @@ body::before,
     width: min(100% - 28px, 1360px);
   }
 }
+
+/* ── Calm the library: flatten the dark-era 3D tilt + scan (2026-06-14-claude7)
+   Claude is flat and quiet. Neutralize the pointer-driven 3D card tilt, the
+   active-card scan sweep, and the perspective container — keeping a simple,
+   soft hover/active lift. The JS still sets the tilt vars; they become inert. */
+.observation-track {
+  perspective: none;
+}
+
+.observation-card {
+  transform: none;
+  transform-style: flat;
+  opacity: 0.84;
+  transition: border-color var(--transition-fast), opacity var(--transition-fast),
+    transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+}
+
+.observation-card:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+.observation-card.active {
+  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(40, 38, 34, 0.1);
+}
+
+/* Remove the sweeping scan line on the active card. */
+.observation-card.active::after {
+  display: none;
+}
+
+/* Model-axis active node: keep a gentle highlight, drop the looping pulse glow. */
+.model-axis-item.active {
+  animation: none;
+}
