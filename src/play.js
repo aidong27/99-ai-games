@@ -8,8 +8,25 @@ import {
 } from "./archive-data.js";
 
 const root = document.querySelector("#play-root");
+let currentGate = null;
 
 loadGate();
+
+document.addEventListener("keydown", (event) => {
+  if (event.metaKey || event.ctrlKey || event.altKey) {
+    return;
+  }
+
+  if (event.key === "Escape" && currentGate?.recordHref) {
+    event.preventDefault();
+    window.location.href = currentGate.recordHref;
+  }
+
+  if (event.key === "Enter" && currentGate?.canStart && currentGate?.launchHref) {
+    event.preventDefault();
+    window.location.href = currentGate.launchHref;
+  }
+});
 
 async function loadGate() {
   const slug = new URLSearchParams(window.location.search).get("slug");
@@ -33,6 +50,12 @@ async function loadGate() {
 function renderGate(game) {
   const launchState = getRuntimeLaunchState(game);
   const mobile = getMobileSupportInfo(game);
+  currentGate = {
+    canStart: launchState.canStart,
+    launchHref: getLaunchHref(game),
+    recordHref: getObservationHref(game)
+  };
+
   const content = document.createElement("section");
   content.className = "play-gate-content";
 
@@ -52,8 +75,13 @@ function renderGate(game) {
 function createSupportNote(launchState, mobile) {
   const note = document.createElement("div");
   note.className = `gate-support ${mobile.tone}`;
+  const label = mobile.key === "supported"
+    ? "Mobile ready"
+    : mobile.key === "limited"
+      ? "Play with warning"
+      : "Desktop recommended";
   note.append(
-    createText("strong", "", launchState.label),
+    createText("strong", "", launchState.needsExplicitOpen ? "Desktop recommended" : label),
     createText("span", "", launchState.note)
   );
   return note;
