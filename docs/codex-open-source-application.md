@@ -18,4 +18,4 @@ Use credits to generate new game observations, create controlled variants across
 
 ## Anything else
 
-The project is intentionally modest: no fake stars, downloads, users, screenshots, or impact claims. The near-term focus is verified screenshots, GitHub Pages deployment, clearer run records, and one carefully scoped Game 003 benchmark brief.
+The project is intentionally modest: no fake stars, downloads, users, screenshots, or impact claims. The near-term focus is GitHub Pages deployment, clearer run records, accessibility review, and one carefully scoped Game 003 benchmark brief.

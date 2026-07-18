@@ -52,6 +52,6 @@ Observation 002 / Game 002 is **Lumen Lattice**.
 ## Current Limitations
 
 - Public hosting is not configured yet.
-- Real screenshots still need to be captured.
+- Verified local screenshots are included for Observation 001 and Observation 002.
 - Observation 001 and Observation 002 need more real playtesting notes.
 - Future model comparisons should be added only when real variants exist.

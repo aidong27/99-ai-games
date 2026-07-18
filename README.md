@@ -109,25 +109,25 @@ games/lumen-lattice/
 | # | Observation sample | Hall | Slot type | Status | Variants | Runs |
 |---|---|---|---|---|---:|---:|
 | 001 | Signal Cartographer | Survival Strategy Hall | benchmark | Playable | 1 | 1 |
-| 002 | Lumen Lattice | Puzzle Logic Hall | benchmark | Playable | 1 | 1 |
+| 002 | Lumen Lattice | Puzzle Logic Hall | benchmark | Playable | 1 | 2 |
 
 The canonical machine-readable index is [`games/manifest.json`](games/manifest.json). A generated markdown view is in [`docs/generated-index.md`](docs/generated-index.md).
 
 ## Screenshots
 
-Screenshots are still TODO. Add verified screenshots from the local build when they are captured. Do not add mock screenshots as if they were real gameplay captures.
+These screenshots were captured from the local build served at `http://localhost:4173` on 2026-06-01. Do not replace them with mock screenshots or generated images.
 
-Planned Game 001 screenshot paths:
+### Observation 001 / Game 001: Signal Cartographer
 
-- `games/signal-cartographer/assets/images/screenshot-title.png`
-- `games/signal-cartographer/assets/images/screenshot-gameplay.png`
-- `games/signal-cartographer/assets/images/screenshot-upgrades.png`
+![Signal Cartographer title screen](games/signal-cartographer/assets/images/screenshot-title.png)
+![Signal Cartographer gameplay](games/signal-cartographer/assets/images/screenshot-gameplay.png)
+![Signal Cartographer upgrade choice](games/signal-cartographer/assets/images/screenshot-upgrades.png)
 
-Planned Game 002 screenshot paths:
+### Observation 002 / Game 002: Lumen Lattice
 
-- `games/lumen-lattice/assets/images/screenshot-title.png`
-- `games/lumen-lattice/assets/images/screenshot-puzzle.png`
-- `games/lumen-lattice/assets/images/screenshot-solved.png`
+![Lumen Lattice title screen](games/lumen-lattice/assets/images/screenshot-title.png)
+![Lumen Lattice puzzle in progress](games/lumen-lattice/assets/images/screenshot-puzzle.png)
+![Lumen Lattice solved state](games/lumen-lattice/assets/images/screenshot-solved.png)
 
 ## Project Structure
 

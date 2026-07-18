@@ -96,7 +96,8 @@
         }
       ],
       "runRecords": [
-        "./games/lumen-lattice/runs/2026-05-31-claude-opus-4-8-initial.json"
+        "./games/lumen-lattice/runs/2026-05-31-claude-opus-4-8-initial.json",
+        "./games/lumen-lattice/runs/2026-06-01-codex-render-loop-screenshot-fix.json"
       ],
       "tags": ["canvas", "puzzle", "logic", "parity", "solvable"],
       "repositoryNote": "Observation 002 / Game 002. First Puzzle Logic Hall sample, contributed as evidence of what Claude Opus 4.8 could design and implement."
