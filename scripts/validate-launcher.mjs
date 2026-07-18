@@ -5,8 +5,8 @@ import { getGameStatusLabel } from "../src/data/view-models.js";
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 const errors = [];
-const requiredAssetVersion = "2026-07-13-posters";
-const generatedPromoAssetVersion = "2026-07-13-posters";
+const requiredAssetVersion = "2026-07-13-upgrade";
+const generatedPromoAssetVersion = "2026-07-13-upgrade";
 const siteRoot = "https://aidong27.github.io/99-ai-games";
 const expectedOgImage = "https://aidong27.github.io/99-ai-games/assets/social/og-cover.png";
 const launcherCanonicalUrls = {
@@ -61,9 +61,12 @@ const requiredFiles = [
   "src/app/constants.js",
   "src/app/routes.js",
   "src/theme.js",
+  "src/i18n.js",
+  "src/pwa.js",
   "src/archive-effects.js",
   "src/archive-data.js",
   "src/data/device-support.js",
+  "src/data/media-evidence.js",
   "src/data/paths.js",
   "src/data/view-models.js",
   "src/main.js",
@@ -86,10 +89,17 @@ const requiredFiles = [
   "assets/social/og-cover.png",
   "assets/social/social-card.svg",
   "assets/social/social-card-square.svg",
+  "assets/social/games/raster-manifest.json",
   "docs/css-selector-map.md",
   "docs/index.md",
   "docs/share-kit.md",
-  "games/manifest.json"
+  "games/manifest.json",
+  "404.html",
+  "favicon.ico",
+  "manifest.webmanifest",
+  "robots.txt",
+  "service-worker.js",
+  "sitemap.xml"
 ];
 
 const launcherPages = [
@@ -155,6 +165,30 @@ async function validatePromoPoster(relativePath, label) {
   }
   if (bytes.byteLength > 800_000) {
     fail(`${label} promo poster exceeds the 800 KB delivery budget: ${relativePath}`);
+  }
+}
+
+async function validateSocialCardPng(relativePath, label) {
+  let bytes;
+  try {
+    bytes = await readFile(repoPath(relativePath));
+  } catch (error) {
+    fail(`${label} raster social card could not be read: ${error.message}`);
+    return;
+  }
+
+  const pngSignature = "89504e470d0a1a0a";
+  if (bytes.length < 24 || bytes.subarray(0, 8).toString("hex") !== pngSignature) {
+    fail(`${label} raster social card must be a readable PNG: ${relativePath}`);
+    return;
+  }
+  const width = bytes.readUInt32BE(16);
+  const height = bytes.readUInt32BE(20);
+  if (width !== 1200 || height !== 630) {
+    fail(`${label} raster social card must be 1200x630, found ${width}x${height}`);
+  }
+  if (bytes.byteLength > 500_000) {
+    fail(`${label} raster social card exceeds the 500 KB delivery budget: ${relativePath}`);
   }
 }
 
@@ -274,6 +308,9 @@ async function validateHtmlReferences(pagePath) {
     ? generatedPromoAssetVersion
     : requiredAssetVersion;
   let hasThemeScript = false;
+  let hasI18nScript = false;
+  let hasPwaScript = false;
+  let hasManifest = false;
   const stylesheetPaths = [];
   const scriptPaths = [];
 
@@ -288,6 +325,9 @@ async function validateHtmlReferences(pagePath) {
 
   for (const tag of parseTags(html, "link")) {
     const rel = getAttribute(tag, "rel").toLowerCase();
+    if (rel.split(/\s+/).includes("manifest")) {
+      hasManifest = true;
+    }
     if (!rel.split(/\s+/).includes("stylesheet")) {
       continue;
     }
@@ -315,6 +355,12 @@ async function validateHtmlReferences(pagePath) {
     if (localPath === "src/theme.js") {
       hasThemeScript = true;
     }
+    if (localPath === "src/i18n.js") {
+      hasI18nScript = true;
+    }
+    if (localPath === "src/pwa.js") {
+      hasPwaScript = true;
+    }
     if (localPath && !(await exists(localPath))) {
       fail(`${pagePath} script does not exist: ${src}`);
     }
@@ -322,6 +368,15 @@ async function validateHtmlReferences(pagePath) {
 
   if (!hasThemeScript) {
     fail(`${pagePath} should load src/theme.js before rendering themed UI`);
+  }
+  if (!hasI18nScript) {
+    fail(`${pagePath} should load src/i18n.js for English and Chinese UI`);
+  }
+  if (!hasPwaScript) {
+    fail(`${pagePath} should load src/pwa.js for progressive offline support`);
+  }
+  if (!hasManifest) {
+    fail(`${pagePath} should link manifest.webmanifest`);
   }
 
   if (new Set(stylesheetPaths).size !== stylesheetPaths.length) {
@@ -571,7 +626,7 @@ function validateSocialMeta(html, pagePath) {
 
 function getExpectedOgImage(pagePath) {
   const promoMatch = pagePath.match(/^promo\/([^/]+)\/index\.html$/);
-  return promoMatch ? `${siteRoot}/assets/social/games/${promoMatch[1]}.svg` : expectedOgImage;
+  return promoMatch ? `${siteRoot}/assets/social/games/${promoMatch[1]}.png` : expectedOgImage;
 }
 
 function getMetaContent(html, attribute, value) {
@@ -686,6 +741,7 @@ validateViewModelContracts();
 await validateNoRetiredLauncherEffects();
 await validateReadmeAssets();
 await validateShareKitAssets();
+await validatePwaContract();
 await validateNoFalseClaims();
 
 const manifest = await readJson("games/manifest.json");
@@ -732,7 +788,8 @@ for (const game of games) {
     fail(`${label} play gate URL could not be generated safely`);
   }
   const promoPage = `promo/${game.slug}/index.html`;
-  const promoSocialImage = `assets/social/games/${game.slug}.svg`;
+  const promoSocialSource = `assets/social/games/${game.slug}.svg`;
+  const promoSocialImage = `assets/social/games/${game.slug}.png`;
   const promoPoster = `assets/posters/games/${game.slug}.jpg`;
   const promoHref = `./promo/${encodeURIComponent(game.slug)}/`;
   if (!(await exists(promoPage))) {
@@ -740,8 +797,13 @@ for (const game of games) {
   } else {
     await validateHtmlReferences(promoPage);
   }
+  if (!(await exists(promoSocialSource))) {
+    fail(`${label} editable social card source does not exist: ${promoSocialSource}`);
+  }
   if (!(await exists(promoSocialImage))) {
     fail(`${label} promo social image does not exist: ${promoSocialImage}`);
+  } else {
+    await validateSocialCardPng(promoSocialImage, label);
   }
   if (!(await exists(promoPoster))) {
     fail(`${label} promo poster does not exist: ${promoPoster}`);
@@ -812,6 +874,37 @@ async function validateShareKitAssets() {
     if (!(await exists(asset))) {
       fail(`Share kit asset does not exist: ${asset}`);
     }
+  }
+}
+
+async function validatePwaContract() {
+  const manifest = await readJson("manifest.webmanifest");
+  if (manifest.start_url !== "./" || manifest.scope !== "./" || manifest.display !== "standalone") {
+    fail("manifest.webmanifest should keep relative start_url/scope and standalone display mode");
+  }
+  const icons = Array.isArray(manifest.icons) ? manifest.icons : [];
+  for (const size of ["192x192", "512x512"]) {
+    const icon = icons.find((entry) => entry.sizes === size && entry.type === "image/png");
+    if (!icon?.src || !(await exists(icon.src))) {
+      fail(`manifest.webmanifest is missing its ${size} PNG icon`);
+    }
+  }
+
+  const worker = await readText("service-worker.js");
+  for (const requiredText of [
+    `99ag-shell-${requiredAssetVersion}`,
+    "./404.html",
+    "./games/manifest.json",
+    "./src/data/media-evidence.js"
+  ]) {
+    if (!worker.includes(requiredText)) {
+      fail(`service-worker.js is missing required shell contract ${requiredText}`);
+    }
+  }
+
+  const registration = await readText("src/pwa.js");
+  if (!registration.includes('new URL("../", import.meta.url).pathname')) {
+    fail("src/pwa.js should derive its GitHub Pages scope from import.meta.url");
   }
 }
 

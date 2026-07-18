@@ -11,3 +11,5 @@ Current poster contract:
 - `99 AI Games` archive label
 - one file for every entry in `games/manifest.json`
 - no placement inside `games/<slug>/`, so launcher artwork remains separate from protected game implementations
+
+Screenshot freshness is evaluated separately from poster availability. Metadata that marks screenshots stale, superseded, or pending prevents those files from being presented as current gameplay evidence while preserving them in the repository as history.

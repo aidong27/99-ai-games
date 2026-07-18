@@ -101,12 +101,17 @@ These files are generated from manifest and game metadata:
 ```text
 promo/<slug>/index.html
 assets/social/games/<slug>.svg
+assets/social/games/<slug>.png
 docs/generated-index.md
 ```
 
 Do not hand-edit generated files without updating the generator and running the relevant `--check`.
 
 Vertical cover artwork lives under `assets/posters/games/<slug>.jpg`. The promo generator uses it in the hero and keeps real repository screenshots in the Evidence section. Posters are presentation assets and must never be labeled as screenshots or gameplay evidence.
+
+`src/i18n.js` owns the English/Chinese interface layer and `src/pwa.js` owns progressive installation. English metadata remains canonical. `service-worker.js` precaches the launcher shell and game metadata, then runtime-caches same-origin assets as they are visited.
+
+Library filter state uses query parameters (`model`, `hall`, `q`, `sort`, `view`) while the selected observation remains in the hash. Preserve both pieces when changing selection behavior.
 
 ## Folder Standard
 
