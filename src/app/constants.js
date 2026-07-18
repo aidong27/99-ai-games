@@ -1,2 +1,2 @@
-export const ASSET_VERSION = "2026-07-13-orbit-cadence";
+export const ASSET_VERSION = "2026-07-14-deepforge-miner";
 export const DEFAULT_TARGET_COUNT = 99;

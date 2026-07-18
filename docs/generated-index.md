@@ -16,3 +16,4 @@ The games are playable. The real exhibit is the AI that made them.
 | 006 | Memory Bloom | Clicker Management Hall | benchmark | playable | 1 | 1 |
 | 007 | Afterlight Dispatch | Text Adventure Hall | benchmark | playable | 1 | 1 |
 | 008 | Orbit Cadence | Rhythm Audio Hall | benchmark | playable | 1 | 1 |
+| 009 | Deepforge Miner | Clicker Management Hall | normal | playable | 1 | 1 |

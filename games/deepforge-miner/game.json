@@ -1,0 +1,59 @@
+{
+  "number": 9,
+  "title": "Deepforge Miner",
+  "slug": "deepforge-miner",
+  "collection": "99 AI Games",
+  "slotType": "normal",
+  "hallId": "clicker-management",
+  "hallName": "Clicker Management Hall",
+  "archiveRole": "DeepSeek v4 Pro incremental economy observation sample",
+  "status": "playable",
+  "statusLabel": "Playable Observation 009 / Game 009",
+  "localPath": "./games/deepforge-miner/",
+  "metadataPath": "./games/deepforge-miner/game.json",
+  "briefPath": "./games/deepforge-miner/brief.md",
+  "variantsPath": "./games/deepforge-miner/variants/",
+  "runsPath": "./games/deepforge-miner/runs/",
+  "canonicalVariantId": "claude-deepforge-miner-2026-06-24",
+  "sourceCompleteness": "Complete local source included",
+  "description": "A space mining incremental clicker game. Click the asteroid to mine ore, purchase automated drones, upgrade through pickaxe to quantum extractor, unlock new asteroid fields with rare resources, and prestige for permanent bonuses. Canvas-rendered with particle effects, orbiting drone animations, floating damage numbers, and expanding click rings.",
+  "deviceSupport": {
+    "desktop": "supported",
+    "mobile": "limited",
+    "minViewport": { "width": 390, "height": 700 },
+    "inputs": ["pointer", "keyboard", "touch"],
+    "mobileNotes": "Desktop-first clicker tuned for mouse and keyboard at 1280x720 and above. Mobile baseline supports loading, no horizontal overflow, tap-to-mine on the canvas, and tappable action buttons, but rapid clicking and fine UI are intended for desktop. No physical handset QA is claimed.",
+    "launcherPolicy": "warn"
+  },
+  "provenance": {
+    "createdDate": "2026-06-24",
+    "modelName": "DeepSeek v4 Pro",
+    "agentName": "Claude Code",
+    "humanCodeEdits": false,
+    "notes": "Model label is maintainer-declared for this project entry. The game was generated through the Claude Code agent with the declared DeepSeek v4 Pro model label under the no-human-code-edits project rule."
+  },
+  "slotVariantRunPolicy": {
+    "gameSlot": "Observation 009 / Game 009 is the official Deepforge Miner observation sample.",
+    "modelVariant": "Additional AI-made versions of Deepforge Miner should be stored under variants/ and must not consume new game numbers.",
+    "runRecord": "Generation, revision, validation, and comparison attempts should be stored as JSON files under runs/."
+  },
+  "variants": [
+    {
+      "variantId": "claude-deepforge-miner-2026-06-24",
+      "modelName": "DeepSeek v4 Pro",
+      "agentName": "Claude Code",
+      "status": "canonical-playable",
+      "metadataPath": "variants/claude-deepforge-miner-2026-06-24/variant.json"
+    }
+  ],
+  "runRecords": [
+    "runs/2026-06-24-claude-deepforge-miner-initial.json"
+  ],
+  "controls": {
+    "pointer": ["Click or tap on the asteroid to mine ore", "Click upgrade, drone, and prestige buttons to purchase"],
+    "keyboard": ["Space to mine (hold for auto-click)", "D to buy drone", "U to upgrade tool", "P to prestige (when available)", "Esc to pause", "R to restart"],
+    "touch": ["Tap the asteroid to mine, tap buttons for upgrades and drones"]
+  },
+  "tags": ["canvas", "clicker", "incremental", "idle", "mining", "prestige", "space"],
+  "repositoryNote": "Observation 009 / Game 009. Clicker Management Hall sample: incremental economy, automation loops, prestige system, and visual feedback through canvas rendering. Originally prepared as Game 006 before that archive number was occupied; renumbered during archive integration without changing gameplay."
+}
