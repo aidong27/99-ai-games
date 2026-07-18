@@ -56,17 +56,20 @@
   min-height: 44px;
   display: inline-flex;
   align-items: center;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-md);
-  padding: 0 13px;
+  padding: 6px 6px;
   color: var(--muted-strong);
-  background: rgba(40, 38, 34, 0.035);
-  font-family: var(--mono-font);
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  background: transparent;
+  font-family: var(--ui-font);
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
   text-decoration: none;
-  transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
+  transition: color var(--transition-fast);
+}
+
+.title-header nav a:hover {
+  color: var(--accent);
 }
 
 .title-footer {
@@ -78,9 +81,9 @@
 .title-footer p {
   margin-bottom: 0;
   color: var(--muted);
-  font-family: var(--mono-font);
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
+  font-family: var(--ui-font);
+  font-size: 0.82rem;
+  letter-spacing: 0;
 }
 
 .title-footer a {
@@ -91,7 +94,7 @@
 /* Stage --------------------------------------------------------------- */
 
 .front-hall-stage {
-  width: min(1540px, 100%);
+  width: min(1360px, 100%);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
