@@ -5,12 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta
       name="description"
-      content="Enter the 99 AI Games observatory, a provenance-first archive of playable AI-made game observation samples."
+      content="A playable archive observing how AI coding agents make browser games."
     >
+    <meta property="og:title" content="99 AI Games">
+    <meta property="og:description" content="A playable archive observing how AI coding agents make browser games.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aidong27.github.io/99-ai-games/">
+    <meta property="og:image" content="https://aidong27.github.io/99-ai-games/assets/social/og-cover.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="99 AI Games">
+    <meta name="twitter:description" content="A playable archive observing how AI coding agents make browser games.">
+    <meta name="twitter:image" content="https://aidong27.github.io/99-ai-games/assets/social/og-cover.png">
+    <meta name="theme-color" content="#050607">
     <title>99 AI Games | Observatory Title Screen</title>
     <link rel="icon" href="data:,">
-    <link rel="stylesheet" href="./styles/archive.css?v=2026-06-03-pcfirst">
-    <link rel="stylesheet" href="./styles/main.css?v=2026-06-03-pcfirst">
+    <link rel="stylesheet" href="./styles/archive.css?v=2026-06-04-social">
+    <link rel="stylesheet" href="./styles/main.css?v=2026-06-04-social">
   </head>
   <body class="title-screen">
     <canvas id="title-signal" class="archive-signal-field" width="1200" height="720" aria-hidden="true"></canvas>
@@ -21,7 +31,8 @@
         <strong>AI Games</strong>
       </a>
       <nav aria-label="Archive links">
-        <a href="./README.md">Protocol</a>
+        <a href="./press.html">Press</a>
+        <a href="./log.html">Log</a>
         <a href="./games/manifest.json">Manifest</a>
       </nav>
     </header>
@@ -38,7 +49,7 @@
         <p class="title-protocol">The archive is not a collection. It is a protocol.</p>
         <div class="title-actions">
           <a id="enter-observatory" class="archive-button primary" href="./library.html">Enter Observatory</a>
-          <a class="archive-button secondary" href="./README.md">View Protocol</a>
+          <a class="archive-button secondary" href="./press.html">View Press Kit</a>
           <a class="archive-button ghost" href="./games/manifest.json">Open Manifest</a>
         </div>
       </section>
@@ -67,13 +78,22 @@
           </div>
         </dl>
         <p id="title-featured" class="status-note">Loading archive manifest...</p>
+        <div class="share-panel" aria-label="Share 99 AI Games">
+          <p class="archive-kicker">Share signal</p>
+          <div class="share-actions">
+            <button class="archive-button secondary compact" type="button" data-share-action="link">Copy project link</button>
+            <button class="archive-button secondary compact" type="button" data-share-action="text">Copy share text</button>
+          </div>
+          <p id="share-status" class="share-status" aria-live="polite">Ready to copy.</p>
+          <textarea id="share-fallback" class="share-fallback" readonly hidden aria-label="Manual share text"></textarea>
+        </div>
       </aside>
     </main>
 
     <footer class="title-footer">
-      <p>The games are playable. The real exhibit is the AI that made them.</p>
+      <p>The games are playable. The real exhibit is the AI that made them. <a href="./docs/share-kit.md">Share kit</a></p>
     </footer>
 
-    <script type="module" src="./src/main.js?v=2026-06-03-pcfirst"></script>
+    <script type="module" src="./src/main.js?v=2026-06-04-social"></script>
   </body>
 </html>

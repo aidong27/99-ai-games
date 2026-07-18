@@ -4,13 +4,16 @@ import { fileURLToPath } from "node:url";
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 const errors = [];
-const requiredAssetVersion = "2026-06-03-pcfirst";
+const requiredAssetVersion = "2026-06-04-social";
+const expectedOgImage = "https://aidong27.github.io/99-ai-games/assets/social/og-cover.png";
 
 const requiredFiles = [
   "index.html",
   "library.html",
   "observation.html",
   "play.html",
+  "press.html",
+  "log.html",
   "styles/archive.css",
   "styles/main.css",
   "src/archive-effects.js",
@@ -19,6 +22,13 @@ const requiredFiles = [
   "src/library.js",
   "src/observation.js",
   "src/play.js",
+  "src/press.js",
+  "src/share.js",
+  "assets/social/og-cover.svg",
+  "assets/social/og-cover.png",
+  "assets/social/social-card.svg",
+  "assets/social/social-card-square.svg",
+  "docs/share-kit.md",
   "games/manifest.json"
 ];
 
@@ -26,7 +36,9 @@ const launcherPages = [
   "index.html",
   "library.html",
   "observation.html",
-  "play.html"
+  "play.html",
+  "press.html",
+  "log.html"
 ];
 
 function fail(message) {
@@ -130,7 +142,9 @@ async function validateHtmlReferences(pagePath) {
   const html = await readText(pagePath);
 
   for (const match of html.matchAll(/\b(?:href|src)\s*=\s*["']([^"']+)["']/gi)) {
-    normalizeLocalRef(match[1], `${pagePath} reference`);
+    if (!isExternalRef(match[1])) {
+      normalizeLocalRef(match[1], `${pagePath} reference`);
+    }
   }
 
   for (const tag of parseTags(html, "link")) {
@@ -157,6 +171,48 @@ async function validateHtmlReferences(pagePath) {
       fail(`${pagePath} script does not exist: ${src}`);
     }
   }
+
+  validateSocialMeta(html, pagePath);
+}
+
+function validateSocialMeta(html, pagePath) {
+  const requiredMeta = [
+    ["property", "og:title"],
+    ["property", "og:description"],
+    ["property", "og:type"],
+    ["property", "og:url"],
+    ["property", "og:image"],
+    ["name", "twitter:card"],
+    ["name", "twitter:title"],
+    ["name", "twitter:description"],
+    ["name", "twitter:image"],
+    ["name", "theme-color"]
+  ];
+
+  for (const [attribute, value] of requiredMeta) {
+    const content = getMetaContent(html, attribute, value);
+    if (!content) {
+      fail(`${pagePath} missing ${attribute}="${value}" meta tag`);
+    }
+  }
+
+  const ogImage = getMetaContent(html, "property", "og:image");
+  const twitterImage = getMetaContent(html, "name", "twitter:image");
+  if (ogImage !== expectedOgImage) {
+    fail(`${pagePath} og:image should be ${expectedOgImage}`);
+  }
+  if (twitterImage !== expectedOgImage) {
+    fail(`${pagePath} twitter:image should be ${expectedOgImage}`);
+  }
+}
+
+function getMetaContent(html, attribute, value) {
+  for (const tag of parseTags(html, "meta")) {
+    if (getAttribute(tag, attribute).toLowerCase() === value.toLowerCase()) {
+      return getAttribute(tag, "content");
+    }
+  }
+  return "";
 }
 
 function normalizeManifestPath(value, context) {
@@ -255,6 +311,10 @@ for (const pagePath of launcherPages) {
   await validateHtmlReferences(pagePath);
 }
 
+await validateReadmeAssets();
+await validateShareKitAssets();
+await validateNoFalseClaims();
+
 const manifest = await readJson("games/manifest.json");
 const games = Array.isArray(manifest.games) ? manifest.games : [];
 const targetGameCount = manifest.targetGameCount ?? 99;
@@ -332,3 +392,60 @@ if (errors.length) {
 }
 
 console.log("Launcher validation passed");
+
+async function validateReadmeAssets() {
+  const readme = await readText("README.md");
+  for (const match of readme.matchAll(/!\[[^\]]*]\(([^)]+)\)/g)) {
+    const localPath = normalizeLocalRef(match[1], "README image");
+    if (localPath && !(await exists(localPath))) {
+      fail(`README image path does not exist: ${match[1]}`);
+    }
+  }
+}
+
+async function validateShareKitAssets() {
+  const shareKit = await readText("docs/share-kit.md");
+  const requiredAssets = [
+    "assets/social/og-cover.png",
+    "assets/social/og-cover.svg",
+    "assets/social/social-card.svg",
+    "assets/social/social-card-square.svg"
+  ];
+
+  for (const asset of requiredAssets) {
+    if (!shareKit.includes(asset)) {
+      fail(`docs/share-kit.md should list ${asset}`);
+    }
+    if (!(await exists(asset))) {
+      fail(`Share kit asset does not exist: ${asset}`);
+    }
+  }
+}
+
+async function validateNoFalseClaims() {
+  const files = [
+    "README.md",
+    "press.html",
+    "log.html",
+    "docs/share-kit.md",
+    "assets/social/README.md"
+  ];
+  const claimPatterns = [
+    /99\s+completed\s+games/i,
+    /thousands\s+of\s+players/i,
+    /millions?\s+of\s+players/i,
+    /\bpopular\s+archive\b/i,
+    /\bwent\s+viral\b/i,
+    /\bviral\s+project\b/i,
+    /\b\d[\d,.]*\s*(?:k|m)?\s+(?:users|downloads|ratings|stars)\b/i
+  ];
+
+  for (const file of files) {
+    const text = await readText(file);
+    for (const pattern of claimPatterns) {
+      if (pattern.test(text)) {
+        fail(`${file} appears to contain an unsupported public metric or completion claim: ${pattern}`);
+      }
+    }
+  }
+}

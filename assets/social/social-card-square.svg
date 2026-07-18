@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080" role="img" aria-labelledby="title desc">
+  <title id="title">99 AI Games square social card</title>
+  <desc id="desc">Square brand card for sharing 99 AI Games.</desc>
+  <rect width="1080" height="1080" fill="#050607"/>
+  <path d="M84 84H996V996H84Z" fill="#0b0d0f" stroke="#f4f1e8" stroke-opacity="0.16"/>
+  <path d="M140 172H940M140 908H940" stroke="#f4f1e8" stroke-opacity="0.12"/>
+  <circle cx="780" cy="320" r="164" fill="none" stroke="#d8f75f" stroke-opacity="0.14"/>
+  <circle cx="780" cy="320" r="84" fill="none" stroke="#d8f75f" stroke-opacity="0.32"/>
+  <circle cx="780" cy="320" r="9" fill="#d8f75f"/>
+  <text x="140" y="154" fill="#d8f75f" font-family="SFMono-Regular, Menlo, Consolas, monospace" font-size="24" font-weight="700">PLAYABLE ARCHIVE</text>
+  <text x="136" y="392" fill="#f4f1e8" font-family="Georgia, 'Times New Roman', serif" font-size="144" font-weight="700">
+    <tspan x="136" dy="0">99</tspan>
+    <tspan x="136" dy="126">AI</tspan>
+    <tspan x="136" dy="126">Games</tspan>
+  </text>
+  <text x="144" y="752" fill="#b8b9b1" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="34">Observing how AI coding agents</text>
+  <text x="144" y="794" fill="#b8b9b1" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="34">make browser games.</text>
+  <text x="144" y="872" fill="#d8f75f" font-family="SFMono-Regular, Menlo, Consolas, monospace" font-size="24">4 / 99 current observations</text>
+</svg>

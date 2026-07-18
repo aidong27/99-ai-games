@@ -4,6 +4,7 @@ import {
   selectFeaturedGame
 } from "./archive-data.js";
 import { createSignalField } from "./archive-effects.js";
+import { setupShareControls } from "./share.js";
 
 const enterLink = document.querySelector("#enter-observatory");
 const observationCount = document.querySelector("#observation-count");
@@ -17,6 +18,7 @@ const signalField = createSignalField(canvas, { variant: "title", density: 32 })
 
 loadTitleData();
 signalField.start();
+setupShareControls();
 
 document.addEventListener("keydown", (event) => {
   const active = document.activeElement;
