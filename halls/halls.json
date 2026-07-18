@@ -18,7 +18,7 @@
       "name": "Arcade Reaction Hall",
       "capacity": 11,
       "description": "Observes AI ability in feedback, timing, input feel, difficulty curves, and short-loop clarity.",
-      "assignedGameNumbers": []
+      "assignedGameNumbers": [3]
     },
     {
       "id": "puzzle-logic",
