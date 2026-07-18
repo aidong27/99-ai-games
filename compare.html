@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="A cross-model capability matrix for 99 AI Games: which AI models and tools have produced playable observations in which game halls, built only from real manifest data."
+    >
+    <meta property="og:title" content="99 AI Games — Model Capability Matrix">
+    <meta property="og:description" content="Which AI models and tools have charted which game halls, built only from real manifest data.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aidong27.github.io/99-ai-games/">
+    <meta property="og:image" content="https://aidong27.github.io/99-ai-games/assets/social/og-cover.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="99 AI Games — Model Capability Matrix">
+    <meta name="twitter:description" content="Which AI models and tools have charted which game halls, built only from real manifest data.">
+    <meta name="twitter:image" content="https://aidong27.github.io/99-ai-games/assets/social/og-cover.png">
+    <meta name="theme-color" content="#050607">
+    <title>99 AI Games | Model Capability Matrix</title>
+    <link rel="icon" href="data:,">
+    <link rel="modulepreload" href="./src/archive-data.js?v=2026-06-04-social">
+    <link rel="stylesheet" href="./styles/archive.css?v=2026-06-04-social">
+    <link rel="stylesheet" href="./styles/main.css?v=2026-06-04-social">
+  </head>
+  <body class="compare-page">
+    <a class="skip-link" href="#compare-main">Skip to the capability matrix</a>
+
+    <header class="title-header" aria-label="Archive navigation">
+      <a class="wordmark" href="./" aria-label="99 AI Games home">
+        <span>99</span>
+        <strong>AI Games</strong>
+      </a>
+      <nav aria-label="Archive links">
+        <a href="./library.html">Library</a>
+        <a href="./compare.html" aria-current="page">Compare</a>
+        <a href="./press.html">Press</a>
+        <a href="./log.html">Log</a>
+      </nav>
+    </header>
+
+    <main id="compare-main" class="compare-stage" aria-labelledby="compare-heading">
+      <section class="compare-intro">
+        <p class="archive-kicker">Capability matrix</p>
+        <h1 id="compare-heading">Which models have charted which halls</h1>
+        <p class="compare-lede">
+          The archive's purpose is to observe how different AI coding agents make games over
+          time. This view is built only from real manifest data — every cell links to a real
+          observation record. Empty halls are shown as empty, never as placeholder games.
+        </p>
+        <dl class="compare-stats" id="compare-stats" aria-live="polite"></dl>
+      </section>
+
+      <section class="compare-section" aria-labelledby="matrix-heading">
+        <h2 id="matrix-heading" class="compare-section-title">Model &times; hall coverage</h2>
+        <div class="matrix-scroll">
+          <table class="matrix" id="matrix-table">
+            <caption class="visually-hidden">
+              Rows are AI models and tools; columns are game halls. Each cell shows the
+              observation numbers that model has placed in that hall.
+            </caption>
+          </table>
+        </div>
+        <p class="compare-note" id="matrix-empty" hidden></p>
+      </section>
+
+      <section class="compare-section" aria-labelledby="models-heading">
+        <h2 id="models-heading" class="compare-section-title">Models in the archive</h2>
+        <div class="model-grid" id="model-grid"></div>
+      </section>
+
+      <section class="compare-section" aria-labelledby="halls-heading">
+        <h2 id="halls-heading" class="compare-section-title">Hall coverage</h2>
+        <ul class="hall-coverage" id="hall-coverage"></ul>
+      </section>
+
+      <p id="compare-status" class="compare-note" aria-live="polite">Loading archive manifest&hellip;</p>
+    </main>
+
+    <footer class="title-footer">
+      <p>The games are playable. The real exhibit is the AI that made them. <a href="./library.html">Open the library</a></p>
+    </footer>
+
+    <script type="module" src="./src/compare.js?v=2026-06-04-social"></script>
+  </body>
+</html>
