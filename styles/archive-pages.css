@@ -41,8 +41,8 @@ dd {
 .library-layout {
   min-width: 0;
   display: grid;
-  grid-template-columns: 250px minmax(0, 1fr);
-  gap: 28px;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 32px;
   align-items: start;
   padding-top: 28px;
 }
@@ -50,7 +50,7 @@ dd {
 .model-axis-panel {
   min-width: 0;
   position: sticky;
-  top: 20px;
+  top: 94px;
   border-right: 1px solid var(--line);
   padding-right: 22px;
 }
@@ -153,7 +153,7 @@ dd {
 
 .library-readout {
   display: grid;
-  grid-template-columns: minmax(200px, 0.7fr) minmax(0, 1.3fr);
+  grid-template-columns: minmax(230px, 0.72fr) minmax(180px, 0.52fr) minmax(0, 1.16fr);
   gap: 18px 24px;
   align-items: start;
   border-bottom: 1px solid var(--line);
@@ -161,11 +161,48 @@ dd {
 }
 
 .library-readout .readout-grid {
+  grid-column: 3;
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
-.library-readout > div:first-child {
+.library-current {
+  grid-column: 2;
   min-width: 0;
+}
+
+.library-preview {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  display: block;
+  align-self: start;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  aspect-ratio: 16 / 10;
+  color: var(--muted);
+  background: var(--media-bg);
+  text-decoration: none;
+}
+
+.library-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.9) contrast(1.02);
+  transition: transform var(--transition-slow), filter var(--transition-slow);
+}
+
+.library-preview .image-fallback {
+  position: absolute;
+  inset: 0;
+  min-height: 0;
+}
+
+.library-preview .image-fallback[hidden] {
+  display: none;
 }
 
 .library-readout h2 {
@@ -178,21 +215,16 @@ dd {
 }
 
 .library-readout .readout-actions {
-  grid-column: 1 / -1;
+  grid-column: 2 / -1;
 }
 
 .observation-track {
   min-width: 0;
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(300px, 380px);
-  gap: 14px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
   margin-top: 24px;
-  padding: 4px 2px 20px;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scroll-padding-inline: 2px;
-  scroll-snap-type: x mandatory;
+  padding: 4px 0 24px;
 }
 
 .observation-card {
@@ -208,10 +240,9 @@ dd {
   padding: 10px;
   overflow: hidden;
   color: var(--text);
-  background: var(--panel);
+  background: var(--surface-raised);
   box-shadow: none;
   text-align: left;
-  scroll-snap-align: start;
   transform: translateY(var(--tilt-lift)) rotateX(var(--tilt-y)) rotateY(var(--tilt-x));
   transform-style: preserve-3d;
   transition:
@@ -228,10 +259,19 @@ dd {
 
 .observation-card.active {
   border-color: color-mix(in srgb, var(--accent) 52%, transparent);
-  background:
-    linear-gradient(180deg, var(--accent-soft), transparent 52%),
-    var(--panel);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 14%, transparent);
+  background: var(--surface-raised);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 14%, transparent), var(--shadow-sm);
+}
+
+.observation-card.active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 10px;
+  left: 10px;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: var(--accent);
 }
 
 .card-image {
@@ -419,8 +459,8 @@ dd {
 .record-hero {
   min-width: 0;
   display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(340px, 0.92fr);
-  gap: 18px;
+  grid-template-columns: minmax(0, 1.12fr) minmax(360px, 0.88fr);
+  gap: 24px;
   padding-bottom: 34px;
 }
 
@@ -429,24 +469,27 @@ dd {
   min-width: 0;
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
-  background: var(--panel);
+  background: var(--surface-raised);
 }
 
 .record-cover {
-  min-height: 360px;
+  min-height: 0;
   overflow: hidden;
+  aspect-ratio: 16 / 10;
   background: var(--media-bg);
 }
 
 .record-cover img {
-  min-height: 100%;
+  min-height: 0;
+  object-fit: contain;
 }
 
 .record-copy {
   display: grid;
   gap: 14px;
   align-content: center;
-  padding: 26px;
+  padding: 30px;
+  box-shadow: var(--shadow-sm);
 }
 
 .record-copy h2 {
@@ -631,61 +674,98 @@ dd {
 .play-gate-page {
   display: grid;
   place-items: center;
-  padding: 24px;
+  padding: 28px;
 }
 
 .play-gate {
   position: relative;
   z-index: 1;
-  width: min(760px, 100%);
+  width: min(1160px, 100%);
 }
 
 .play-gate-content {
   position: relative;
   display: grid;
-  justify-items: center;
-  gap: 18px;
+  grid-template-columns: minmax(0, 1.12fr) minmax(380px, 0.88fr);
+  min-height: min(680px, calc(100vh - 56px));
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
-  padding: 48px 36px;
-  background: var(--panel);
-  box-shadow: var(--shadow-md);
-  text-align: center;
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-lg);
+  text-align: left;
 }
 
 .play-gate-content::before {
   content: "";
   position: absolute;
   top: 0;
-  right: 0;
+  bottom: 0;
   left: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--warning));
+  width: 3px;
+  background: var(--accent);
+}
+
+.gate-media {
+  position: relative;
+  min-width: 0;
+  display: block;
+  overflow: hidden;
+  border-right: 1px solid var(--line);
+  color: var(--muted);
+  background: #090c0f;
+  text-decoration: none;
+}
+
+.gate-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: saturate(0.9) contrast(1.03);
+  transition: transform var(--transition-slow), filter var(--transition-slow);
+}
+
+.gate-media .image-fallback {
+  position: absolute;
+  inset: 0;
+  min-height: 100%;
+}
+
+.gate-copy {
+  min-width: 0;
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 18px;
+  padding: 44px 40px;
+}
+
+.gate-actions {
+  width: 100%;
 }
 
 .play-gate h1 {
   margin: 0;
   color: var(--text);
   font-family: var(--display-font);
-  font-size: 3.7rem;
+  font-size: 3.45rem;
   font-weight: 730;
   line-height: 0.98;
 }
 
 .gate-description {
-  max-width: 620px;
+  max-width: 560px;
 }
 
 .gate-philosophy {
-  max-width: 580px;
+  max-width: 520px;
   color: var(--text);
   font-size: 1.18rem;
   font-weight: 650;
 }
 
 .gate-support {
-  width: min(560px, 100%);
+  width: 100%;
   display: grid;
   gap: 5px;
   border: 1px solid var(--line);
@@ -710,6 +790,13 @@ dd {
 
 .gate-support.danger strong {
   color: var(--danger);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .gate-media:hover img {
+    transform: scale(1.02);
+    filter: saturate(1) contrast(1.03);
+  }
 }
 
 /* Editorial pages */
@@ -1341,6 +1428,11 @@ dd {
 }
 
 @media (hover: hover) and (pointer: fine) {
+  .library-preview:hover img {
+    transform: scale(1.02);
+    filter: saturate(1) contrast(1.02);
+  }
+
   .observation-card:hover,
   .model-card:hover,
   .press-observation:hover,
@@ -1390,7 +1482,23 @@ dd {
     grid-template-columns: 1fr;
   }
 
+  .library-preview,
+  .library-current,
+  .library-readout .readout-grid,
+  .library-readout .readout-actions {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .library-preview {
+    width: min(560px, 100%);
+  }
+
   .library-readout .readout-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .observation-track {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1432,12 +1540,23 @@ dd {
     font-size: 2rem;
   }
 
-  .observation-track {
-    grid-auto-columns: minmax(270px, 82vw);
-  }
-
   .record-copy h2 {
     font-size: 2.55rem;
+  }
+
+  .play-gate-content {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .gate-media {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    aspect-ratio: 16 / 9;
+  }
+
+  .gate-copy {
+    padding: 34px;
   }
 
   .editorial-layout {
@@ -1510,6 +1629,10 @@ dd {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .observation-track {
+    grid-template-columns: 1fr;
+  }
+
   .press-observation-grid,
   .hall-grid,
   .link-grid {
@@ -1536,10 +1659,6 @@ dd {
     font-size: 1.75rem;
   }
 
-  .observation-track {
-    grid-auto-columns: minmax(250px, 86vw);
-  }
-
   .card-meta strong {
     font-size: 1.25rem;
   }
@@ -1557,11 +1676,12 @@ dd {
   }
 
   .play-gate-page {
-    padding: 14px;
+    align-items: start;
+    padding: 10px;
   }
 
-  .play-gate-content {
-    padding: 36px 18px;
+  .gate-copy {
+    padding: 26px 18px;
   }
 
   .play-gate h1 {

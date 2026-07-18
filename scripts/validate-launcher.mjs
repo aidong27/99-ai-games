@@ -5,8 +5,8 @@ import { getGameStatusLabel } from "../src/data/view-models.js";
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
 const errors = [];
-const requiredAssetVersion = "2026-07-10-ui-release";
-const generatedPromoAssetVersion = "2026-07-10-ui-release";
+const requiredAssetVersion = "2026-07-11-gallery";
+const generatedPromoAssetVersion = "2026-07-11-gallery";
 const siteRoot = "https://aidong27.github.io/99-ai-games";
 const expectedOgImage = "https://aidong27.github.io/99-ai-games/assets/social/og-cover.png";
 const launcherCanonicalUrls = {

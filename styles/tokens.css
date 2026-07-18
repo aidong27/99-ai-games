@@ -5,11 +5,13 @@ html[data-theme="dark"] {
   --bg-deep: #07080a;
   --surface: #141619;
   --surface-raised: #191c20;
+  --surface-sunken: #0f1114;
   --surface-soft: rgba(255, 255, 255, 0.045);
   --panel: rgba(20, 22, 25, 0.88);
   --panel-strong: rgba(25, 28, 32, 0.96);
   --panel-soft: rgba(255, 255, 255, 0.045);
   --chrome: rgba(11, 12, 14, 0.82);
+  --chrome-solid: #111317;
   --media-bg: #101216;
   --hover-panel: #20242a;
   --line: rgba(255, 255, 255, 0.1);
@@ -31,6 +33,7 @@ html[data-theme="dark"] {
   --grid-line: rgba(255, 255, 255, 0.025);
   --shadow-sm: 0 8px 24px rgba(0, 0, 0, 0.2);
   --shadow-md: 0 20px 60px rgba(0, 0, 0, 0.28);
+  --shadow-lg: 0 28px 90px rgba(0, 0, 0, 0.34);
   --shadow: var(--shadow-md);
   --focus-ring: rgba(94, 156, 255, 0.24);
   --display-font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
@@ -59,11 +62,13 @@ html[data-theme="light"] {
   --bg-deep: #eef0f3;
   --surface: #ffffff;
   --surface-raised: #ffffff;
+  --surface-sunken: #e9edf2;
   --surface-soft: rgba(29, 33, 41, 0.035);
   --panel: rgba(255, 255, 255, 0.9);
   --panel-strong: rgba(255, 255, 255, 0.98);
   --panel-soft: rgba(29, 33, 41, 0.04);
   --chrome: rgba(245, 246, 248, 0.86);
+  --chrome-solid: #f7f8fa;
   --media-bg: #e8ebef;
   --hover-panel: #ffffff;
   --line: rgba(29, 33, 41, 0.12);
@@ -85,6 +90,7 @@ html[data-theme="light"] {
   --grid-line: rgba(29, 33, 41, 0.025);
   --shadow-sm: 0 8px 24px rgba(35, 43, 56, 0.08);
   --shadow-md: 0 20px 54px rgba(35, 43, 56, 0.1);
+  --shadow-lg: 0 30px 90px rgba(35, 43, 56, 0.14);
   --shadow: var(--shadow-md);
   --focus-ring: rgba(23, 105, 210, 0.2);
 }

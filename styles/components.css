@@ -36,6 +36,7 @@
   border-color: var(--accent);
   color: #ffffff;
   background: var(--accent);
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--accent) 22%, transparent);
 }
 
 .archive-button.primary:hover {

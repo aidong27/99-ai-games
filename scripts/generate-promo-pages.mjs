@@ -3,7 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const repoRoot = fileURLToPath(new URL("..", import.meta.url));
-const ASSET_VERSION = "2026-07-10-ui-release";
+const ASSET_VERSION = "2026-07-11-gallery";
 const SITE_ROOT = "https://aidong27.github.io/99-ai-games";
 const checkOnly = process.argv.includes("--check");
 const failures = [];
