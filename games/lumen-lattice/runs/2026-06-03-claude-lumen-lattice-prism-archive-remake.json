@@ -1,0 +1,52 @@
+{
+  "runId": "2026-06-03-claude-lumen-lattice-prism-archive-remake",
+  "gameNumber": 2,
+  "gameSlug": "lumen-lattice",
+  "variantId": "claude-lumen-lattice-prism-archive-2026-06-03",
+  "runType": "canonical-source-remake",
+  "status": "accepted-playable",
+  "createdDate": "2026-06-03",
+  "modelName": "Claude Opus 4.8",
+  "agentName": "Claude Code",
+  "humanCodeEdits": false,
+  "promptSummary": "Remake Observation 002 / Game 002 (Lumen Lattice) as a PC-first premium puzzle benchmark, 'Prism Archive', recorded as a new canonical variant under the same game slot. No new game number; Signal Cartographer untouched; prior variant and run records preserved.",
+  "canonicalSourceRemake": true,
+  "outputs": [
+    "games/lumen-lattice/index.html",
+    "games/lumen-lattice/src/main.js",
+    "games/lumen-lattice/styles/main.css",
+    "games/lumen-lattice/game.json",
+    "games/lumen-lattice/brief.md",
+    "games/lumen-lattice/README.md",
+    "games/lumen-lattice/variants/claude-lumen-lattice-prism-archive-2026-06-03/variant.json",
+    "games/lumen-lattice/variants/claude-opus-4-8-2026-05-31/variant.json",
+    "games/manifest.json",
+    "docs/generated-index.md"
+  ],
+  "verification": {
+    "verifiedDate": "2026-06-03",
+    "performed": [
+      "node --check games/lumen-lattice/src/main.js",
+      "node --check src/main.js, src/archive-data.js, src/library.js, src/observation.js, src/play.js",
+      "node --check games/signal-cartographer/src/main.js (confirmed untouched and still parses)",
+      "node scripts/validate-halls.mjs (passed)",
+      "node scripts/validate-games.mjs (passed)",
+      "node scripts/validate-launcher.mjs (passed)",
+      "node scripts/generate-index.mjs --check (passed)",
+      "git diff --check (no whitespace errors)",
+      "Standalone solvability proof replicating the pulse/beam/split operators and the reverse-scramble generator: all 6 shipped lattices solved by the tracked-parity solution, plus 6000 randomized fuzz scrambles across all three rules and sizes 3x3-7x7, with 0 failures",
+      "Static HTTP serve check via python3 -m http.server 4173: HTTP 200 for the game page, its module script and stylesheet, styles/game-shell.css, library.html, observation.html?slug=lumen-lattice, play.html?slug=lumen-lattice, games/manifest.json, game.json, and the new variant.json"
+    ],
+    "pending": [
+      "Interactive browser smoke in a real browser (title render, start, click/keyboard play, hint, undo, reset, pause, level progression, final win, console-error check) at 1280x800, 1440x900, 1920x1080, 390x844, and 430x932 — not run in this environment because no browser is available here",
+      "Re-captured real Prism Archive screenshots (screenshot-title.png, screenshot-puzzle.png, screenshot-solved.png)",
+      "Physical handset QA"
+    ]
+  },
+  "knownIssues": [
+    "Existing screenshot files were captured from the previous canonical variant (claude-opus-4-8-2026-05-31) and predate the Prism Archive visual remake. They are kept as history and are now stale. No new screenshots were captured or claimed in this run.",
+    "Interactive in-browser smoke and console-error verification were not performed in this environment; only node-level checks, an algorithmic solvability proof, and static HTTP serving were performed.",
+    "Physical handset QA is not claimed."
+  ],
+  "notes": "Prism Archive replaces the root playable source with an operator-based constraint puzzle. Pressing a prism applies the active rule (pulse: prism + 4 orthogonal neighbours; beam: full row + column; split: prism + 4 diagonal neighbours) as a linear toggle over GF(2). Each of the 6 lattices is reverse-scrambled from a fully aligned board, so every puzzle is guaranteed solvable; the same tracked press parity powers a non-cheating hint (reveals one prism of a valid solution) and autoSolve. Hint, undo (full stack), reset, and pause are complete. window.__lumenLatticeQA exposes start, startLevel, restart, reset, undo, hint, clickCell, autoSolve, isSolved, and getSnapshot. The prior variant metadata and all earlier run records are preserved; the prior variant is marked superseded-playable."
+}
