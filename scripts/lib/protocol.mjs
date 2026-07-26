@@ -7,7 +7,9 @@ import {
   gitOutput,
   hashDirectory,
   hashFile,
+  isSubpath,
   isoCompact,
+  listFiles,
   pathExists,
   readJson,
   resolveRepoRoot,
@@ -39,6 +41,8 @@ const GENERATED_WRITE_PATHS = [
   "sitemap.xml",
   "index.html"
 ];
+
+const RUN_REFERENCE_PATTERN = /^runs\/run-[a-z0-9-]+$/;
 
 export async function loadProtocol(repoRoot = resolveRepoRoot()) {
   const currentPath = fromRepo(repoRoot, "benchmarks", "current.json");
@@ -143,8 +147,30 @@ export async function scanEntries(repoRoot = resolveRepoRoot()) {
     }
     const entry = await readJson(entryPath);
     const runs = [];
-    for (const runRef of entry.runs ?? []) {
+    const runReferences = Array.isArray(entry.runs) ? entry.runs : [];
+    for (const runRef of runReferences) {
+      if (typeof runRef !== "string" || !RUN_REFERENCE_PATTERN.test(runRef)) {
+        runs.push({
+          runRef,
+          runDir: null,
+          runPath: null,
+          run: null,
+          loadError: `invalid Run reference: ${JSON.stringify(runRef)}`
+        });
+        continue;
+      }
       const runDir = path.resolve(entryDir, runRef);
+      const runsRoot = path.join(entryDir, "runs");
+      if (!isSubpath(runsRoot, runDir) || path.dirname(runDir) !== runsRoot) {
+        runs.push({
+          runRef,
+          runDir: null,
+          runPath: null,
+          run: null,
+          loadError: `Run reference escapes its Entry: ${runRef}`
+        });
+        continue;
+      }
       const runPath = path.join(runDir, "run.json");
       if (!(await pathExists(runPath))) {
         runs.push({ runRef, runDir, runPath, run: null, loadError: "run.json is missing" });
@@ -374,15 +400,38 @@ export async function loadCurrentTask(repoRoot = resolveRepoRoot()) {
     throw new Error("No active Agent task. Run npm run agent:start first.");
   }
   const currentTask = await readJson(currentPath);
-  const entryDir = fromRepo(repoRoot, currentTask.entryDir);
-  const runDir = fromRepo(repoRoot, currentTask.runDir);
+  const entriesRoot = fromRepo(repoRoot, "entries");
+  const entryDir = path.resolve(repoRoot, String(currentTask.entryDir ?? ""));
+  if (
+    !isSubpath(entriesRoot, entryDir)
+    || path.dirname(entryDir) !== entriesRoot
+    || !/^\d{3}-[a-z0-9-]+$/.test(path.basename(entryDir))
+  ) {
+    throw new Error("Active Work Order entryDir escapes the entries directory");
+  }
+  const runsRoot = path.join(entryDir, "runs");
+  const runDir = path.resolve(repoRoot, String(currentTask.runDir ?? ""));
+  if (
+    !isSubpath(runsRoot, runDir)
+    || path.dirname(runDir) !== runsRoot
+    || !/^run-[a-z0-9-]+$/.test(path.basename(runDir))
+  ) {
+    throw new Error("Active Work Order runDir escapes the assigned Entry");
+  }
   const entry = await readJson(path.join(entryDir, "entry.json"));
   const run = await readJson(path.join(runDir, "run.json"));
+  if (entry.entryId !== currentTask.entryId || run.runId !== currentTask.runId) {
+    throw new Error("Active Work Order identity differs from its Entry or Run metadata");
+  }
+  if (run.entryId !== entry.entryId) {
+    throw new Error("Active Work Order Run does not belong to its assigned Entry");
+  }
   return { repoRoot, currentPath, currentTask, entryDir, runDir, entry, run };
 }
 
-export async function computeRunIntegrity(runDir) {
+export async function computeRunIntegrity(runDir, options = {}) {
   const source = await hashDirectory(runDir, {
+    includeHidden: true,
     skip: (relative) => (
       relative === "run.json"
       || relative === "WORK-ORDER.md"
@@ -391,9 +440,10 @@ export async function computeRunIntegrity(runDir) {
     )
   });
   const promptHash = await hashFile(path.join(runDir, "prompt-snapshot.md"));
-  const evidence = await hashDirectory(path.join(runDir, "evidence"), {
-    skip: (relative) => relative === "report.json"
-  });
+  const evidence = await hashEvidenceDirectory(
+    path.join(runDir, "evidence"),
+    options.report
+  );
   return {
     sourceHash: source.sha256,
     sourceFileCount: source.fileCount,
@@ -405,7 +455,42 @@ export async function computeRunIntegrity(runDir) {
   };
 }
 
+async function hashEvidenceDirectory(evidenceDir, reportOverride) {
+  const files = await listFiles(evidenceDir, {
+    includeHidden: true,
+    relativeTo: evidenceDir
+  });
+  const chunks = [];
+  let totalBytes = 0;
+  for (const file of files) {
+    const original = await readFile(file.absolute);
+    let lockedBytes = original;
+    if (file.relative === "report.json") {
+      const report = reportOverride ?? JSON.parse(original.toString("utf8"));
+      const { evidenceHash: _selfReference, ...lockedReport } = report;
+      lockedBytes = Buffer.from(stableJson(lockedReport));
+    }
+    totalBytes += lockedBytes.length;
+    chunks.push(
+      Buffer.from(file.relative),
+      Buffer.from("\0"),
+      lockedBytes,
+      Buffer.from("\0")
+    );
+  }
+  return {
+    sha256: sha256(Buffer.concat(chunks)),
+    fileCount: files.length,
+    totalBytes,
+    files
+  };
+}
+
 export async function copyRepairRun(repoRoot, options) {
+  const protocol = await verifyProtocolLock(repoRoot);
+  if (protocol.errors.length) {
+    throw new Error(`Current Challenge Lock is invalid:\n- ${protocol.errors.join("\n- ")}`);
+  }
   await assertWorkOrderCanStart(repoRoot);
   const entries = await scanEntries(repoRoot);
   const record = entries.find((item) => item.entry?.entryId === options.entryId);
@@ -418,6 +503,14 @@ export async function copyRepairRun(repoRoot, options) {
   }
   if (source.run.status !== "finalized") {
     throw new Error(`Source Run must be finalized before repair: ${options.fromRun}`);
+  }
+  const sourceIntegrity = await computeRunIntegrity(source.runDir);
+  if (
+    sourceIntegrity.sourceHash !== source.run.sourceHash
+    || sourceIntegrity.evidenceHash !== source.run.evidenceHash
+    || sourceIntegrity.promptHash !== source.run.canonicalPromptHash
+  ) {
+    throw new Error(`Source Run integrity failed before repair: ${options.fromRun}`);
   }
   const runType = options.runType ?? "standard-repair";
   if (!RUN_TYPES.has(runType) || runType === "raw") {
@@ -474,7 +567,6 @@ export async function copyRepairRun(repoRoot, options) {
 
   const entry = {
     ...record.entry,
-    status: "building",
     runs: [...record.entry.runs, runRef]
   };
   await writeJson(record.entryPath, entry);

@@ -1,5 +1,9 @@
 # 99 AI Games
 
+[![Protocol 99 quality gate](https://github.com/aidong27/99-ai-games/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/aidong27/99-ai-games/actions/workflows/ci.yml)
+[![GitHub Pages](https://github.com/aidong27/99-ai-games/actions/workflows/pages.yml/badge.svg?branch=main)](https://github.com/aidong27/99-ai-games/actions/workflows/pages.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-1f6feb.svg)](LICENSE)
+
 **Same brief. Same rules. Different AI.**
 
 > The games are playable. The real exhibit is the AI that made them.
@@ -9,12 +13,11 @@ the model, its Agent, and the native tool environment working together. Every
 formal Entry receives the locked Protocol 99 v1 prompt, the same scope, the
 same deterministic seed, and the same browser verification contract.
 
-[Live site](https://aidong27.github.io/99-ai-games/) ·
-[Current challenge](https://aidong27.github.io/99-ai-games/challenge.html) ·
-[Entries](https://aidong27.github.io/99-ai-games/entries.html) ·
-[Compare](https://aidong27.github.io/99-ai-games/compare.html) ·
-[Methodology](https://aidong27.github.io/99-ai-games/methodology.html) ·
-[Legacy archive](https://aidong27.github.io/99-ai-games/library.html)
+| Explore | Participate | Audit |
+|---|---|---|
+| [Live benchmark](https://aidong27.github.io/99-ai-games/) | [Agent Autopilot](AGENTS.md) | [Methodology](https://aidong27.github.io/99-ai-games/methodology.html) |
+| [Current challenge](https://aidong27.github.io/99-ai-games/challenge.html) | [Build a new Entry](docs/AGENT-AUTOPILOT.md) | [Locked prompt](benchmarks/protocol-99/v1/PROMPT.md) |
+| [Compare Entries](https://aidong27.github.io/99-ai-games/compare.html) | [Contribution rules](CONTRIBUTING.md) | [Legacy archive](https://aidong27.github.io/99-ai-games/library.html) |
 
 ![99 AI Games benchmark social card](assets/social/og-cover.png)
 
@@ -23,8 +26,8 @@ are generated from real verified browser screenshots.
 
 ## Current State
 
-| Metric | Current value |
-|---|---:|
+| Metric | Source of truth |
+|---|---|
 | Finalized Protocol 99 Raw Entries | [Generated index](docs/generated-benchmark-index.md) |
 | Allocated Protocol 99 Entries | [Generated index](docs/generated-benchmark-index.md) |
 | Legacy playable experiments | 11 |
@@ -169,9 +172,9 @@ npm run build:site
 ```
 
 The ignored `.site/` directory contains only public launcher files, locked
-Challenge material, Legacy games, and Finalized Entry game/evidence files. It
-excludes `.agent/`, workflows, scripts, schemas, participant tests, Work Orders,
-prompt snapshots, and other development-only files.
+Challenge material, validation schemas, Legacy games, and Finalized Entry
+game/evidence files. It excludes `.agent/`, workflows, scripts, participant
+tests, Work Orders, prompt snapshots, and other development-only files.
 
 ## Verification
 

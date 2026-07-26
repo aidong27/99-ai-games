@@ -42,7 +42,11 @@
     },
     "runs": {
       "type": "array",
-      "items": { "type": "string" }
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^runs/run-[a-z0-9-]+$"
+      }
     }
   },
   "additionalProperties": true

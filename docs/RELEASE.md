@@ -49,6 +49,12 @@ whether any game implementation changed, commands and viewports actually
 tested, generated output changes, current benchmark/Legacy counts, and known
 limitations. Wait for CI and merge only when the quality gate passes.
 
+Before using GitHub's web merge controls, confirm that the account setting
+**Keep my email addresses private** is enabled. Web edits and merge commits can
+otherwise publish the account's real email address even when local Git uses a
+GitHub `noreply` address. Enabling privacy later does not rewrite email metadata
+already present in public commits.
+
 ## Pages
 
 The Pages workflow installs the exact lockfile and Chromium, runs the same

@@ -60,13 +60,13 @@ if (report.canonicalPromptHash !== protocol.lock.canonicalPromptSha256) {
   throw new Error("Verification report Prompt Hash differs from the current Challenge Lock");
 }
 
-const integrity = await computeRunIntegrity(current.runDir);
-if (report.sourceHash !== integrity.sourceHash) {
+const verifiedIntegrity = await computeRunIntegrity(current.runDir);
+if (report.sourceHash !== verifiedIntegrity.sourceHash) {
   throw new Error(
     "Game or participant tests changed after verification; run npm run agent:verify again"
   );
 }
-if (integrity.promptHash !== protocol.lock.canonicalPromptSha256) {
+if (verifiedIntegrity.promptHash !== protocol.lock.canonicalPromptSha256) {
   throw new Error("Prompt Snapshot changed and no longer matches the Challenge Lock");
 }
 
@@ -85,6 +85,15 @@ for (const relative of requiredEvidence) {
 }
 
 const finishedAt = new Date().toISOString();
+const { evidenceHash: _staleEvidenceHash, ...verifiedReport } = report;
+const reportForIntegrity = {
+  ...verifiedReport,
+  sourceHash: verifiedIntegrity.sourceHash,
+  finalizedAt: finishedAt
+};
+const integrity = await computeRunIntegrity(current.runDir, {
+  report: reportForIntegrity
+});
 const nextRun = {
   ...current.run,
   status: "finalized",
@@ -107,10 +116,8 @@ if (!nextEntry.canonicalRunId) {
   throw new Error("A non-Raw Run cannot finalize an Entry before its Raw Run is finalized");
 }
 const nextReport = {
-  ...report,
-  sourceHash: integrity.sourceHash,
+  ...reportForIntegrity,
   evidenceHash: integrity.evidenceHash,
-  finalizedAt: finishedAt
 };
 
 await writeJson(path.join(current.runDir, "run.json"), nextRun);

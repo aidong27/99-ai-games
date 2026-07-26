@@ -17,6 +17,7 @@
     "baselineGitCommit",
     "humanPromptCount",
     "humanCodeEdits",
+    "verificationReport",
     "paths",
     "toolAccess"
   ],
@@ -27,6 +28,7 @@
     "challengeVersion": { "type": "string" },
     "canonicalPromptHash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
     "promptSnapshot": { "const": "prompt-snapshot.md" },
+    "verificationReport": { "const": "evidence/report.json" },
     "runType": {
       "enum": [
         "raw",
@@ -47,7 +49,16 @@
       ]
     },
     "humanPromptCount": { "type": ["integer", "string"] },
-    "humanCodeEdits": { "type": ["boolean", "string"] }
+    "humanCodeEdits": { "type": ["boolean", "string"] },
+    "paths": {
+      "type": "object",
+      "required": ["game", "tests", "evidence"],
+      "properties": {
+        "game": { "const": "game/" },
+        "tests": { "const": "tests/" },
+        "evidence": { "const": "evidence/" }
+      }
+    }
   },
   "additionalProperties": true
 }

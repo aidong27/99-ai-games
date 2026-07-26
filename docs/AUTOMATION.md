@@ -51,7 +51,7 @@ an unexplained diff.
 critical flows: allocation, capacity, ID collision, lock mismatch, Finalize
 gating, Raw immutability, Repair copying, deterministic generation, real
 browser fixture, fixture exclusion, default comparison filtering, path scope,
-external-request detection, and screenshot integrity.
+external-request detection, and verification-report/screenshot integrity.
 
 Fixtures never consume production Entry numbers or appear on the site.
 

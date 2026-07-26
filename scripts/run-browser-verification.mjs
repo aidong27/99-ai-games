@@ -89,8 +89,9 @@ export async function runBrowserVerification(options) {
       .map(encodeURIComponent)
       .join("/");
     const gameUrl = `${server.origin}/${relativeGame}/?seed=99`;
+    const gameBaseUrl = new URL("./", gameUrl).href;
 
-    const generic = await newPage(browser, server.origin, consoleEntries, networkEntries, {
+    const generic = await newPage(browser, gameBaseUrl, consoleEntries, networkEntries, {
       viewport: protocol.challenge.runtime.desktopViewport
     });
     const genericHarness = createProtocolHarness(generic.page, {
@@ -158,7 +159,7 @@ export async function runBrowserVerification(options) {
     }
     await generic.context.close();
 
-    const mobile = await newPage(browser, server.origin, consoleEntries, networkEntries, {
+    const mobile = await newPage(browser, gameBaseUrl, consoleEntries, networkEntries, {
       viewport: protocol.challenge.runtime.mobileBaselineViewport,
       reducedMotion: "reduce"
     });
@@ -198,7 +199,7 @@ export async function runBrowserVerification(options) {
       path.join(runDir, "tests", "playthrough.spec.mjs"),
       "winning playthrough"
     );
-    const play = await newPage(browser, server.origin, consoleEntries, networkEntries, {
+    const play = await newPage(browser, gameBaseUrl, consoleEntries, networkEntries, {
       viewport: protocol.challenge.runtime.desktopViewport
     });
     const playHarness = createProtocolHarness(play.page, {
@@ -238,7 +239,7 @@ export async function runBrowserVerification(options) {
       path.join(runDir, "tests", "defeat.spec.mjs"),
       "defeat path"
     );
-    const defeat = await newPage(browser, server.origin, consoleEntries, networkEntries, {
+    const defeat = await newPage(browser, gameBaseUrl, consoleEntries, networkEntries, {
       viewport: protocol.challenge.runtime.desktopViewport
     });
     const defeatHarness = createProtocolHarness(defeat.page, {
@@ -365,7 +366,7 @@ export async function runBrowserVerification(options) {
   });
 }
 
-async function newPage(browser, allowedOrigin, consoleEntries, networkEntries, options) {
+async function newPage(browser, gameBaseUrl, consoleEntries, networkEntries, options) {
   const context = await browser.newContext({
     viewport: options.viewport,
     reducedMotion: options.reducedMotion ?? "reduce",
@@ -374,8 +375,7 @@ async function newPage(browser, allowedOrigin, consoleEntries, networkEntries, o
   await context.route("**/*", async (route) => {
     const request = route.request();
     const url = request.url();
-    const parsed = new URL(url);
-    const allowed = parsed.origin === allowedOrigin || ["data:", "blob:"].includes(parsed.protocol);
+    const allowed = isAllowedGameRequest(url, gameBaseUrl);
     networkEntries.push({
       url,
       method: request.method(),
@@ -406,6 +406,25 @@ async function newPage(browser, allowedOrigin, consoleEntries, networkEntries, o
     });
   });
   return { context, page };
+}
+
+export function isAllowedGameRequest(requestUrl, gameBaseUrl) {
+  const request = new URL(requestUrl);
+  if (["data:", "blob:"].includes(request.protocol)) {
+    return true;
+  }
+  const base = new URL(gameBaseUrl);
+  if (request.origin !== base.origin) {
+    return false;
+  }
+  try {
+    const basePath = path.posix.resolve("/", decodeURIComponent(base.pathname));
+    const requestPath = path.posix.resolve("/", decodeURIComponent(request.pathname));
+    const relative = path.posix.relative(basePath, requestPath);
+    return relative === "" || (!relative.startsWith("..") && !path.posix.isAbsolute(relative));
+  } catch {
+    return false;
+  }
 }
 
 async function inspectAccessibility(page, gameDir) {
@@ -582,7 +601,7 @@ async function writeReport(options) {
   }
   const score = computeScore(protocol.rubric, checks);
   const report = {
-    "$schema": "../../../../../../schemas/verification-report.schema.json",
+    "$schema": "../../../../../schemas/verification-report.schema.json",
     reportVersion: "1.0",
     challengeId: run.challengeId,
     challengeVersion: run.challengeVersion,

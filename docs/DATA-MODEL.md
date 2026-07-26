@@ -52,4 +52,6 @@ counts.
 
 `scripts/prepare-pages.mjs` exposes only Finalized Entry metadata, game runtime,
 and evidence. Participant tests, prompt snapshots, Work Orders, `.agent/`,
-schemas, scripts, workflows, and development docs are excluded from `.site/`.
+scripts, workflows, and development docs are excluded from
+`.site/`. The JSON schemas are public because Challenge, Entry, Run, and
+verification records link to them directly.

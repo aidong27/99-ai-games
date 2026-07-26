@@ -12,6 +12,7 @@ const publicDirectories = [
   "games",
   "halls",
   "promo",
+  "schemas",
   "src",
   "styles"
 ];
@@ -123,7 +124,6 @@ async function validateArtifact() {
     "node_modules",
     "package-lock.json",
     "package.json",
-    "schemas",
     "scripts",
     "tests"
   ];
@@ -160,6 +160,8 @@ async function walk(root, visit, prefix = "") {
       await walk(path.join(root, entry.name), visit, relative);
     } else if (entry.isFile()) {
       visit(relative);
+    } else {
+      throw new Error(`Deployment artifact contains an unsupported link or special file: ${relative}`);
     }
   }
 }

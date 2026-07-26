@@ -80,7 +80,9 @@ const nextRun = {
 };
 const nextEntry = {
   ...current.entry,
-  status: passed ? "verified" : nextRun.status
+  status: current.entry.canonicalRunId
+    ? current.entry.status
+    : passed ? "verified" : nextRun.status
 };
 await writeJson(path.join(current.runDir, "run.json"), nextRun);
 await writeJson(path.join(current.entryDir, "entry.json"), nextEntry);
@@ -104,7 +106,7 @@ if (!passed) {
 
 function createStaticFailureReport(task, protocolData, facts, errors) {
   return {
-    "$schema": "../../../../../../schemas/verification-report.schema.json",
+    "$schema": "../../../../../schemas/verification-report.schema.json",
     reportVersion: "1.0",
     challengeId: task.run.challengeId,
     challengeVersion: task.run.challengeVersion,

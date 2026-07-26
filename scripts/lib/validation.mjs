@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises";
+import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import {
   fileInventory,
@@ -35,6 +35,23 @@ const REQUIRED_STATE_KEYS = [
   "exitUnlocked",
   "elapsedMs"
 ];
+
+const ENTRY_STATUSES = new Set([
+  "building",
+  "pending-browser-verification",
+  "verified",
+  "finalized",
+  "withdrawn"
+]);
+
+const RUN_STATUSES = new Set([
+  "building",
+  "pending-browser-verification",
+  "verified",
+  "finalized",
+  "failed",
+  "withdrawn"
+]);
 
 const RUNTIME_EXTENSIONS = new Set([
   ".html",
@@ -222,11 +239,19 @@ export async function validateEntries(repoRoot = resolveRepoRoot()) {
     if (entry.canonicalPromptHash !== protocol.lock.canonicalPromptSha256) {
       errors.push(`${entry.entryId}: canonicalPromptHash does not match LOCK.json`);
     }
+    if (!ENTRY_STATUSES.has(entry.status)) {
+      errors.push(`${entry.entryId}: unsupported Entry status ${entry.status}`);
+    }
     if (!Array.isArray(entry.runs) || entry.runs.length === 0) {
       errors.push(`${entry.entryId}: runs must contain at least one Run`);
+    } else if (new Set(entry.runs).size !== entry.runs.length) {
+      errors.push(`${entry.entryId}: runs contains duplicate references`);
     }
     if (entry.status === "finalized" && !entry.canonicalRunId) {
       errors.push(`${entry.entryId}: finalized Entry must identify canonicalRunId`);
+    }
+    if (entry.canonicalRunId && !["finalized", "withdrawn"].includes(entry.status)) {
+      errors.push(`${entry.entryId}: an Entry with a canonical Raw Run cannot regress from finalized`);
     }
 
     for (const runRecord of record.runs) {
@@ -239,16 +264,37 @@ export async function validateEntries(repoRoot = resolveRepoRoot()) {
         errors.push(`duplicate Run ID: ${run.runId}`);
       }
       runIds.add(run.runId);
+      if (runRecord.runRef !== `runs/${run.runId}`) {
+        errors.push(`${run.runId}: directory reference does not match runId`);
+      }
       if (run.entryId !== entry.entryId) {
         errors.push(`${run.runId}: entryId does not match parent Entry`);
       }
       if (!RUN_TYPES.has(run.runType)) {
         errors.push(`${run.runId}: unsupported runType ${run.runType}`);
       }
+      if (!RUN_STATUSES.has(run.status)) {
+        errors.push(`${run.runId}: unsupported Run status ${run.status}`);
+      }
       if (run.challengeId !== entry.challengeId
           || run.challengeVersion !== entry.challengeVersion
           || run.canonicalPromptHash !== entry.canonicalPromptHash) {
         errors.push(`${run.runId}: Challenge or Prompt identity differs from parent Entry`);
+      }
+      if (run.promptSnapshot !== "prompt-snapshot.md") {
+        errors.push(`${run.runId}: promptSnapshot must be prompt-snapshot.md`);
+      }
+      if (run.verificationReport !== "evidence/report.json") {
+        errors.push(`${run.runId}: verificationReport must be evidence/report.json`);
+      }
+      for (const [key, expected] of Object.entries({
+        game: "game/",
+        tests: "tests/",
+        evidence: "evidence/"
+      })) {
+        if (run.paths?.[key] !== expected) {
+          errors.push(`${run.runId}: paths.${key} must be ${expected}`);
+        }
       }
       const snapshotPath = path.join(runRecord.runDir, run.promptSnapshot ?? "");
       if (!(await pathExists(snapshotPath))) {
@@ -265,6 +311,26 @@ export async function validateEntries(repoRoot = resolveRepoRoot()) {
       }
       if (run.runType !== "raw" && (!run.parentRunId || !run.parentSourceHash)) {
         errors.push(`${run.runId}: non-Raw Run must preserve parentRunId and parentSourceHash`);
+      } else if (run.runType !== "raw") {
+        const parent = record.runs.find((candidate) => candidate.run?.runId === run.parentRunId);
+        if (!parent?.run || parent.run.status !== "finalized") {
+          errors.push(`${run.runId}: parentRunId must reference a Finalized Run in the same Entry`);
+        } else if (parent.run.sourceHash !== run.parentSourceHash) {
+          errors.push(`${run.runId}: parentSourceHash differs from its parent Run`);
+        }
+      }
+    }
+
+    if (entry.canonicalRunId) {
+      const canonical = record.runs.find((candidate) => (
+        candidate.run?.runId === entry.canonicalRunId
+      ));
+      if (
+        !canonical?.run
+        || canonical.run.runType !== "raw"
+        || canonical.run.status !== "finalized"
+      ) {
+        errors.push(`${entry.entryId}: canonicalRunId must reference a Finalized Raw Run`);
       }
     }
   }
@@ -320,12 +386,18 @@ async function validateFinalizedRun(runDir, run) {
     return errors;
   }
   const report = await readJson(reportPath);
+  if (report.$schema !== "../../../../../schemas/verification-report.schema.json") {
+    errors.push(`${run.runId}: verification report has an invalid schema reference`);
+  }
   if (report.status !== "passed") {
     errors.push(`${run.runId}: Finalized verification report did not pass`);
   }
   if (report.sourceHash !== run.sourceHash
       || report.canonicalPromptHash !== run.canonicalPromptHash) {
     errors.push(`${run.runId}: report source/prompt identity differs from Run lock`);
+  }
+  if (report.evidenceHash !== run.evidenceHash) {
+    errors.push(`${run.runId}: report evidenceHash differs from Run lock`);
   }
   for (const screenshot of ["title.png", "gameplay.png", "relay-1.png", "victory.png"]) {
     const screenshotPath = path.join(runDir, "evidence", "screenshots", screenshot);
@@ -394,7 +466,9 @@ export async function validateParticipantTests(testsDir, label = "participant te
 
 export async function scanRuntimeSecurity(gameDir) {
   const findings = [];
+  await collectUnsupportedFilesystemEntries(gameDir, gameDir, findings);
   const files = await listFiles(gameDir, {
+    includeHidden: true,
     relativeTo: gameDir
   });
   for (const file of files) {
@@ -418,12 +492,38 @@ export async function scanRuntimeSecurity(gameDir) {
       }
     }
   }
-  const size = await hashDirectory(gameDir);
+  const size = await hashDirectory(gameDir, { includeHidden: true });
   return {
     findings,
     totalBytes: size.totalBytes,
     fileCount: size.fileCount
   };
+}
+
+async function collectUnsupportedFilesystemEntries(root, current, findings) {
+  for (const entry of await readdir(current, { withFileTypes: true })) {
+    const absolute = path.join(current, entry.name);
+    const relative = toPosix(path.relative(root, absolute));
+    if (entry.isSymbolicLink()) {
+      findings.push({
+        id: "symbolic-link",
+        message: "symbolic link",
+        path: relative,
+        line: 1,
+        excerpt: "Symbolic links are not part of the stable source boundary"
+      });
+    } else if (entry.isDirectory()) {
+      await collectUnsupportedFilesystemEntries(root, absolute, findings);
+    } else if (!entry.isFile()) {
+      findings.push({
+        id: "special-file",
+        message: "unsupported special file",
+        path: relative,
+        line: 1,
+        excerpt: "Only regular files and directories are allowed"
+      });
+    }
+  }
 }
 
 export async function validateCurrentPathScope(repoRoot = resolveRepoRoot()) {
@@ -494,9 +594,11 @@ export async function buildStaticFacts(runDir, run) {
   const security = await scanRuntimeSecurity(path.join(runDir, "game"));
   const tests = await validateParticipantTests(path.join(runDir, "tests"), run.runId);
   const inventory = await fileInventory(runDir, {
+    includeHidden: true,
     skip: (relative) => relative.startsWith("evidence/")
   });
   const source = await hashDirectory(runDir, {
+    includeHidden: true,
     skip: (relative) => (
       relative === "run.json"
       || relative === "WORK-ORDER.md"

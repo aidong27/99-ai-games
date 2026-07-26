@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import assert from "node:assert/strict";
-import { mkdtemp, mkdir, readFile, rm, writeFile, cp } from "node:fs/promises";
+import { mkdtemp, mkdir, readFile, rm, symlink, writeFile, cp } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -18,9 +18,11 @@ import {
   computeRunIntegrity,
   copyRepairRun,
   createRawEntry,
+  loadCurrentTask,
   scanEntries,
   verifyProtocolLock
 } from "./lib/protocol.mjs";
+import { isAllowedGameRequest } from "./run-browser-verification.mjs";
 import {
   scanRuntimeSecurity,
   validateCurrentPathScope,
@@ -141,6 +143,11 @@ try {
     assert.equal(repair.run.parentSourceHash, (await readJson(path.join(created.runDir, "run.json"))).sourceHash);
     assert.equal(repair.run.identity.modelName, created.run.identity.modelName);
     assert.equal(repair.run.identity.agentName, created.run.identity.agentName);
+    assert.equal(repair.entry.status, "finalized");
+    runGenerator(root);
+    const data = await readJson(path.join(root, "data/benchmark.json"));
+    assert.equal(data.defaultEntries.length, 1);
+    assert.equal(data.defaultEntries[0].canonicalRun.runType, "raw");
   });
 
   await test("generated benchmark indexes are deterministic", async () => {
@@ -196,6 +203,16 @@ try {
     await writeFile(path.join(root, "README.md"), "\nforbidden edit\n", { flag: "a" });
     const scope = await validateCurrentPathScope(root);
     assert(scope.errors.some((error) => error.includes("README.md")));
+    const currentPath = path.join(root, ".agent/current.json");
+    const current = await readJson(currentPath);
+    await writeJson(currentPath, {
+      ...current,
+      runDir: "../../outside/run-escape"
+    });
+    await assert.rejects(
+      () => loadCurrentTask(root),
+      /runDir escapes the assigned Entry/
+    );
   });
 
   await test("external requests and privileged participant tests are detected", async () => {
@@ -206,10 +223,33 @@ try {
       '\nfetch("https://example.com/runtime.json");\nwindow.parent.document.body;\n',
       { flag: "a" }
     );
+    await writeFile(
+      path.join(created.runDir, "game/.hidden-runtime.js"),
+      'fetch("https://example.com/hidden.json");\n'
+    );
+    await symlink(
+      "src/main.js",
+      path.join(created.runDir, "game/runtime-link.js")
+    );
     const security = await scanRuntimeSecurity(path.join(created.runDir, "game"));
     assert(security.findings.some((finding) => finding.id === "network-fetch"));
     assert(security.findings.some((finding) => finding.id === "remote-url"));
     assert(security.findings.some((finding) => finding.id === "cross-frame-access"));
+    assert(security.findings.some((finding) => finding.path === ".hidden-runtime.js"));
+    assert(security.findings.some((finding) => finding.id === "symbolic-link"));
+    const gameBase = "http://127.0.0.1:4173/entries/001-test/runs/run-raw/game/";
+    assert.equal(
+      isAllowedGameRequest(`${gameBase}src/main.js`, gameBase),
+      true
+    );
+    assert.equal(
+      isAllowedGameRequest("http://127.0.0.1:4173/games/legacy/index.html", gameBase),
+      false
+    );
+    assert.equal(
+      isAllowedGameRequest(`${gameBase}%2e%2e%2f%2e%2e%2flegacy/index.html`, gameBase),
+      false
+    );
     await writeFile(
       path.join(created.runDir, "tests/playthrough.spec.mjs"),
       '\nimport fs from "node:fs";\nprocess.cwd();\n',
@@ -223,10 +263,20 @@ try {
     assert(testErrors.some((error) => error.includes("Node/global capability")));
   });
 
-  await test("screenshot tampering and missing evidence fail integrity", async () => {
+  await test("report and screenshot tampering fail integrity", async () => {
     const root = await createFixtureRepo();
     const created = await createRawEntry(root, identityOptions());
     await synthesizeFinalizedRun(root, created);
+    const reportPath = path.join(created.runDir, "evidence/report.json");
+    const originalReport = await readFile(reportPath, "utf8");
+    const alteredReport = JSON.parse(originalReport);
+    alteredReport.score.earned = 99;
+    await writeJson(reportPath, alteredReport);
+    const reportValidation = await validateEntries(root);
+    assert(reportValidation.errors.some((error) => (
+      error.includes("Finalized evidence changed after lock")
+    )));
+    await writeFile(reportPath, originalReport);
     const screenshot = path.join(created.runDir, "evidence/screenshots/victory.png");
     await writeFile(screenshot, "not a browser screenshot");
     const validation = await validateEntries(root);
@@ -347,6 +397,7 @@ async function synthesizeFinalizedRun(root, created) {
 
   const firstIntegrity = await computeRunIntegrity(created.runDir);
   const report = {
+    "$schema": "../../../../../schemas/verification-report.schema.json",
     reportVersion: "1.0",
     challengeId: created.run.challengeId,
     challengeVersion: created.run.challengeVersion,
@@ -380,6 +431,10 @@ async function synthesizeFinalizedRun(root, created) {
   };
   await writeJson(path.join(evidenceDir, "report.json"), report);
   const integrity = await computeRunIntegrity(created.runDir);
+  await writeJson(path.join(evidenceDir, "report.json"), {
+    ...report,
+    evidenceHash: integrity.evidenceHash
+  });
   const run = {
     ...created.run,
     status: "finalized",

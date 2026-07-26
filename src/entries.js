@@ -62,7 +62,7 @@ function renderSlots() {
       } : {
         title: `${String(number).padStart(3, "0")} · Open slot`
       })
-    }, String(number).padStart(2, "0"));
+    }, String(number).padStart(3, "0"));
     return slot;
   }));
 }

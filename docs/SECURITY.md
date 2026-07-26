@@ -10,18 +10,26 @@ XMLHttpRequest, WebSocket, and EventSource; external iframe/form targets;
 `eval` and `new Function`; service-worker registration; analytics and suspicious
 mining patterns; popup/top-navigation and permission APIs; path escape; and
 files above the size budget. It also rejects cross-frame access through
-`window.parent`, `window.top`, `frameElement`, or `document.domain`.
+`window.parent`, `window.top`, `frameElement`, or `document.domain`. Hidden
+runtime files are included in the source hash and scan; symbolic links and
+special files are rejected.
 
 Static text scanning is explainable but not proof that code is harmless.
 
 ## Runtime Policy
 
-- Playwright aborts and records external requests.
+- Playwright aborts and records requests outside the active Run's `game/`
+  directory, including same-origin attempts to load another Entry or Legacy
+  game.
 - Public Entry iframes use a restrictive `sandbox`. Local module loading on a
   static GitHub Pages origin requires `allow-same-origin`, so cross-frame
   access is separately prohibited and scanned.
 - Games have no backend, account, API key, analytics, or external runtime asset.
-- `.site/` exposes only public Finalized game/evidence data.
+- `.site/` exposes only public Finalized game/evidence data and public JSON
+  schemas. It rejects symbolic links and development-only Run files.
+- The evidence hash covers the verification report, console/network records,
+  file inventory, and screenshots. Only the report's self-referential
+  `evidenceHash` field is normalized out of the hash input.
 - Participant tests and Work Orders are not deployed.
 
 ## Test Integrity
