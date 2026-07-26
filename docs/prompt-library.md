@@ -1,5 +1,9 @@
 # Prompt Library
 
+> **Legacy reference:** these templates describe the old Hall workflow. The
+> only authoritative current benchmark prompt is
+> `benchmarks/protocol-99/v1/PROMPT.md`, selected and locked by the Challenge.
+
 Prompt templates live in `templates/prompts/`.
 
 ## Templates

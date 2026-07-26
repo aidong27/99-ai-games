@@ -1,254 +1,228 @@
-/*
- * Model capability matrix.
- *
- * Renders a model x hall coverage view of the archive from real manifest data
- * only. Every observation is a real, linkable record; empty halls are rendered
- * as empty, never as placeholder games.
- */
 import {
-  loadArchive,
-  loadHalls,
-  getArchiveStats,
-  getModelFamiliesFromModels,
-  getModelsFromGames,
-  getObservationHref,
-  getShortGameNumber,
-  toTitle
-} from "./archive-data.js";
-import { createNode as el } from "./ui/dom.js";
+  formatIdentity,
+  getCanonicalGameUrl,
+  loadBenchmark,
+  shortHash
+} from "./benchmark-data.js";
+import { createBenchmarkEmptyState } from "./ui/benchmark.js";
+import { createElement } from "./ui/dom.js";
 
-const statsEl = document.querySelector("#compare-stats");
-const tableEl = document.querySelector("#matrix-table");
-const matrixEmptyEl = document.querySelector("#matrix-empty");
-const modelGridEl = document.querySelector("#model-grid");
-const hallCoverageEl = document.querySelector("#hall-coverage");
-const statusEl = document.querySelector("#compare-status");
+const refs = {
+  blindButton: document.querySelector("#start-blind"),
+  blindSection: document.querySelector("#blind-section"),
+  blindStage: document.querySelector("#blind-stage"),
+  columns: document.querySelector("#compare-columns"),
+  headerStatus: document.querySelector("#compare-header-status"),
+  list: document.querySelector("#compare-list"),
+  picker: document.querySelector("#compare-picker"),
+  policy: document.querySelector("#compare-policy"),
+  reload: document.querySelector("#reload-games"),
+  tabs: document.querySelector("#compare-tabs")
+};
 
+let entries = [];
+const selected = new Set();
+
+refs.reload.addEventListener("click", () => renderComparison(true));
+refs.blindButton.addEventListener("click", renderBlindCompare);
 init();
 
 async function init() {
   try {
-    const { manifest, games } = await loadArchive();
-    const halls = await loadHalls(manifest);
-    render(manifest, games, halls);
-    statusEl.hidden = true;
+    const data = await loadBenchmark();
+    entries = data.defaultEntries.filter((entry) => (
+      entry.canonicalPromptHash === data.challenge.canonicalPromptHash
+    ));
+    entries.slice(0, 2).forEach((entry) => selected.add(entry.entryId));
+    refs.policy.textContent = `Default policy: ${data.challenge.title} ${data.challenge.version} · Raw · Finalized · Prompt ${shortHash(data.challenge.canonicalPromptHash, 16)}. Cross-version mixing is blocked.`;
+    refs.headerStatus.textContent = `${entries.length} COMPARABLE`;
+    refs.headerStatus.classList.toggle("live", entries.length >= 2);
+    renderChoices();
+    renderComparison();
   } catch (error) {
-    statusEl.textContent = `The capability matrix could not load the archive manifest. ${error.message}`;
+    refs.headerStatus.textContent = "INDEX UNAVAILABLE";
+    refs.columns.replaceChildren(createBenchmarkEmptyState({
+      title: "Comparison data could not load",
+      message: error.message,
+      actionHref: "./entries/manifest.json",
+      actionLabel: "Inspect manifest"
+    }));
   }
 }
 
-function render(manifest, games, halls) {
-  const models = getModelsFromGames(games);
-  const modelFamilies = getModelFamiliesFromModels(models);
-  const hallList = halls.length ? halls : hallsFromGames(games);
-  const filledHalls = new Set(games.map((game) => game.hallId));
-
-  renderStats(manifest, games, modelFamilies, models, hallList, filledHalls);
-  renderMatrix(modelFamilies, hallList);
-  renderModels(modelFamilies);
-  renderHallCoverage(hallList, games);
-}
-
-function renderStats(manifest, games, modelFamilies, models, hallList, filledHalls) {
-  const stats = getArchiveStats(manifest, games);
-  const entries = [
-    ["Observations", `${stats.playableCount} playable`],
-    ["Model families", String(modelFamilies.length)],
-    ["Models observed", String(models.length)],
-    ["Halls covered", `${filledHalls.size} / ${hallList.length}`],
-    ["Run records", String(stats.runCount)],
-    ["Target slots", String(stats.targetCount)]
-  ];
-  statsEl.replaceChildren(...entries.map(([term, value]) => {
-    const item = el("div", "compare-stat");
-    item.append(el("dt", "", term), el("dd", "", value));
-    return item;
-  }));
-}
-
-function renderMatrix(modelFamilies, hallList) {
-  if (modelFamilies.length === 0) {
-    matrixEmptyEl.hidden = false;
-    matrixEmptyEl.textContent = "No models are recorded yet.";
-    tableEl.replaceChildren();
+function renderChoices() {
+  if (!entries.length) {
+    refs.list.replaceChildren(createElement("p", { className: "compare-warning" },
+      "No verified Raw Entries exist yet."
+    ));
+    refs.reload.disabled = true;
+    refs.blindButton.disabled = true;
     return;
   }
-  matrixEmptyEl.hidden = true;
-
-  const thead = document.createElement("thead");
-  const headRow = document.createElement("tr");
-  headRow.append(th("Family / model", "col", "matrix-corner"));
-  for (const hall of hallList) {
-    const cell = th(hallShortName(hall), "col");
-    cell.title = hall.name ?? hall.id;
-    headRow.append(cell);
-  }
-  thead.append(headRow);
-
-  const groups = modelFamilies.map((family) => {
-    const tbody = document.createElement("tbody");
-    tbody.className = "matrix-family-group";
-
-    const familyRow = document.createElement("tr");
-    familyRow.className = "matrix-family-row";
-    const familyHead = th(family.name, "rowgroup", "matrix-family-head");
-    familyHead.colSpan = hallList.length + 1;
-    familyHead.append(el("span", "matrix-family-provider", `${family.providerName} · ${family.models.length} ${family.models.length === 1 ? "model" : "models"}`));
-    familyRow.append(familyHead);
-    tbody.append(familyRow);
-
-    for (const model of family.models) {
-      const row = document.createElement("tr");
-      const rowHead = th(model.modelName, "row", "matrix-rowhead");
-      rowHead.append(el("span", "matrix-agent", [...model.agents].join(", ")));
-      row.append(rowHead);
-
-      for (const hall of hallList) {
-        const cell = document.createElement("td");
-        const hits = model.games.filter((game) => game.hallId === hall.id);
-        if (hits.length === 0) {
-          cell.className = "matrix-cell empty";
-          cell.setAttribute("aria-label", `${family.name}, ${model.modelName}, ${hall.name ?? hall.id}: none`);
-          cell.textContent = "·";
-        } else {
-          cell.className = "matrix-cell filled";
-          cell.append(...hits.map((game) => {
-            const link = document.createElement("a");
-            link.className = "matrix-chip";
-            link.href = getObservationHref(game);
-            link.textContent = getShortGameNumber(game);
-            link.title = `${game.title} — ${hall.name ?? hall.id}`;
-            return link;
-          }));
-        }
-        row.append(cell);
+  refs.list.replaceChildren(...entries.map((entry) => {
+    const label = createElement("label", { className: "compare-choice" });
+    const checkbox = createElement("input", {
+      type: "checkbox",
+      checked: selected.has(entry.entryId),
+      value: entry.entryId
+    });
+    checkbox.addEventListener("change", () => {
+      if (checkbox.checked && selected.size >= 4) {
+        checkbox.checked = false;
+        return;
       }
-      tbody.append(row);
-    }
-
-    return tbody;
-  });
-
-  tableEl.replaceChildren(thead, ...groups);
+      if (checkbox.checked) selected.add(entry.entryId);
+      else selected.delete(entry.entryId);
+      renderComparison();
+    });
+    const copy = createElement("span");
+    copy.append(
+      createElement("strong", {}, `Entry ${entry.entryNumberLabel} · ${entry.identity.modelName}`),
+      createElement("small", {}, entry.identity.agentName)
+    );
+    label.append(
+      checkbox,
+      copy,
+      createElement("output", {}, `${entry.canonicalRun.report.score.earned}/100`)
+    );
+    return label;
+  }));
 }
 
-function renderModels(modelFamilies) {
-  if (modelFamilies.length === 0) {
-    modelGridEl.replaceChildren(el("p", "compare-note", "No models recorded yet."));
+function renderComparison(forceReload = false) {
+  const chosen = entries.filter((entry) => selected.has(entry.entryId));
+  if (chosen.length < 2) {
+    refs.columns.replaceChildren(createBenchmarkEmptyState({
+      title: entries.length < 2 ? "Two verified Entries are required" : "Select at least two Entries",
+      message: entries.length < 2
+        ? "The comparison remains unavailable until two real AI coding systems finalize the same Protocol 99 version."
+        : "Choose two to four compatible Entries from the selection list.",
+      actionHref: "./entries.html",
+      actionLabel: "Open Entry index"
+    }));
+    refs.tabs.replaceChildren();
     return;
   }
-
-  modelGridEl.replaceChildren(...modelFamilies.map((family) => createModelFamilySection(family)));
+  refs.columns.style.setProperty("--compare-count", String(chosen.length));
+  refs.columns.replaceChildren(...chosen.map((entry, index) => createColumn(entry, index, forceReload)));
+  refs.tabs.replaceChildren(...chosen.map((entry, index) => {
+    const button = createElement("button", {
+      type: "button",
+      className: `archive-button compact ${index === 0 ? "primary" : ""}`
+    }, `Entry ${entry.entryNumberLabel}`);
+    button.addEventListener("click", () => activateMobileColumn(index));
+    return button;
+  }));
+  activateMobileColumn(0);
 }
 
-function createModelFamilySection(family) {
-  const section = document.createElement("section");
-  section.className = "model-family-section";
-  const headingId = `model-family-${family.id}`;
-  section.setAttribute("aria-labelledby", headingId);
-
-  const header = document.createElement("header");
-  header.className = "model-family-header";
-  const heading = el("h3", "model-family-name", family.name);
-  heading.id = headingId;
+function createColumn(entry, index, forceReload) {
+  const column = createElement("article", {
+    className: `compare-column ${index === 0 ? "mobile-active" : ""}`
+  });
+  const header = createElement("header");
   header.append(
-    el("p", "archive-kicker", family.providerName),
-    heading,
-    el("p", "model-family-summary", `${family.models.length} ${family.models.length === 1 ? "model" : "models"} · ${family.games.length} ${family.games.length === 1 ? "observation" : "observations"}`)
+    createElement("p", { className: "benchmark-kicker" }, `Entry ${entry.entryNumberLabel} · Raw`),
+    createElement("h3", {}, entry.identity.modelName),
+    createElement("p", { className: "entry-identity" }, entry.identity.agentName)
   );
+  const gameUrl = getCanonicalGameUrl(entry);
+  const iframe = createElement("iframe", {
+    title: `Protocol 99 Entry ${entry.entryNumberLabel} game`,
+    src: forceReload && gameUrl ? `${gameUrl}&reload=${Date.now()}` : gameUrl,
+    loading: "lazy",
+    referrerPolicy: "no-referrer",
+    attrs: {
+      sandbox: "allow-scripts allow-same-origin",
+      allow: ""
+    }
+  });
+  const report = entry.canonicalRun.report;
+  const facts = createElement("dl", { className: "compare-facts" });
+  facts.append(
+    fact("Compliance", `${report.score.earned} / ${report.score.maximum}`),
+    fact("Prompt", shortHash(entry.canonicalPromptHash)),
+    fact("Source", `${report.sourceFileCount ?? "?"} files · ${formatBytes(report.sourceBytes)}`),
+    fact("Browser", report.browser?.version ?? "unknown"),
+    fact("Console errors", report.failures?.length ? "See record" : "0 blocking"),
+    fact("Known failures", String(report.failures?.length ?? 0))
+  );
+  const record = createElement("a", {
+    className: "archive-button compact",
+    href: entry.detailUrl
+  }, "Open full record");
+  const actions = createElement("div", { className: "entry-card-actions" }, record);
+  column.append(header, iframe, facts, actions);
+  return column;
+}
 
-  const grid = document.createElement("div");
-  grid.className = "model-family-grid";
-  grid.append(...family.models.map((model) => {
-    const card = document.createElement("article");
-    card.className = "model-card";
+function activateMobileColumn(activeIndex) {
+  [...refs.columns.children].forEach((column, index) => {
+    column.classList.toggle("mobile-active", index === activeIndex);
+  });
+  [...refs.tabs.children].forEach((button, index) => {
+    button.classList.toggle("primary", index === activeIndex);
+    button.setAttribute("aria-pressed", index === activeIndex ? "true" : "false");
+  });
+}
 
-    const modelGames = model.games;
-
-    const halls = new Set(modelGames.map((game) => game.hallId));
-    const variantCount = modelGames.reduce((total, game) => total + (game.variants ?? [])
-      .filter((variant) => variant.modelName === model.modelName).length, 0);
-    const runCount = modelGames.reduce((total, game) => total + (game.runRecords?.length ?? 0), 0);
-
-    card.append(
-      el("p", "archive-kicker", [...model.agents].join(", ") || "Tool unrecorded"),
-      el("h4", "model-card-name", model.modelName),
-      el("p", "model-card-meta", `${modelGames.length} observation${modelGames.length === 1 ? "" : "s"} · ${halls.size} hall${halls.size === 1 ? "" : "s"} · ${variantCount} variant${variantCount === 1 ? "" : "s"} · ${runCount} run${runCount === 1 ? "" : "s"}`)
+function renderBlindCompare() {
+  if (entries.length < 2) {
+    return;
+  }
+  const pair = [...entries].sort(() => Math.random() - 0.5).slice(0, 2);
+  refs.blindSection.hidden = false;
+  refs.blindStage.replaceChildren(...pair.map((entry, index) => {
+    const option = createElement("article", { className: "blind-option" });
+    option.append(
+      createElement("p", { className: "benchmark-kicker" }, `Anonymous build ${index === 0 ? "A" : "B"}`),
+      createElement("iframe", {
+        title: `Anonymous Protocol 99 build ${index === 0 ? "A" : "B"}`,
+        src: getCanonicalGameUrl(entry),
+        referrerPolicy: "no-referrer",
+        attrs: {
+          sandbox: "allow-scripts allow-same-origin",
+          allow: ""
+        }
+      }),
+      createElement("button", {
+        className: "archive-button compact",
+        type: "button",
+        onclick: () => revealBlind(pair, index)
+      }, `Prefer build ${index === 0 ? "A" : "B"}`)
     );
-
-    const list = document.createElement("ul");
-    list.className = "model-card-games";
-    for (const game of modelGames) {
-      const item = document.createElement("li");
-      const link = document.createElement("a");
-      link.href = getObservationHref(game);
-      link.textContent = `${getShortGameNumber(game)} · ${game.title}`;
-      item.append(link, el("span", "model-card-hall", game.hallName ?? toTitle(game.hallId)));
-      list.append(item);
-    }
-    card.append(list);
-    return card;
+    return option;
   }));
-
-  section.append(header, grid);
-  return section;
+  refs.blindSection.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-function renderHallCoverage(hallList, games) {
-  const byHall = new Map();
-  for (const game of games) {
-    if (!byHall.has(game.hallId)) {
-      byHall.set(game.hallId, []);
-    }
-    byHall.get(game.hallId).push(game);
-  }
-
-  hallCoverageEl.replaceChildren(...hallList.map((hall) => {
-    const entry = (byHall.get(hall.id) ?? []).sort((a, b) => (a.number ?? 0) - (b.number ?? 0));
-    const item = document.createElement("li");
-    item.className = `hall-row ${entry.length ? "covered" : "open"}`;
-    item.append(
-      el("span", "hall-dot", ""),
-      el("span", "hall-name", hall.name ?? toTitle(hall.id))
+function revealBlind(pair, preferredIndex) {
+  refs.blindStage.replaceChildren(...pair.map((entry, index) => {
+    const result = createElement("article", { className: "blind-option" });
+    result.append(
+      createElement("p", { className: "benchmark-kicker" }, index === preferredIndex ? "Your local choice" : "Other build"),
+      createElement("h3", {}, `Entry ${entry.entryNumberLabel} · ${entry.identity.modelName}`),
+      createElement("p", {}, formatIdentity(entry)),
+      createElement("p", {}, `Automated Compliance: ${entry.canonicalRun.report.score.earned} / 100`),
+      createElement("a", { className: "archive-button compact", href: entry.detailUrl }, "Open evidence")
     );
-    if (entry.length) {
-      const links = document.createElement("span");
-      links.className = "hall-games";
-      links.append(...entry.map((game) => {
-        const link = document.createElement("a");
-        link.href = getObservationHref(game);
-        link.textContent = `${getShortGameNumber(game)} ${game.title}`;
-        return link;
-      }));
-      item.append(links);
-    } else {
-      item.append(el("span", "hall-open-label", "Open — no observation yet"));
-    }
-    return item;
+    return result;
   }));
-}
-
-function hallsFromGames(games) {
-  const seen = new Map();
-  for (const game of games) {
-    if (game.hallId && !seen.has(game.hallId)) {
-      seen.set(game.hallId, { id: game.hallId, name: game.hallName ?? toTitle(game.hallId) });
-    }
+  try {
+    localStorage.setItem("99ag-last-blind-choice", pair[preferredIndex].entryId);
+  } catch {
+    // The reveal remains useful when browser storage is unavailable.
   }
-  return [...seen.values()];
 }
 
-function hallShortName(hall) {
-  const name = hall.name ?? toTitle(hall.id);
-  return name.replace(/\s*Hall$/, "");
+function fact(label, value) {
+  const row = createElement("div");
+  row.append(createElement("dt", {}, label), createElement("dd", {}, value));
+  return row;
 }
 
-function th(content, scope, className) {
-  const cell = document.createElement("th");
-  cell.scope = scope;
-  if (className) {
-    cell.className = className;
-  }
-  cell.append(typeof content === "string" ? document.createTextNode(content) : content);
-  return cell;
+function formatBytes(value) {
+  const bytes = Number(value);
+  if (!Number.isFinite(bytes)) return "unknown";
+  return bytes < 1024 ? `${bytes} B` : `${(bytes / 1024).toFixed(1)} KiB`;
 }

@@ -1,40 +1,41 @@
 # TODO
 
-Keep this TODO honest and based on real missing work.
+Keep this list honest. A future item is not a completed Entry, verification
+result, screenshot, score, or public claim.
 
-## Framework
+## Protocol 99
 
-- Keep `games/manifest.json`, `halls/halls.json`, and per-game metadata synchronized.
-- Run validation before every release.
-- Push `.github/workflows/validate.yml` after GitHub credentials have `workflow` scope.
-- Decide whether `scripts/new-game.mjs` should eventually update manifest and halls automatically.
-- Decide whether future variants should duplicate full source or reference a canonical implementation path.
-- Add generated hall pages if the catalog grows.
+- Run the first formal Raw Entry through the complete
+  `agent:start -> verify -> finalize -> check` protocol.
+- Review the first real Entry report and improve automation only through a new
+  benchmark version if a change would alter the locked v1 task or scoring.
+- Add Player Experience and Engineering reviews only after independent,
+  named reviewers perform them.
+- Keep the default Entries and Compare views limited to Finalized Raw Runs
+  with the current Prompt Hash.
 
-## Observation 001 / Game 001: Signal Cartographer
+## Automation
 
-- Capture real screenshots from the playable local build.
-- Tune damage, beacon count, and sector pacing after playtesting.
-- Add optional audio only if it is generated or licensed for this repository.
-- Add asset credits if any external assets are introduced later.
-- Keep `game.json`, variant metadata, and run records synchronized with real game behavior.
+- Keep `node scripts/check.mjs` as the single local and CI quality gate.
+- Keep all generators deterministic and require their `--check` modes to pass.
+- Re-run the isolated 15-case Agent flow test after changing allocation,
+  integrity, repair, evidence, or path-scope behavior.
+- Re-run the real Chromium fixture after changing the test contract or SDK.
+- Keep `.site/` limited to public files and Finalized Protocol 99 Runs.
 
-## Verification
+## Public site
 
-- Run the launcher through a local static server.
-- Verify the Observation 001 entry opens from the launcher.
-- Check browser console errors.
-- Verify keyboard controls.
-- Verify pointer controls.
-- Verify touch controls at mobile width.
-- Check for horizontal overflow at desktop and 390px mobile width.
-- Run `node scripts/validate-halls.mjs`.
-- Run `node scripts/validate-games.mjs`.
-- Run `node scripts/generate-index.mjs --check`.
+- Verify Home, Challenge, Entries, Compare, Entry Detail, Methodology, Legacy,
+  and promo routes at desktop and 390 px mobile widths before release.
+- Keep provider and model-family grouping based only on recorded metadata.
+- Add Blind Compare history or aggregation only if it remains local or gains a
+  real, documented backend. Never invent global vote counts.
 
-## Documentation
+## Legacy archive
 
-- Keep `README.md`, `AGENTS.md`, `ROADMAP.md`, and `OPENAI_OSS_APPLICATION.md` aligned with the real project state.
-- Add release notes when GitHub Pages or another public host is configured.
-- Document how model labels are declared and verified.
-- Add postmortems only after real testing.
+- Preserve all 11 Pre-Benchmark Era games, their provenance, variants, Runs,
+  screenshots, and stable URLs.
+- Do not migrate Legacy games into Protocol 99 or include them in benchmark
+  completion counts.
+- Maintain Legacy metadata with its existing validators; do not mix Legacy
+  game implementation edits into launcher or benchmark architecture work.

@@ -1,0 +1,12 @@
+{
+  "challengeId": "protocol-99",
+  "challengeVersion": "v1",
+  "challengePath": "./protocol-99/v1/challenge.json",
+  "lockPath": "./protocol-99/v1/LOCK.json",
+  "canonicalPromptPath": "./protocol-99/v1/PROMPT.md",
+  "status": "locked",
+  "entryRange": {
+    "first": 1,
+    "last": 99
+  }
+}

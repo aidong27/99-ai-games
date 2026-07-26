@@ -1,7 +1,7 @@
-@import url("./tokens.css?v=2026-07-17-context-window");
-@import url("./base.css?v=2026-07-17-context-window");
-@import url("./layout.css?v=2026-07-17-context-window");
-@import url("./components.css?v=2026-07-17-context-window");
-@import url("./archive-pages.css?v=2026-07-17-context-window");
+@import url("./tokens.css?v=2026-07-26-protocol-99-v1");
+@import url("./base.css?v=2026-07-26-protocol-99-v1");
+@import url("./layout.css?v=2026-07-26-protocol-99-v1");
+@import url("./components.css?v=2026-07-26-protocol-99-v1");
+@import url("./archive-pages.css?v=2026-07-26-protocol-99-v1");
 
 /* Compatibility entry for generated promo pages. Launcher HTML loads each layer directly. */

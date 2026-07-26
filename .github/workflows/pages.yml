@@ -20,19 +20,37 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Install exact dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Run archive quality gate
-        run: node scripts/check.mjs
+
+      - name: Run the unified quality gate
+        run: npm run check
+
       - name: Prepare public artifact
-        run: node scripts/prepare-pages.mjs
+        run: npm run build:site
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: .site
+
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4

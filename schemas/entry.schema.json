@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aidong27.github.io/99-ai-games/schemas/entry.schema.json",
+  "title": "Protocol 99 Entry",
+  "type": "object",
+  "required": [
+    "entryId",
+    "entryNumber",
+    "challengeId",
+    "challengeVersion",
+    "canonicalPromptHash",
+    "status",
+    "identity",
+    "runs"
+  ],
+  "properties": {
+    "entryId": { "type": "string", "pattern": "^p99-v[0-9]+-[0-9]{3}-[a-z0-9-]+$" },
+    "entryNumber": { "type": "integer", "minimum": 1, "maximum": 99 },
+    "challengeId": { "const": "protocol-99" },
+    "challengeVersion": { "type": "string", "pattern": "^v[1-9][0-9]*$" },
+    "canonicalPromptHash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "status": {
+      "enum": [
+        "building",
+        "pending-browser-verification",
+        "verified",
+        "finalized",
+        "withdrawn"
+      ]
+    },
+    "identity": {
+      "type": "object",
+      "required": [
+        "provider",
+        "modelName",
+        "modelVersion",
+        "agentName",
+        "agentVersion",
+        "identitySource",
+        "identityConfidence"
+      ]
+    },
+    "runs": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": true
+}

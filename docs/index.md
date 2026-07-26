@@ -1,37 +1,37 @@
 # 99 AI Games Documentation
 
-This hub collects the public maintenance docs for the archive. It is an index,
-not a claim that future roadmap work is complete.
+## Protocol 99
 
-## Start Here
+- [Agent Autopilot](AGENT-AUTOPILOT.md)
+- [Protocol 99 v1](PROTOCOL-99-V1.md)
+- [Benchmark method](BENCHMARK-METHOD.md)
+- [Run protocol](RUN-PROTOCOL.md)
+- [Evaluation](EVALUATION.md)
+- [Data model](DATA-MODEL.md)
 
-- [Project summary](project-summary.md)
-- [Project plan](project-plan.md)
-- [Roadmap](roadmap.md)
-- [Release process](release-process.md)
+## Operations
 
-## Integrity and Validation
-
+- [Automation](AUTOMATION.md)
 - [Quality gate](quality-gate.md)
-- [Provenance policy](provenance-policy.md)
-- [Benchmark method](benchmark-method.md)
-- [Generated index](generated-index.md)
+- [Security](SECURITY.md)
+- [Release](RELEASE.md)
+- [Contributing](../CONTRIBUTING.md)
 
-## Archive Design
+## Migration and History
 
-- [Game halls](game-halls.md)
-- [Game lifecycle](game-lifecycle.md)
-- [Model variants and runs](model-variants-and-runs.md)
-- [Prompt library](prompt-library.md)
+- [Migration](MIGRATION.md)
+- [Legacy Archive](LEGACY-ARCHIVE.md)
+- [Generated Protocol 99 index](generated-benchmark-index.md)
+- [Generated Legacy index](generated-index.md)
+- [Legacy provenance policy](provenance-policy.md)
+- [Legacy Hall reference](game-halls.md)
 
-## Public Sharing
+## Launcher Maintenance
 
-- [Share kit](share-kit.md)
-- [Launcher polish audit](launcher-polish-audit.md)
-- [OpenAI open-source application draft](codex-open-source-application.md)
-
-## Maintenance
-
-- [Automation guide](automation-guide.md)
 - [Development notes](development-notes.md)
 - [CSS selector ownership map](css-selector-map.md)
+- [Share kit](share-kit.md)
+
+Documents describing Halls, old game slots, variants, or Legacy lifecycle apply
+only to the Pre-Benchmark Era. They do not define the current standardized
+Entry workflow.

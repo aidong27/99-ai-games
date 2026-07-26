@@ -1,291 +1,238 @@
 # 99 AI Games
 
-**A playable archive for observing AI coding-agent progress through browser-game experiments.**
+**Same brief. Same rules. Different AI.**
 
 > The games are playable. The real exhibit is the AI that made them.
 
-[Live archive](https://aidong27.github.io/99-ai-games/) · [Library](https://aidong27.github.io/99-ai-games/library.html) · [Compare models](https://aidong27.github.io/99-ai-games/compare.html) · [Press kit](https://aidong27.github.io/99-ai-games/press.html) · [Docs hub](docs/index.md) · [Quality gate](docs/quality-gate.md)
+99 AI Games is a public, playable benchmark for observing AI coding systems:
+the model, its Agent, and the native tool environment working together. Every
+formal Entry receives the locked Protocol 99 v1 prompt, the same scope, the
+same deterministic seed, and the same browser verification contract.
 
-99 AI Games is a long-term AI game-making evolution archive. It preserves real browser-playable games as observation samples so future readers can inspect how AI coding agents handle mechanics, controls, interaction feedback, visual polish, debugging, documentation, accessibility, and provenance over time.
+[Live site](https://aidong27.github.io/99-ai-games/) ·
+[Current challenge](https://aidong27.github.io/99-ai-games/challenge.html) ·
+[Entries](https://aidong27.github.io/99-ai-games/entries.html) ·
+[Compare](https://aidong27.github.io/99-ai-games/compare.html) ·
+[Methodology](https://aidong27.github.io/99-ai-games/methodology.html) ·
+[Legacy archive](https://aidong27.github.io/99-ai-games/library.html)
 
-The name is a target archive capacity, not a completion claim: **99 means 99 observation slots, not filled capacity and not 99 generations.** A single slot can contain multiple model variants and many run records.
+![99 AI Games benchmark social card](assets/social/og-cover.png)
 
-![99 AI Games social preview brand card](assets/social/og-cover.png)
+This is a promotional project card, not gameplay evidence. Formal Entry cards
+are generated from real verified browser screenshots.
 
-The image above is a brand/social preview asset, not a screenshot and not evidence of additional playable games.
-
-## Repository Home
-
-| Entry | Link |
-|---|---|
-| Public launcher | <https://aidong27.github.io/99-ai-games/> |
-| Observation library | <https://aidong27.github.io/99-ai-games/library.html> |
-| Model capability matrix | <https://aidong27.github.io/99-ai-games/compare.html> |
-| Press / project explainer | <https://aidong27.github.io/99-ai-games/press.html> |
-| Project log | <https://aidong27.github.io/99-ai-games/log.html> |
-| Machine-readable manifest | <https://aidong27.github.io/99-ai-games/games/manifest.json> |
-| Documentation hub | [`docs/index.md`](docs/index.md) |
-
-Every push and pull request runs the full archive quality gate (`node scripts/check.mjs`) via [GitHub Actions CI](https://github.com/aidong27/99-ai-games/actions/workflows/ci.yml): structural validators, generated promo-page checks, an executable provenance/honesty gate, generated-index freshness, and per-game completability proofs.
-
-## Archive Signal
+## Current State
 
 | Metric | Current value |
 |---|---:|
-| Target observation slots | 99 |
-| Playable observations | 11 |
-| Game halls | 9 |
-| Model variants | 13 |
-| Run records | 17 |
-
-## Honesty Boundary
-
-The maintainer curates prompts, tests builds, publishes releases, and records provenance. The maintainer does not hand-write or hand-edit game code. Game code provenance uses `humanCodeEdits: false` unless a future exception is explicitly documented.
-
-No fake screenshots, fake users, fake downloads, fake ratings, fake popularity, or hidden provenance are used to make the archive look more complete than it is.
-
-The no-hand-edit rule protects game implementations and provenance records. The launcher, editorial pages, README, social cards, and clearly labeled promotional visuals may be redesigned as presentation surfaces, provided they do not masquerade as gameplay evidence.
-
-## Playable Observations
-
-| # | Observation | Hall | Model / tool | Device support | Record | Promo |
-|---:|---|---|---|---|---|---|
-| 001 | Signal Cartographer | Survival Strategy Hall | GPT-5.5 xhigh / Codex | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=signal-cartographer) | [Promo](https://aidong27.github.io/99-ai-games/promo/signal-cartographer/) |
-| 002 | Lumen Lattice | Puzzle Logic Hall | Claude Opus 4.8 / Claude Code | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=lumen-lattice) | [Promo](https://aidong27.github.io/99-ai-games/promo/lumen-lattice/) |
-| 003 | Neon Pulse Courier | Arcade Reaction Hall | GPT-5.5 xhigh / Codex | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=neon-pulse-courier) | [Promo](https://aidong27.github.io/99-ai-games/promo/neon-pulse-courier/) |
-| 004 | Ninefold Draft | Card Strategy Hall | Claude Opus 4.8 / Claude Code | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=ninefold-draft) | [Promo](https://aidong27.github.io/99-ai-games/promo/ninefold-draft/) |
-| 005 | Gravity Atlas | Physics Experiment Hall | Claude Fable 5 / Claude Code | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=gravity-atlas) | [Promo](https://aidong27.github.io/99-ai-games/promo/gravity-atlas/) |
-| 006 | Memory Bloom | Clicker Management Hall | Kimi / Kimi Work | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=memory-bloom) | [Promo](https://aidong27.github.io/99-ai-games/promo/memory-bloom/) |
-| 007 | Afterlight Dispatch | Text Adventure Hall | GPT-5.6 sol ultra / Codex | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=afterlight-dispatch) | [Promo](https://aidong27.github.io/99-ai-games/promo/afterlight-dispatch/) |
-| 008 | Orbit Cadence | Rhythm Audio Hall | Grok 4.5 / Grok Build | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=orbit-cadence) | [Promo](https://aidong27.github.io/99-ai-games/promo/orbit-cadence/) |
-| 009 | Deepforge Miner | Clicker Management Hall | DeepSeek v4 Pro / Claude Code | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=deepforge-miner) | [Promo](https://aidong27.github.io/99-ai-games/promo/deepforge-miner/) |
-| 010 | Resonance Loom | Rhythm Audio Hall | GLM-5.2 / GLM-5.2 coding agent | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=resonance-loom) | [Promo](https://aidong27.github.io/99-ai-games/promo/resonance-loom/) |
-| 011 | Context Window | AI Meme Hall | Kimi K3 Max / Kimi | Desktop supported; mobile limited | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=context-window) | [Promo](https://aidong27.github.io/99-ai-games/promo/context-window/) |
-
-The canonical machine-readable source is [`games/manifest.json`](games/manifest.json). The generated markdown view is [`docs/generated-index.md`](docs/generated-index.md).
-
-## Screenshots
-
-Screenshots shown here are real repository files. Do not replace them with mockups, generated images, or screenshots that were not captured from a local build.
-
-### Observation 001 / Game 001: Signal Cartographer
-
-![Signal Cartographer title screen](games/signal-cartographer/assets/images/screenshot-title.png)
-![Signal Cartographer gameplay](games/signal-cartographer/assets/images/screenshot-gameplay.png)
-![Signal Cartographer upgrade choice](games/signal-cartographer/assets/images/screenshot-upgrades.png)
-
-### Observation 002 / Game 002: Lumen Lattice
-
-These screenshots are historical. They predate the current Prism Archive remake and are kept as archive evidence, not as a claim that they reflect the latest canonical build.
-
-![Lumen Lattice title screen](games/lumen-lattice/assets/images/screenshot-title.png)
-![Lumen Lattice puzzle in progress](games/lumen-lattice/assets/images/screenshot-puzzle.png)
-![Lumen Lattice solved state](games/lumen-lattice/assets/images/screenshot-solved.png)
-
-### Observation 003 / Game 003: Neon Pulse Courier
-
-![Neon Pulse Courier title screen](games/neon-pulse-courier/assets/images/screenshot-title.png)
-![Neon Pulse Courier gameplay](games/neon-pulse-courier/assets/images/screenshot-gameplay.png)
-![Neon Pulse Courier completion screen](games/neon-pulse-courier/assets/images/screenshot-complete.png)
-
-### Observation 004 / Game 004: Ninefold Draft
-
-Real screenshots are pending. The game is playable in source, but this README does not claim screenshot evidence until verified image files exist.
-
-### Observation 005 / Game 005: Gravity Atlas
-
-Real screenshots are pending. The game is playable in source and its completability is machine-verified (`node scripts/verify-gravity-atlas.mjs`), but this README does not claim screenshot evidence until verified image files exist.
-
-### Observation 006 / Game 006: Memory Bloom
-
-Real screenshots are pending. The game is playable in source, but this README does not claim screenshot evidence until verified image files exist.
-
-### Observation 007 / Game 007: Afterlight Dispatch
-
-![Afterlight Dispatch gameplay at the counterfeit Sunrise Control transmission](games/afterlight-dispatch/assets/images/screenshot-gameplay.jpg)
-
-This is a real 1440x900 browser capture from the shipped local build during the canonical path, not a generated mockup or promotional visual.
-
-### Observation 008 / Game 008: Orbit Cadence
-
-Real screenshots are pending. The game is playable in source, but this README does not claim screenshot evidence until verified image files exist. Its separate cover poster is labeled promotional artwork, not gameplay evidence.
-
-### Observation 009 / Game 009: Deepforge Miner
-
-Real screenshots are pending. The game is playable in source, but this README does not claim screenshot evidence until verified image files exist. Its separate cover poster is labeled promotional artwork, not gameplay evidence.
-
-### Observation 010 / Game 010: Resonance Loom
-
-![Resonance Loom title screen](games/resonance-loom/assets/images/screenshot-title.png)
-
-This is a real 1440x900 browser capture from the supplied local build. The separate cover poster is promotional artwork, not gameplay evidence.
-
-### Observation 011 / Game 011: Context Window
-
-![Context Window title screen](games/context-window/assets/images/screenshot-title.png)
-![Context Window gameplay during a sector eviction](games/context-window/assets/images/screenshot-gameplay.png)
-![Context Window completion screen](games/context-window/assets/images/screenshot-complete.png)
-
-These are real 1440x900 browser captures from the local build, including a scripted full playthrough that reached the completion screen in the shipped game.
-
-## Archive Model
-
-The project is organized around observation value, not raw output volume.
-
-- **Game slot / observation sample**: one official playable experiment in the archive.
-- **Model variant**: a version of the same game concept made by a specific model or agent. Variants do not consume additional game numbers.
-- **Run record**: one generation, revision, validation, comparison, or maintenance attempt.
-- **Game hall**: one of nine capability categories used to compare AI game-making behavior over time.
-
-The halls are: Arcade Reaction, Puzzle Logic, Survival Strategy, Card Strategy, Text Adventure, Clicker Management, Physics Experiment, Rhythm Audio, and AI Meme. Each hall can eventually hold 11 observation samples. Empty future slots are not represented as fake games.
-
-## Device Support
-
-Every game declares `deviceSupport` in both `games/manifest.json` and `games/<slug>/game.json`. The launcher uses this metadata to decide whether to allow direct play, warn before launch, or recommend desktop.
-
-The current archive is PC-first. All ten playable observations are marked desktop supported and mobile limited. Mobile support means a no-overflow baseline unless a game explicitly records stronger mobile QA; no physical handset QA is claimed here.
-
-## Launcher Structure
-
-The public launcher is a static four-level archive system:
-
-- `index.html`: title screen and project entry point.
-- `library.html`: model-axis observation library backed by real manifest data.
-- `observation.html?slug=<game-slug>`: archive record with screenshots, metadata, device support, provenance, variants, controls, and run records.
-- `play.html?slug=<game-slug>`: device-aware play gate before entering `games/<slug>/`.
-- `promo/<game-slug>/`: generated per-game promotional page backed by real metadata and labeled evidence boundaries.
-- `assets/posters/games/<game-slug>.jpg`: generated cover artwork used only as a promotional visual, never as gameplay evidence.
-- `sitemap.xml`, `robots.txt`, `404.html`: generated discovery and recovery surfaces.
-- `manifest.webmanifest`, `service-worker.js`: installable launcher shell and progressive offline entry.
-- `compare.html`: a product-family-grouped capability matrix (exact model × hall coverage, per-model totals, hall coverage) built only from real manifest data.
-
-Launcher pages read from `games/manifest.json` and each game's `game.json`. They must not invent games, models, screenshots, popularity, or provenance. Metadata fetches are cached per session (keyed by the deployed asset version) so navigation between pages does not refetch every record.
-
-## Launcher Code Structure
-
-The launcher stays framework-free, but shared logic is split by responsibility:
-
-- `src/app/`: small constants and route helpers.
-- `src/data/`: path helpers, view-model helpers, model-family/provider mapping, and device-support policy.
-- `src/ui/`: lightweight DOM, badge, action, definition-card, layout-state, and document-title helpers.
-- `src/archive-data.js`: compatibility entry point used by existing pages.
-- `src/<page>.js`: page-specific render and interaction code.
-
-Page scripts should own page-specific orchestration: loading data, choosing page state, wiring page events, and assembling page-specific sections. Shared helpers should stay small and mechanical; they should not hide page behavior or introduce a framework.
-
-Launcher CSS is also layered conservatively:
-
-- `styles/tokens.css`: the single source for dark/light colors, spacing, type, radii, shadows, and motion values.
-- `styles/base.css`: reset, document defaults, focus, hidden, and accessibility utilities.
-- `styles/layout.css`: archive shell, topbar, wordmark, dock, theme switcher, and shared page chrome.
-- `styles/components.css`: shared buttons, notices, badges, and compact badge rows.
-- `styles/archive-pages.css`: library, record, play, compare, editorial, log, and promo page rules.
-- `styles/archive.css`: generated-promo compatibility entry that imports the maintained CSS layers.
-- `styles/pages/home.css`: launcher home hero, featured observation, stats, systems, game grid, and footer.
-
-Launcher HTML loads CSS in this order: tokens, base, layout, components, archive-pages, then page-level CSS. Theme values must stay in `tokens.css`; do not append a second visual system to `archive-pages.css`. Generated promo pages still reference only `archive.css`, which imports all five maintained layers for compatibility without making launcher pages apply shared rules twice.
-
-The current presentation keeps responsibilities visible: the home page uses the latest verified screenshot as its featured observation stage, the Library combines a selected-sample preview with a responsive observation grid, observation records preserve the full screenshot aspect ratio, and the Play Gate uses real media when available before launch. Missing screenshots remain explicit placeholders rather than generated gameplay.
-
-Use [`docs/css-selector-map.md`](docs/css-selector-map.md) as the selector ownership map before moving page rules. The retired canvas signal fields are intentionally gone; the launcher keeps lightweight CSS reveals and a restrained pointer response on library cards.
-
-Generated surfaces are committed but should be regenerated, not hand-edited:
-
-- `promo/<slug>/index.html`
-- `assets/social/games/<slug>.svg`
-- `assets/social/games/<slug>.png`
-- `docs/generated-index.md`
-
-Each current observation also has a curated vertical cover under `assets/posters/games/`. Promo pages place that cover in the hero and keep repository screenshots in the separate Evidence section, so the two media roles remain unmistakable.
-
-The Library stores model, hall, free-text, sort, and evidence/poster view state in the URL. Family filters use `model=family:<id>` while legacy and exact-model links keep the recorded model name. English remains the indexed source language; the compact `中 / EN` control translates launcher interface terms without rewriting game descriptions or provenance records.
-
-Per-game social metadata uses committed 1200 x 630 PNG cards while retaining generated SVG sources. Promo descriptions are shortened for search snippets and publish `VideoGame` JSON-LD; the home page publishes `WebSite` and `CollectionPage` structured data.
-
-Launcher refactors should not be bundled with game implementation changes under `games/<slug>/src/`, `games/<slug>/styles/`, variants, or run records.
-
-GitHub Pages runs `node scripts/prepare-pages.mjs` and uploads only the ignored `.site/` directory. Development scripts, workflows, and repository documentation are not part of the public deployment artifact.
-
-## Run Locally
-
-No package manager, framework, or build step is required.
+| Finalized Protocol 99 Raw Entries | [Generated index](docs/generated-benchmark-index.md) |
+| Allocated Protocol 99 Entries | [Generated index](docs/generated-benchmark-index.md) |
+| Legacy playable experiments | 11 |
+| Current challenge | Protocol 99 v1 |
+| Canonical prompt | Locked by SHA-256 |
+
+The current generated index starts empty intentionally and honestly. The
+existing games predate the common prompt and remain playable in the
+**Pre-Benchmark Era** archive; they do not count toward the 99 standardized
+Entries.
+
+## AI Agent Entry Point
+
+When a user says **“做游戏”**, **“Build the game”**, **“参加当前挑战”**, or
+equivalent, the Agent must first read [`AGENTS.md`](AGENTS.md) and execute its
+Autopilot Entry Protocol. Do not ask the user for a game idea and do not inspect
+another Entry's game or participant tests.
+
+The normal flow is:
+
+```bash
+npm ci
+npm run agent:status
+npm run agent:start -- --provider="..." --model="..." --agent="..."
+# Implement only inside the assigned Run's game/ and tests/ directories.
+npm run agent:verify
+# Fix only the current Run, then repeat verify until it passes.
+npm run agent:finalize
+npm run check
+```
+
+Identity is recorded conservatively. Unknown provider, model, or Agent details
+remain `unknown`; the automation never infers a precise identity from branding,
+dates, or source style.
+
+## Protocol 99 v1
+
+The player controls a repair drone in one compact top-down facility. The game
+must include exactly three portable cores, three relays, one locked extraction
+exit, integrity, two distinct hazards, one limited active ability, pause,
+restart, real victory and defeat, and three material world changes. Seed `99`
+must be deterministic.
+
+The authoritative files are:
+
+- [`PROMPT.md`](benchmarks/protocol-99/v1/PROMPT.md): canonical English prompt.
+- [`PROMPT.zh-CN.md`](benchmarks/protocol-99/v1/PROMPT.zh-CN.md): non-authoritative translation.
+- [`challenge.json`](benchmarks/protocol-99/v1/challenge.json): runtime and comparison policy.
+- [`rubric.json`](benchmarks/protocol-99/v1/rubric.json): transparent 100-point Automated Compliance Score.
+- [`TEST-CONTRACT.md`](benchmarks/protocol-99/v1/TEST-CONTRACT.md): browser state and evidence contract.
+- [`LOCK.json`](benchmarks/protocol-99/v1/LOCK.json): SHA-256 lock for every authoritative input.
+
+Once a formal v1 Entry exists, v1 is immutable. A rule change requires a new
+challenge version, and cross-version results cannot be presented as one ranking.
+
+## What Is Compared
+
+A formal **Entry** is one AI coding system participating in one Challenge.
+Each Entry can contain:
+
+- one immutable **Raw Run**;
+- zero or more **Standard Repair Runs** copied from a Finalized Run;
+- explicitly labeled regeneration, human-curated, or cross-agent repairs.
+
+The default comparison includes only Finalized Raw Runs with the same Challenge
+Version and Canonical Prompt Hash. The Automated Compliance Score reports
+observable completion and repository compliance. It is not model IQ, a
+scientific ranking, or a complete measure of intelligence. Optional Player
+Experience and Engineering reviews remain “Not yet reviewed” until a real
+reviewer records them.
+
+## Legacy Archive
+
+These 11 games were created before the common benchmark protocol. Their original
+source, variants, run records, screenshots, and provenance remain under
+`games/` and are excluded from Protocol 99 scoring.
+
+| # | Legacy playable experiment | Model / Agent | Record | Promo |
+|---:|---|---|---|---|
+| 001 | Signal Cartographer | GPT-5.5 xhigh / Codex | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=signal-cartographer) | [Promo](https://aidong27.github.io/99-ai-games/promo/signal-cartographer/) |
+| 002 | Lumen Lattice | Claude Opus 4.8 / Claude Code | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=lumen-lattice) | [Promo](https://aidong27.github.io/99-ai-games/promo/lumen-lattice/) |
+| 003 | Neon Pulse Courier | GPT-5.5 xhigh / Codex | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=neon-pulse-courier) | [Promo](https://aidong27.github.io/99-ai-games/promo/neon-pulse-courier/) |
+| 004 | Ninefold Draft | Claude Opus 4.8 / Claude Code | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=ninefold-draft) | [Promo](https://aidong27.github.io/99-ai-games/promo/ninefold-draft/) |
+| 005 | Gravity Atlas | Claude Fable 5 / Claude Code | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=gravity-atlas) | [Promo](https://aidong27.github.io/99-ai-games/promo/gravity-atlas/) |
+| 006 | Memory Bloom | Kimi / Kimi Work | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=memory-bloom) | [Promo](https://aidong27.github.io/99-ai-games/promo/memory-bloom/) |
+| 007 | Afterlight Dispatch | GPT-5.6 sol ultra / Codex | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=afterlight-dispatch) | [Promo](https://aidong27.github.io/99-ai-games/promo/afterlight-dispatch/) |
+| 008 | Orbit Cadence | Grok 4.5 / Grok Build | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=orbit-cadence) | [Promo](https://aidong27.github.io/99-ai-games/promo/orbit-cadence/) |
+| 009 | Deepforge Miner | DeepSeek v4 Pro / Claude Code | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=deepforge-miner) | [Promo](https://aidong27.github.io/99-ai-games/promo/deepforge-miner/) |
+| 010 | Resonance Loom | GLM-5.2 / GLM-5.2 coding agent | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=resonance-loom) | [Promo](https://aidong27.github.io/99-ai-games/promo/resonance-loom/) |
+| 011 | Context Window | Kimi K3 Max / Kimi | [Record](https://aidong27.github.io/99-ai-games/observation.html?slug=context-window) | [Promo](https://aidong27.github.io/99-ai-games/promo/context-window/) |
+
+Legacy generated promo pages and cards are presentation surfaces. Only images
+explicitly marked as current screenshots count as gameplay evidence.
+
+## Repository Layout
+
+```text
+benchmarks/              locked challenge definitions and central test SDK
+entries/                 local Entry and Run records; global manifest is generated
+games/                   immutable Pre-Benchmark Era game implementations
+data/                    generated public benchmark data
+src/                     framework-free launcher modules
+styles/                  shared tokens, layout, components, and page styles
+scripts/                 Autopilot, generators, validators, and quality gate
+schemas/                 Entry, Run, Challenge, Rubric, and report schemas
+tests/fixtures/           non-production browser and Agent-flow fixtures
+promo/                   generated Legacy promotional pages
+assets/social/           generated public social cards
+docs/                    methodology, operation, security, and migration docs
+```
+
+Local facts live in `entry.json`, `run.json`, game source, participant tests,
+and real evidence. Global manifests, public comparison data, generated detail
+pages, indexes, discovery files, and social cards are derived outputs and must
+not be edited by hand.
+
+## Install, Run, and Build
+
+Node.js 24 is the pinned CI baseline. Install the exact lockfile and Chromium:
+
+```bash
+npm ci
+npx playwright install chromium
+```
+
+Start the local static server:
+
+```bash
+npm run dev
+```
+
+The default URL is `http://127.0.0.1:4173/`. A plain server also works:
 
 ```bash
 python3 -m http.server 4173 --bind 127.0.0.1
 ```
 
-Then open:
+Build the exact GitHub Pages artifact:
 
-```text
-http://127.0.0.1:4173
+```bash
+npm run build:site
 ```
 
-## Validate
+The ignored `.site/` directory contains only public launcher files, locked
+Challenge material, Legacy games, and Finalized Entry game/evidence files. It
+excludes `.agent/`, workflows, scripts, schemas, participant tests, Work Orders,
+prompt snapshots, and other development-only files.
 
-One command runs the whole archive quality gate — the same command CI runs on
-every push and pull request (see [`docs/quality-gate.md`](docs/quality-gate.md)):
+## Verification
+
+The single quality gate used locally, in CI, and before Pages deployment is:
 
 ```bash
 node scripts/check.mjs
 ```
 
-It runs `node --check` across every module, the structural validators
-(`validate-halls`, `validate-games`, `validate-launcher`), the provenance/honesty
-gate (`validate-provenance`), public-surface drift checks, generated promo-page
-freshness, the generated-index freshness check, and the Gravity Atlas
-completability proof. The individual checks can still be run alone:
+`npm run check` calls the same file. It performs syntax checks, Challenge Lock
+validation, Entry integrity and security checks, launcher/Legacy provenance
+checks, generated-file freshness, the full 15-case Agent-flow suite, the real
+Chromium fixture, the Legacy game proofs, the Pages artifact allowlist, and
+`git diff --check HEAD`.
+
+Useful focused commands:
 
 ```bash
-node scripts/validate-halls.mjs
-node scripts/validate-games.mjs
-node scripts/validate-launcher.mjs
-node scripts/validate-provenance.mjs
-node scripts/validate-public-surfaces.mjs
+npm run test:agent-flow
+npm run test:browser-fixture
+node scripts/generate-benchmark.mjs --check
 node scripts/generate-promo-pages.mjs --check
 node scripts/render-social-cards.mjs --check
 node scripts/generate-discovery.mjs --check
 node scripts/generate-index.mjs --check
-node scripts/verify-gravity-atlas.mjs
-git diff --check
 ```
 
-Useful syntax checks:
+## Adding a New AI Game
 
-```bash
-node --check src/main.js
-node --check src/archive-data.js
-node --check src/library.js
-node --check src/observation.js
-node --check src/play.js
-```
+Do not create a Protocol 99 Entry directory or edit a global manifest by hand.
+Use the Autopilot protocol:
 
-Game source checks can be run directly, for example:
+1. Run `npm run agent:start` with truthful identity declarations.
+2. Read the generated `WORK-ORDER.md` and prompt snapshot.
+3. Work only in the assigned Run's `game/` and `tests/`.
+4. Use public player controls in participant tests; never add test-only cheats.
+5. Run `npm run agent:verify`; use the machine report to repair that Run.
+6. Run `npm run agent:finalize` only after verification passes.
+7. Run `npm run check`, review the diff, and commit the complete Entry.
 
-```bash
-node --check games/signal-cartographer/src/main.js
-node --check games/lumen-lattice/src/main.js
-node --check games/neon-pulse-courier/src/main.js
-node --check games/ninefold-draft/src/main.js
-node --check games/memory-bloom/src/main.js
-```
+See [`docs/AGENT-AUTOPILOT.md`](docs/AGENT-AUTOPILOT.md) for the operational
+contract and [`docs/RUN-PROTOCOL.md`](docs/RUN-PROTOCOL.md) for Raw/Repair rules.
+
+## Integrity Boundary
+
+- No fake Entry, screenshot, playthrough, score, identity, popularity, or provenance.
+- Finalized Raw source is content-hashed and cannot be silently changed.
+- Repair creates a new Run and preserves the parent Source Hash.
+- Browser verification uses public keyboard/pointer controls and a read-only state contract.
+- Static scanning and sandboxed public iframes reduce risk but are not a claim of perfect security.
+- Public-repository blindness is a behavior protocol, not an absolute sandbox.
+- Launcher, automation, documentation, and clearly labeled promotional assets may be maintained.
+- Legacy and benchmark game implementations must never be mixed into launcher refactors.
 
 ## Documentation
 
-- [Docs hub](docs/index.md)
-- [Contributing](CONTRIBUTING.md)
-- [Changelog](CHANGELOG.md)
-- [Security policy](SECURITY.md)
-- [Roadmap](docs/roadmap.md)
-- [Share kit](docs/share-kit.md)
-- [Game halls](docs/game-halls.md)
-- [Provenance policy](docs/provenance-policy.md)
-- [Game lifecycle](docs/game-lifecycle.md)
-- [Model variants and runs](docs/model-variants-and-runs.md)
-- [Benchmark method](docs/benchmark-method.md)
-- [Automation guide](docs/automation-guide.md)
-- [Prompt library](docs/prompt-library.md)
-- [Release process](docs/release-process.md)
-
-## License
-
-This project is released under the MIT License. See [LICENSE](LICENSE).
+[Documentation hub](docs/index.md) ·
+[Benchmark method](docs/BENCHMARK-METHOD.md) ·
+[Evaluation](docs/EVALUATION.md) ·
+[Data model](docs/DATA-MODEL.md) ·
+[Automation](docs/AUTOMATION.md) ·
+[Security](docs/SECURITY.md) ·
+[Release](docs/RELEASE.md) ·
+[Legacy migration](docs/LEGACY-ARCHIVE.md)

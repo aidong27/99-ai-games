@@ -1,0 +1,26 @@
+{
+  "name": "99-ai-games",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Protocol 99 benchmark and the pre-benchmark 99 AI Games archive.",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "agent:status": "node scripts/agent-status.mjs",
+    "agent:start": "node scripts/agent-start.mjs",
+    "agent:verify": "node scripts/agent-verify.mjs",
+    "agent:finalize": "node scripts/agent-finalize.mjs",
+    "agent:repair": "node scripts/agent-repair.mjs",
+    "build:site": "node scripts/prepare-pages.mjs",
+    "check": "node scripts/check.mjs",
+    "dev": "node scripts/dev-server.mjs",
+    "generate": "node scripts/generate-benchmark.mjs && node scripts/generate-promo-pages.mjs && node scripts/render-social-cards.mjs && node scripts/generate-discovery.mjs && node scripts/generate-index.mjs --write",
+    "test:agent-flow": "node scripts/test-agent-flow.mjs",
+    "test:browser-fixture": "node scripts/run-browser-verification.mjs --fixture"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.0"
+  }
+}

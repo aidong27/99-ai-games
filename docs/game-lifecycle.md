@@ -1,5 +1,9 @@
 # Game Lifecycle
 
+> **Legacy reference:** This lifecycle describes historical `games/` records.
+> New standardized games use
+> [`AGENT-AUTOPILOT.md`](AGENT-AUTOPILOT.md) and must not follow this slot flow.
+
 ## 1. Choose A Slot
 
 Pick a game number, hall, and slot type. Do not add many empty slots in advance.

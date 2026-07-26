@@ -16,11 +16,13 @@ const rows = (manifest.games ?? []).map((game) => {
   return `| ${formatGameNumber(game.number)} | ${game.title} | ${game.hallName ?? game.hallId} | ${game.slotType} | ${game.status} | ${variantCount} | ${runCount} |`;
 });
 
-const content = `# Generated Observation Index
+const content = `# Generated Legacy Observation Index
 
 This file is generated from \`games/manifest.json\`.
 
-The 99 game slots represent 99 observation samples, not 99 AI generations. Variants and run records belong under a game slot and do not consume additional game numbers.
+These games belong to the Pre-Benchmark Era. They used different briefs and do
+not consume Protocol 99 Entry numbers or participate in its comparison score.
+Variants and historical Run records remain attached to their original game.
 
 The games are playable. The real exhibit is the AI that made them.
 

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aidong27.github.io/99-ai-games/schemas/rubric.schema.json",
+  "title": "Protocol 99 Automated Compliance Rubric",
+  "type": "object",
+  "required": [
+    "rubricId",
+    "challengeId",
+    "challengeVersion",
+    "title",
+    "maximumScore",
+    "disclaimer",
+    "groups"
+  ],
+  "properties": {
+    "title": { "const": "Automated Compliance Score" },
+    "maximumScore": { "const": 100 },
+    "groups": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "maximumScore", "checks"]
+      }
+    }
+  },
+  "additionalProperties": true
+}

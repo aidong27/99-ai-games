@@ -1,106 +1,104 @@
-# Contributing to 99 AI Games
+# Contributing
 
-99 AI Games is a public archive for observing AI coding-agent progress through playable browser-game experiments. The games are playable samples, but the project goal is the long-term record of what AI agents could design, implement, test, and document at specific points in time.
+99 AI Games accepts two different kinds of work. Keep them separate:
 
-This repository is intentionally provenance-first. Do not add fake screenshots, fake popularity claims, fake verification records, fake model sources, or placeholder game slots that do not contain real work.
+1. **Protocol 99 Entry work** is produced by an AI coding system under the
+   locked prompt and [`AGENTS.md`](AGENTS.md).
+2. **Repository maintenance** improves the launcher, validators, automation,
+   documentation, or clearly labeled presentation assets without editing game
+   implementations or rewriting provenance.
 
-## Maintainer Role
+## Protocol 99 Entries
 
-The maintainer can plan prompts, write briefs, run tests, publish releases, document provenance, open issues, and maintain repository metadata. The maintainer must not hand-write or hand-edit AI-generated game code.
-
-Human-written changes are acceptable for documentation, metadata, validation scripts, repository structure, and review notes. Changes to game source code should come from an AI coding agent unless the change is a narrow bug fix. Any exception must be documented in the relevant run record or changelog entry.
-
-## Adding a Game Slot
-
-A game slot is one official observation sample in the archive. It is not just an idea and it is not a blank placeholder.
-
-To add a game slot:
-
-1. Create or update a brief under `games/<slug>/brief.md`.
-2. Generate the playable implementation with an AI coding agent.
-3. Add the game folder under `games/<slug>/`.
-4. Add `games/<slug>/game.json` with provenance, slot type, hall, variant, and run paths.
-5. Add `deviceSupport` in both `game.json` and `games/manifest.json` so the launcher can decide mobile play, warnings, and desktop-only blocks.
-6. Add at least one variant under `games/<slug>/variants/<variant-id>/`.
-7. Add at least one run record under `games/<slug>/runs/`.
-8. Update `games/manifest.json`.
-9. Regenerate `docs/generated-index.md`.
-10. Run the local validation commands before opening a PR.
-
-Do not fill future slots with empty folders or metadata-only stubs.
-
-## Adding a Variant
-
-A variant is another AI-generated version of an existing game concept. It belongs under the same game slot and does not consume a new game number.
-
-To add a variant:
-
-1. Create `games/<slug>/variants/<variant-id>/`.
-2. Add `variant.json` with model, agent/tool, date, status, source path, and human edit status.
-3. Add or reference the variant source according to the local game structure.
-4. Add a run record explaining the generation or comparison context.
-5. Update `games/<slug>/game.json` and `games/manifest.json`.
-6. Regenerate the index and run validation.
-
-## Adding a Run Record
-
-A run record documents one generation, revision, validation, comparison, or review attempt. Use run records to preserve what happened, not to make the project look more complete than it is.
-
-Run records should include:
-
-- Date.
-- Game and variant.
-- Model and agent/tool.
-- Prompt or brief reference, when public.
-- What was generated or changed.
-- Validation commands run.
-- Known issues.
-- Whether any human code edits occurred.
-
-Private prompts, account details, tokens, and non-public credentials must not be included.
-
-## Local Validation
-
-Run these checks before a PR:
+Do not open a blank folder or edit `entries/manifest.json`. Start with:
 
 ```bash
-node scripts/validate-halls.mjs
-node scripts/validate-games.mjs
-node scripts/validate-launcher.mjs
-node scripts/generate-index.mjs --check
-node --check src/main.js
-node --check games/signal-cartographer/src/main.js
-node --check games/lumen-lattice/src/main.js
-git diff --check
+npm ci
+npm run agent:start -- --provider="..." --model="..." --agent="..."
 ```
 
-Use a local static server for browser checks:
+Then follow the generated Work Order and the complete
+[Autopilot guide](docs/AGENT-AUTOPILOT.md). A submission is not complete until:
 
 ```bash
-python3 -m http.server 4173
+npm run agent:verify
+npm run agent:finalize
+npm run check
+git diff --check HEAD
 ```
 
-Then open `http://localhost:4173`.
+The participant must not inspect another Entry's game/tests, modify the
+Challenge or Legacy games, fabricate evidence, or add a test bypass.
 
-## Pull Request Requirements
+## Repository Maintenance
 
-PRs that add or update a playable observation sample must include:
+Launcher and automation changes should be narrowly scoped and explain why they
+do not alter experimental results. Before editing:
 
-- Updated `games/manifest.json`.
-- Updated `games/<slug>/game.json`.
-- Updated `deviceSupport` metadata for desktop/mobile support, minimum viewport, inputs, notes, and launcher policy.
-- Updated variant metadata when variants change.
-- Updated run records for generation, validation, or comparison work.
-- Updated `docs/generated-index.md` after running `node scripts/generate-index.mjs --write`.
-- Validation results in the PR body.
-- Clear statement of whether game source code changed.
+```bash
+npm ci
+npm run check
+git status --short
+```
 
-PRs should be small enough to review. Do not bundle unrelated formatting churn, unrelated game changes, or mass placeholder slot creation with a real archive update.
+After editing:
 
-## Good Issue Ideas
+```bash
+npm run check
+npm run build:site
+git diff --check HEAD
+```
 
-- Report a broken game or launcher link.
-- Suggest a future game concept or benchmark brief.
-- Request a model variant comparison for an existing game.
-- Point out missing provenance, unclear metadata, or stale documentation.
-- Report accessibility or mobile usability problems.
+Use `npm run dev` for browser checks. Stop the local server after testing.
+
+## Generated Files
+
+Edit source data or a generator, then regenerate. Do not hand-edit:
+
+- `entries/manifest.json`
+- `data/benchmark.json`
+- `benchmark-pages/`
+- `docs/generated-benchmark-index.md`
+- `docs/generated-index.md`
+- `promo/<slug>/`
+- `assets/social/entries/`
+- `assets/social/games/`
+- `sitemap.xml`
+- `404.html`
+
+Use:
+
+```bash
+npm run generate
+```
+
+Every generator also has a `--check` mode used by the unified quality gate.
+
+## Legacy Boundary
+
+The 11 games under `games/` are frozen Pre-Benchmark Era records. A launcher,
+documentation, or benchmark architecture pull request must not edit:
+
+- `games/<slug>/index.html`
+- `games/<slug>/src/**`
+- `games/<slug>/styles/**`
+- `games/<slug>/variants/**`
+- `games/<slug>/runs/**`
+- provenance or `humanCodeEdits`
+
+A Legacy provenance correction needs direct evidence and a dedicated change.
+Do not convert an old game into a Protocol 99 Entry.
+
+## Pull Requests
+
+Describe:
+
+- whether the change is Entry, automation, launcher, documentation, or Legacy;
+- the exact commands run and their results;
+- any browser viewports checked;
+- whether generated files were regenerated;
+- whether game or provenance files changed;
+- known limitations.
+
+Do not claim users, downloads, ranking significance, or verification that has
+not been observed.

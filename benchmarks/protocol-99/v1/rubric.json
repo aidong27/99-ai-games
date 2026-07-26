@@ -1,0 +1,103 @@
+{
+  "$schema": "../../../schemas/rubric.schema.json",
+  "rubricId": "protocol-99-v1-automated-compliance",
+  "challengeId": "protocol-99",
+  "challengeVersion": "v1",
+  "title": "Automated Compliance Score",
+  "maximumScore": 100,
+  "disclaimer": "This score measures observable completion and repository compliance. It is not an intelligence score, model IQ, scientific ranking, or complete measure of an AI coding system.",
+  "groups": [
+    {
+      "id": "startup-stability",
+      "title": "Startup and stability",
+      "maximumScore": 10,
+      "checks": [
+        { "id": "browser.loads", "weight": 5, "label": "Loads in Chromium" },
+        { "id": "browser.no-uncaught-errors", "weight": 5, "label": "No uncaught console or page errors" }
+      ]
+    },
+    {
+      "id": "interface-controls",
+      "title": "Interface states and controls",
+      "maximumScore": 10,
+      "checks": [
+        { "id": "contract.required-hooks", "weight": 4, "label": "Required visible interface hooks exist" },
+        { "id": "flow.pause-resume", "weight": 3, "label": "Pause and resume stop and continue simulation time" },
+        { "id": "flow.restart", "weight": 3, "label": "Restart resets the run without reloading the tab" }
+      ]
+    },
+    {
+      "id": "core-objective",
+      "title": "Core transport, relay, and extraction objective",
+      "maximumScore": 20,
+      "checks": [
+        { "id": "objective.cores", "weight": 5, "label": "Exactly three cores participate in the real loop" },
+        { "id": "objective.relays", "weight": 7, "label": "Three relays require explicit core delivery and interaction" },
+        { "id": "objective.extraction", "weight": 8, "label": "Exit unlocks after three relays and physical entry wins" }
+      ]
+    },
+    {
+      "id": "world-evolution",
+      "title": "Material world evolution",
+      "maximumScore": 15,
+      "checks": [
+        { "id": "world.stage-one", "weight": 5, "label": "First relay materially changes play" },
+        { "id": "world.stage-two", "weight": 5, "label": "Second relay materially changes play" },
+        { "id": "world.stage-three", "weight": 5, "label": "Third relay materially changes play and extraction" }
+      ]
+    },
+    {
+      "id": "hazards-integrity-ability",
+      "title": "Hazards, integrity, and active ability",
+      "maximumScore": 15,
+      "checks": [
+        { "id": "systems.two-hazards", "weight": 5, "label": "Two behaviorally distinct hazards are observable" },
+        { "id": "flow.real-defeat", "weight": 5, "label": "Hazard damage can reach a real defeat state" },
+        { "id": "systems.limited-ability", "weight": 5, "label": "Exactly one primary ability has an observable limitation" }
+      ]
+    },
+    {
+      "id": "determinism-and-playthrough",
+      "title": "Determinism and complete playthrough",
+      "maximumScore": 15,
+      "checks": [
+        { "id": "determinism.seed-99", "weight": 5, "label": "Seed 99 reproduces the same initial state" },
+        { "id": "flow.real-victory", "weight": 5, "label": "Public controls complete a real winning playthrough" },
+        { "id": "flow.two-runs-one-tab", "weight": 5, "label": "Two completed runs remain stable in one tab" }
+      ]
+    },
+    {
+      "id": "security-integrity",
+      "title": "Network, source, and integrity constraints",
+      "maximumScore": 10,
+      "checks": [
+        { "id": "security.no-external-network", "weight": 4, "label": "No external runtime requests" },
+        { "id": "security.static-scan", "weight": 3, "label": "Static security scan passes" },
+        { "id": "integrity.source-and-prompt", "weight": 3, "label": "Source and prompt snapshots match recorded hashes" }
+      ]
+    },
+    {
+      "id": "accessibility-layout",
+      "title": "Accessibility and mobile layout baseline",
+      "maximumScore": 5,
+      "checks": [
+        { "id": "accessibility.focus-and-motion", "weight": 2, "label": "Keyboard focus and reduced-motion support are present" },
+        { "id": "layout.mobile-baseline", "weight": 3, "label": "390 by 700 viewport remains usable without horizontal overflow" }
+      ]
+    }
+  ],
+  "optionalReviews": [
+    {
+      "id": "player-experience",
+      "title": "Player Experience Review",
+      "machineGenerated": false,
+      "defaultLabel": "Not yet reviewed"
+    },
+    {
+      "id": "engineering",
+      "title": "Engineering Review",
+      "machineGenerated": false,
+      "defaultLabel": "Not yet reviewed"
+    }
+  ]
+}

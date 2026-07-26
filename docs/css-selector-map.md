@@ -1,10 +1,18 @@
 # CSS Selector Ownership Map
 
-This map records the current launcher CSS owners after the visual-system consolidation. It is a guard against rebuilding the old pattern of appending a new design layer after every previous one.
-
 ## Loading Order
 
-Launcher pages load:
+Protocol 99 launcher pages:
+
+```text
+styles/tokens.css
+styles/base.css
+styles/layout.css
+styles/components.css
+styles/benchmark.css
+```
+
+Legacy launcher pages:
 
 ```text
 styles/tokens.css
@@ -12,135 +20,96 @@ styles/base.css
 styles/layout.css
 styles/components.css
 styles/archive-pages.css
-styles/pages/home.css    index.html only
 ```
 
-Generated pages under `promo/<slug>/` still explicitly load only:
+Generated `promo/<slug>/` pages load only `styles/archive.css`. That file imports
+tokens, base, layout, components, and archive-pages in the same order.
 
-```text
-styles/archive.css
-```
+## Shared Layers
 
-`archive.css` imports tokens, base, layout, components, and archive-pages in that order. This keeps generated promo output compatible without hand-editing it while launcher HTML loads each maintained layer directly.
+`tokens.css` owns root light/dark colors, type, spacing, radii, shadows, focus,
+and motion values.
 
-## Layer Ownership
+`base.css` owns reset, document defaults, links, buttons, media, focus-visible,
+skip links, hidden utilities, and global reduced-motion behavior.
 
-### Tokens
+`layout.css` owns common archive shell, topbar, dock, wordmark, and shared theme
+controls.
 
-`styles/tokens.css` is the only owner of:
+`components.css` owns shared buttons, notices, badges, and compact metadata rows.
 
-- `:root`
-- `html[data-theme="dark"]`
-- `html[data-theme="light"]`
-- colors, surfaces, borders, type families, spacing, radii, shadows, focus rings, and transition values
+## Protocol 99 Layer
 
-Do not redefine root theme values in page sheets.
+`benchmark.css` owns:
 
-### Base
+- `.benchmark-page`, `.benchmark-header`, `.benchmark-brand`, `.benchmark-nav`;
+- `.benchmark-shell`, `.benchmark-hero`, `.benchmark-section`, `.page-intro`;
+- protocol console, count/readout, slot grid, filters, Entry cards and states;
+- compare selectors, frame controls, mobile tabs, Blind Compare;
+- Entry Detail evidence, score, Run, metadata, and sandbox frame layouts;
+- Challenge prompt and Methodology layouts;
+- `.benchmark-footer`;
+- benchmark-only reveal and interaction animation.
 
-`styles/base.css` owns:
+Do not move these selectors into Legacy sheets. Keep motion under
+`prefers-reduced-motion: no-preference`.
 
-- box sizing and document defaults
-- body background texture
-- link, image, button, and heading defaults
-- focus-visible and selection treatment
-- `.hidden`, `.visually-hidden`, and `.skip-link`
-- global reduced-motion behavior
+## Legacy Layer
 
-### Shared Layout
-
-`styles/layout.css` owns:
-
-- `.archive-page`, `.compare-page`, `.play-gate-page`
-- `.archive-shell`, `.editorial-shell`, `.compare-stage`
-- `.archive-topbar`, `.title-header`, `.title-footer`
-- `.wordmark`, `.page-title`, `.archive-kicker`, `.topbar-status`
-- `.archive-dock`
-- `.theme-switcher`, `.theme-choice`, `.theme-glyph`
-
-### Shared Components
-
-`styles/components.css` owns:
-
-- `.archive-button` and its tone/size modifiers
-- `.archive-notice`
-- `.archive-badge` and its tone modifiers
-- `.compact-badges`
-
-### Home Page
-
-`styles/pages/home.css` owns:
-
-- `.launcher-screen`, `.launcher-header`, `.launcher-main`, `.launcher-footer`
-- `.launcher-mark*`, launcher navigation, hero copy, actions, and readout
-- `.featured-observation`, `.featured-media`, `.featured-meta`, `.featured-links`
-- `.launcher-stats`, `.launcher-systems`, `.launcher-library`
-- `.game-grid`, `.game-card*`
-- `.share-actions`, `.share-status`, `.share-fallback`
-- home-only reveal and card-entry animations
-
-### Archive Pages
-
-`styles/archive-pages.css` owns the remaining page families.
+`archive-pages.css` retains cross-page Legacy cascade:
 
 Library:
 
-- `.library-layout`, `.model-axis-panel`, `.model-axis*`, `.axis-*`
-- `.library-stage`, `.library-readout`, `.readout-*`
-- `.observation-track`, `.observation-card`, `.card-*`
-- `.reserved-card`, `.observation-timeline`, `.timeline-node`
+- `.library-*`, `.model-axis*`, `.axis-*`;
+- `.observation-*`, `.card-*`, `.readout-*`;
+- `.timeline-*`, filters, grid/list states.
 
-Observation record:
+Observation and records:
 
-- `.record-root`, `.record`, `.record-hero`, `.record-cover`, `.record-copy`
-- `.record-section`, `.record-list-grid`, `.media-grid`
-- `.definition-grid`, `.definition-card`, `.list-block`
-- `.run-list`, `.run-card`, `.run-alerts`
-- `.core-facts`, `.device-support`, `.provenance-panel`
+- `.record-*`, `.definition-*`, `.run-*`;
+- `.core-facts`, `.device-support`, `.provenance-panel`;
+- media/evidence blocks.
 
-Play gate:
+Play:
 
-- `.play-gate-page`, `.play-gate`, `.play-gate-content`
-- `.gate-description`, `.gate-philosophy`, `.gate-support`, `.gate-actions`
+- `.play-gate*`, `.gate-*`.
 
-Compare:
+Legacy compare remnants:
 
-- `.compare-intro`, `.compare-stats`, `.compare-section`, `.compare-note`
-- `.matrix*`, `.model-grid`, `.model-card*`
-- `.hall-coverage`, `.hall-row`, `.hall-*`
+- `.matrix*`, `.model-card*`, `.hall-*`.
 
-Press and log:
+Editorial:
 
-- `.editorial-layout`, `.editorial-hero`, `.editorial-lede`, `.editorial-list`
-- `.press-observation-grid`, `.press-observation`, `.hall-grid`, `.hall-card`, `.link-grid`
-- `.archive-timeline` and its descendants
+- `.editorial-*`, `.press-*`, `.link-grid`;
+- `.archive-timeline`.
 
-Promo compatibility:
+Generated promo:
 
-- `.promo-hero`, `.promo-copy`, `.promo-lede`, `.promo-actions`, `.promo-media`
-- `.promo-grid`, `.promo-panel`, `.promo-facts`, `.promo-gallery`
-- `.promo-links`, `.promo-link-card`, `.promo-evidence-note`
+- `.promo-*`.
 
-## Interaction Effects
+## Why Legacy Remains Consolidated
 
-CSS owns page fades, section reveals, and hover elevation. `src/archive-effects.js` only owns the subtle pointer tilt for library observation cards and respects reduced-motion and pointer capability checks.
-
-The old signal-field canvas and precision backdrop are retired. Do not restore their HTML nodes or `createSignalField` initialization without a measured reason and an explicit performance review.
+Generated promo compatibility, Library/Observation/Play/Press/Log selector
+sharing, old media-query cascade, theme overrides, and cross-page `.card-*`,
+`.record-*`, `.hall-*`, and `.link-grid` rules make a blind split risky. Do not
+delete an uncertain selector merely because one HTML file does not contain it;
+JavaScript and generated pages may create it.
 
 ## Safe Change Order
 
-1. Change tokens for archive-wide color or spacing decisions.
-2. Change base/layout/components only for selectors shared by at least two page families.
-3. Change `styles/pages/home.css` for home-only work.
-4. Change one section of `styles/archive-pages.css` for a single page family.
-5. Run `node scripts/check.mjs` and `git diff --check HEAD` after each group.
-6. Smoke-test home, library, record, play, compare, press, log, and at least one generated promo page in both themes and mobile/desktop widths.
+1. Change tokens only for global theme decisions.
+2. Change base/layout/components only for truly shared behavior.
+3. Change `benchmark.css` for Protocol pages.
+4. Move one proven single-page Legacy selector group at a time.
+5. Regenerate promos if their generator or compatibility sheet changes.
+6. Run the quality gate.
+7. Smoke-test all launcher pages plus one promo at desktop/mobile in both themes.
 
 ## Do Not
 
-- Do not append a second `:root` theme system outside `styles/tokens.css`.
-- Do not add broad end-of-file overrides that restyle unrelated page families.
-- Do not rename classes during CSS cleanup.
-- Do not make generated promo pages depend on page-only CSS.
-- Do not hand-edit generated promo or social output.
-- Do not mix launcher styling work with `games/<slug>/styles/**` changes.
+- Do not rename classes as part of CSS cleanup.
+- Do not move theme overrides without screenshot comparison.
+- Do not make promo pages depend on undeployed page-only CSS.
+- Do not restore a service-worker cache for CSS.
+- Do not touch `games/<slug>/styles/**` during launcher work.
+- Do not delete uncertain Legacy selectors.

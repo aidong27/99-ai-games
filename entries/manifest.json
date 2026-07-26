@@ -1,0 +1,17 @@
+{
+  "generated": true,
+  "generatedFrom": "2026-07-26",
+  "challengeId": "protocol-99",
+  "challengeVersion": "v1",
+  "canonicalPromptHash": "298455fe279cf588189fec818960315963929cfc21b17029a7bc122cf25a4878",
+  "targetEntryCount": 99,
+  "allocatedEntryCount": 0,
+  "finalizedRawEntryCount": 0,
+  "defaultComparisonPolicy": {
+    "challengeVersion": "v1",
+    "canonicalPromptHash": "298455fe279cf588189fec818960315963929cfc21b17029a7bc122cf25a4878",
+    "runType": "raw",
+    "status": "finalized"
+  },
+  "entries": []
+}

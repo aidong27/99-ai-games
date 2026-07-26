@@ -1,0 +1,44 @@
+{
+  "$schema": "../../../schemas/challenge.schema.json",
+  "challengeId": "protocol-99",
+  "challengeVersion": "v1",
+  "title": "Protocol 99",
+  "status": "locked",
+  "canonicalPrompt": "PROMPT.md",
+  "promptTranslation": "PROMPT.zh-CN.md",
+  "rubric": "rubric.json",
+  "testContract": "TEST-CONTRACT.md",
+  "lock": "LOCK.json",
+  "entryRange": {
+    "first": 1,
+    "last": 99
+  },
+  "benchmarkSeed": 99,
+  "contractVersion": "1.0",
+  "runtime": {
+    "kind": "static-browser-game",
+    "backendAllowed": false,
+    "runtimeDependenciesAllowed": false,
+    "remoteRequestsAllowed": false,
+    "maximumCommittedBytes": 5242880,
+    "desktopViewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "mobileBaselineViewport": {
+      "width": 390,
+      "height": 700
+    }
+  },
+  "comparisonPolicy": {
+    "defaultRunType": "raw",
+    "requireMatchingChallengeVersion": true,
+    "requireMatchingPromptHash": true,
+    "crossVersionWarningRequired": true
+  },
+  "legacyPolicy": {
+    "collection": "pre-benchmark-era",
+    "countsTowardEntryTarget": false,
+    "sourcePath": "../../../games/"
+  }
+}

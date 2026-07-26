@@ -9,20 +9,27 @@ const checkOnly = process.argv.includes("--check");
 const failures = [];
 const manifest = JSON.parse(await readFile(path.join(repoRoot, "games/manifest.json"), "utf8"));
 const games = Array.isArray(manifest.games) ? manifest.games : [];
+const benchmark = JSON.parse(await readFile(path.join(repoRoot, "data/benchmark.json"), "utf8"));
 
 const urls = [
   `${siteRoot}/`,
+  `${siteRoot}/challenge.html`,
+  `${siteRoot}/entries.html`,
   `${siteRoot}/library.html`,
   `${siteRoot}/compare.html`,
+  `${siteRoot}/methodology.html`,
   `${siteRoot}/press.html`,
   `${siteRoot}/log.html`,
+  ...(benchmark.defaultEntries ?? []).map(
+    (entry) => `${siteRoot}/benchmark-pages/${encodeURIComponent(entry.entryId)}/`
+  ),
   ...games.map((game) => `${siteRoot}/promo/${encodeURIComponent(game.slug)}/`)
 ];
 
 await assertGenerated("robots.txt", renderRobots());
 await assertGenerated("sitemap.xml", renderSitemap(urls));
 await assertGenerated("404.html", renderNotFound());
-await assertIndexStructuredData(renderIndexStructuredData(games));
+await assertIndexStructuredData(renderIndexStructuredData(games, benchmark));
 
 if (failures.length) {
   console.error("Generated discovery surfaces are out of date:");
@@ -54,8 +61,7 @@ function renderNotFound() {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
     <meta name="theme-color" content="#0b0c0e">
-    <title>Observation Not Found | 99 AI Games</title>
-    <link rel="manifest" href="./manifest.webmanifest">
+    <title>Page Not Found | 99 AI Games</title>
     <script src="./src/theme.js?v=${ASSET_VERSION}"></script>
     <script src="./src/i18n.js?v=${ASSET_VERSION}"></script>
     <script type="module" src="./src/pwa.js?v=${ASSET_VERSION}"></script>
@@ -63,32 +69,36 @@ function renderNotFound() {
     <link rel="stylesheet" href="./styles/base.css?v=${ASSET_VERSION}">
     <link rel="stylesheet" href="./styles/layout.css?v=${ASSET_VERSION}">
     <link rel="stylesheet" href="./styles/components.css?v=${ASSET_VERSION}">
-    <link rel="stylesheet" href="./styles/archive-pages.css?v=${ASSET_VERSION}">
+    <link rel="stylesheet" href="./styles/benchmark.css?v=${ASSET_VERSION}">
   </head>
-  <body class="archive-page">
+  <body class="benchmark-page">
     <a class="skip-link" href="#not-found-main">Skip to recovery links</a>
-    <div class="archive-shell">
-      <header class="archive-topbar" aria-label="Archive navigation">
-        <a class="wordmark" href="./"><span>99</span><strong>AI Games</strong></a>
-        <div class="page-title"><p class="archive-kicker">Archive routing</p><h1>Observation not found</h1></div>
-        <a class="archive-button secondary compact" href="./library.html">Library</a>
-      </header>
-      <main id="not-found-main" class="not-found-stage">
-        <p class="archive-kicker">HTTP 404</p>
-        <h2>This path is outside the current archive.</h2>
-        <p>The observation may have moved, or the address may be incomplete. No game or record has been invented to fill the gap.</p>
-        <div class="record-actions">
-          <a class="archive-button primary" href="./library.html">Browse observations</a>
+    <header class="benchmark-header" aria-label="Benchmark navigation">
+      <a class="benchmark-brand" href="./"><span class="benchmark-brand-mark">99</span><span class="benchmark-brand-copy"><strong>AI Games</strong><small>EVOLUTION BENCHMARK</small></span></a>
+      <nav class="benchmark-nav"><a href="./">Home</a><a href="./challenge.html">Challenge</a><a href="./entries.html">Entries</a><a href="./library.html">Legacy</a></nav>
+      <span class="benchmark-header-status">HTTP 404</span>
+    </header>
+    <main id="not-found-main" class="benchmark-shell">
+      <section class="benchmark-empty">
+        <span class="empty-index">404</span>
+        <div class="empty-copy">
+          <p class="benchmark-kicker">No fabricated fallback</p>
+          <h1>This path is outside the current archive.</h1>
+          <p>The Entry, evidence record, or Legacy observation may have moved. The site never invents a result to fill a missing route.</p>
+          <div class="benchmark-actions">
+            <a class="archive-button primary" href="./entries.html">Browse Entries</a>
+            <a class="archive-button secondary" href="./library.html">Open Legacy Archive</a>
           <a class="archive-button secondary" href="./">Return home</a>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+    </main>
   </body>
 </html>
 `;
 }
 
-function renderIndexStructuredData(entries) {
+function renderIndexStructuredData(entries, benchmarkData) {
   const graph = {
     "@context": "https://schema.org",
     "@graph": [
@@ -96,11 +106,21 @@ function renderIndexStructuredData(entries) {
         "@type": "WebSite",
         name: "99 AI Games",
         url: `${siteRoot}/`,
-        description: "A playable archive observing how AI coding agents make browser games."
+        description: "One fixed browser-game challenge implemented by different AI coding systems."
+      },
+      {
+        "@type": "Dataset",
+        name: "Protocol 99 AI Coding-System Benchmark",
+        url: `${siteRoot}/entries.html`,
+        description: "Playable implementations of one locked browser-game prompt with real browser evidence.",
+        version: benchmarkData.challenge.version,
+        identifier: benchmarkData.challenge.canonicalPromptHash,
+        size: benchmarkData.stats.benchmarkEntries,
+        isBasedOn: `${siteRoot}/challenge.html`
       },
       {
         "@type": "CollectionPage",
-        name: "99 AI Games Observation Archive",
+        name: "99 AI Games Pre-Benchmark Era Archive",
         url: `${siteRoot}/library.html`,
         mainEntity: {
           "@type": "ItemList",

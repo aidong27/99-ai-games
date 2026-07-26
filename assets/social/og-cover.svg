@@ -1,37 +1,38 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
-  <title id="title">99 AI Games social preview</title>
-  <desc id="desc">Brand social card for 99 AI Games, a playable archive observing how AI coding agents make browser games.</desc>
-  <defs>
-    <linearGradient id="surface" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0" stop-color="#1c1c1e"/>
-      <stop offset="1" stop-color="#141416"/>
-    </linearGradient>
-  </defs>
-  <rect width="1200" height="630" fill="#000000"/>
-  <rect x="72" y="72" width="1056" height="486" rx="8" fill="url(#surface)" stroke="#38383a" stroke-width="1"/>
-  <rect x="96" y="96" width="52" height="52" rx="8" fill="#0a84ff"/>
-  <text x="122" y="130" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="700" text-anchor="middle">99</text>
-  <text x="168" y="130" fill="#f5f5f7" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="700">AI Games</text>
-  <text x="96" y="236" fill="#8e8e93" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="600">Playable archive</text>
-  <text x="96" y="330" fill="#f5f5f7" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-size="94" font-weight="760">99 AI Games</text>
-  <text x="102" y="388" fill="#c7c7cc" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="30">Observing how AI coding agents make browser games.</text>
-  <g font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif">
-    <rect x="96" y="444" width="210" height="72" rx="8" fill="#242426" stroke="#38383a"/>
-    <text x="116" y="474" fill="#8e8e93" font-size="16" font-weight="600">Playable</text>
-    <text x="116" y="504" fill="#f5f5f7" font-size="28" font-weight="760">11 / 99</text>
-    <rect x="324" y="444" width="210" height="72" rx="8" fill="#242426" stroke="#38383a"/>
-    <text x="344" y="474" fill="#8e8e93" font-size="16" font-weight="600">Models</text>
-    <text x="344" y="504" fill="#f5f5f7" font-size="28" font-weight="760">9 observed</text>
-    <rect x="552" y="444" width="210" height="72" rx="8" fill="#242426" stroke="#38383a"/>
-    <text x="572" y="474" fill="#8e8e93" font-size="16" font-weight="600">Run records</text>
-    <text x="572" y="504" fill="#f5f5f7" font-size="28" font-weight="760">17</text>
+  <title id="title">99 AI Games — Protocol 99</title>
+  <desc id="desc">One challenge, the same rules, and playable implementations by different AI coding systems.</desc>
+  <rect width="1200" height="630" fill="#090c0f"/>
+  <path d="M0 126h1200M0 252h1200M0 378h1200M0 504h1200M240 0v630M480 0v630M720 0v630M960 0v630" stroke="#172028" stroke-width="1"/>
+  <rect x="64" y="58" width="1072" height="514" rx="8" fill="#0d1216" fill-opacity=".92" stroke="#27343d"/>
+  <rect x="92" y="86" width="48" height="48" rx="8" fill="#5e9cff"/>
+  <text x="116" y="117" fill="#ffffff" font-family="system-ui,sans-serif" font-size="18" font-weight="800" text-anchor="middle">99</text>
+  <text x="158" y="113" fill="#f4f7f9" font-family="system-ui,sans-serif" font-size="24" font-weight="750">AI Games</text>
+  <text x="158" y="134" fill="#778893" font-family="ui-monospace,monospace" font-size="11">PROTOCOL 99 · EVOLUTION BENCHMARK</text>
+  <text x="92" y="226" fill="#77b2ff" font-family="ui-monospace,monospace" font-size="17" font-weight="700">SAME BRIEF · SAME RULES · DIFFERENT AI</text>
+  <text x="88" y="320" fill="#f4f7f9" font-family="system-ui,sans-serif" font-size="76" font-weight="780">One challenge.</text>
+  <text x="88" y="398" fill="#f4f7f9" font-family="system-ui,sans-serif" font-size="70" font-weight="780">99 slots. Real evidence.</text>
+  <text x="94" y="448" fill="#a5b3bb" font-family="system-ui,sans-serif" font-size="24">The games are playable. The real exhibit is the AI that made them.</text>
+  <g font-family="system-ui,sans-serif">
+    <rect x="92" y="492" width="238" height="52" rx="6" fill="#131b21" stroke="#2a3943"/>
+    <text x="108" y="514" fill="#778893" font-size="12" font-weight="650">FINALIZED RAW</text>
+    <text x="108" y="535" fill="#f4f7f9" font-size="20" font-weight="760">0 / 99</text>
+    <rect x="344" y="492" width="238" height="52" rx="6" fill="#131b21" stroke="#2a3943"/>
+    <text x="360" y="514" fill="#778893" font-size="12" font-weight="650">CURRENT CHALLENGE</text>
+    <text x="360" y="535" fill="#70e0b1" font-size="20" font-weight="760">PROTOCOL 99 v1</text>
+    <rect x="596" y="492" width="238" height="52" rx="6" fill="#131b21" stroke="#2a3943"/>
+    <text x="612" y="514" fill="#778893" font-size="12" font-weight="650">LEGACY PLAYABLE</text>
+    <text x="612" y="535" fill="#f4f7f9" font-size="20" font-weight="760">11 preserved</text>
   </g>
-  <path d="M884 184h184M884 228h184M884 272h184M884 316h184" stroke="#38383a" stroke-width="1"/>
-  <rect x="860" y="170" width="232" height="172" rx="8" fill="#242426" stroke="#38383a"/>
-  <circle cx="900" cy="216" r="12" fill="#0a84ff"/>
-  <circle cx="900" cy="260" r="12" fill="#64d2ff"/>
-  <circle cx="900" cy="304" r="12" fill="#8e8e93"/>
-  <text x="928" y="222" fill="#f5f5f7" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="650">Real playable builds</text>
-  <text x="928" y="266" fill="#f5f5f7" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="650">Recorded provenance</text>
-  <text x="928" y="310" fill="#f5f5f7" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="18" font-weight="650">No fake metrics</text>
+  <g transform="translate(900 170)">
+    <rect width="176" height="248" rx="8" fill="#11191e" stroke="#2a3943"/>
+    <text x="20" y="38" fill="#778893" font-family="ui-monospace,monospace" font-size="12">FIXED OBJECTIVE</text>
+    <circle cx="28" cy="78" r="7" fill="#5e9cff"/>
+    <text x="48" y="84" fill="#f4f7f9" font-family="system-ui,sans-serif" font-size="18" font-weight="700">3 cores</text>
+    <circle cx="28" cy="126" r="7" fill="#70e0b1"/>
+    <text x="48" y="132" fill="#f4f7f9" font-family="system-ui,sans-serif" font-size="18" font-weight="700">3 relays</text>
+    <circle cx="28" cy="174" r="7" fill="#f3c969"/>
+    <text x="48" y="180" fill="#f4f7f9" font-family="system-ui,sans-serif" font-size="18" font-weight="700">1 exit</text>
+    <path d="M20 212h136" stroke="#2a3943"/>
+    <text x="20" y="234" fill="#778893" font-family="ui-monospace,monospace" font-size="11">SEED 99 · REAL EVIDENCE</text>
+  </g>
 </svg>

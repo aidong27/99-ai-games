@@ -8,6 +8,7 @@ import {
   getPlayGateHref,
   loadArchive
 } from "./archive-data.js";
+import { loadBenchmark } from "./benchmark-data.js";
 import { createActionRow } from "./ui/buttons.js";
 import { createDefinitionGrid, createDefinitionItem } from "./ui/cards.js";
 import { createElement, createText } from "./ui/dom.js";
@@ -21,12 +22,13 @@ loadPressData();
 
 async function loadPressData() {
   try {
-    const [{ manifest, games }, halls] = await Promise.all([
+    const [{ manifest, games }, halls, benchmark] = await Promise.all([
       loadArchive(),
-      loadHalls()
+      loadHalls(),
+      loadBenchmark()
     ]);
     const stats = getArchiveStats(manifest, games);
-    renderStats(stats, manifest);
+    renderStats(stats, benchmark);
     renderObservations(games);
     renderHalls(halls);
   } catch (error) {
@@ -44,16 +46,16 @@ async function loadHalls() {
   return Array.isArray(data.halls) ? data.halls : [];
 }
 
-function renderStats(stats, manifest) {
+function renderStats(stats, benchmark) {
   if (!statsRoot) {
     return;
   }
 
   statsRoot.replaceChildren(
-    createDefinitionItem("Observations", `${stats.observationCount} / ${stats.targetCount}`),
-    createDefinitionItem("Playable", stats.playableCount),
-    createDefinitionItem("Halls", manifest.hallCount ?? "9"),
-    createDefinitionItem("Run records", stats.runCount)
+    createDefinitionItem("Protocol 99 Raw", `${benchmark.stats.benchmarkEntries} / ${benchmark.stats.targetEntries}`),
+    createDefinitionItem("Allocated Entries", benchmark.stats.allocatedEntries),
+    createDefinitionItem("Legacy playable", stats.playableCount),
+    createDefinitionItem("Prompt status", "Locked")
   );
 }
 

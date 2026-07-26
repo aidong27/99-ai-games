@@ -7,7 +7,12 @@ const MODEL_FAMILY_RULES = [
     providerName: "OpenAI",
     shortLabel: "GPT",
     order: 10,
-    patterns: [/^gpt(?:[-\s]|$)/i, /^chatgpt(?:[-\s]|$)/i, /^o\d(?:[-\s]|$)/i]
+    patterns: [
+      /^gpt(?:[-\s.]|\d|$)/i,
+      /^openai\s+gpt(?:[-\s.]|\d|$)/i,
+      /^chatgpt(?:[-\s]|$)/i,
+      /^o\d(?:[-\s]|$)/i
+    ]
   },
   {
     id: "claude",
