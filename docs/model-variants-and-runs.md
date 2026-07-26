@@ -1,5 +1,9 @@
 # Model Variants And Runs
 
+> **Legacy reference:** these variants and run records belong to the
+> Pre-Benchmark Era. Protocol 99 uses the Entry/Run model in
+> [`DATA-MODEL.md`](DATA-MODEL.md) and [`RUN-PROTOCOL.md`](RUN-PROTOCOL.md).
+
 ## Principle
 
 The 99 game slots represent 99 observation samples, not 99 AI generations. A single game may contain multiple model variants and run records. Model comparisons are stored as variants/runs under the same game slot and do not consume additional game numbers.

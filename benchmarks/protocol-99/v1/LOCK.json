@@ -1,0 +1,17 @@
+{
+  "lockVersion": 1,
+  "challengeId": "protocol-99",
+  "challengeVersion": "v1",
+  "lockedAt": "2026-07-26",
+  "hashAlgorithm": "sha256",
+  "canonicalPromptSha256": "298455fe279cf588189fec818960315963929cfc21b17029a7bc122cf25a4878",
+  "challengeJsonSha256": "ea360a497c6394bb107f58648f4e859ef5b01259d3564542b6843702675a08c7",
+  "rubricJsonSha256": "d6332cd6c9dfc9a9eb94b94909e160f05663718a6daa13540e6127192b2ac0d4",
+  "testContractSha256": "23a485d89f94048c8e0769b564fcb94f8aa91a32f520efb3eef92551137c7a77",
+  "files": {
+    "PROMPT.md": "298455fe279cf588189fec818960315963929cfc21b17029a7bc122cf25a4878",
+    "challenge.json": "ea360a497c6394bb107f58648f4e859ef5b01259d3564542b6843702675a08c7",
+    "rubric.json": "d6332cd6c9dfc9a9eb94b94909e160f05663718a6daa13540e6127192b2ac0d4",
+    "TEST-CONTRACT.md": "23a485d89f94048c8e0769b564fcb94f8aa91a32f520efb3eef92551137c7a77"
+  }
+}

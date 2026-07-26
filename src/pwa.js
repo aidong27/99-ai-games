@@ -1,55 +1,29 @@
-const serviceWorkerUrl = new URL("../service-worker.js", import.meta.url);
-const serviceWorkerScope = new URL("../", import.meta.url).pathname;
-let installPrompt = null;
+/*
+ * Protocol 99 cache migration.
+ *
+ * The earlier archive shipped an offline shell whose fixed cache key could keep
+ * launcher scripts older than generated benchmark data. Protocol 99 favors
+ * current, verifiable evidence over offline installation, so this module
+ * removes the legacy worker and its caches. It can be deleted after deployed
+ * clients have had a reasonable migration window.
+ */
+void clearLegacyOfflineShell();
 
-if ("serviceWorker" in navigator && (window.isSecureContext || location.hostname === "127.0.0.1")) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register(serviceWorkerUrl, { scope: serviceWorkerScope }).catch(() => {
-      // Offline support is progressive enhancement; the static site remains usable.
-    });
-  }, { once: true });
+for (const button of document.querySelectorAll("[data-install-app]")) {
+  button.hidden = true;
 }
 
-window.addEventListener("beforeinstallprompt", (event) => {
-  event.preventDefault();
-  installPrompt = event;
-  setupInstallButtons();
-});
-
-window.addEventListener("appinstalled", () => {
-  installPrompt = null;
-  updateInstallButtons();
-});
-
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", setupInstallButtons, { once: true });
-} else {
-  setupInstallButtons();
-}
-
-function setupInstallButtons() {
-  for (const button of document.querySelectorAll("[data-install-app]")) {
-    if (!button.dataset.installBound) {
-      button.dataset.installBound = "true";
-      button.addEventListener("click", installApp);
-    }
+async function clearLegacyOfflineShell() {
+  if ("serviceWorker" in navigator) {
+    const registrations = await navigator.serviceWorker.getRegistrations().catch(() => []);
+    await Promise.all(registrations.map((registration) => registration.unregister()));
   }
-  updateInstallButtons();
-}
-
-function updateInstallButtons() {
-  for (const button of document.querySelectorAll("[data-install-app]")) {
-    button.hidden = !installPrompt;
+  if ("caches" in window) {
+    const keys = await caches.keys().catch(() => []);
+    await Promise.all(
+      keys
+        .filter((key) => key.startsWith("99ag-shell-"))
+        .map((key) => caches.delete(key))
+    );
   }
-}
-
-async function installApp() {
-  if (!installPrompt) {
-    return;
-  }
-  const prompt = installPrompt;
-  installPrompt = null;
-  await prompt.prompt();
-  await prompt.userChoice;
-  updateInstallButtons();
 }

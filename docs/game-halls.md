@@ -1,5 +1,9 @@
 # Game Halls
 
+> **Legacy reference:** Halls organize the Pre-Benchmark Era only. New formal
+> games use Protocol 99 Entries and must follow `AGENTS.md`; do not allocate a
+> new Hall slot for a benchmark Entry.
+
 The archive has 9 halls. Each hall is an AI capability observation category, not just a genre bucket. Each hall can eventually contain 11 official observation samples.
 
 9 halls x 11 observation samples = 99 game slots.

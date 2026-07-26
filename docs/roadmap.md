@@ -1,22 +1,26 @@
 # Roadmap
 
-This roadmap tracks maintenance work that makes 99 AI Games more useful as a public AI coding-agent capability archive. It does not reserve empty game slots or claim future work is already complete.
+This roadmap never reserves fake Entries or claims future results.
 
 ## Near Term
 
-- Keep verified screenshots current when playable samples change.
-- Monitor the public GitHub Pages demo after archive changes.
-- Write the Game 003 benchmark brief before generating any new game source.
-- Add a comparison run record template for future model and agent variants.
+- Run Protocol 99 v1 with weak, middle, and strong AI coding systems to check
+  whether the fixed task creates a useful gradient.
+- Publish only Finalized Raw Runs that have real browser evidence.
+- Observe CI and Pages performance as the first Entries arrive.
+- Add independent Player Experience and Engineering review records only after
+  their attribution/schema are implemented.
 
 ## Mid Term
 
-- Add variants for the same game across different agents.
-- Generate comparison reports from variants and run records.
-- Add an accessibility checklist for playable observations.
+- Improve same-checkpoint comparison using real Entry evidence.
+- Add more model-family timelines from declared metadata.
+- Audit verifier robustness against creative but compliant implementations.
+- Keep Agent Autopilot compatible across major coding tools.
 
 ## Long Term
 
-- Preserve 99 observation samples.
-- Maintain a model evolution timeline based on real entries, variants, and run records.
-- Keep a public playable archive that remains inspectable without a backend.
+- Preserve up to 99 standardized Entries across AI coding-system generations.
+- Freeze v1 permanently when a successor challenge is needed.
+- Create v2 as a separate prompt/hash/evaluation cohort.
+- Keep all Raw history, Repair relationships, and Legacy URLs inspectable.

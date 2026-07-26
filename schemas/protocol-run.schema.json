@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aidong27.github.io/99-ai-games/schemas/protocol-run.schema.json",
+  "title": "Protocol 99 Run",
+  "type": "object",
+  "required": [
+    "runId",
+    "entryId",
+    "challengeId",
+    "challengeVersion",
+    "canonicalPromptHash",
+    "promptSnapshot",
+    "runType",
+    "status",
+    "identity",
+    "startedAt",
+    "baselineGitCommit",
+    "humanPromptCount",
+    "humanCodeEdits",
+    "verificationReport",
+    "paths",
+    "toolAccess"
+  ],
+  "properties": {
+    "runId": { "type": "string", "pattern": "^run-[a-z0-9-]+$" },
+    "entryId": { "type": "string" },
+    "challengeId": { "const": "protocol-99" },
+    "challengeVersion": { "type": "string" },
+    "canonicalPromptHash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "promptSnapshot": { "const": "prompt-snapshot.md" },
+    "verificationReport": { "const": "evidence/report.json" },
+    "runType": {
+      "enum": [
+        "raw",
+        "standard-repair",
+        "regeneration",
+        "human-curated",
+        "cross-agent-repair"
+      ]
+    },
+    "status": {
+      "enum": [
+        "building",
+        "pending-browser-verification",
+        "verified",
+        "finalized",
+        "failed",
+        "withdrawn"
+      ]
+    },
+    "humanPromptCount": { "type": ["integer", "string"] },
+    "humanCodeEdits": { "type": ["boolean", "string"] },
+    "paths": {
+      "type": "object",
+      "required": ["game", "tests", "evidence"],
+      "properties": {
+        "game": { "const": "game/" },
+        "tests": { "const": "tests/" },
+        "evidence": { "const": "evidence/" }
+      }
+    }
+  },
+  "additionalProperties": true
+}

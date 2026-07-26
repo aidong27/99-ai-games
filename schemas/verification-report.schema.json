@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aidong27.github.io/99-ai-games/schemas/verification-report.schema.json",
+  "title": "Protocol 99 Verification Report",
+  "type": "object",
+  "required": [
+    "reportVersion",
+    "challengeId",
+    "challengeVersion",
+    "entryId",
+    "runId",
+    "status",
+    "seed",
+    "browser",
+    "checks",
+    "score",
+    "failures"
+  ],
+  "properties": {
+    "reportVersion": { "const": "1.0" },
+    "status": { "enum": ["passed", "failed", "pending-browser-verification"] },
+    "seed": { "const": 99 },
+    "checks": { "type": "object" },
+    "score": {
+      "type": "object",
+      "required": ["name", "earned", "maximum"],
+      "properties": {
+        "name": { "const": "Automated Compliance Score" },
+        "earned": { "type": "number", "minimum": 0, "maximum": 100 },
+        "maximum": { "const": 100 }
+      }
+    },
+    "failures": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": true
+}

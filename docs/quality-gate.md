@@ -1,64 +1,50 @@
-# Quality gate
+# Quality Gate
 
-The archive's promises — playable games, honest provenance, no fabricated
-popularity, completable levels — are enforced by a single command, run locally
-and in CI on every push and pull request:
+The single source of truth is:
 
 ```bash
 node scripts/check.mjs
 ```
 
-## What it runs
+`npm run check`, CI, Pages, and Agent Finalize call the same file.
 
-`scripts/check.mjs` is the one source of truth. The CI workflow
-(`.github/workflows/ci.yml`) runs exactly this command, so the pipeline and a
-local check cannot drift apart. It runs, and fails on the first problem in any of:
+## Coverage
 
-1. **`node --check`** on every module under `src/`, `scripts/`, and each
-   `games/<slug>/src/` — no game or tool ships with a syntax error.
-2. **`scripts/validate-halls.mjs`** — hall taxonomy, capacities, and game→hall
-   assignment integrity.
-3. **`scripts/validate-games.mjs`** — game directory structure, manifest/metadata
-   agreement, variant and run-record wiring.
-4. **`scripts/validate-launcher.mjs`** — launcher files, HTML asset references and
-   cache-busting, manifest paths, declared media existence, and `deviceSupport`.
-5. **`scripts/validate-provenance.mjs`** — the honesty gate (see below).
-6. **`scripts/validate-public-surfaces.mjs`** — README stats, press fallback
-   stats, social-card counts, share-kit promo links, and generated promo pages
-   stay aligned with the real manifest.
-7. **`scripts/generate-promo-pages.mjs --check`** — generated per-game promo
-   pages and promotional cards match the current manifest and game metadata.
-8. **`scripts/generate-index.mjs --check`** — the generated index matches the
-   manifest.
-9. **`scripts/verify-gravity-atlas.mjs`** — replays each Gravity Atlas plate's
-   embedded reference launch vector through the real engine to prove every plate
-   is completable. Games that ship a deterministic engine should add a similar
-   standing proof.
-10. **`scripts/verify-afterlight-dispatch.mjs`** — imports the shipped narrative
-    engine, proves the six-choice canonical route reaches the success ending,
-    proves an adverse route reaches failure, and rejects out-of-scene choices.
-11. **`scripts/verify-context-window.mjs`** — imports the shipped Context
-    Window engine and proves a scripted navigator can deposit enough shards to
-    win, that hallucination contact can collapse a run, that eviction resamples
-    sector details while shard counts persist, and that solid tiles cannot be
-    tunneled.
+1. `node --check` across launcher, scripts, benchmarks, tests, Entry modules,
+   and Legacy game source.
+2. Protocol 99 Challenge schema and SHA-256 Lock validation.
+3. Entry/Run schema, status, prompt, source, evidence, screenshot, and Raw/Repair
+   integrity.
+4. Active Work Order path-scope validation.
+5. static Entry runtime security scan.
+6. Legacy Hall/game structure, provenance, and honesty rules.
+7. launcher DOM/CSS/meta/link/PWA-retirement contracts.
+8. public counts, links, social assets, and Legacy promo evidence boundaries.
+9. deterministic `--check` for benchmark, promo, social, discovery, and
+   generated index outputs.
+10. the 15-case Agent Autopilot flow suite.
+11. real Chromium Protocol 99 fixture: seed, pause, restart, ability, mobile,
+    real defeat, real win, screenshots, and two runs in one tab.
+12. all discovered Legacy `scripts/verify-*.mjs` proofs.
+13. `.site/` construction and public-file allowlist.
+14. `git diff --check HEAD`.
 
-## The provenance / honesty gate
+Any failure makes the command non-zero. Browser unavailability is not converted
+into a fake pass.
 
-`scripts/validate-provenance.mjs` turns the project's written rules into a
-machine check across `games/manifest.json` and every `game.json`,
-`variant.json`, and run record:
+## Focused Checks
 
-- `humanCodeEdits` is exactly `false` everywhere (manifest entries, game
-  metadata, variants, and runs), and `manifest.humanCodeEditsPolicy` is `false`.
-- Every game, variant, and run carries real model/agent labels.
-- Every game has at least one run record, and every run documents a non-empty
-  list of real checks (`verification.performed`, or the legacy `verification.checks`);
-  a `pending` list, when present, must be an array.
-- `canonicalVariantId` is a variant that actually exists.
-- No object anywhere declares a fabricated popularity or traffic metric
-  (downloads, stars, ratings, installs, views, and similar keys are rejected).
+```bash
+node scripts/validate-benchmark.mjs
+node scripts/validate-entries.mjs
+node scripts/validate-path-scope.mjs
+node scripts/validate-entry-security.mjs
+node scripts/validate-launcher.mjs
+node scripts/validate-public-surfaces.mjs
+npm run test:agent-flow
+npm run test:browser-fixture
+npm run build:site
+```
 
-If a real exception to `humanCodeEdits` ever occurs, it must be represented
-honestly in the data and this validator updated deliberately — not worked
-around.
+Generated files should be repaired through their generators, not by weakening
+the validator or editing the output.

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Protocol 99 methodology: what is compared, how Raw Runs are preserved, how browser evidence is captured, and what the score does not mean.">
+    <meta property="og:title" content="Benchmark Methodology | 99 AI Games">
+    <meta property="og:description" content="A transparent engineering observation of model plus Agent plus tool environment.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://aidong27.github.io/99-ai-games/methodology.html">
+    <meta property="og:image" content="https://aidong27.github.io/99-ai-games/assets/social/og-cover.png">
+    <meta name="theme-color" content="#0b0c0e">
+    <title>Benchmark Methodology | 99 AI Games</title>
+    <link rel="canonical" href="https://aidong27.github.io/99-ai-games/methodology.html">
+    <link rel="icon" href="./favicon.ico">
+    <script src="./src/theme.js?v=2026-07-26-protocol-99-v1"></script>
+    <script src="./src/i18n.js?v=2026-07-26-protocol-99-v1"></script>
+    <script type="module" src="./src/pwa.js?v=2026-07-26-protocol-99-v1"></script>
+    <link rel="stylesheet" href="./styles/tokens.css?v=2026-07-26-protocol-99-v1">
+    <link rel="stylesheet" href="./styles/base.css?v=2026-07-26-protocol-99-v1">
+    <link rel="stylesheet" href="./styles/layout.css?v=2026-07-26-protocol-99-v1">
+    <link rel="stylesheet" href="./styles/components.css?v=2026-07-26-protocol-99-v1">
+    <link rel="stylesheet" href="./styles/benchmark.css?v=2026-07-26-protocol-99-v1">
+  </head>
+  <body class="benchmark-page">
+    <a class="skip-link" href="#main">Skip to methodology</a>
+    <header class="benchmark-header">
+      <a class="benchmark-brand" href="./" aria-label="99 AI Games home">
+        <span class="benchmark-brand-mark">99</span>
+        <span class="benchmark-brand-copy"><strong>AI Games</strong><small>EVOLUTION BENCHMARK</small></span>
+      </a>
+      <nav class="benchmark-nav" aria-label="Primary navigation">
+        <a href="./">Home</a>
+        <a href="./challenge.html">Challenge</a>
+        <a href="./entries.html">Entries</a>
+        <a href="./compare.html">Compare</a>
+        <a href="./methodology.html" aria-current="page">Method</a>
+        <a href="./library.html">Legacy</a>
+        <a href="./log.html">Log</a>
+      </nav>
+      <span class="benchmark-header-status live">METHOD v1</span>
+    </header>
+
+    <main id="main" class="benchmark-shell">
+      <header class="page-intro">
+        <p class="benchmark-kicker">Transparent engineering observation</p>
+        <h1>What this benchmark measures, and what it does not</h1>
+        <p>
+          Protocol 99 compares an AI coding system: the model, its Agent product, its
+          native tools, and the permissions available during one recorded Run. It is not
+          a pure foundation-model experiment and it does not claim scientific model IQ.
+        </p>
+      </header>
+
+      <div class="method-grid">
+        <nav class="method-toc" aria-label="Method sections">
+          <a href="#unit">Comparison unit</a>
+          <a href="#raw">Raw and Repair</a>
+          <a href="#evidence">Browser evidence</a>
+          <a href="#score">Compliance score</a>
+          <a href="#identity">Identity</a>
+          <a href="#blind">Blind comparison</a>
+          <a href="#legacy">Legacy boundary</a>
+          <a href="#limits">Limitations</a>
+        </nav>
+        <article class="method-copy">
+          <section id="unit">
+            <p class="benchmark-kicker">01 · Unit</p>
+            <h2>Model + Agent + native tool environment</h2>
+            <p>Codex, Claude Code, Grok Build, Kimi, GLM coding tools, and similar products expose different shells, browsers, context systems, and permissions. Results therefore describe the complete coding system actually used.</p>
+          </section>
+          <section id="raw">
+            <p class="benchmark-kicker">02 · Run protocol</p>
+            <h2>Raw history cannot be polished away</h2>
+            <p>A Raw Run begins from an assigned empty workspace and one canonical prompt. The Agent may test and repair its own work before declaring completion. Finalization records a stable source hash. A later Standard Repair copies the Run into a new directory and preserves the Raw source unchanged.</p>
+          </section>
+          <section id="evidence">
+            <p class="benchmark-kicker">03 · Verification</p>
+            <h2>Victory must happen through public controls</h2>
+            <p>Chromium executes participant tests through a restricted SDK. Tests may press keys, click visible controls, wait, take checkpoints, and read <code>window.__P99__.getState()</code>. They may not mutate state, teleport, inject victory, disable hazards, or call hidden internals.</p>
+          </section>
+          <section id="score">
+            <p class="benchmark-kicker">04 · Automated Compliance</p>
+            <h2>A traceable 100-point rules score</h2>
+            <p>Every point maps to a public boolean check for startup, required states, the core-relay-exit objective, world-stage changes, hazards, ability limitation, deterministic playthroughs, security, integrity, accessibility, and mobile layout. Subjective Player Experience and Engineering Reviews stay separate and show “not reviewed” when absent.</p>
+          </section>
+          <section id="identity">
+            <p class="benchmark-kicker">05 · Provenance</p>
+            <h2>Unknown stays unknown</h2>
+            <p>Provider, model, version, Agent, and Agent version are recorded from explicit declarations or reliable tool facts. The repository never infers a precise version from branding, dates, or style. Every identity includes a source and confidence label.</p>
+          </section>
+          <section id="blind">
+            <p class="benchmark-kicker">06 · Bias control</p>
+            <h2>Blind Compare is local, not fake social proof</h2>
+            <p>When at least two verified same-version Entries exist, the browser can hide names, present both playable versions, collect one local preference, and then reveal identity and evidence. There is no backend and no fabricated global vote count.</p>
+          </section>
+          <section id="legacy">
+            <p class="benchmark-kicker">07 · Historical boundary</p>
+            <h2>Eleven creative experiments stay outside the ranking</h2>
+            <p>The Pre-Benchmark Era used different prompts, genres, revision paths, and constraints. Those games remain playable and their provenance remains intact, but their count and Hall coverage are reported separately from Protocol 99.</p>
+          </section>
+          <section id="limits">
+            <p class="benchmark-kicker">08 · Limits</p>
+            <h2>Transparent, not falsely absolute</h2>
+            <p>A public repository can express a no-peeking protocol but cannot prove a perfect blind sandbox. Browser automation verifies observable behavior, not every design virtue. One benchmark cannot represent all software engineering. Results are engineering observations bounded to one prompt version and one recorded environment.</p>
+          </section>
+        </article>
+      </div>
+    </main>
+
+    <footer class="benchmark-footer">
+      <p>Cross-version results are never silently mixed into one ranking.</p>
+      <nav aria-label="Footer links">
+        <a href="https://github.com/aidong27/99-ai-games/blob/main/docs/BENCHMARK-METHOD.md">Full method document</a>
+        <a href="./benchmarks/protocol-99/v1/rubric.json">Rubric</a>
+        <a href="https://github.com/aidong27/99-ai-games/blob/main/docs/SECURITY.md">Security boundary</a>
+      </nav>
+    </footer>
+  </body>
+</html>

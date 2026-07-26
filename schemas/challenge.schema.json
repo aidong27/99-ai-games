@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aidong27.github.io/99-ai-games/schemas/challenge.schema.json",
+  "title": "Protocol 99 Challenge",
+  "type": "object",
+  "required": [
+    "challengeId",
+    "challengeVersion",
+    "title",
+    "status",
+    "canonicalPrompt",
+    "rubric",
+    "testContract",
+    "lock",
+    "entryRange",
+    "benchmarkSeed",
+    "contractVersion",
+    "runtime"
+  ],
+  "properties": {
+    "challengeId": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "challengeVersion": { "type": "string", "pattern": "^v[1-9][0-9]*$" },
+    "title": { "type": "string", "minLength": 1 },
+    "status": { "enum": ["draft", "calibrating", "locked", "retired"] },
+    "canonicalPrompt": { "type": "string" },
+    "promptTranslation": { "type": "string" },
+    "rubric": { "type": "string" },
+    "testContract": { "type": "string" },
+    "lock": { "type": "string" },
+    "entryRange": {
+      "type": "object",
+      "required": ["first", "last"],
+      "properties": {
+        "first": { "const": 1 },
+        "last": { "const": 99 }
+      },
+      "additionalProperties": false
+    },
+    "benchmarkSeed": { "const": 99 },
+    "contractVersion": { "const": "1.0" },
+    "runtime": { "type": "object" }
+  },
+  "additionalProperties": true
+}

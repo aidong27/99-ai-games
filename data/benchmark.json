@@ -1,0 +1,38 @@
+{
+  "generated": true,
+  "generatedFrom": "2026-07-26",
+  "project": {
+    "name": "99 AI Games",
+    "primaryTagline": "Same brief. Same rules. Different AI.",
+    "secondaryTagline": "The games are playable. The real exhibit is the AI that made them.",
+    "comparisonUnit": "AI coding system: model + Agent + native tool environment",
+    "repository": "https://github.com/aidong27/99-ai-games"
+  },
+  "challenge": {
+    "id": "protocol-99",
+    "version": "v1",
+    "title": "Protocol 99",
+    "status": "locked",
+    "canonicalPromptHash": "298455fe279cf588189fec818960315963929cfc21b17029a7bc122cf25a4878",
+    "benchmarkSeed": 99,
+    "targetEntries": 99,
+    "promptUrl": "./benchmarks/protocol-99/v1/PROMPT.md",
+    "methodUrl": "./methodology.html"
+  },
+  "stats": {
+    "benchmarkEntries": 0,
+    "allocatedEntries": 0,
+    "targetEntries": 99,
+    "legacyPlayableExperiments": 11,
+    "legacyRunRecords": 17
+  },
+  "entries": [],
+  "defaultEntries": [],
+  "legacy": {
+    "collection": "Pre-Benchmark Era",
+    "manifest": "./games/manifest.json",
+    "libraryUrl": "./library.html",
+    "includedInBenchmarkRanking": false
+  },
+  "scoreDisclaimer": "This score measures observable completion and repository compliance. It is not an intelligence score, model IQ, scientific ranking, or complete measure of an AI coding system."
+}

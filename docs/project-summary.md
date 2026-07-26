@@ -1,51 +1,30 @@
 # Project Summary
 
-## Name
+99 AI Games is a playable archive and standardized AI coding-system benchmark.
 
-99 AI Games
+**Same brief. Same rules. Different AI.**
 
-## Concept
+Formal participants build the locked Protocol 99 challenge. One Entry represents
+a model + Agent + native tool environment; one Entry may preserve an immutable
+Raw Run and separate Repair or regeneration Runs. The target is 99 standardized
+Entries, not 99 unrelated prompts.
 
-99 AI Games is a long-term AI game-making evolution archive. It preserves playable observation samples, model provenance, variants, and run records so future readers can see how AI game-making changes over time.
+Current public state:
 
-## Core Archive Principle
+| Collection | Count |
+|---|---:|
+| Finalized Protocol 99 Raw Entries | [Generated index](generated-benchmark-index.md) |
+| Allocated Protocol 99 Entries | [Generated index](generated-benchmark-index.md) |
+| Pre-Benchmark Era playable experiments | 11 |
 
-The 99 game slots represent 99 observation samples, not 99 AI generations. A single game may contain multiple model variants and run records. Model comparisons are stored as variants/runs under the same game slot and do not consume additional game numbers.
+The current canonical prompt, test contract, rubric, and hashes live under
+`benchmarks/protocol-99/v1/`. New AI systems enter through `AGENTS.md` and the
+Autopilot commands. Global benchmark indexes are generated from local
+Entry/Run records.
 
-The games are playable. The real exhibit is the AI that made them.
+The 11 earlier Hall-based games remain under `games/` with their source,
+variants, run records, and provenance unchanged. They are historical creative
+experiments and are excluded from standardized comparison.
 
-## Current Games
-
-| # | Observation | Hall | Model / tool | Status |
-|---:|---|---|---|---|
-| 001 | Signal Cartographer | Survival Strategy Hall | GPT-5.5 xhigh / Codex | playable |
-| 002 | Lumen Lattice | Puzzle Logic Hall | Claude Opus 4.8 / Claude Code | playable |
-| 003 | Neon Pulse Courier | Arcade Reaction Hall | GPT-5.5 xhigh / Codex | playable |
-| 004 | Ninefold Draft | Card Strategy Hall | Claude Opus 4.8 / Claude Code | playable |
-| 005 | Gravity Atlas | Physics Experiment Hall | Claude Fable 5 / Claude Code | playable |
-| 006 | Memory Bloom | Clicker Management Hall | Kimi / Kimi Work | playable |
-| 007 | Afterlight Dispatch | Text Adventure Hall | GPT-5.6 sol ultra / Codex | playable |
-| 008 | Orbit Cadence | Rhythm Audio Hall | Grok 4.5 / Grok Build | playable |
-| 009 | Deepforge Miner | Clicker Management Hall | DeepSeek v4 Pro / Claude Code | playable |
-| 010 | Resonance Loom | Rhythm Audio Hall | GLM-5.2 / GLM-5.2 coding agent | playable |
-
-The canonical variant, run-record paths, device policy, and full provenance for every entry live in `games/manifest.json` and `games/<slug>/game.json`. All current entries declare `humanCodeEdits: false`.
-
-## Framework Pieces
-
-- `games/manifest.json`: collection index
-- `halls/halls.json`: hall structure
-- `schemas/`: metadata shapes
-- `scripts/`: validation and scaffolding
-- `templates/`: game, variant, run, and prompt templates
-- `docs/`: policies and process docs
-
-## Current Limitations
-
-- Public hosting is configured through GitHub Pages: `https://aidong27.github.io/99-ai-games/`.
-- Screenshot evidence varies by observation and is only claimed when the corresponding metadata marks a real repository capture as current.
-- Orbit Cadence has no verified gameplay screenshot yet; its cover poster is promotional artwork only.
-- Deepforge Miner has no verified gameplay screenshot yet; its cover poster is promotional artwork only.
-- Resonance Loom has a verified local title-screen capture; its separate cover poster remains promotional artwork only.
-- Physical handset QA is not claimed for the current PC-first archive.
-- Future model comparisons should be added only when real variants exist.
+See [Benchmark Method](BENCHMARK-METHOD.md), [Data Model](DATA-MODEL.md), and
+[Legacy Archive](LEGACY-ARCHIVE.md).

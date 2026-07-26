@@ -4,6 +4,9 @@ node_modules/
 dist/
 build/
 .site/
+.agent/
+test-results/
+playwright-report/
 *.log
 .env
 .env.*

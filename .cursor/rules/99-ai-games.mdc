@@ -1,0 +1,10 @@
+---
+description: Authoritative 99 AI Games repository protocol
+alwaysApply: true
+---
+
+Read and follow `/AGENTS.md` before editing this repository.
+
+For “Build the game” or equivalent requests, execute the Autopilot Entry
+Protocol in `/AGENTS.md`. Do not create an Entry by hand, alter the locked
+Challenge, inspect another Entry's game/tests, or overwrite a Finalized Raw Run.

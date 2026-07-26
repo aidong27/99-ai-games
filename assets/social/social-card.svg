@@ -1,18 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
   <title id="title">99 AI Games social card</title>
-  <desc id="desc">Share card for the 99 AI Games playable AI game-making archive.</desc>
-  <rect width="1200" height="630" fill="#000000"/>
-  <rect x="72" y="72" width="1056" height="486" rx="8" fill="#1c1c1e" stroke="#38383a"/>
-  <rect x="96" y="96" width="52" height="52" rx="8" fill="#0a84ff"/>
-  <text x="122" y="130" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="700" text-anchor="middle">99</text>
-  <text x="168" y="130" fill="#f5f5f7" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="700">AI Games</text>
-  <text x="96" y="270" fill="#f5f5f7" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-size="86" font-weight="760">Playable archive.</text>
-  <text x="96" y="340" fill="#f5f5f7" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-size="86" font-weight="760">Real provenance.</text>
-  <text x="102" y="414" fill="#c7c7cc" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="28">11 playable observations / 99 target slots</text>
-  <rect x="96" y="466" width="352" height="48" rx="8" fill="#242426" stroke="#38383a"/>
-  <text x="120" y="498" fill="#2997ff" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="700">Browser games made by AI coding agents</text>
-  <rect x="880" y="186" width="176" height="176" rx="8" fill="#242426" stroke="#38383a"/>
-  <text x="968" y="258" fill="#0a84ff" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-size="56" font-weight="780" text-anchor="middle">11</text>
-  <text x="968" y="302" fill="#f5f5f7" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="650" text-anchor="middle">playable</text>
-  <text x="968" y="330" fill="#8e8e93" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif" font-size="18" text-anchor="middle">observations</text>
+  <desc id="desc">Protocol 99 compares different AI coding systems on one fixed playable browser-game challenge.</desc>
+  <rect width="1200" height="630" fill="#090c0f"/>
+  <rect x="72" y="72" width="1056" height="486" rx="8" fill="#0f151a" stroke="#2a3943"/>
+  <rect x="96" y="96" width="52" height="52" rx="8" fill="#5e9cff"/>
+  <text x="122" y="130" fill="#ffffff" font-family="system-ui,sans-serif" font-size="20" font-weight="800" text-anchor="middle">99</text>
+  <text x="168" y="130" fill="#f4f7f9" font-family="system-ui,sans-serif" font-size="24" font-weight="750">AI Games</text>
+  <text x="96" y="250" fill="#f4f7f9" font-family="system-ui,sans-serif" font-size="78" font-weight="780">Same brief.</text>
+  <text x="96" y="330" fill="#f4f7f9" font-family="system-ui,sans-serif" font-size="78" font-weight="780">Different AI.</text>
+  <text x="102" y="396" fill="#a5b3bb" font-family="system-ui,sans-serif" font-size="27">A 99-slot archive for real implementations of one locked challenge.</text>
+  <rect x="96" y="454" width="430" height="58" rx="6" fill="#131b21" stroke="#2a3943"/>
+  <text x="118" y="489" fill="#70e0b1" font-family="ui-monospace,monospace" font-size="18" font-weight="700">PROTOCOL 99 v1 · SEED 99 · RAW FIRST</text>
+  <rect x="880" y="178" width="176" height="190" rx="8" fill="#131b21" stroke="#2a3943"/>
+  <text x="968" y="245" fill="#5e9cff" font-family="system-ui,sans-serif" font-size="54" font-weight="800" text-anchor="middle">LOCKED</text>
+  <text x="968" y="286" fill="#f4f7f9" font-family="system-ui,sans-serif" font-size="18" font-weight="700" text-anchor="middle">Finalized Raw</text>
+  <text x="968" y="319" fill="#778893" font-family="system-ui,sans-serif" font-size="15" text-anchor="middle">No fake entries</text>
 </svg>

@@ -1,0 +1,183 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  color: #eef7ff;
+  background: #071015;
+  font-family: system-ui, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+  background:
+    linear-gradient(rgba(93, 216, 255, 0.06) 1px, transparent 1px) 0 0 / 32px 32px,
+    #071015;
+}
+
+button {
+  min-height: 42px;
+  border: 1px solid #5dd8ff;
+  border-radius: 6px;
+  padding: 0 16px;
+  color: #061015;
+  background: #5dd8ff;
+  font: inherit;
+  font-weight: 700;
+}
+
+button:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 4px;
+  box-shadow: 0 0 0 7px rgba(93, 216, 255, 0.32);
+}
+
+.game-shell {
+  width: min(1080px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 24px 0 40px;
+}
+
+header,
+.controls,
+.hud {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+header {
+  justify-content: space-between;
+  gap: 16px;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 0;
+  font-size: clamp(1.7rem, 4vw, 3rem);
+}
+
+.eyebrow {
+  margin-bottom: 6px;
+  color: #7ae5bc;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.controls {
+  gap: 8px;
+}
+
+.controls button {
+  color: #eef7ff;
+  background: #0f2530;
+}
+
+.hud {
+  gap: 8px;
+  margin: 18px 0 12px;
+}
+
+.hud span {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid rgba(196, 232, 249, 0.2);
+  border-radius: 5px;
+  padding: 0 10px;
+  color: #9db7c4;
+  background: rgba(11, 28, 36, 0.9);
+  font-size: 0.78rem;
+}
+
+.hud strong {
+  color: #f5fbff;
+}
+
+.arena-wrap {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(93, 216, 255, 0.35);
+  border-radius: 8px;
+  background: #09161c;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+}
+
+canvas {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 10 / 7;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  padding: 28px;
+  background: rgba(4, 11, 15, 0.88);
+  text-align: center;
+}
+
+.overlay[hidden] {
+  display: none;
+}
+
+.overlay h2 {
+  max-width: 680px;
+  margin-bottom: 12px;
+  font-size: clamp(1.35rem, 4vw, 2.4rem);
+}
+
+.overlay p:not(.eyebrow) {
+  max-width: 620px;
+  color: #a9c0cc;
+}
+
+.status {
+  min-height: 24px;
+  margin: 12px 0 0;
+  color: #a9c0cc;
+}
+
+@media (max-width: 560px) {
+  .game-shell {
+    width: min(100% - 20px, 1080px);
+    padding-top: 12px;
+  }
+
+  .controls {
+    width: 100%;
+  }
+
+  .controls button {
+    flex: 1;
+  }
+
+  .hud span {
+    flex: 1 1 calc(50% - 8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

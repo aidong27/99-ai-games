@@ -3,93 +3,98 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta
-      name="description"
-      content="A cross-model capability matrix for 99 AI Games: which AI models and tools have produced playable observations in which game halls, built only from real manifest data."
-    >
-    <meta property="og:title" content="Model Capability Matrix | 99 AI Games">
-    <meta property="og:description" content="Which AI models and tools have charted which game halls, built only from real manifest data.">
+    <meta name="description" content="Compare two to four verified AI coding-system implementations of the same Protocol 99 prompt, game, evidence, and compliance checks.">
+    <meta property="og:title" content="Compare Protocol 99 Entries | 99 AI Games">
+    <meta property="og:description" content="Same challenge, same prompt hash, playable AI implementations side by side.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://aidong27.github.io/99-ai-games/compare.html">
     <meta property="og:image" content="https://aidong27.github.io/99-ai-games/assets/social/og-cover.png">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Model Capability Matrix | 99 AI Games">
-    <meta name="twitter:description" content="Which AI models and tools have charted which game halls, built only from real manifest data.">
-    <meta name="twitter:image" content="https://aidong27.github.io/99-ai-games/assets/social/og-cover.png">
     <meta name="theme-color" content="#0b0c0e">
-    <title>Model Capability Matrix | 99 AI Games</title>
+    <title>Compare Protocol 99 Entries | 99 AI Games</title>
     <link rel="canonical" href="https://aidong27.github.io/99-ai-games/compare.html">
-    <link rel="manifest" href="./manifest.webmanifest">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23030712'/%3E%3Ctext x='16' y='22' font-family='Arial,sans-serif' font-size='13' font-weight='700' fill='%23ffffff' text-anchor='middle'%3E99%3C/text%3E%3C/svg%3E">
-    <link rel="modulepreload" href="./src/archive-data.js?v=2026-07-17-context-window">
-    <script src="./src/theme.js?v=2026-07-17-context-window"></script>
-    <script src="./src/i18n.js?v=2026-07-17-context-window"></script>
-    <script type="module" src="./src/pwa.js?v=2026-07-17-context-window"></script>
-    <link rel="stylesheet" href="./styles/tokens.css?v=2026-07-17-context-window">
-    <link rel="stylesheet" href="./styles/base.css?v=2026-07-17-context-window">
-    <link rel="stylesheet" href="./styles/layout.css?v=2026-07-17-context-window">
-    <link rel="stylesheet" href="./styles/components.css?v=2026-07-17-context-window">
-    <link rel="stylesheet" href="./styles/archive-pages.css?v=2026-07-17-context-window">
+    <link rel="icon" href="./favicon.ico">
+    <script src="./src/theme.js?v=2026-07-26-protocol-99-v1"></script>
+    <script src="./src/i18n.js?v=2026-07-26-protocol-99-v1"></script>
+    <script type="module" src="./src/pwa.js?v=2026-07-26-protocol-99-v1"></script>
+    <link rel="stylesheet" href="./styles/tokens.css?v=2026-07-26-protocol-99-v1">
+    <link rel="stylesheet" href="./styles/base.css?v=2026-07-26-protocol-99-v1">
+    <link rel="stylesheet" href="./styles/layout.css?v=2026-07-26-protocol-99-v1">
+    <link rel="stylesheet" href="./styles/components.css?v=2026-07-26-protocol-99-v1">
+    <link rel="stylesheet" href="./styles/benchmark.css?v=2026-07-26-protocol-99-v1">
   </head>
-  <body class="compare-page">
-    <a class="skip-link" href="#compare-main">Skip to the capability matrix</a>
-
-    <header class="title-header" aria-label="Archive navigation">
-      <a class="wordmark" href="./" aria-label="99 AI Games home">
-        <span>99</span>
-        <strong>AI Games</strong>
+  <body class="benchmark-page">
+    <a class="skip-link" href="#main">Skip to comparison</a>
+    <header class="benchmark-header">
+      <a class="benchmark-brand" href="./" aria-label="99 AI Games home">
+        <span class="benchmark-brand-mark">99</span>
+        <span class="benchmark-brand-copy"><strong>AI Games</strong><small>EVOLUTION BENCHMARK</small></span>
       </a>
-      <nav aria-label="Archive links">
-        <a href="./library.html">Library</a>
+      <nav class="benchmark-nav" aria-label="Primary navigation">
+        <a href="./">Home</a>
+        <a href="./challenge.html">Challenge</a>
+        <a href="./entries.html">Entries</a>
         <a href="./compare.html" aria-current="page">Compare</a>
-        <a href="./press.html">Press</a>
+        <a href="./methodology.html">Method</a>
+        <a href="./library.html">Legacy</a>
         <a href="./log.html">Log</a>
       </nav>
+      <span id="compare-header-status" class="benchmark-header-status">LOADING INDEX</span>
     </header>
 
-    <main id="compare-main" class="compare-stage" aria-labelledby="compare-heading">
-      <section class="compare-intro">
-        <p class="archive-kicker">Capability matrix</p>
-        <h1 id="compare-heading">Which models have charted which halls</h1>
-        <p class="compare-lede">
-          The archive's purpose is to observe how different AI coding agents make games over
-          time. This view is built only from real manifest data — every cell links to a real
-          observation record. Empty halls are shown as empty, never as placeholder games.
+    <main id="main" class="benchmark-shell">
+      <header class="page-intro">
+        <p class="benchmark-kicker">2–4 verified Entries · same Prompt Hash</p>
+        <h1>Compare the implementation, not the brand promise</h1>
+        <p>
+          Play the same task side by side, inspect the same checkpoints, and compare
+          machine facts. Different Challenge versions are blocked from the default comparison.
         </p>
-        <dl class="compare-stats" id="compare-stats" aria-live="polite"></dl>
-      </section>
+      </header>
 
-      <section class="compare-section" aria-labelledby="matrix-heading">
-        <h2 id="matrix-heading" class="compare-section-title">Model &times; hall coverage</h2>
-        <div class="matrix-scroll">
-          <table class="matrix" id="matrix-table">
-            <caption class="visually-hidden">
-              Models are grouped by product family. Rows are exact AI models and tools;
-              columns are game halls. Each cell shows the observation numbers that model
-              has placed in that hall.
-            </caption>
-          </table>
+      <p id="compare-policy" class="compare-warning">
+        Loading the current Prompt Hash and verified Raw Entry policy…
+      </p>
+
+      <section id="compare-picker" class="compare-picker" aria-labelledby="picker-heading">
+        <aside>
+          <div class="benchmark-section-heading">
+            <div>
+              <p class="benchmark-kicker">Selection</p>
+              <h2 id="picker-heading">Choose Entries</h2>
+            </div>
+          </div>
+          <div id="compare-list" class="compare-list"></div>
+          <div class="benchmark-actions">
+            <button id="reload-games" class="archive-button compact" type="button">Reload games</button>
+            <button id="start-blind" class="archive-button compact" type="button">Blind Compare</button>
+          </div>
+        </aside>
+        <div class="compare-workspace">
+          <div id="compare-tabs" class="benchmark-actions" aria-label="Mobile comparison tabs"></div>
+          <div id="compare-columns" class="compare-columns" aria-live="polite"></div>
         </div>
-        <p class="compare-note" id="matrix-empty" hidden></p>
       </section>
 
-      <section class="compare-section" aria-labelledby="models-heading">
-        <h2 id="models-heading" class="compare-section-title">Model families in the archive</h2>
-        <div class="model-grid" id="model-grid"></div>
+      <section id="blind-section" class="benchmark-section" aria-labelledby="blind-heading" hidden>
+        <div class="benchmark-section-heading">
+          <div>
+            <p class="benchmark-kicker">Local preference only</p>
+            <h2 id="blind-heading">Blind Compare</h2>
+          </div>
+          <p>No backend, no global count, and no fabricated votes. Choose first; identities and evidence appear afterward.</p>
+        </div>
+        <div id="blind-stage" class="blind-stage"></div>
       </section>
-
-      <section class="compare-section" aria-labelledby="halls-heading">
-        <h2 id="halls-heading" class="compare-section-title">Hall coverage</h2>
-        <ul class="hall-coverage" id="hall-coverage"></ul>
-      </section>
-
-      <p id="compare-status" class="compare-note" aria-live="polite">Loading archive manifest&hellip;</p>
     </main>
 
-    <footer class="title-footer">
-      <p>The games are playable. The real exhibit is the AI that made them. <a href="./library.html">Open the library</a></p>
+    <footer class="benchmark-footer">
+      <p>Automated Compliance is not a model IQ score.</p>
+      <nav aria-label="Footer links">
+        <a href="./entries.html">All Entries</a>
+        <a href="./challenge.html">Current Challenge</a>
+        <a href="./methodology.html">Comparison limits</a>
+      </nav>
     </footer>
-
-    <script type="module" src="./src/compare.js?v=2026-07-17-context-window"></script>
+    <script type="module" src="./src/compare.js?v=2026-07-26-protocol-99-v1"></script>
   </body>
 </html>

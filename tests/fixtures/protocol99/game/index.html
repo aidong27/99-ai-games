@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    <title>Relay Proof | Protocol 99 Browser Fixture</title>
+    <link rel="stylesheet" href="./styles/main.css">
+  </head>
+  <body>
+    <main class="game-shell">
+      <header>
+        <div>
+          <p class="eyebrow">Protocol 99 test fixture</p>
+          <h1>Relay Proof</h1>
+        </div>
+        <div class="controls">
+          <button type="button" data-p99-action="pause">Pause</button>
+          <button type="button" data-p99-action="restart">Restart</button>
+        </div>
+      </header>
+
+      <section class="hud" data-p99-ui="hud" aria-label="Game status">
+        <span>Integrity <strong data-value="integrity">5 / 5</strong></span>
+        <span>Core <strong data-value="core">None</strong></span>
+        <span>Relays <strong data-value="relays">0 / 3</strong></span>
+        <span>Pulse <strong data-value="ability">Ready</strong></span>
+        <span>Exit <strong data-value="exit">Locked</strong></span>
+      </section>
+
+      <section class="arena-wrap" aria-label="Relay facility">
+        <canvas width="900" height="630" aria-label="Top-down relay arena"></canvas>
+        <div class="overlay" data-p99-ui="instructions">
+          <p class="eyebrow">Deterministic seed 99</p>
+          <h2>Carry three cores. Wake three relays. Reach extraction.</h2>
+          <p>Move with arrows or WASD, interact with E, pulse with Space, pause with Escape.</p>
+          <button type="button" data-p99-action="start">Start run</button>
+        </div>
+        <div class="overlay result" data-p99-ui="victory" hidden>
+          <p class="eyebrow">Extraction complete</p>
+          <h2>Victory</h2>
+          <button type="button" data-p99-action="restart">Restart</button>
+        </div>
+        <div class="overlay result" data-p99-ui="defeat" hidden>
+          <p class="eyebrow">Drone integrity depleted</p>
+          <h2>Defeat</h2>
+          <button type="button" data-p99-action="restart">Restart</button>
+        </div>
+      </section>
+
+      <p class="status" aria-live="polite">The relay facility is offline.</p>
+    </main>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

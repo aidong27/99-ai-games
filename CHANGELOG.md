@@ -4,6 +4,26 @@ All notable project-level changes are recorded here. This archive does not use c
 
 ## [Unreleased]
 
+- Reframe 99 AI Games around **Protocol 99 v1**: one immutable challenge,
+  one Prompt Hash, and comparable AI coding-system Entries. Add the locked
+  benchmark definition and transparent 100-point Automated Compliance rubric,
+  Entry/Run schemas, Agent Autopilot start/verify/finalize/repair commands,
+  restricted participant-test SDK, real Chromium evidence, source/evidence
+  integrity locks, deterministic public generators, and a 15-case isolated
+  workflow regression suite.
+
+- Replace the Hall-coverage comparison as the primary public experience with
+  Home, Current Challenge, Entries, Entry Detail, same-hash Compare,
+  Methodology, and local-only Blind Compare views. Preserve all 11 original
+  games unchanged as the explicit **Pre-Benchmark Era** Legacy Archive. The
+  benchmark starts at an honest zero formal Entries.
+
+- Add a minimal reproducible Node and Playwright development toolchain while
+  keeping every game runtime and the deployed site static and dependency-free.
+  CI and Pages now install the same toolchain, run the same
+  `node scripts/check.mjs` quality gate, and publish a curated `.site/`
+  artifact containing only public surfaces and Finalized Runs.
+
 - Add Observation 011 / Game 011 **Context Window**, the first AI Meme Hall benchmark, activating the final empty hall. A self-referential game by Kimi K3 Max / Kimi (user-declared label): an AI agent recovers memory shards from a facility larger than its own context window, and forgotten sectors return re-summarized with drifted shards, misremembered walls, and hallucinated decoys and drones. The deterministic DOM-free engine is shared with a new standing proof (`scripts/verify-context-window.mjs`, wired into `check.mjs`) covering completability, the failure path, eviction/resampling invariants, and wall integrity. Real 1440x900 title, gameplay, and completion captures are included, taken from the local build during archive QA. Cache-busting is updated to `2026-07-17-context-window`.
 
 - Add Observation 010 / Game 010 **Resonance Loom**, a GLM-5.2 / Z.ai four-lane rhythm sample for the Rhythm Audio Hall. Preserve the supplied standalone runtime files byte-for-byte, retain the original source metadata as `source-game.json`, add GLM provider grouping, capture a real title-screen image, and publish clearly labeled promotional assets. Cache-busting is updated to `2026-07-14-resonance-loom`.

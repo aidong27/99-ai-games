@@ -1,41 +1,15 @@
 # Release Process
 
-## Before Commit
+This compatibility filename remains for older links. Follow
+[`RELEASE.md`](RELEASE.md) for the current CI, browser acceptance, generated
+drift, pull request, and GitHub Pages procedure.
 
-Run:
-
-```bash
-node --check src/main.js
-node scripts/validate-halls.mjs
-node scripts/validate-games.mjs
-node scripts/generate-index.mjs --check
-git diff --check
-```
-
-For changed games, also run:
+Minimum local release gate:
 
 ```bash
-node --check games/<slug>/src/main.js
+npm ci
+npx playwright install chromium
+node scripts/check.mjs
+npm run build:site
+git diff --check HEAD
 ```
-
-## Browser Check
-
-Start:
-
-```bash
-python3 -m http.server 4173
-```
-
-Check:
-
-- root launcher loads
-- game opens from launcher
-- primary game surface is visible
-- controls work
-- console is clean
-- desktop layout has no horizontal overflow
-- 390px mobile layout has no horizontal overflow
-
-## Release Notes
-
-Release notes should say what actually changed. Do not claim public users, popularity, screenshots, hosting, or verification that does not exist.
