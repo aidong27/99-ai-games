@@ -527,11 +527,19 @@ async function collectUnsupportedFilesystemEntries(root, current, findings) {
 }
 
 export async function validateCurrentPathScope(repoRoot = resolveRepoRoot()) {
+  const currentPath = fromRepo(repoRoot, ".agent", "current.json");
+  if (!(await pathExists(currentPath))) {
+    return { active: false, errors: [], changedPaths: [] };
+  }
   let current;
   try {
     current = await loadCurrentTask(repoRoot);
-  } catch {
-    return { active: false, errors: [], changedPaths: [] };
+  } catch (error) {
+    return {
+      active: true,
+      errors: [`invalid active Work Order: ${error.message}`],
+      changedPaths: []
+    };
   }
   const errors = [];
   const result = git(repoRoot, [

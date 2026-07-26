@@ -213,6 +213,11 @@ try {
       () => loadCurrentTask(root),
       /runDir escapes the assigned Entry/
     );
+    const invalidScope = await validateCurrentPathScope(root);
+    assert.equal(invalidScope.active, true);
+    assert(invalidScope.errors.some((error) => (
+      error.includes("runDir escapes the assigned Entry")
+    )));
   });
 
   await test("external requests and privileged participant tests are detected", async () => {
