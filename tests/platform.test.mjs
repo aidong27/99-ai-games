@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { mkdtemp, mkdir, writeFile, symlink, rm } from "node:fs/promises";
+import { mkdtemp, mkdir, readFile, writeFile, symlink, rm } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { chromium } from "@playwright/test";
@@ -109,6 +109,12 @@ test("populated index sorting, Repair detail and Compare work at desktop and mob
       assert.match(await page.locator(".compare-evidence img").first().getAttribute("src"), /repair\/evidence\/screenshots\/victory.png/);
       assert.equal(await page.locator(".compliance-details").count(), 2);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
+      const html = (await readFile(path.join(root, "compare.html"), "utf8"))
+        .replace(/<select id="compare-(?:run-type|checkpoint)">[\s\S]*?<\/select>/g, "");
+      await page.route("**/compare.html", (route) => route.fulfill({ contentType: "text/html", body: html }));
+      await page.reload();
+      await page.locator(".compare-column").first().waitFor();
+      assert.match(await page.locator(".compare-column iframe").first().getAttribute("src"), /raw/);
       assert.deepEqual(errors, []);
       await page.close();
     }

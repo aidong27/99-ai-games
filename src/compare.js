@@ -31,8 +31,8 @@ const selected = new Set();
 
 refs.reload.addEventListener("click", () => renderComparison(true));
 refs.blindButton.addEventListener("click", renderBlindCompare);
-refs.run.addEventListener("change", updateEntries);
-refs.checkpoint.addEventListener("change", () => {
+refs.run?.addEventListener("change", updateEntries);
+refs.checkpoint?.addEventListener("change", () => {
   for (const region of refs.columns.querySelectorAll("[data-evidence-entry]")) {
     const entry = entries.find((item) => item.entryId === region.dataset.evidenceEntry);
     if (entry) region.replaceChildren(createEvidenceFigure(entry, refs.checkpoint.value));
@@ -57,10 +57,11 @@ async function init() {
 
 function updateEntries() {
   if (!data) return;
-  entries = comparableEntries(data, refs.run.value);
+  const runType = refs.run?.value ?? "raw";
+  entries = comparableEntries(data, runType);
   selected.clear();
   entries.slice(0, 2).forEach((entry) => selected.add(entry.entryId));
-  refs.policy.textContent = `${data.challenge.title} ${data.challenge.version} · ${refs.run.value} · Finalized · Prompt ${shortHash(data.challenge.canonicalPromptHash, 16)}. Cross-version mixing is blocked.`;
+  refs.policy.textContent = `${data.challenge.title} ${data.challenge.version} · ${runType} · Finalized · Prompt ${shortHash(data.challenge.canonicalPromptHash, 16)}. Cross-version mixing is blocked.`;
   refs.headerStatus.textContent = `${entries.length} COMPARABLE`;
   refs.headerStatus.classList.toggle("live", entries.length >= 2);
   refs.blindSection.hidden = true;
@@ -170,7 +171,7 @@ function createColumn(entry, index, forceReload) {
   const actions = createElement("div", { className: "entry-card-actions" }, record);
   const evidence = createElement("div", { className: "evidence-grid compare-evidence" });
   evidence.dataset.evidenceEntry = entry.entryId;
-  evidence.append(createEvidenceFigure(entry, refs.checkpoint.value));
+  evidence.append(createEvidenceFigure(entry, refs.checkpoint?.value ?? "gameplay"));
   column.append(header, iframe, evidence, facts, createComplianceDetails(report),
     createElement("p", { className: "compare-warning" },
       entry.canonicalRun.knownIssues?.join(" · ") || "No known issues declared by participant."), actions);
