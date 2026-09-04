@@ -76,8 +76,9 @@ test("local server blocks private files, link escapes and writes; supports opaqu
 test("populated index sorting, Repair detail and Compare work at desktop and mobile", async () => {
   const root = path.resolve(import.meta.dirname, "..");
   const server = await startStaticServer({ root });
-  const browser = await chromium.launch({ headless: true });
+  let browser;
   try {
+    browser = await chromium.launch({ headless: true });
     const second = { ...entry, entryId: "test-two", entryNumber: 2, entryNumberLabel: "002", canonicalRun: { ...raw, finishedAt: "2026-02-01" }, runs: [{ ...raw, finishedAt: "2026-02-01" }, repair] };
     const data = { challenge: { id: "protocol-99", version: "v1", title: "Protocol 99", canonicalPromptHash: "test-hash" },
       stats: { allocatedEntries: 2, benchmarkEntries: 2, targetEntries: 99 }, entries: [entry, second] };
@@ -111,5 +112,5 @@ test("populated index sorting, Repair detail and Compare work at desktop and mob
       assert.deepEqual(errors, []);
       await page.close();
     }
-  } finally { await browser.close(); await server.close(); }
+  } finally { await browser?.close(); await server.close(); }
 });
