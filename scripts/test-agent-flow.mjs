@@ -148,6 +148,15 @@ try {
     const data = await readJson(path.join(root, "data/benchmark.json"));
     assert.equal(data.defaultEntries.length, 1);
     assert.equal(data.defaultEntries[0].canonicalRun.runType, "raw");
+    await writeJson(path.join(repair.runDir, "run.json"), { ...repair.run, status: "verified" });
+    await writeJson(path.join(repair.runDir, "evidence/report.json"), {
+      status: "failed", runId: repair.run.runId
+    });
+    const finalize = runCommand(process.execPath, [
+      path.join(repoRoot, "scripts/agent-finalize.mjs"), `--repo=${root}`
+    ], { cwd: repoRoot, allowFailure: true });
+    assert.notEqual(finalize.status, 0);
+    assert.match(`${finalize.stdout}${finalize.stderr}`, /matching passed verification report/);
   });
 
   await test("generated benchmark indexes are deterministic", async () => {

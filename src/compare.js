@@ -6,39 +6,44 @@ import {
 } from "./benchmark-data.js";
 import { createBenchmarkEmptyState } from "./ui/benchmark.js";
 import { createElement } from "./ui/dom.js";
+import { comparableEntries, samplePair } from "./data/entry-runs.js";
+import { createGameFrame, createFact as fact } from "./ui/game-frame.js";
+import { createEvidenceFigure, createComplianceDetails } from "./ui/evidence.js";
 
 const refs = {
   blindButton: document.querySelector("#start-blind"),
   blindSection: document.querySelector("#blind-section"),
   blindStage: document.querySelector("#blind-stage"),
   columns: document.querySelector("#compare-columns"),
+  checkpoint: document.querySelector("#compare-checkpoint"),
   headerStatus: document.querySelector("#compare-header-status"),
   list: document.querySelector("#compare-list"),
   picker: document.querySelector("#compare-picker"),
   policy: document.querySelector("#compare-policy"),
   reload: document.querySelector("#reload-games"),
+  run: document.querySelector("#compare-run-type"),
   tabs: document.querySelector("#compare-tabs")
 };
 
 let entries = [];
+let data;
 const selected = new Set();
 
 refs.reload.addEventListener("click", () => renderComparison(true));
 refs.blindButton.addEventListener("click", renderBlindCompare);
+refs.run.addEventListener("change", updateEntries);
+refs.checkpoint.addEventListener("change", () => {
+  for (const region of refs.columns.querySelectorAll("[data-evidence-entry]")) {
+    const entry = entries.find((item) => item.entryId === region.dataset.evidenceEntry);
+    if (entry) region.replaceChildren(createEvidenceFigure(entry, refs.checkpoint.value));
+  }
+});
 init();
 
 async function init() {
   try {
-    const data = await loadBenchmark();
-    entries = data.defaultEntries.filter((entry) => (
-      entry.canonicalPromptHash === data.challenge.canonicalPromptHash
-    ));
-    entries.slice(0, 2).forEach((entry) => selected.add(entry.entryId));
-    refs.policy.textContent = `Default policy: ${data.challenge.title} ${data.challenge.version} · Raw · Finalized · Prompt ${shortHash(data.challenge.canonicalPromptHash, 16)}. Cross-version mixing is blocked.`;
-    refs.headerStatus.textContent = `${entries.length} COMPARABLE`;
-    refs.headerStatus.classList.toggle("live", entries.length >= 2);
-    renderChoices();
-    renderComparison();
+    data = await loadBenchmark();
+    updateEntries();
   } catch (error) {
     refs.headerStatus.textContent = "INDEX UNAVAILABLE";
     refs.columns.replaceChildren(createBenchmarkEmptyState({
@@ -50,10 +55,24 @@ async function init() {
   }
 }
 
+function updateEntries() {
+  if (!data) return;
+  entries = comparableEntries(data, refs.run.value);
+  selected.clear();
+  entries.slice(0, 2).forEach((entry) => selected.add(entry.entryId));
+  refs.policy.textContent = `${data.challenge.title} ${data.challenge.version} · ${refs.run.value} · Finalized · Prompt ${shortHash(data.challenge.canonicalPromptHash, 16)}. Cross-version mixing is blocked.`;
+  refs.headerStatus.textContent = `${entries.length} COMPARABLE`;
+  refs.headerStatus.classList.toggle("live", entries.length >= 2);
+  refs.blindSection.hidden = true;
+  refs.blindStage.replaceChildren();
+  renderChoices();
+  renderComparison();
+}
+
 function renderChoices() {
   if (!entries.length) {
     refs.list.replaceChildren(createElement("p", { className: "compare-warning" },
-      "No verified Raw Entries exist yet."
+      "No verified Entries exist for this Run type."
     ));
     refs.reload.disabled = true;
     refs.blindButton.disabled = true;
@@ -91,6 +110,8 @@ function renderChoices() {
 
 function renderComparison(forceReload = false) {
   const chosen = entries.filter((entry) => selected.has(entry.entryId));
+  refs.reload.disabled = chosen.length < 2;
+  refs.blindButton.disabled = entries.length < 2;
   if (chosen.length < 2) {
     refs.columns.replaceChildren(createBenchmarkEmptyState({
       title: entries.length < 2 ? "Two verified Entries are required" : "Select at least two Entries",
@@ -122,20 +143,14 @@ function createColumn(entry, index, forceReload) {
   });
   const header = createElement("header");
   header.append(
-    createElement("p", { className: "benchmark-kicker" }, `Entry ${entry.entryNumberLabel} · Raw`),
+    createElement("p", { className: "benchmark-kicker" }, `Entry ${entry.entryNumberLabel} · ${entry.canonicalRun.runType}`),
     createElement("h3", {}, entry.identity.modelName),
     createElement("p", { className: "entry-identity" }, entry.identity.agentName)
   );
   const gameUrl = getCanonicalGameUrl(entry);
-  const iframe = createElement("iframe", {
+  const iframe = createGameFrame({
     title: `Protocol 99 Entry ${entry.entryNumberLabel} game`,
     src: forceReload && gameUrl ? `${gameUrl}&reload=${Date.now()}` : gameUrl,
-    loading: "lazy",
-    referrerPolicy: "no-referrer",
-    attrs: {
-      sandbox: "allow-scripts allow-same-origin",
-      allow: ""
-    }
   });
   const report = entry.canonicalRun.report;
   const facts = createElement("dl", { className: "compare-facts" });
@@ -144,7 +159,8 @@ function createColumn(entry, index, forceReload) {
     fact("Prompt", shortHash(entry.canonicalPromptHash)),
     fact("Source", `${report.sourceFileCount ?? "?"} files · ${formatBytes(report.sourceBytes)}`),
     fact("Browser", report.browser?.version ?? "unknown"),
-    fact("Console errors", report.failures?.length ? "See record" : "0 blocking"),
+    fact("Uncaught error check", report.checks?.["browser.no-uncaught-errors"] === true ? "Passed" : "Not confirmed"),
+    fact("External network check", report.checks?.["security.no-external-network"] === true ? "Passed" : "Not confirmed"),
     fact("Known failures", String(report.failures?.length ?? 0))
   );
   const record = createElement("a", {
@@ -152,7 +168,12 @@ function createColumn(entry, index, forceReload) {
     href: entry.detailUrl
   }, "Open full record");
   const actions = createElement("div", { className: "entry-card-actions" }, record);
-  column.append(header, iframe, facts, actions);
+  const evidence = createElement("div", { className: "evidence-grid compare-evidence" });
+  evidence.dataset.evidenceEntry = entry.entryId;
+  evidence.append(createEvidenceFigure(entry, refs.checkpoint.value));
+  column.append(header, iframe, evidence, facts, createComplianceDetails(report),
+    createElement("p", { className: "compare-warning" },
+      entry.canonicalRun.knownIssues?.join(" · ") || "No known issues declared by participant."), actions);
   return column;
 }
 
@@ -170,20 +191,15 @@ function renderBlindCompare() {
   if (entries.length < 2) {
     return;
   }
-  const pair = [...entries].sort(() => Math.random() - 0.5).slice(0, 2);
+  const pair = samplePair(entries);
   refs.blindSection.hidden = false;
   refs.blindStage.replaceChildren(...pair.map((entry, index) => {
     const option = createElement("article", { className: "blind-option" });
     option.append(
       createElement("p", { className: "benchmark-kicker" }, `Anonymous build ${index === 0 ? "A" : "B"}`),
-      createElement("iframe", {
+      createGameFrame({
         title: `Anonymous Protocol 99 build ${index === 0 ? "A" : "B"}`,
         src: getCanonicalGameUrl(entry),
-        referrerPolicy: "no-referrer",
-        attrs: {
-          sandbox: "allow-scripts allow-same-origin",
-          allow: ""
-        }
       }),
       createElement("button", {
         className: "archive-button compact",
@@ -193,7 +209,9 @@ function renderBlindCompare() {
     );
     return option;
   }));
-  refs.blindSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  refs.blindSection.scrollIntoView({
+    behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block: "start"
+  });
 }
 
 function revealBlind(pair, preferredIndex) {
@@ -213,12 +231,6 @@ function revealBlind(pair, preferredIndex) {
   } catch {
     // The reveal remains useful when browser storage is unavailable.
   }
-}
-
-function fact(label, value) {
-  const row = createElement("div");
-  row.append(createElement("dt", {}, label), createElement("dd", {}, value));
-  return row;
 }
 
 function formatBytes(value) {

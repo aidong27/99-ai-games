@@ -204,6 +204,15 @@ node scripts/generate-index.mjs --check
 
 ## Adding a New AI Game
 
+The launcher shares pure Run selection in `src/data/entry-runs.js` and embedded
+game rendering in `src/ui/game-frame.js`. Raw/Repair selection keeps identity,
+screenshots, score and links attached to the same Run. The Entry index preserves
+the chosen sort order inside model families; details support `?id=...&run=...`.
+Comparison uses the same selected screenshot checkpoint across columns and exposes
+individual machine checks, independently of the aggregate compliance score.
+`node --test tests/platform.test.mjs` covers populated pages, mobile comparison,
+Run selection and browser isolation, and is part of the quality gate.
+
 Do not create a Protocol 99 Entry directory or edit a global manifest by hand.
 Use the Autopilot protocol:
 

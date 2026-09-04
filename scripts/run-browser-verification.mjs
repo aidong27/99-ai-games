@@ -493,14 +493,20 @@ async function loadParticipantTest(filePath, label) {
 }
 
 async function runParticipant(test, harness, label) {
+  let timer;
   const timeout = new Promise((_, reject) => {
-    const timer = setTimeout(
-      () => reject(new Error(`${label} exceeded the 30 second test budget`)),
-      30_000
+    // The fixed brief targets a 3-8 minute game, with time for public input.
+    timer = setTimeout(
+      () => reject(new Error(`${label} exceeded the 10 minute test budget`)),
+      600_000
     );
     timer.unref?.();
   });
-  await Promise.race([test.run(harness), timeout]);
+  try {
+    await Promise.race([test.run(harness), timeout]);
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 function validateState(state) {

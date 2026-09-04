@@ -37,7 +37,8 @@ if (protocol.errors.length) {
 }
 
 const current = await loadCurrentTask(repoRoot);
-if (current.run.status !== "verified" || current.entry.status !== "verified") {
+if (current.run.status !== "verified"
+    || !["verified", "finalized"].includes(current.entry.status)) {
   throw new Error(
     `Run must pass agent:verify before Finalize (entry=${current.entry.status}, run=${current.run.status})`
   );

@@ -12,6 +12,10 @@ import {
   createScoreBreakdown
 } from "./ui/benchmark.js";
 import { createElement } from "./ui/dom.js";
+import { selectEntryRun } from "./data/entry-runs.js";
+import { createGameFrame } from "./ui/game-frame.js";
+import { setDocumentMeta } from "./ui/meta.js";
+import { EVIDENCE_LABELS, createEvidenceFigure, createComplianceDetails } from "./ui/evidence.js";
 
 const root = document.querySelector("#entry-detail");
 const headerStatus = document.querySelector("#detail-header-status");
@@ -27,7 +31,9 @@ async function init() {
       renderMissing();
       return;
     }
-    renderEntry(entry, data);
+    const selected = selectEntryRun(entry, "raw", new URLSearchParams(location.search).get("run"));
+    if (!selected) return renderMissing();
+    renderEntry(selected, data);
   } catch (error) {
     headerStatus.textContent = "ENTRY UNAVAILABLE";
     root.replaceChildren(createBenchmarkEmptyState({
@@ -42,14 +48,15 @@ async function init() {
 function renderEntry(entry, data) {
   const report = entry.canonicalRun?.report;
   const family = getEntryFamily(entry);
-  const title = `Entry ${entry.entryNumberLabel}: ${entry.identity.modelName} | 99 AI Games`;
-  document.title = title;
-  document.querySelector('meta[name="description"]')?.setAttribute(
-    "content",
-    `Protocol 99 ${entry.canonicalRun?.runType ?? "Run"} by ${formatIdentity(entry)}, with playable game and browser evidence.`
-  );
-  headerStatus.textContent = entry.defaultComparable ? "VERIFIED RAW" : entry.status.toUpperCase();
-  headerStatus.classList.toggle("live", entry.defaultComparable);
+  setDocumentMeta({
+    title: `Entry ${entry.entryNumberLabel}: ${entry.identity.modelName}`,
+    description: `Protocol 99 ${entry.canonicalRun?.runType ?? "Run"} by ${formatIdentity(entry)}, with playable game and browser evidence.`,
+    canonicalPath: entry.detailUrl,
+    socialImagePath: entry.screenshots?.title
+  });
+  headerStatus.textContent = entry.selectedRunPublished
+    ? `VERIFIED ${entry.canonicalRun.runType.toUpperCase()}` : entry.canonicalRun.status.toUpperCase();
+  headerStatus.classList.toggle("live", entry.selectedRunPublished);
 
   const heading = createElement("header", { className: "detail-heading" });
   const headingCopy = createElement("div");
@@ -69,14 +76,9 @@ function renderEntry(entry, data) {
   const primary = createElement("div", { className: "detail-game" });
   const gameUrl = getCanonicalGameUrl(entry);
   if (gameUrl) {
-    const iframe = createElement("iframe", {
-      title: `Protocol 99 Entry ${entry.entryNumberLabel} playable Raw game`,
-      src: gameUrl,
-      referrerPolicy: "no-referrer",
-      attrs: {
-        sandbox: "allow-scripts allow-same-origin",
-        allow: ""
-      }
+    const iframe = createGameFrame({
+      title: `Protocol 99 Entry ${entry.entryNumberLabel} ${entry.canonicalRun.runType} game`,
+      src: gameUrl, lazy: false
     });
     primary.append(iframe);
   } else {
@@ -91,7 +93,8 @@ function renderEntry(entry, data) {
     sectionHeading("Real browser evidence", "Screenshots are captured from the source hash shown in this record."),
     createEvidence(entry),
     sectionHeading("Automated Compliance", data.scoreDisclaimer),
-    report ? createScoreBreakdown(report.score) : createElement("p", {}, "No machine score is available.")
+    report ? createScoreBreakdown(report.score) : createElement("p", {}, "No machine score is available."),
+    ...(report ? [createComplianceDetails(report)] : [])
   );
 
   const sidebar = createElement("aside", { className: "detail-sidebar" });
@@ -116,6 +119,8 @@ function renderEntry(entry, data) {
   );
   const links = createElement("div", { className: "benchmark-actions" });
   links.append(
+    createElement("a", { className: "archive-button compact", href: `${entry.canonicalRun.publicPath ?? getRepositoryUrl(entry.canonicalRun.repositoryPath)}evidence/report.json` }, "Verification report"),
+    createElement("a", { className: "archive-button compact", href: getRepositoryUrl(`${entry.canonicalRun.repositoryPath}tests/`) }, "Participant tests"),
     createElement("a", {
       className: "archive-button compact",
       href: getRepositoryUrl(entry.repositoryPath)
@@ -136,7 +141,11 @@ function renderEntry(entry, data) {
     createElement("p", { className: "compare-warning" },
       `Player Experience Review: ${entry.reviews?.playerExperience ? "available" : "not reviewed"}. Engineering Review: ${entry.reviews?.engineering ? "available" : "not reviewed"}.`
     ),
-    createRuns(entry)
+    createRuns(entry),
+    createElement("h2", {}, "Known issues"),
+    createElement("p", {}, entry.canonicalRun.knownIssues?.join(" · ") || "No issues declared by the participant."),
+    createElement("h2", {}, "Tool environment"),
+    createElement("dl", { className: "detail-facts" }, Object.entries(entry.canonicalRun.toolAccess ?? {}).map(([key, value]) => detailFact(key, value)))
   );
   layout.append(primary, sidebar);
   root.replaceChildren(heading, layout);
@@ -144,21 +153,8 @@ function renderEntry(entry, data) {
 
 function createEvidence(entry) {
   const grid = createElement("div", { className: "evidence-grid" });
-  const labels = {
-    title: "Title state",
-    gameplay: "Active gameplay",
-    relay1: "After relay one",
-    victory: "Real victory"
-  };
-  for (const [key, label] of Object.entries(labels)) {
-    const src = entry.screenshots?.[key];
-    if (!src) continue;
-    const figure = createElement("figure");
-    figure.append(
-      createElement("img", { src, alt: `${label} evidence for Entry ${entry.entryNumberLabel}`, loading: "lazy" }),
-      createElement("figcaption", {}, label)
-    );
-    grid.append(figure);
+  for (const key of Object.keys(EVIDENCE_LABELS)) {
+    if (entry.screenshots?.[key]) grid.append(createEvidenceFigure(entry, key));
   }
   return grid.children.length
     ? grid
@@ -170,10 +166,16 @@ function createRuns(entry) {
   section.append(createElement("h2", {}, "Run history"));
   const facts = createElement("dl", { className: "detail-facts" });
   for (const run of entry.runs) {
-    facts.append(detailFact(
-      `${run.runType} · ${run.status}`,
-      `${run.runId} · ${run.parentRunId ? `from ${shortHash(run.parentSourceHash)}` : "original"}`
-    ));
+    const row = createElement("div");
+    row.append(createElement("dt", {}, `${run.runType} · ${run.status}`),
+      createElement("dd", {}, [
+        createElement("a", {
+          href: `./entry.html?${new URLSearchParams({ id: entry.entryId, run: run.runId })}`,
+          ariaCurrent: run.runId === entry.canonicalRun.runId ? "page" : undefined
+        }, run.runId),
+        createElement("span", {}, run.parentRunId ? ` · from ${shortHash(run.parentSourceHash)}` : " · original")
+      ]));
+    facts.append(row);
   }
   section.append(facts);
   return section;

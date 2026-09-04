@@ -400,9 +400,13 @@ async function validateBenchmarkPositioning() {
   }
   for (const sourcePath of ["src/compare.js", "src/entry.js"]) {
     const source = await readText(sourcePath);
-    if (!source.includes('sandbox: "allow-scripts allow-same-origin"')) {
+    if (!source.includes('createGameFrame')) {
       fail(`${sourcePath} must sandbox playable Entry iframes`);
     }
+  }
+  const frame = await readText("src/ui/game-frame.js");
+  if (!frame.includes('sandbox: "allow-scripts"') || frame.includes("allow-same-origin")) {
+    fail("Benchmark frames must isolate the parent origin");
   }
 }
 
