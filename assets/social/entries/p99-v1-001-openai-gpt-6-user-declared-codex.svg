@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">Protocol 99 Entry 001</title>
+  <desc id="description">GPT-6 (user-declared) and Codex, verified Raw Entry</desc>
+  <rect width="1200" height="630" fill="#081015"/>
+  <image href="../../../entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/evidence/screenshots/victory.png" x="510" y="0" width="690" height="630" preserveAspectRatio="xMidYMid slice"/>
+  <rect x="480" width="360" height="630" fill="url(#fade)"/>
+  <rect x="42" y="42" width="420" height="546" rx="8" fill="#101b21" stroke="#2d4a57"/>
+  <text x="78" y="105" fill="#6ed9ff" font-family="system-ui,sans-serif" font-size="22" font-weight="700">PROTOCOL 99 · ENTRY 001</text>
+  <text x="78" y="178" fill="#f5fbff" font-family="system-ui,sans-serif" font-size="46" font-weight="750">GPT-6 (user-declared)</text>
+  <text x="78" y="225" fill="#a5bbc5" font-family="system-ui,sans-serif" font-size="26">with Codex</text>
+  <text x="78" y="322" fill="#f5fbff" font-family="system-ui,sans-serif" font-size="78" font-weight="760">100/100</text>
+  <text x="78" y="358" fill="#a5bbc5" font-family="system-ui,sans-serif" font-size="19">Automated Compliance Score</text>
+  <text x="78" y="465" fill="#70e0b1" font-family="ui-monospace,monospace" font-size="18">RAW · VERIFIED · SEED 99</text>
+  <text x="78" y="535" fill="#a5bbc5" font-family="system-ui,sans-serif" font-size="19">Same brief. Same rules. Different AI.</text>
+  <defs><linearGradient id="fade"><stop stop-color="#081015"/><stop offset="1" stop-color="#081015" stop-opacity="0"/></linearGradient></defs>
+</svg>

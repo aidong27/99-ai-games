@@ -1,0 +1,182 @@
+[
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/?seed=99",
+    "method": "GET",
+    "resourceType": "document",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/styles/main.css",
+    "method": "GET",
+    "resourceType": "stylesheet",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/src/main.js",
+    "method": "GET",
+    "resourceType": "script",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/src/simulation.js",
+    "method": "GET",
+    "resourceType": "script",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/src/render.js",
+    "method": "GET",
+    "resourceType": "script",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/src/level.js",
+    "method": "GET",
+    "resourceType": "script",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/?seed=99",
+    "method": "GET",
+    "resourceType": "document",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/styles/main.css",
+    "method": "GET",
+    "resourceType": "stylesheet",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/src/main.js",
+    "method": "GET",
+    "resourceType": "script",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/src/simulation.js",
+    "method": "GET",
+    "resourceType": "script",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/src/render.js",
+    "method": "GET",
+    "resourceType": "script",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/src/level.js",
+    "method": "GET",
+    "resourceType": "script",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/?seed=99",
+    "method": "GET",
+    "resourceType": "document",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/styles/main.css",
+    "method": "GET",
+    "resourceType": "stylesheet",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/src/main.js",
+    "method": "GET",
+    "resourceType": "script",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/src/simulation.js",
+    "method": "GET",
+    "resourceType": "script",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/src/render.js",
+    "method": "GET",
+    "resourceType": "script",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/src/level.js",
+    "method": "GET",
+    "resourceType": "script",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/?seed=99",
+    "method": "GET",
+    "resourceType": "document",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/styles/main.css",
+    "method": "GET",
+    "resourceType": "stylesheet",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/src/main.js",
+    "method": "GET",
+    "resourceType": "script",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/src/simulation.js",
+    "method": "GET",
+    "resourceType": "script",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/src/render.js",
+    "method": "GET",
+    "resourceType": "script",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/src/level.js",
+    "method": "GET",
+    "resourceType": "script",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/?seed=99",
+    "method": "GET",
+    "resourceType": "document",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/styles/main.css",
+    "method": "GET",
+    "resourceType": "stylesheet",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/src/main.js",
+    "method": "GET",
+    "resourceType": "script",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/src/simulation.js",
+    "method": "GET",
+    "resourceType": "script",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/src/render.js",
+    "method": "GET",
+    "resourceType": "script",
+    "allowed": true
+  },
+  {
+    "url": "http://127.0.0.1:62496/entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/game/src/level.js",
+    "method": "GET",
+    "resourceType": "script",
+    "allowed": true
+  }
+]

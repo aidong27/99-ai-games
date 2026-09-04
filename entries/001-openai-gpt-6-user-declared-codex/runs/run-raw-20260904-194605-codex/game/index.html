@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Tidelight: a repair drone, three data cores, and one last way home. An original Protocol 99 browser game.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Tidelight | Protocol 99</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./styles/main.css">
+</head>
+<body>
+  <main class="game-shell">
+    <header class="masthead">
+      <div class="wordmark"><span class="brand-mark" aria-hidden="true">99</span><div><strong>TIDELIGHT</strong><span>RELAY RECOVERY / PROTOCOL 99</span></div></div>
+      <div class="header-actions"><span id="clock">00:00</span><button type="button" data-p99-action="pause" aria-label="Pause game" disabled>Pause</button></div>
+    </header>
+    <section class="telemetry" data-p99-ui="hud" aria-label="Game status">
+      <div class="integrity"><span>INTEGRITY</span><strong id="integrity-value">100</strong><meter id="integrity-meter" min="0" max="100" value="100">100</meter></div>
+      <div><span>CARGO</span><strong id="cargo-value">Empty</strong></div>
+      <div><span>RELAYS</span><strong id="relay-value">0 / 3</strong></div>
+      <div><span>EXTRACTION</span><strong id="exit-value">Locked</strong></div>
+    </section>
+    <div class="mission-line"><span id="mission">Recover data core I</span><span id="stage-label">STAGE 00</span></div>
+    <section class="arena" aria-label="Relay facility">
+      <canvas id="arena" tabindex="0" aria-label="Tidelight game arena. Move with WASD or arrows; interact with E; activate barrier with Space; pause with Escape."></canvas>
+      <div class="overlay" id="intro" data-p99-ui="instructions">
+        <div class="overlay-copy">
+          <p class="eyebrow">THE FACILITY STILL HAS A PULSE.</p>
+          <h1>TIDELIGHT</h1>
+          <p class="intro-lead">Bring the signal home.</p>
+          <p>Recover three data cores. Carry one at a time to a relay and press <kbd>E</kbd>. Every relay opens a new route. Then reach the east extraction dock.</p>
+          <div class="brief"><span><b>01</b> Recover</span><span><b>02</b> Restore</span><span><b>03</b> Return</span></div>
+          <p class="controls-copy"><kbd>WASD</kbd> / arrows move &nbsp; <kbd>E</kbd> interact<br><kbd>Space</kbd> barrier &nbsp; <kbd>Esc</kbd> pause</p>
+          <button class="primary" type="button" data-p99-action="start">Begin recovery <span aria-hidden="true">&rarr;</span></button>
+          <small>Pressure vents pulse. Patrol machines move.<br>Use the 2.6s barrier to cross danger. Relays restore 25 integrity.</small>
+        </div>
+      </div>
+      <div class="overlay" id="pause-screen" hidden>
+        <div class="overlay-copy"><p class="eyebrow">SIGNAL HELD</p><h2>Take a breath.</h2><p>The facility is paused. Your route will be here when you return.</p><button class="primary" type="button" data-p99-action="resume">Resume recovery</button></div>
+      </div>
+      <div class="overlay" id="victory" data-p99-ui="victory" hidden>
+        <div class="overlay-copy"><p class="eyebrow">RECOVERY COMPLETE</p><h2>The signal<br>made it home.</h2><p>Three relays restored. All data secured. The drone has reached the extraction dock.</p><p id="victory-time" class="result-time"></p></div>
+      </div>
+      <div class="overlay" id="defeat" data-p99-ui="defeat" hidden>
+        <div class="overlay-copy"><p class="eyebrow">CONNECTION LOST</p><h2>Not the end<br>of the signal.</h2><p>Integrity reached zero. Wait for CLEAR vents, watch the patrol paths, and save your barrier for crossings.</p></div>
+      </div>
+      <button class="primary restart" data-p99-action="restart" type="button" hidden>Try again <span aria-hidden="true">&rarr;</span></button>
+    </section>
+    <footer class="flight-deck">
+      <p id="status-message" role="status">Restore the facility. Leave no core behind.</p>
+      <div class="deck-actions"><button type="button" data-p99-action="interact"><kbd>E</kbd> Interact</button><button type="button" data-p99-action="ability"><span class="shield-icon" aria-hidden="true"></span><span id="ability-value">Barrier ready</span><kbd>Space</kbd></button></div>
+    </footer>
+    <div class="touch-controls" aria-label="Touch movement">
+      <button type="button" data-p99-control="up" aria-label="Move up">&uarr;</button>
+      <button type="button" data-p99-control="left" aria-label="Move left">&larr;</button>
+      <button type="button" data-p99-control="down" aria-label="Move down">&darr;</button>
+      <button type="button" data-p99-control="right" aria-label="Move right">&rarr;</button>
+    </div>
+  </main>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

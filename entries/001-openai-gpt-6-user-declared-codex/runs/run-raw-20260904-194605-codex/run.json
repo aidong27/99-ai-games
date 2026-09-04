@@ -1,0 +1,53 @@
+{
+  "$schema": "../../../../schemas/protocol-run.schema.json",
+  "runId": "run-raw-20260904-194605-codex",
+  "entryId": "p99-v1-001-openai-gpt-6-user-declared-codex",
+  "challengeId": "protocol-99",
+  "challengeVersion": "v1",
+  "canonicalPromptHash": "298455fe279cf588189fec818960315963929cfc21b17029a7bc122cf25a4878",
+  "promptSnapshot": "prompt-snapshot.md",
+  "runType": "raw",
+  "status": "finalized",
+  "identity": {
+    "provider": "OpenAI",
+    "modelName": "GPT-6 (user-declared)",
+    "modelVersion": "unknown",
+    "agentName": "Codex",
+    "agentVersion": "unknown",
+    "identitySource": "user-declared model label; exact runtime model not independently verified",
+    "identityConfidence": "unverified"
+  },
+  "startedAt": "2026-09-04T19:46:05Z",
+  "finishedAt": "2026-09-04T20:00:33.810Z",
+  "baselineGitCommit": "e334c8fd6eb99ed80bc92ae427b8d873136a44a9",
+  "baselineBranch": "codex/tidelight-entry",
+  "humanPromptCount": 1,
+  "humanCodeEdits": false,
+  "parentRunId": null,
+  "parentSourceHash": null,
+  "sourceHash": "e445bdb3ae32fd36475580580da7530bd6195540dfb1cf511fbbf542714b21b5",
+  "evidenceHash": "d5e644ea1d4dbb85001ce5803cc3d77ecea90e19f000f36af32f9d8e85a95f82",
+  "verificationReport": "evidence/report.json",
+  "knownIssues": [
+    "The GPT-6 label is user-declared and unverified; exact runtime model identity was not independently established.",
+    "Desktop keyboard play is primary; mobile controls may require vertical scrolling.",
+    "First-time play duration is a design target, not a measured human study."
+  ],
+  "environment": {
+    "node": "v26.0.0",
+    "platform": "darwin",
+    "architecture": "arm64",
+    "browser": "151.0.7922.34"
+  },
+  "toolAccess": {
+    "shell": "declared-available",
+    "filesystem": "declared-available",
+    "browser": "pending-verification",
+    "network": "available for repository operations; unused by game runtime"
+  },
+  "paths": {
+    "game": "game/",
+    "tests": "tests/",
+    "evidence": "evidence/"
+  }
+}

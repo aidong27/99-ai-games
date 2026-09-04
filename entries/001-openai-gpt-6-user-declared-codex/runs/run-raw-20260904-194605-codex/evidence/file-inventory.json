@@ -1,0 +1,67 @@
+[
+  {
+    "path": "game/index.html",
+    "bytes": 4982,
+    "sha256": "844b2491ab835a2605345f73cef6fa04c8d825f60588f5fb5b300891eff70608"
+  },
+  {
+    "path": "game/KNOWN-ISSUES.md",
+    "bytes": 479,
+    "sha256": "e606a3c6a7f9f25a80c8e2d21327d7f32b1d6fa60c4b31245ae5e19164c8e183"
+  },
+  {
+    "path": "game/README.md",
+    "bytes": 2267,
+    "sha256": "5851d8e313bb0f23a8bb63cb08ef3fe9e222df139576152c27e1ab52d5a24e5e"
+  },
+  {
+    "path": "game/src/level.js",
+    "bytes": 2653,
+    "sha256": "7f8c9f088279e400dbb6dd001cd1df4b0daebc262a41618d8821eeeff946ba06"
+  },
+  {
+    "path": "game/src/main.js",
+    "bytes": 6324,
+    "sha256": "620613dac0cec9879b8d8d5ab1940c235f84c046a002a4f13185101aeaec385f"
+  },
+  {
+    "path": "game/src/render.js",
+    "bytes": 9746,
+    "sha256": "c569a7b8891319d55eda03456dfcc4457fb1a294088b57096430845a311ffff6"
+  },
+  {
+    "path": "game/src/simulation.js",
+    "bytes": 5320,
+    "sha256": "322c5c747ca6fbfbe9a90509a157b9b1fd45e0f203f8a2a2643bad0bd64ef084"
+  },
+  {
+    "path": "game/styles/main.css",
+    "bytes": 6560,
+    "sha256": "acd6f69b377a3d73d2c71d2e880685614fa04ba4dc160f69cd6b87287ce22099"
+  },
+  {
+    "path": "prompt-snapshot.md",
+    "bytes": 7266,
+    "sha256": "298455fe279cf588189fec818960315963929cfc21b17029a7bc122cf25a4878"
+  },
+  {
+    "path": "run.json",
+    "bytes": 1848,
+    "sha256": "4458bd325cb8e3d643353c5b679069f00e94a428dd1db65739e1d0ca77b435d8"
+  },
+  {
+    "path": "tests/defeat.spec.mjs",
+    "bytes": 513,
+    "sha256": "dfd8581242faaae93dae7034d4f5044e00b4200fddefde233d94ee1c147a5bd4"
+  },
+  {
+    "path": "tests/playthrough.spec.mjs",
+    "bytes": 2620,
+    "sha256": "cab7b1a783e66a0c98a3e644dc312526051646dbe9fc6e6762d87d917fa7873f"
+  },
+  {
+    "path": "WORK-ORDER.md",
+    "bytes": 864,
+    "sha256": "d22d09ceea43e9f5ce8c8ea97fb2958f097387f4f77a1b67df86a3ecb726e51e"
+  }
+]
