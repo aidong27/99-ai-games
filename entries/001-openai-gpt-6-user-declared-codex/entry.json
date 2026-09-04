@@ -2,6 +2,8 @@
   "$schema": "../../schemas/entry.schema.json",
   "entryId": "p99-v1-001-openai-gpt-6-user-declared-codex",
   "entryNumber": 1,
+  "title": "Tidelight",
+  "summary": "Recover three data cores, restore a damaged relay facility, and bring a repair drone home through shifting routes and timed hazards.",
   "challengeId": "protocol-99",
   "challengeVersion": "v1",
   "canonicalPromptHash": "298455fe279cf588189fec818960315963929cfc21b17029a7bc122cf25a4878",

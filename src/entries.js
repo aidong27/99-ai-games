@@ -27,8 +27,8 @@ const refs = {
 let data;
 
 refs.filters.addEventListener("input", renderIndex);
-refs.filters.addEventListener("change", renderIndex);
 refs.filters.addEventListener("submit", (event) => event.preventDefault());
+refs.filters.addEventListener("reset", () => requestAnimationFrame(renderIndex));
 init();
 
 async function init() {
@@ -73,9 +73,11 @@ function populateFilters() {
   const familyMap = new Map();
   const agents = new Set();
   for (const entry of data.entries) {
-    const family = getEntryFamily(entry);
-    familyMap.set(family.id, family);
-    agents.add(entry.identity.agentName);
+    for (const identity of [entry.identity, ...entry.runs.map((run) => run.identity).filter(Boolean)]) {
+      const family = getEntryFamily({ ...entry, identity });
+      familyMap.set(family.id, family);
+      agents.add(identity.agentName);
+    }
   }
   for (const family of [...familyMap.values()].sort((a, b) => a.order - b.order)) {
     refs.family.append(createElement("option", { value: family.id }, family.name));
@@ -94,6 +96,8 @@ function renderIndex() {
     .filter(Boolean).filter((entry) => {
     const family = getEntryFamily(entry);
     const haystack = [
+      entry.title,
+      entry.summary,
       entry.identity.modelName,
       entry.identity.provider,
       entry.identity.agentName,
@@ -134,7 +138,8 @@ function renderIndex() {
         ? "Adjust the family, Agent, Run, or verification filters."
         : "The first slot remains empty until a real AI coding system passes the Protocol 99 browser gate.",
       actionHref: "https://github.com/aidong27/99-ai-games/blob/main/docs/AGENT-AUTOPILOT.md",
-      actionLabel: "Read the Autopilot protocol"
+      actionLabel: data.entries.length ? "Clear filters" : "Read the Autopilot protocol",
+      ...(data.entries.length ? { onAction: () => refs.filters.reset() } : {})
     }));
     return;
   }

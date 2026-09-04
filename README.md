@@ -34,10 +34,16 @@ are generated from real verified browser screenshots.
 | Current challenge | Protocol 99 v1 |
 | Canonical prompt | Locked by SHA-256 |
 
-The current generated index starts empty intentionally and honestly. The
-existing games predate the common prompt and remain playable in the
+The generated index includes only actual allocated Entries, with verified Raw
+Runs separated from pending work. The existing Legacy games predate the common prompt and remain playable in the
 **Pre-Benchmark Era** archive; they do not count toward the 99 standardized
 Entries.
+
+The launcher leads with real browser captures, keeps model identity confidence
+separate from gameplay verification, and groups generations by product family.
+Optional `title` and `summary` in local `entry.json` describe the game, never
+replace its model/Agent attribution, and flow into generated indexes and SEO.
+Finalized Run source and evidence remain immutable when launcher metadata is updated.
 
 ## AI Agent Entry Point
 

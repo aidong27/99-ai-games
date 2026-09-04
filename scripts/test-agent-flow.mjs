@@ -163,6 +163,10 @@ try {
     const root = await createFixtureRepo();
     const created = await createRawEntry(root, identityOptions());
     await synthesizeFinalizedRun(root, created);
+    const metadataPath = path.join(created.entryDir, "entry.json");
+    await writeJson(metadataPath, {
+      ...await readJson(metadataPath), title: "Fixture Beacon", summary: "Public metadata, not a model identity."
+    });
     runGenerator(root);
     const first = await generatedHashes(root);
     runGenerator(root);
@@ -171,6 +175,8 @@ try {
     const data = await readJson(path.join(root, "data/benchmark.json"));
     const entryId = data.entries[0].entryId;
     assert.equal(data.stats.benchmarkEntries, 1);
+    assert.equal(data.entries[0].title, "Fixture Beacon");
+    assert.equal(data.defaultEntries[0].summary, "Public metadata, not a model identity.");
     assert.equal(await pathExists(path.join(root, `assets/social/entries/${entryId}.svg`)), true);
     assert.match(
       await readFile(path.join(root, "assets/social/og-cover.svg"), "utf8"),
