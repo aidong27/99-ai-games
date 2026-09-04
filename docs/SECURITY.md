@@ -21,9 +21,11 @@ Static text scanning is explainable but not proof that code is harmless.
 - Playwright aborts and records requests outside the active Run's `game/`
   directory, including same-origin attempts to load another Entry or Legacy
   game.
-- Public Entry iframes use a restrictive `sandbox`. Local module loading on a
-  static GitHub Pages origin requires `allow-same-origin`, so cross-frame
-  access is separately prohibited and scanned.
+- Public Entry iframes use `sandbox="allow-scripts"` with an opaque origin.
+  They cannot read launcher storage or DOM. Local module loading uses CORS;
+  the development server mirrors GitHub Pages' public asset CORS behavior.
+- The local server supports GET/HEAD only, hides dotfiles, and resolves real
+  paths before reading files to reject symlink escapes.
 - Games have no backend, account, API key, analytics, or external runtime asset.
 - `.site/` exposes only public Finalized game/evidence data and public JSON
   schemas. It rejects symbolic links and development-only Run files.

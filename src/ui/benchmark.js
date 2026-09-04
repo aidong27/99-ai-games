@@ -34,11 +34,12 @@ export function createBenchmarkEntryCard(entry, options = {}) {
   const eyebrow = createElement("div", { className: "entry-card-eyebrow" });
   eyebrow.append(
     createElement("span", { className: "entry-number" }, `ENTRY ${entry.entryNumberLabel}`),
-    createElement("span", { className: `verification-dot ${entry.defaultComparable ? "verified" : ""}` }),
+    createElement("span", { className: `verification-dot ${entry.defaultComparable || entry.selectedRunPublished ? "verified" : ""}` }),
     createElement(
       "span",
       { className: "entry-status" },
-      entry.defaultComparable ? "Verified Raw" : entry.status
+      entry.defaultComparable ? "Verified Raw"
+        : entry.selectedRunPublished ? `Verified ${entry.canonicalRun.runType}` : entry.status
     )
   );
 
@@ -62,7 +63,7 @@ export function createBenchmarkEntryCard(entry, options = {}) {
     actions.append(createElement("a", {
       className: "archive-button compact",
       href: playUrl
-    }, "Play Raw"));
+    }, `Play ${entry.canonicalRun.runType}`));
   }
   body.append(
     eyebrow,

@@ -63,6 +63,18 @@
               <h2 id="picker-heading">Choose Entries</h2>
             </div>
           </div>
+          <label for="compare-run-type">Run type</label>
+          <select id="compare-run-type">
+            <option value="raw">Raw</option>
+            <option value="standard-repair">Standard Repair</option>
+          </select>
+          <label for="compare-checkpoint">Evidence checkpoint</label>
+          <select id="compare-checkpoint">
+            <option value="gameplay">Active gameplay</option>
+            <option value="title">Title state</option>
+            <option value="relay1">After relay one</option>
+            <option value="victory">Real victory</option>
+          </select>
           <div id="compare-list" class="compare-list"></div>
           <div class="benchmark-actions">
             <button id="reload-games" class="archive-button compact" type="button">Reload games</button>

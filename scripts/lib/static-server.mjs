@@ -1,5 +1,5 @@
 import { createServer } from "node:http";
-import { readFile, stat } from "node:fs/promises";
+import { readFile, stat, realpath } from "node:fs/promises";
 import path from "node:path";
 import { assertSubpath } from "./common.mjs";
 
@@ -19,18 +19,27 @@ const MIME = new Map([
 ]);
 
 export async function startStaticServer(options) {
-  const root = path.resolve(options.root);
+  const root = await realpath(path.resolve(options.root));
   const host = options.host ?? "127.0.0.1";
   const requestedPort = Number(options.port ?? 0);
   const server = createServer(async (request, response) => {
     try {
+      if (!["GET", "HEAD"].includes(request.method)) {
+        response.writeHead(405, { Allow: "GET, HEAD" });
+        response.end();
+        return;
+      }
       const url = new URL(request.url ?? "/", `http://${request.headers.host ?? host}`);
       let pathname = decodeURIComponent(url.pathname);
+      if (pathname.split("/").some((part) => part.startsWith(".") && part !== "." && part !== "..")) {
+        throw Object.assign(new Error("Private path"), { code: "ENOENT" });
+      }
       if (pathname.endsWith("/")) {
         pathname += "index.html";
       }
       const filePath = path.resolve(root, `.${pathname}`);
       assertSubpath(root, filePath, "request path");
+      assertSubpath(root, await realpath(filePath), "resolved request path");
       const info = await stat(filePath);
       if (!info.isFile()) {
         throw Object.assign(new Error("Not found"), { code: "ENOENT" });
@@ -39,10 +48,10 @@ export async function startStaticServer(options) {
       response.writeHead(200, {
         "Content-Type": MIME.get(path.extname(filePath).toLowerCase()) ?? "application/octet-stream",
         "Cache-Control": "no-store",
-        "Cross-Origin-Resource-Policy": "same-origin",
+        "Access-Control-Allow-Origin": "*",
         "X-Content-Type-Options": "nosniff"
       });
-      response.end(body);
+      response.end(request.method === "HEAD" ? undefined : body);
     } catch (error) {
       const statusCode = error.code === "ENOENT" ? 404 : 400;
       response.writeHead(statusCode, { "Content-Type": "text/plain; charset=utf-8" });

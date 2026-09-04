@@ -8,6 +8,7 @@ import {
   createBenchmarkEntryCard
 } from "./ui/benchmark.js";
 import { createElement } from "./ui/dom.js";
+import { selectEntryRun } from "./data/entry-runs.js";
 
 const refs = {
   agent: document.querySelector("#agent-filter"),
@@ -27,6 +28,7 @@ let data;
 
 refs.filters.addEventListener("input", renderIndex);
 refs.filters.addEventListener("change", renderIndex);
+refs.filters.addEventListener("submit", (event) => event.preventDefault());
 init();
 
 async function init() {
@@ -88,7 +90,8 @@ function renderIndex() {
     return;
   }
   const query = refs.search.value.trim().toLowerCase();
-  const entries = data.entries.filter((entry) => {
+  const entries = data.entries.map((entry) => selectEntryRun(entry, refs.run.value))
+    .filter(Boolean).filter((entry) => {
     const family = getEntryFamily(entry);
     const haystack = [
       entry.identity.modelName,
@@ -98,8 +101,8 @@ function renderIndex() {
       entry.entryNumberLabel
     ].join(" ").toLowerCase();
     const statusMatch = refs.status.value === "all"
-      || (refs.status.value === "verified" && entry.defaultComparable)
-      || (refs.status.value === "building" && !entry.defaultComparable);
+      || (refs.status.value === "verified" && entry.selectedRunPublished)
+      || (refs.status.value === "building" && !entry.selectedRunPublished);
     const runMatch = refs.run.value === "all"
       || entry.runs.some((run) => run.runType === refs.run.value);
     return (

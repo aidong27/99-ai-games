@@ -684,6 +684,35 @@
   padding: 15px;
 }
 
+.compare-column .compare-evidence {
+  grid-template-columns: minmax(0, 1fr);
+  padding: 15px;
+}
+
+.compliance-details {
+  margin: 16px 0;
+  padding: 15px;
+  border-top: 1px solid var(--line);
+  overflow-wrap: anywhere;
+}
+
+.compliance-details summary {
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.compliance-details h4 {
+  margin: 16px 0 8px;
+  font-size: 0.78rem;
+}
+
+.compliance-details ul {
+  padding-left: 20px;
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+
 .compare-facts > div {
   display: flex;
   justify-content: space-between;

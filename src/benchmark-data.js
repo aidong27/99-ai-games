@@ -10,6 +10,9 @@ export function loadBenchmark() {
       throw new Error(`Benchmark data returned HTTP ${response.status}`);
     }
     return response.json();
+  }).catch((error) => {
+    benchmarkPromise = undefined;
+    throw error;
   });
   return benchmarkPromise;
 }
@@ -41,7 +44,7 @@ export function groupEntriesByFamily(entries) {
     .sort((a, b) => a.order - b.order || a.name.localeCompare(b.name, "en"))
     .map((group) => ({
       ...group,
-      entries: group.entries.sort((a, b) => a.entryNumber - b.entryNumber)
+      entries: group.entries
     }));
 }
 

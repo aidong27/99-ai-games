@@ -108,7 +108,8 @@ for (const [label, script, flag] of freshnessChecks) {
   run(label, process.execPath, [script, flag]);
 }
 
-run("test-agent-flow (15 cases)", process.execPath, ["scripts/test-agent-flow.mjs"]);
+run("platform regression tests", process.execPath, ["--test", "tests/platform.test.mjs"]);
+run("test-agent-flow", process.execPath, ["scripts/test-agent-flow.mjs"]);
 run(
   "Protocol 99 real Chromium fixture",
   process.execPath,

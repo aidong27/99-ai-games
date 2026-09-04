@@ -55,6 +55,17 @@ external-request detection, and verification-report/screenshot integrity.
 
 Fixtures never consume production Entry numbers or appear on the site.
 
+`node --test tests/platform.test.mjs` checks pure Run selection and populated
+launcher pages at 1440/390 px, including opaque-origin module loading and
+preview-server boundaries. These tests use browser-only synthetic metadata,
+never production Entries.
+
+As of the September 2026 infrastructure revision, each participant playthrough
+has a ten-minute wall-clock budget. The former thirty-second limit contradicted
+the locked prompt's three-to-eight-minute first-play target. This changes no
+challenge, score, input rule or required evidence. Two real wins and one real
+defeat still run, and the deadline timer is cleared on completion.
+
 ## Local Browser
 
 `npm run dev` defaults to `127.0.0.1:4173` and supports `--port`/`--host`. Stop
