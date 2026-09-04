@@ -114,6 +114,7 @@ function renderComparison(forceReload = false) {
   refs.reload.disabled = chosen.length < 2;
   refs.blindButton.disabled = entries.length < 2;
   if (chosen.length < 2) {
+    refs.columns.style.removeProperty("--compare-count");
     refs.columns.replaceChildren(createBenchmarkEmptyState({
       title: entries.length < 2 ? "Two verified Entries are required" : "Select at least two Entries",
       message: entries.length < 2

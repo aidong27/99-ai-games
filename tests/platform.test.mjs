@@ -82,7 +82,7 @@ test("populated index sorting, Repair detail and Compare work at desktop and mob
     const second = { ...entry, entryId: "test-two", entryNumber: 2, entryNumberLabel: "002", canonicalRun: { ...raw, finishedAt: "2026-02-01" }, runs: [{ ...raw, finishedAt: "2026-02-01" }, repair] };
     const data = { challenge: { id: "protocol-99", version: "v1", title: "Protocol 99", canonicalPromptHash: "test-hash" },
       stats: { allocatedEntries: 2, benchmarkEntries: 2, targetEntries: 99 }, entries: [entry, second] };
-    for (const width of [1440, 390]) {
+    for (const width of [1440, 768, 390]) {
       const page = await browser.newPage({ viewport: { width, height: 900 } });
       page.setDefaultTimeout(8000);
       const errors = [];
@@ -115,6 +115,18 @@ test("populated index sorting, Repair detail and Compare work at desktop and mob
       await page.reload();
       await page.locator(".compare-column").first().waitFor();
       assert.match(await page.locator(".compare-column iframe").first().getAttribute("src"), /raw/);
+      await page.route("**/data/benchmark.json", (route) => route.fulfill({ json: {
+        ...data, defaultEntries: [], stats: { ...data.stats, benchmarkEntries: 0 }
+      } }));
+      await page.goto(`${server.origin}/`);
+      await page.locator("#home-entry-grid .benchmark-empty").waitFor();
+      const empty = await page.locator("#home-entry-grid .benchmark-empty").boundingBox();
+      const grid = await page.locator("#home-entry-grid").boundingBox();
+      const index = await page.locator("#home-entry-grid .empty-index").boundingBox();
+      const copy = await page.locator("#home-entry-grid .empty-copy").boundingBox();
+      assert.ok(Math.abs(empty.width - grid.width) < 1, "empty state must span the complete grid");
+      assert.ok(index.x + index.width <= copy.x || index.y + index.height <= copy.y,
+        "empty-state number and copy must not overlap");
       assert.deepEqual(errors, []);
       await page.close();
     }
