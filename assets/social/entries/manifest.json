@@ -1,5 +1,13 @@
 {
   "generated": true,
   "canonicalPromptHash": "298455fe279cf588189fec818960315963929cfc21b17029a7bc122cf25a4878",
-  "cards": []
+  "cards": [
+    {
+      "entryId": "p99-v1-001-openai-gpt-6-user-declared-codex",
+      "sourceScreenshot": "./entries/001-openai-gpt-6-user-declared-codex/runs/run-raw-20260904-194605-codex/evidence/screenshots/victory.png",
+      "sourceHash": "e445bdb3ae32fd36475580580da7530bd6195540dfb1cf511fbbf542714b21b5",
+      "path": "assets/social/entries/p99-v1-001-openai-gpt-6-user-declared-codex.svg",
+      "rasterPath": "assets/social/entries/p99-v1-001-openai-gpt-6-user-declared-codex.png"
+    }
+  ]
 }

@@ -1,0 +1,90 @@
+* { box-sizing: border-box; }
+:root { color-scheme: dark; --bg: #101817; --surface: #172321; --line: #354a43; --text: #eff3e9; --muted: #b0beb3; --mint: #b7edc8; }
+html { background: var(--bg); color: var(--text); }
+body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+button, kbd, input { font: inherit; }
+button { cursor: pointer; color: var(--text); background: #20342d; border: 1px solid #536e5e; border-radius: 4px; min-height: 38px; padding: 8px 15px; font-size: 13px; font-weight: 600; }
+button:disabled { opacity: .45; cursor: default; }
+button:not(:disabled):hover { background: #2f4b3c; }
+button:focus-visible, canvas:focus-visible { outline: 3px solid #e7efa6; outline-offset: 3px; }
+[hidden] { display: none !important; }
+.game-shell { max-width: 1500px; margin: auto; padding: 0 28px 14px; }
+.masthead { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.wordmark, .header-actions { display: flex; align-items: center; gap: 14px; }
+.brand-mark { width: 36px; height: 36px; display: grid; place-items: center; border: 1px solid #6b8772; border-radius: 50%; font: 700 12px ui-monospace, monospace; color: var(--mint); }
+.wordmark strong { display: block; font-size: 17px; }
+.wordmark div > span { display: block; margin-top: 4px; font: 9px ui-monospace, monospace; color: var(--muted); }
+#clock { font: 13px ui-monospace, monospace; color: var(--muted); font-variant-numeric: tabular-nums; }
+.telemetry { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 18px; padding: 13px 0; border-top: 1px solid var(--line); }
+.telemetry > div { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.telemetry span { font: 9px ui-monospace, monospace; color: var(--muted); }
+.telemetry strong { font: 600 13px ui-monospace, monospace; white-space: nowrap; }
+.integrity { flex-wrap: wrap; }
+meter { width: 95px; height: 7px; }
+meter::-webkit-meter-bar { background: #30463c; border: 0; }
+meter::-webkit-meter-optimum-value { background: var(--mint); }
+.mission-line { display: flex; justify-content: space-between; gap: 12px; padding: 10px 12px; color: #d5e7bd; border: 1px solid var(--line); border-bottom: 0; background: #1c2c25; font-size: 12px; }
+#stage-label { font: 10px ui-monospace, monospace; flex-shrink: 0; align-self: center; }
+.arena { position: relative; height: min(720px, calc(100svh - 227px)); min-height: 360px; border: 1px solid var(--line); overflow: hidden; background: #10211b; }
+canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+.overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; overflow-y: auto; padding: 28px; background: linear-gradient(90deg, #091512ed, #0b1617c9); }
+.overlay-copy { width: min(100%, 510px); }
+.eyebrow { font: 10px ui-monospace, monospace; color: var(--mint); margin: 0 0 18px; }
+h1 { margin: 0; font-size: 62px; line-height: 1.03; font-weight: 760; }
+h2 { margin: 0 0 22px; font-size: 42px; line-height: 1.06; }
+.intro-lead { font-size: 24px; margin: 12px 0 22px; color: #eff5dc; }
+.overlay-copy > p:not(.eyebrow):not(.intro-lead):not(.result-time) { max-width: 460px; color: #c4d1c6; font-size: 14px; line-height: 1.7; }
+.brief { display: flex; justify-content: space-between; border-top: 1px solid #ffffff26; border-bottom: 1px solid #ffffff26; padding: 15px 0; margin-top: 22px; font-size: 12px; }
+.brief b { color: var(--mint); font: 11px ui-monospace, monospace; margin-right: 8px; }
+kbd { font: 11px ui-monospace, monospace; border: 1px solid #617769; padding: 2px 4px; border-radius: 3px; color: #edf2cf; }
+.primary { background: var(--mint); color: #152820; border-color: var(--mint); min-height: 44px; padding: 12px 22px; }
+.primary:not(:disabled):hover { background: #def6d8; }
+.primary > span { margin-left: 24px; }
+.overlay-copy small { display: block; margin-top: 17px; color: #94ad9b; font-size: 11px; line-height: 1.6; }
+.restart { position: absolute; left: 50%; bottom: 35px; transform: translateX(-50%); white-space: nowrap; }
+.result-time { font: 14px ui-monospace, monospace; color: var(--mint); }
+.flight-deck { display: flex; align-items: center; justify-content: space-between; gap: 15px; min-height: 62px; }
+.flight-deck > p { font-size: 12px; color: var(--muted); margin: 8px 0; max-width: 600px; }
+.deck-actions { display: flex; gap: 8px; flex-shrink: 0; }
+.deck-actions button { display: flex; align-items: center; gap: 8px; }
+.shield-icon { display: inline-block; width: 13px; height: 15px; border: 1px solid var(--mint); border-radius: 2px 2px 7px 7px; }
+.touch-controls { display: none; }
+@media (max-width: 760px) {
+  .game-shell { padding: 0 10px 10px; }
+  .masthead { min-height: 62px; }
+  .wordmark strong { font-size: 15px; }
+  .wordmark div > span { font-size: 8px; }
+  .brand-mark { display: none; }
+  .header-actions { gap: 8px; }
+  .telemetry { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .telemetry > div { justify-content: space-between; }
+  meter { display: none; }
+  .arena { height: calc(100svh - 265px); min-height: 365px; }
+  .overlay { padding: 22px; }
+  h1 { font-size: 40px; }
+  h2 { font-size: 32px; }
+  .eyebrow { margin-bottom: 10px; font-size: 8px; }
+  .intro-lead { margin: 9px 0 12px; font-size: 20px; }
+  .overlay-copy > p:not(.eyebrow):not(.intro-lead):not(.result-time) { font-size: 12px; line-height: 1.5; }
+  .brief { margin-top: 10px; padding: 10px 0; }
+  .brief span { font-size: 11px; }
+  .brief b { margin-right: 3px; }
+  .overlay-copy small { display: none; }
+  .controls-copy { margin: 12px 0; }
+  .flight-deck { display: block; }
+  .flight-deck > p { min-height: 30px; font-size: 11px; }
+  .deck-actions { justify-content: flex-end; }
+  .deck-actions kbd { display: none; }
+  .touch-controls { display: grid; grid-template-columns: repeat(4, 44px); justify-content: center; gap: 6px; margin-top: 8px; }
+  .touch-controls button { padding: 6px; font-size: 18px; min-height: 38px; touch-action: none; user-select: none; }
+  .deck-actions button { font-size: 11px; padding: 8px; }
+  .restart { bottom: 22px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  button { transition: background 140ms, border-color 140ms; }
+  .overlay-copy { animation: arrival 400ms ease-out; }
+  @keyframes arrival { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

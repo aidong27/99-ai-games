@@ -1,0 +1,301 @@
+{
+  "$schema": "../../../../../schemas/verification-report.schema.json",
+  "reportVersion": "1.0",
+  "challengeId": "protocol-99",
+  "challengeVersion": "v1",
+  "canonicalPromptHash": "298455fe279cf588189fec818960315963929cfc21b17029a7bc122cf25a4878",
+  "entryId": "p99-v1-001-openai-gpt-6-user-declared-codex",
+  "runId": "run-raw-20260904-194605-codex",
+  "runType": "raw",
+  "status": "passed",
+  "verifiedAt": "2026-09-04T19:59:40.313Z",
+  "seed": 99,
+  "sourceHash": "e445bdb3ae32fd36475580580da7530bd6195540dfb1cf511fbbf542714b21b5",
+  "sourceBytes": 41464,
+  "sourceFileCount": 10,
+  "browser": {
+    "name": "Chromium",
+    "version": "151.0.7922.34"
+  },
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900
+    },
+    "mobile": {
+      "width": 390,
+      "height": 700
+    }
+  },
+  "checks": {
+    "browser.loads": true,
+    "browser.no-uncaught-errors": true,
+    "contract.required-hooks": true,
+    "flow.pause-resume": true,
+    "flow.restart": true,
+    "objective.cores": true,
+    "objective.relays": true,
+    "objective.extraction": true,
+    "world.stage-one": true,
+    "world.stage-two": true,
+    "world.stage-three": true,
+    "systems.two-hazards": true,
+    "flow.real-defeat": true,
+    "systems.limited-ability": true,
+    "determinism.seed-99": true,
+    "flow.real-victory": true,
+    "flow.two-runs-one-tab": true,
+    "security.no-external-network": true,
+    "security.static-scan": true,
+    "integrity.source-and-prompt": true,
+    "accessibility.focus-and-motion": true,
+    "layout.mobile-baseline": true
+  },
+  "score": {
+    "name": "Automated Compliance Score",
+    "earned": 100,
+    "maximum": 100,
+    "groups": [
+      {
+        "id": "startup-stability",
+        "title": "Startup and stability",
+        "earned": 10,
+        "maximum": 10,
+        "checks": [
+          {
+            "id": "browser.loads",
+            "label": "Loads in Chromium",
+            "passed": true,
+            "earned": 5,
+            "maximum": 5
+          },
+          {
+            "id": "browser.no-uncaught-errors",
+            "label": "No uncaught console or page errors",
+            "passed": true,
+            "earned": 5,
+            "maximum": 5
+          }
+        ]
+      },
+      {
+        "id": "interface-controls",
+        "title": "Interface states and controls",
+        "earned": 10,
+        "maximum": 10,
+        "checks": [
+          {
+            "id": "contract.required-hooks",
+            "label": "Required visible interface hooks exist",
+            "passed": true,
+            "earned": 4,
+            "maximum": 4
+          },
+          {
+            "id": "flow.pause-resume",
+            "label": "Pause and resume stop and continue simulation time",
+            "passed": true,
+            "earned": 3,
+            "maximum": 3
+          },
+          {
+            "id": "flow.restart",
+            "label": "Restart resets the run without reloading the tab",
+            "passed": true,
+            "earned": 3,
+            "maximum": 3
+          }
+        ]
+      },
+      {
+        "id": "core-objective",
+        "title": "Core transport, relay, and extraction objective",
+        "earned": 20,
+        "maximum": 20,
+        "checks": [
+          {
+            "id": "objective.cores",
+            "label": "Exactly three cores participate in the real loop",
+            "passed": true,
+            "earned": 5,
+            "maximum": 5
+          },
+          {
+            "id": "objective.relays",
+            "label": "Three relays require explicit core delivery and interaction",
+            "passed": true,
+            "earned": 7,
+            "maximum": 7
+          },
+          {
+            "id": "objective.extraction",
+            "label": "Exit unlocks after three relays and physical entry wins",
+            "passed": true,
+            "earned": 8,
+            "maximum": 8
+          }
+        ]
+      },
+      {
+        "id": "world-evolution",
+        "title": "Material world evolution",
+        "earned": 15,
+        "maximum": 15,
+        "checks": [
+          {
+            "id": "world.stage-one",
+            "label": "First relay materially changes play",
+            "passed": true,
+            "earned": 5,
+            "maximum": 5
+          },
+          {
+            "id": "world.stage-two",
+            "label": "Second relay materially changes play",
+            "passed": true,
+            "earned": 5,
+            "maximum": 5
+          },
+          {
+            "id": "world.stage-three",
+            "label": "Third relay materially changes play and extraction",
+            "passed": true,
+            "earned": 5,
+            "maximum": 5
+          }
+        ]
+      },
+      {
+        "id": "hazards-integrity-ability",
+        "title": "Hazards, integrity, and active ability",
+        "earned": 15,
+        "maximum": 15,
+        "checks": [
+          {
+            "id": "systems.two-hazards",
+            "label": "Two behaviorally distinct hazards are observable",
+            "passed": true,
+            "earned": 5,
+            "maximum": 5
+          },
+          {
+            "id": "flow.real-defeat",
+            "label": "Hazard damage can reach a real defeat state",
+            "passed": true,
+            "earned": 5,
+            "maximum": 5
+          },
+          {
+            "id": "systems.limited-ability",
+            "label": "Exactly one primary ability has an observable limitation",
+            "passed": true,
+            "earned": 5,
+            "maximum": 5
+          }
+        ]
+      },
+      {
+        "id": "determinism-and-playthrough",
+        "title": "Determinism and complete playthrough",
+        "earned": 15,
+        "maximum": 15,
+        "checks": [
+          {
+            "id": "determinism.seed-99",
+            "label": "Seed 99 reproduces the same initial state",
+            "passed": true,
+            "earned": 5,
+            "maximum": 5
+          },
+          {
+            "id": "flow.real-victory",
+            "label": "Public controls complete a real winning playthrough",
+            "passed": true,
+            "earned": 5,
+            "maximum": 5
+          },
+          {
+            "id": "flow.two-runs-one-tab",
+            "label": "Two completed runs remain stable in one tab",
+            "passed": true,
+            "earned": 5,
+            "maximum": 5
+          }
+        ]
+      },
+      {
+        "id": "security-integrity",
+        "title": "Network, source, and integrity constraints",
+        "earned": 10,
+        "maximum": 10,
+        "checks": [
+          {
+            "id": "security.no-external-network",
+            "label": "No external runtime requests",
+            "passed": true,
+            "earned": 4,
+            "maximum": 4
+          },
+          {
+            "id": "security.static-scan",
+            "label": "Static security scan passes",
+            "passed": true,
+            "earned": 3,
+            "maximum": 3
+          },
+          {
+            "id": "integrity.source-and-prompt",
+            "label": "Source and prompt snapshots match recorded hashes",
+            "passed": true,
+            "earned": 3,
+            "maximum": 3
+          }
+        ]
+      },
+      {
+        "id": "accessibility-layout",
+        "title": "Accessibility and mobile layout baseline",
+        "earned": 5,
+        "maximum": 5,
+        "checks": [
+          {
+            "id": "accessibility.focus-and-motion",
+            "label": "Keyboard focus and reduced-motion support are present",
+            "passed": true,
+            "earned": 2,
+            "maximum": 2
+          },
+          {
+            "id": "layout.mobile-baseline",
+            "label": "390 by 700 viewport remains usable without horizontal overflow",
+            "passed": true,
+            "earned": 3,
+            "maximum": 3
+          }
+        ]
+      }
+    ]
+  },
+  "failures": [],
+  "evidence": {
+    "screenshots": [
+      "title.png",
+      "gameplay.png",
+      "relay-1.png",
+      "victory.png"
+    ],
+    "screenshotHashes": {
+      "title.png": "b94fa0f4ad038e42003bbbf066d83dcb0cd5d5fd1f5d68cf5dcfcbdf40adea3b",
+      "gameplay.png": "7336a2ce2443006bffe42311058568df8173cfa011105ef4f7fb101609002972",
+      "relay-1.png": "e996684da8e01bb565dfbd9f2104ad7c87b06b384ea3eece2eb924a43ecd9fc2",
+      "victory.png": "cb0988851fff9c5db5a515f2383d11aaf42953012964bf709aef4f7cc6628f9c"
+    },
+    "sourceHash": "e445bdb3ae32fd36475580580da7530bd6195540dfb1cf511fbbf542714b21b5",
+    "console": "console.json",
+    "network": "network.json",
+    "fileInventory": "file-inventory.json"
+  },
+  "disclaimer": "This score measures observable completion and repository compliance. It is not an intelligence score, model IQ, scientific ranking, or complete measure of an AI coding system.",
+  "finalizedAt": "2026-09-04T20:00:33.810Z",
+  "evidenceHash": "d5e644ea1d4dbb85001ce5803cc3d77ecea90e19f000f36af32f9d8e85a95f82"
+}

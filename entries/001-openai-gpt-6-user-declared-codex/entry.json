@@ -1,0 +1,27 @@
+{
+  "$schema": "../../schemas/entry.schema.json",
+  "entryId": "p99-v1-001-openai-gpt-6-user-declared-codex",
+  "entryNumber": 1,
+  "challengeId": "protocol-99",
+  "challengeVersion": "v1",
+  "canonicalPromptHash": "298455fe279cf588189fec818960315963929cfc21b17029a7bc122cf25a4878",
+  "status": "finalized",
+  "identity": {
+    "provider": "OpenAI",
+    "modelName": "GPT-6 (user-declared)",
+    "modelVersion": "unknown",
+    "agentName": "Codex",
+    "agentVersion": "unknown",
+    "identitySource": "user-declared model label; exact runtime model not independently verified",
+    "identityConfidence": "unverified"
+  },
+  "createdAt": "2026-09-04T19:46:05Z",
+  "canonicalRunId": "run-raw-20260904-194605-codex",
+  "runs": [
+    "runs/run-raw-20260904-194605-codex"
+  ],
+  "reviews": {
+    "playerExperience": null,
+    "engineering": null
+  }
+}

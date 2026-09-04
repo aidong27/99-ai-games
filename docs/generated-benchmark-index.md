@@ -4,8 +4,10 @@
 
 - Challenge: Protocol 99 v1
 - Canonical Prompt SHA-256: `298455fe279cf588189fec818960315963929cfc21b17029a7bc122cf25a4878`
-- Finalized Raw Entries: 0 / 99
-- Allocated Entries: 0
+- Finalized Raw Entries: 1 / 99
+- Allocated Entries: 1
 - Legacy playable experiments: 11 (not ranked)
 
-No formal Protocol 99 Entry has been allocated.
+| Entry | AI coding system | Status | Raw score |
+|---:|---|---|---:|
+| 001 | GPT-6 (user-declared) × Codex | finalized | 100/100 |
