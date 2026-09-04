@@ -29,7 +29,10 @@ async function init() {
       ? `${data.stats.benchmarkEntries} VERIFIED RAW`
       : "PROTOCOL LOCKED · 0 ENTRIES";
     refs.headerStatus.classList.toggle("live", data.stats.benchmarkEntries > 0);
-    renderEntries(data.defaultEntries.slice(0, 3));
+    const latest = [...data.defaultEntries].sort((a, b) =>
+      String(b.canonicalRun?.finishedAt ?? "").localeCompare(String(a.canonicalRun?.finishedAt ?? ""))
+    );
+    renderEntries(latest.slice(0, 3));
   } catch (error) {
     refs.headerStatus.textContent = "INDEX UNAVAILABLE";
     refs.entryGrid.replaceChildren(createBenchmarkEmptyState({
@@ -47,6 +50,8 @@ function renderEntries(entries) {
     return;
   }
   refs.entryGrid.replaceChildren(
-    ...entries.map((entry, index) => createBenchmarkEntryCard(entry, { eager: index === 0 }))
+    ...entries.map((entry, index) => createBenchmarkEntryCard(entry, {
+      eager: index === 0, featured: index === 0
+    }))
   );
 }

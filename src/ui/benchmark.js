@@ -8,8 +8,11 @@ import {
 } from "../benchmark-data.js";
 
 export function createBenchmarkEntryCard(entry, options = {}) {
-  const card = createElement("article", { className: "benchmark-entry-card" });
-  const screenshot = entry.screenshots?.gameplay ?? entry.screenshots?.title;
+  const card = createElement("article", {
+    className: `benchmark-entry-card${options.featured ? " benchmark-featured" : ""}`
+  });
+  const screenshot = (options.featured ? entry.screenshots?.relay1 : null)
+    ?? entry.screenshots?.gameplay ?? entry.screenshots?.title;
   const media = createElement("a", {
     className: "benchmark-entry-media",
     href: entry.detailUrl,
@@ -19,7 +22,11 @@ export function createBenchmarkEntryCard(entry, options = {}) {
     const image = createElement("img", {
       src: screenshot,
       alt: `Real gameplay evidence for Entry ${entry.entryNumberLabel}`,
-      loading: options.eager ? "eager" : "lazy"
+      loading: options.eager ? "eager" : "lazy",
+      decoding: "async",
+      width: 1440,
+      height: 900,
+      ...(options.eager ? { fetchPriority: "high" } : {})
     });
     image.addEventListener("error", () => {
       media.replaceChildren(createEntryPlaceholder(entry));
@@ -43,8 +50,13 @@ export function createBenchmarkEntryCard(entry, options = {}) {
     )
   );
 
-  const title = createElement("h3");
-  title.append(createElement("a", { href: entry.detailUrl }, entry.identity.modelName));
+  const title = createElement(options.featured ? "h2" : "h3");
+  title.append(createElement("a", { href: entry.detailUrl, translate: false }, entry.title || entry.identity.modelName));
+  const identity = createElement("p", { className: "entry-identity", translate: false }, formatIdentity(entry));
+  const identityNotice = createElement("span", { className: "entry-identity-notice" }, "Identity unverified");
+  if (!entry.identity.identityConfidence || ["unverified", "unknown", "undeclared"].includes(entry.identity.identityConfidence)) {
+    eyebrow.append(identityNotice);
+  }
   const score = entry.canonicalRun?.report?.score;
   const facts = createElement("dl", { className: "entry-facts" });
   facts.append(
@@ -68,7 +80,7 @@ export function createBenchmarkEntryCard(entry, options = {}) {
   body.append(
     eyebrow,
     title,
-    createElement("p", { className: "entry-identity" }, formatIdentity(entry)),
+    identity,
     facts,
     createElement(
       "p",
@@ -77,7 +89,18 @@ export function createBenchmarkEntryCard(entry, options = {}) {
     ),
     actions
   );
-  card.append(media, body);
+  if (options.featured) {
+    const heading = createElement("header", { className: "featured-heading" });
+    heading.append(createElement("div", {}, [eyebrow, title, identity]), actions);
+    const caption = createElement("div", { className: "featured-caption" }, [
+      createElement("span", {}, "Real gameplay capture"),
+      createElement("span", { className: "mono-value" }, `SEED 99 · ${entry.challengeVersion} · ${shortHash(entry.canonicalPromptHash)}`)
+    ]);
+    body.replaceChildren(facts);
+    card.append(heading, media, caption, body);
+  } else {
+    card.append(media, body);
+  }
   return card;
 }
 
@@ -85,19 +108,25 @@ export function createBenchmarkEmptyState({
   title = "No finalized Raw Entries yet",
   message = "Protocol 99 is locked and ready. The benchmark stays empty until a real AI coding system completes verification.",
   actionHref = "./challenge.html",
-  actionLabel = "Read the current challenge"
+  actionLabel = "Read the current challenge",
+  onAction
 } = {}) {
   const state = createElement("section", {
     className: "benchmark-empty",
     ariaLabel: title
   });
+  const action = createElement(onAction ? "button" : "a", {
+    className: "archive-button compact",
+    ...(onAction ? { type: "button" } : { href: actionHref })
+  }, actionLabel);
+  if (onAction) action.addEventListener("click", onAction);
   state.append(
     createElement("span", { className: "empty-index", ariaHidden: "true" }, "00"),
     createElement("div", { className: "empty-copy" }, [
       createElement("p", { className: "benchmark-kicker" }, "Honest zero state"),
       createElement("h3", {}, title),
       createElement("p", {}, message),
-      createElement("a", { className: "archive-button compact", href: actionHref }, actionLabel)
+      action
     ])
   );
   return state;

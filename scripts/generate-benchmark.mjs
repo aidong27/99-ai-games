@@ -80,6 +80,8 @@ for (const record of records) {
     entryId: record.entry.entryId,
     entryNumber: record.entry.entryNumber,
     entryNumberLabel: formatEntryNumber(record.entry.entryNumber),
+    title: typeof record.entry.title === "string" ? record.entry.title : null,
+    summary: typeof record.entry.summary === "string" ? record.entry.summary : null,
     status: record.entry.status,
     challengeId: record.entry.challengeId,
     challengeVersion: record.entry.challengeVersion,
@@ -373,8 +375,8 @@ function renderProjectSocialCard(data) {
 }
 
 function renderEntryPage(entry, promptHash) {
-  const title = `Entry ${entry.entryNumberLabel}: ${escapeHtml(entry.identity.modelName)} | 99 AI Games`;
-  const description = `A verified Protocol 99 Raw Entry by ${escapeHtml(entry.identity.modelName)} with ${escapeHtml(entry.identity.agentName)}.`;
+  const title = `Entry ${entry.entryNumberLabel}: ${escapeHtml(entry.title || entry.identity.modelName)} | 99 AI Games`;
+  const description = `${entry.summary ? `${escapeHtml(entry.summary)} ` : ""}A verified Protocol 99 Raw Entry by ${escapeHtml(entry.identity.modelName)} with ${escapeHtml(entry.identity.agentName)}.`;
   const id = encodeURIComponent(entry.entryId);
   return `<!doctype html>
 <html lang="en">
@@ -393,7 +395,7 @@ function renderEntryPage(entry, promptHash) {
   </head>
   <body>
     <main>
-      <h1>Protocol 99 Entry ${entry.entryNumberLabel}</h1>
+      <h1>${escapeHtml(entry.title || `Protocol 99 Entry ${entry.entryNumberLabel}`)}</h1>
       <p>${description}</p>
       <p>Prompt SHA-256: <code>${promptHash}</code></p>
       <p><a href="../../entry.html?id=${id}">Open the full Entry record</a></p>

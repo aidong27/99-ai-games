@@ -49,7 +49,7 @@ function renderEntry(entry, data) {
   const report = entry.canonicalRun?.report;
   const family = getEntryFamily(entry);
   setDocumentMeta({
-    title: `Entry ${entry.entryNumberLabel}: ${entry.identity.modelName}`,
+    title: `Entry ${entry.entryNumberLabel}: ${entry.title || entry.identity.modelName}`,
     description: `Protocol 99 ${entry.canonicalRun?.runType ?? "Run"} by ${formatIdentity(entry)}, with playable game and browser evidence.`,
     canonicalPath: entry.detailUrl,
     socialImagePath: entry.screenshots?.title
@@ -62,8 +62,8 @@ function renderEntry(entry, data) {
   const headingCopy = createElement("div");
   headingCopy.append(
     createElement("p", { className: "benchmark-kicker" }, `Protocol 99 · Entry ${entry.entryNumberLabel} · ${entry.canonicalRun?.runType ?? "pending"}`),
-    createElement("h1", {}, entry.identity.modelName),
-    createElement("p", {}, `${entry.identity.agentName} · ${family.name} / ${family.providerName}`)
+    createElement("h1", { translate: false }, entry.title || entry.identity.modelName),
+    createElement("p", { translate: false }, `${formatIdentity(entry)} · ${family.name}`)
   );
   const score = createElement("div", { className: "detail-score" });
   score.append(
@@ -76,6 +76,10 @@ function renderEntry(entry, data) {
   const primary = createElement("div", { className: "detail-game" });
   const gameUrl = getCanonicalGameUrl(entry);
   if (gameUrl) {
+    primary.append(createElement("div", { className: "game-toolbar" }, [
+      createElement("span", {}, "Play"),
+      createElement("a", { className: "archive-button compact", href: gameUrl }, "Open game")
+    ]));
     const iframe = createGameFrame({
       title: `Protocol 99 Entry ${entry.entryNumberLabel} ${entry.canonicalRun.runType} game`,
       src: gameUrl, lazy: false
@@ -145,6 +149,10 @@ function renderEntry(entry, data) {
     createElement("h2", {}, "Known issues"),
     createElement("p", {}, entry.canonicalRun.knownIssues?.join(" · ") || "No issues declared by the participant."),
     createElement("h2", {}, "Tool environment"),
+    createElement("dl", { className: "detail-facts" }, [
+      detailFact("Verified browser", report?.browser?.version ?? "Pending")
+    ]),
+    createElement("h3", {}, "Declared tool access"),
     createElement("dl", { className: "detail-facts" }, Object.entries(entry.canonicalRun.toolAccess ?? {}).map(([key, value]) => detailFact(key, value)))
   );
   layout.append(primary, sidebar);
@@ -194,6 +202,7 @@ function detailFact(label, value, mono = false) {
   row.append(
     createElement("dt", {}, label),
     createElement("dd", {
+      translate: false,
       className: mono ? "mono-value" : "",
       title: mono ? String(value ?? "") : ""
     }, mono ? shortHash(value, 18) : value ?? "unknown")
